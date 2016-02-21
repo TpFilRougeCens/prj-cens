@@ -1,7 +1,7 @@
 # prj-cens
 <i>Projet fil rouge pour le Cens.</i>
 <hr/>
-<h2>Base de données :</h2>
+<h2>DataBase :</h2>
 <ul>
 <li>Name : cens </li>
 <li>User : postgres</li>
