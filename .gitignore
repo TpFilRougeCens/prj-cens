@@ -8,7 +8,6 @@
 bin/
 tmp/
 .idea/
-out/
 *.iml
 *.tmp
 *.bak
@@ -71,14 +70,12 @@ build/
 *.tlb
 *.tli
 *.tlh
-*.tmp
 *.tmp_proj
 *.log
 *.vspscc
 *.vssscc
 .builds
 *.pidb
-*.log
 *.scc
 
 # Visual C++ cache files
@@ -197,7 +194,6 @@ $RECYCLE.BIN/
 *.egg
 *.egg-info
 dist/
-build/
 eggs/
 parts/
 var/
