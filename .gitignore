@@ -9,6 +9,7 @@ bin/
 tmp/
 .idea/
 out/
+*.iml
 *.tmp
 *.bak
 *.swp
