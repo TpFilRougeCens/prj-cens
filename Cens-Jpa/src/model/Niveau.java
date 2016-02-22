@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 
 /**
- * The persistent class for the niveau database table.
+ * The persistent class for the niveau database table JPA With IntelliJ.
  */
 @Entity
 @NamedQuery(name = "Niveau.findAll", query = "SELECT n FROM Niveau n")

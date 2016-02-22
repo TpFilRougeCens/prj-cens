@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class TestNiveau
+ * Servlet implementation class TestNiveau whith JPA IntelliJ
  */
 @WebServlet("/TestNiveau")
 public class TestNiveau extends HttpServlet {
