@@ -12,7 +12,7 @@
     <meta name="description" content="LPC (Livret de compétences) du CENS">
     <meta name="author" content="imie-cdi12">
 
-    <title>CENS - Livret de compétences</title>
+    <title>CENS - Livret de compétences test</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
