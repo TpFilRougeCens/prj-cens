@@ -1,28 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?><persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="Cens-Jpa" transaction-type="JTA">		
-		<jta-data-source>java:/jdbc/cens</jta-data-source>
-<class>model.Niveau</class>
-		<class>model.Fonction</class>
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             version="2.1"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="Cens-Jpa" transaction-type="JTA">
+        <jta-data-source>java:/jdbc/cens</jta-data-source>
+        <class>model.Niveau</class>
 
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
-		<properties>
-			<property name="eclipselink.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/cens"/>
-			<property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>
-			<property name="eclipselink.jdbc.user"/>
-			<property name="eclipselink.jdbc.password"/>
-			<property name="hibernate.connection.url" value="jdbc:postgresql://127.0.0.1:5432/cens"/>
-			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-			<property name="hibernate.connection.username"/>
-			<property name="hibernate.connection.password"/>
-			<property name="openjpa.ConnectionURL" value="jdbc:postgresql://127.0.0.1:5432/cens"/>
-			<property name="openjpa.ConnectionDriverName" value="org.postgresql.Driver"/>
-			<property name="openjpa.ConnectionUserName"/>
-			<property name="openjpa.ConnectionPassword"/>
-			<property name="toplink.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/cens"/>
-			<property name="toplink.jdbc.driver" value="org.postgresql.Driver"/>
-			<property name="toplink.jdbc.user"/>
-			<property name="toplink.jdbc.password"/>
-		</properties>
-	</persistence-unit>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <!--<properties>-->
+        <!--<property name="eclipselink.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/cens"/>-->
+        <!--<property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>-->
+        <!--<property name="eclipselink.jdbc.user"/>-->
+        <!--<property name="eclipselink.jdbc.password"/>-->
+        <!--<property name="hibernate.connection.url" value="jdbc:postgresql://127.0.0.1:5432/cens"/>-->
+        <!--<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>-->
+        <!--<property name="hibernate.connection.username"/>-->
+        <!--<property name="hibernate.connection.password"/>-->
+        <!--<property name="openjpa.ConnectionURL" value="jdbc:postgresql://127.0.0.1:5432/cens"/>-->
+        <!--<property name="openjpa.ConnectionDriverName" value="org.postgresql.Driver"/>-->
+        <!--<property name="openjpa.ConnectionUserName"/>-->
+        <!--<property name="openjpa.ConnectionPassword"/>-->
+        <!--<property name="toplink.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/cens"/>-->
+        <!--<property name="toplink.jdbc.driver" value="org.postgresql.Driver"/>-->
+        <!--<property name="toplink.jdbc.user"/>-->
+        <!--<property name="toplink.jdbc.password"/>-->
+        <!--</properties>-->
+    </persistence-unit>
 
 </persistence>
