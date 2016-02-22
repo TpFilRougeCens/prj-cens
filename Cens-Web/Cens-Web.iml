@@ -22,6 +22,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Cens-Jpa" exported="" />
     <orderEntry type="module" module-name="Cens-Ejb" exported="" />
-    <orderEntry type="library" exported="" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="JBoss 9.0.2.Final" level="application_server_libraries" />
   </component>
 </module>
