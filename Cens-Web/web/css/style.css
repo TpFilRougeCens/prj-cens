@@ -2,11 +2,29 @@
 body {
     margin-top: 100px;
     background-color: #fff;
+    font-family: "comicSansMs", Helvetica, Arial, sans-serif;
 }
 
 #wrapper {
     padding-left: 0;
 
+}
+
+@font-face {
+    font-family: "comicSansMs";
+    src: url('../fonts/comic.ttf');
+}
+
+@font-face {
+    font-family: "comicSansMs";
+    font-style: italic;
+    src: url('../fonts/comici.ttf');
+}
+
+@font-face {
+    font-family: "comicSansMs";
+    font-weight: bold;
+    src: url('../fonts/comicbd.ttf');
 }
 
 #page-wrapper {
