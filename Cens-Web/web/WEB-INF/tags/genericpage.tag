@@ -1,6 +1,8 @@
 <%@tag description="TEMPLATE-CENS" pageEncoding="UTF-8" %>
 <%@attribute name="scriptHeader" fragment="true" %>
 <%@attribute name="scriptFooter" fragment="true" %>
+
+<%--//TODO Attention les chemins sont en relatif en ref au dossier 'web' Cause : Include. c'est normal...--%>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -12,7 +14,7 @@
     <meta name="description" content="LPC (Livret de compétences) du CENS">
     <meta name="author" content="imie-cdi12">
 
-    <title>CENS - Livret de compétences test</title>
+    <title>CENS - Livret de compétences</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
