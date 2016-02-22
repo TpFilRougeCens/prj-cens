@@ -32,22 +32,22 @@ public class NiveauService {
         System.out.println("ID Supprimé = " + userr.getIdniveau());
     }
 
-    public void insert(Niveau userr) {
-        entityManager.persist(userr);
+    public void insert(Niveau user) {
+        entityManager.persist(user);
         // if (userr.getLibelle() != null) {
         // //entityManager.persist(userr.getLibelle());
         // System.out.println("ajout de l'enfant depuis user id="+userr.getLibelle().getIdniveau());
         // }
 
-        System.out.println("ID inséré = " + userr.getIdniveau());
+        System.out.println("ID inséré = " + user.getIdniveau());
     }
 
-    public void update(Niveau userr) {
+    public void update(Niveau user) {
 
-        entityManager.merge(userr);
-        if (userr.getLibelle() != null) {
-            entityManager.merge(userr.getLibelle());
-            System.out.println("MAJ de enfant depuis User id=" + userr.getIdniveau());
+        entityManager.merge(user);
+        if (user.getLibelle() != null) {
+            entityManager.merge(user.getLibelle());
+            System.out.println("MAJ de enfant depuis User id=" + user.getIdniveau());
         }
 
         // //Foonctionne :
@@ -56,6 +56,6 @@ public class NiveauService {
         // retour.setPrenom(userr.getPrenom());
         // retour.setMail(userr.getMail());
         // retour.setMdp(userr.getMdp());
-        System.out.println("ID Update = " + userr.getIdniveau());
+        System.out.println("ID Update = " + user.getIdniveau());
     }
 }

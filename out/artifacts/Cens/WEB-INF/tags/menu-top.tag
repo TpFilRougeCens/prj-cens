@@ -24,18 +24,18 @@
             </li>
             <li>
                 <a href="#">
-                    <small>13/01/2016 </small>
+                    <small>13/01/2016</small>
                     - Auto-évaluation<span class="label label-danger">à faire</span></a>
             </li>
             <li>
                 <a href="#">
-                    <small>30/12/2016 </small>
-                    - Auto-évaluation<span class="label label-danger">à faire</span></a>
+                    <small>30/12/2016</small>
+                    - Auto-évaluation <span class="label label-danger">à faire</span></a>
             </li>
             <li>
                 <a href="#">
-                    <small>31/12/2016 </small>
-                    - Auto-évaluation<span class="label label-danger">à faire</span></a>
+                    <small>31/12/2016</small>
+                    - Auto-évaluation <span class="label label-danger">à faire</span></a>
             </li>
             <li class="divider"></li>
             <li>
