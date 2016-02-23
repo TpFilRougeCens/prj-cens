@@ -1,5 +1,5 @@
 # prj-cens
-<i>Projet fil rouge pour le Cens.</i>
+<i>Projet pour le Cens.</i>
 <hr/>
 <h2>DataBase :</h2>
 <ul>
@@ -31,6 +31,7 @@
 <li>Artefact: 'Cens'</li>
 <li>Demo : http://127.0.0.1:8080/Cens/TestNiveau</li>
 </ul>
+
 <hr/>
 <h2>View : <h2/>
 <img src="git/demo1.png"/>
