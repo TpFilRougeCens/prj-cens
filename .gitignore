@@ -1,4 +1,11 @@
 #################
+## INTELLIJ IDEA
+#################
+*.iml
+.idea/
+out/
+
+#################
 ## Eclipse
 #################
 
@@ -7,8 +14,6 @@
 .metadata
 bin/
 tmp/
-.idea/
-*.iml
 *.tmp
 *.bak
 *.swp
