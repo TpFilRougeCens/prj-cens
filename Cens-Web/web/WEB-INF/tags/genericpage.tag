@@ -57,11 +57,7 @@
         <div class="container-fluid">
 
             <%--ENTÊTE DE LA PAGE--%>
-            <%@include file="heading.tag" %>
-
-
-            <%--INJECTION DU CONTENU BODY--%>
-            <jsp:doBody/>
+            <%@include file="content.tag" %>
 
 
         </div>

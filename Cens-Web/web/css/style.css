@@ -30,7 +30,7 @@ body {
 #page-wrapper {
     width: 100%;
     padding: 0;
-    background-color: #EDEBEC;
+    background-color: #FFF;
 }
 
 .huge {
@@ -64,7 +64,7 @@ body {
     padding-top: 15px;
     padding-bottom: 15px;
     line-height: 20px;
-    color: #999;
+    color: #B3082A;
 }
 
 .top-nav > li > a:hover,
@@ -72,7 +72,7 @@ body {
 .top-nav > .open > a,
 .top-nav > .open > a:hover,
 .top-nav > .open > a:focus {
-    color: #444343 !important;
+    color: #B3082A !important;
     background-color: #E9E9E9;
 }
 
@@ -118,24 +118,33 @@ ul.alert-dropdown {
 }
 
 #titreH1 {
-    color: #B30C29;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    color: #FFF;
+    background-color: #B3082A;
+    padding-top: 10px;
+    padding-bottom: 10px;
     padding-left: 20px;
-    /*padding-left: 35px;*/
+    margin-top: 10px;
+    border: 0;
+    /*box-sizing: border-box;*/
+    /*-moz-box-sizing: border-box;*/
+    /*-webkit-box-sizing: border-box;*/
+    /*border: 10px solid #fff;*/
+    border-radius: 0 !important;
+}
+
+#contentClass {
+    padding: 0px 10px 10px;
+    border-radius: 0 !important;
+}
+
+.side-nav {
+    background-color: #D9D7D7;
+    color: #444343 !important;
 }
 
 .side-nav > li > ul {
     padding: 0;
 
-}
-
-.side-nav > li.entete {
-    display: block;
-    padding: 10px 15px 10px 15px;
-    text-decoration: none;
-    font-weight: bold;
-    color: #444343 !important;
 }
 
 .side-nav > li > ul > li > a {
@@ -147,6 +156,33 @@ ul.alert-dropdown {
 
 .side-nav > li > ul > li > a:hover {
     color: #444343 !important;
+}
+
+.side-nav > li > a {
+    color: #444343 !important;
+}
+
+.side-nav > li.active > a {
+    color: #B3082A !important;
+}
+
+.side-nav > li.entete {
+    display: block;
+    padding: 10px 15px 10px 15px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #444343 !important;
+}
+
+.side-nav li a:hover,
+.side-nav li a:focus {
+    background-color: #F5F5F5 !important;
+    color: #444343 !important;
+}
+
+.navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #D9D7D7;
 }
 
 /* Custom Colored Panels */
@@ -163,14 +199,50 @@ ul.alert-dropdown {
 
 }
 
+.panel-default {
+    border-radius: 0 !important;
+
+}
+
+.panel-default > .panel-heading {
+    border-radius: 0 !important;
+    color: #FFF;
+    background-color: #B3082A;
+    border: 1px #DDDDDD solid;
+    border-bottom: 0;
+
+}
+
+.panel-blue {
+    border-color: #337ab7;
+    border-radius: 0 !important;
+}
+
+.panel-blue > .panel-heading {
+    border-color: #337ab7;
+    color: #fff;
+    background-color: #337ab7;
+    border-radius: 0 !important;
+}
+
+.panel-blue > a {
+    color: #337ab7;
+}
+
+.panel-blue > a:hover {
+    color: #23527C;
+}
+
 .panel-green {
     border-color: #5cb85c;
+    border-radius: 0 !important;
 }
 
 .panel-green > .panel-heading {
     border-color: #5cb85c;
     color: #fff;
     background-color: #5cb85c;
+    border-radius: 0 !important;
 }
 
 .panel-green > a {
@@ -183,12 +255,14 @@ ul.alert-dropdown {
 
 .panel-red {
     border-color: #d9534f;
+    border-radius: 0 !important;
 }
 
 .panel-red > .panel-heading {
     border-color: #d9534f;
     color: #fff;
     background-color: #d9534f;
+    border-radius: 0 !important;
 }
 
 .panel-red > a {
@@ -201,12 +275,14 @@ ul.alert-dropdown {
 
 .panel-yellow {
     border-color: #f0ad4e;
+    border-radius: 0 !important;
 }
 
 .panel-yellow > .panel-heading {
     border-color: #f0ad4e;
     color: #fff;
     background-color: #f0ad4e;
+    border-radius: 0 !important;
 }
 
 .panel-yellow > a {
@@ -215,11 +291,6 @@ ul.alert-dropdown {
 
 .panel-yellow > a:hover {
     color: #df8a13;
-}
-
-.navbar {
-    background-color: #fff;
-    border-bottom: 1px solid #D9D7D7;
 }
 
 /* CSS FOR BIG VIEW */
@@ -235,7 +306,7 @@ ul.alert-dropdown {
 
     #page-wrapper {
         padding: 10px;
-        background-color: #EDEBEC;
+        background-color: #FFF;
     }
 
     .side-nav {
@@ -247,22 +318,17 @@ ul.alert-dropdown {
         border: none;
         border-radius: 0;
         overflow-y: auto;
-        background-color: #D9D7D7;
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
-        color: #444343 !important;
     }
 
     .side-nav > li > a {
         width: 225px;
-        color: #444343 !important;
     }
 
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;
-        background-color: #F5F5F5 !important;
-        color: #444343 !important;
     }
 }
