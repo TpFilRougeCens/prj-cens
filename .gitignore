@@ -2,6 +2,9 @@
 ## INTELLIJ IDEA
 #################
 *.iml
+Cens-Ejb.iml
+Cens-Jpa.iml
+Cens-Web.iml
 .idea/
 out/
 
