@@ -1,5 +1,5 @@
 # prj-cens
-<i>Projet pour le Cens.</i>
+<i>Projet pour le Cens</i>
 <hr/>
 <h2>DataBase :</h2>
 <ul>
