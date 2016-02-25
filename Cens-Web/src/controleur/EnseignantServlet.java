@@ -12,15 +12,16 @@ import java.io.IOException;
  * Created by Steven on 24/02/2016.
  */
 
-@WebServlet("/EnseignantServlet")
+@WebServlet("/Enseignant")
 public class EnseignantServlet extends HttpServlet {
-    public static final String ACCES_ENSEIGNANT = "/WEB-INF/jsp/PageEnseignant.jsp";
+    private static final String ACCES_ENSEIGNANT = "/WEB-INF/jsp/PageEnseignant.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher(ACCES_ENSEIGNANT).forward(request,response);
+        System.out.println("test servlet enseignant");
+        this.getServletContext().getRequestDispatcher( ACCES_ENSEIGNANT ).forward( request, response );
     }
 }

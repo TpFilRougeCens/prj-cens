@@ -44,7 +44,7 @@ public class FormulaireConnexion {
         } catch ( Exception e ) {
             setErreur( CHAMP_NOM, e.getMessage() );
         }
-        utilisateur.setMotDePasse( motDePasse );
+        utilisateur.setNom( nom );
 
         /* Initialisation du résultat global de la validation. */
         if ( erreurs.isEmpty() ) {

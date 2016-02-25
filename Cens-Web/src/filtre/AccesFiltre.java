@@ -10,11 +10,12 @@ import java.io.IOException;
 /**
  * Created by Steven on 24/02/2016.
  */
-@WebFilter(urlPatterns = "/acces/*")
+@WebFilter(urlPatterns = "/*")
 public class AccesFiltre implements javax.servlet.Filter{
     public static final String SESSION_UTILISATEUR = "sessionUtilisateur";
-    public static final String ACCES_LOGIN = "/login.jsp";
-    public static final String ACCES_ENSEIGNANT = "/WEB-INF/jsp/PageEnseignant.jsp";
+    public static final String ACCES_LOGIN = "/Connexion";
+    public static final String ACCES_ENSEIGNANT = "/Enseignant";
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -27,10 +28,20 @@ public class AccesFiltre implements javax.servlet.Filter{
         HttpServletResponse reponse = (HttpServletResponse) resp;
         HttpSession session = request.getSession();
 
+        /* Non-filtrage des ressources statiques*/
+        String chemin = request.getRequestURI().substring( request.getContextPath().length() );
+        if ( chemin.startsWith( "/css" ) ) {
+            chain.doFilter( request, reponse );
+            return;
+        }
+
+
+        System.out.println("utilisateur session dans le filte "+SESSION_UTILISATEUR);
         if(session.getAttribute(SESSION_UTILISATEUR)==null){
-            reponse.sendRedirect(request.getContextPath() + ACCES_LOGIN );
+            System.out.println("pas d'utilisaeur en session");
+            request.getRequestDispatcher(ACCES_LOGIN).forward(request,reponse);
         }else{
-            chain.doFilter(request,reponse);
+            request.getRequestDispatcher(ACCES_ENSEIGNANT).forward(request,reponse);
         }
     }
 
