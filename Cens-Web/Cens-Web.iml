@@ -20,7 +20,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="lib" level="project" />
-    <orderEntry type="module" module-name="Cens-Jpa" exported="" />
     <orderEntry type="module" module-name="Cens-Ejb" exported="" />
+    <orderEntry type="module" module-name="Cens-Jpa" exported="" />
+    <orderEntry type="library" exported="" scope="PROVIDED" name="JBoss 9.0.2.Final" level="application_server_libraries" />
   </component>
 </module>
