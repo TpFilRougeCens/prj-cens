@@ -1,10 +1,8 @@
 package controleur;
 
 import bean.Utilisateur;
-import model.FormulaireConnexion;
+import modelweb.FormulaireConnexion;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

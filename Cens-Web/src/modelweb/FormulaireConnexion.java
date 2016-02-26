@@ -1,4 +1,4 @@
-package model;
+package modelweb;
 
 import bean.Utilisateur;
 
@@ -72,7 +72,7 @@ public class FormulaireConnexion {
     private void validationNom( String nom ) throws Exception {
         if ( nom != null ) {
             if ( nom.length() < 3 ) {
-                throw new Exception( "Le mot de passe doit contenir au moins 3 caractères." );
+                throw new Exception( "Le nom doit contenir au moins 3 caractères." );
             }
         } else {
             throw new Exception( "Merci de saisir votre mot de passe." );
