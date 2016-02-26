@@ -10,5 +10,6 @@
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="module" module-name="Cens-Jpa" />
     <orderEntry type="module" module-name="Cens-Jpa" />
+    <orderEntry type="module" module-name="Cens-jpa" />
   </component>
 </module>
