@@ -2,10 +2,11 @@ package model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
- * The persistent class for the niveau database table JPA With IntelliJ.
+ * The persistent class for the niveau database table.
  */
 @Entity
 @NamedQuery(name = "Niveau.findAll", query = "SELECT n FROM Niveau n")
@@ -14,27 +15,55 @@ public class Niveau implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idniveau;
+    @Column(name = "niveau_id")
+    private Integer niveauId;
 
-    private String libelle;
+    @Column(name = "niveau_libelle")
+    private String niveauLibelle;
+
+    //bi-directional many-to-one association to Classroom
+    @OneToMany(mappedBy = "niveau", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Classroom> classrooms;
 
     public Niveau() {
     }
 
-    public Integer getIdniveau() {
-        return this.idniveau;
+    public Integer getNiveauId() {
+        return this.niveauId;
     }
 
-    public void setIdniveau(Integer idniveau) {
-        this.idniveau = idniveau;
+    private void setNiveauId(Integer niveauId) {
+        this.niveauId = niveauId;
     }
 
-    public String getLibelle() {
-        return this.libelle;
+    public String getNiveauLibelle() {
+        return this.niveauLibelle;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setNiveauLibelle(String niveauLibelle) {
+        this.niveauLibelle = niveauLibelle;
+    }
+
+    public List<Classroom> getClassrooms() {
+        return this.classrooms;
+    }
+
+    public void setClassrooms(List<Classroom> classrooms) {
+        this.classrooms = classrooms;
+    }
+
+    public Classroom addClassroom(Classroom classroom) {
+        getClassrooms().add(classroom);
+        classroom.setNiveau(this);
+
+        return classroom;
+    }
+
+    public Classroom removeClassroom(Classroom classroom) {
+        getClassrooms().remove(classroom);
+        classroom.setNiveau(null);
+
+        return classroom;
     }
 
 }

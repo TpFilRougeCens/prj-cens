@@ -59,7 +59,6 @@
             <%--ENTÊTE DE LA PAGE--%>
             <%@include file="content.tag" %>
 
-            je suis un gros blaireau de laisser ma session ouverte !!!
         </div>
         <!-- /.container-fluid -->
 

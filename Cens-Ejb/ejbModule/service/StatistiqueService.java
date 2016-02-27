@@ -1,6 +1,6 @@
 package service;
 
-import model.Niveau;
+import model.Statistique;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -9,11 +9,11 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Session Bean implementation class NiveauService
+ * Session Bean implementation class StatistiqueService
  */
 @Stateless
 @LocalBean
-public class NiveauService {
+public class StatistiqueService {
 
     @PersistenceContext(unitName = "Cens-Jpa")
     EntityManager entityManager;
@@ -21,21 +21,21 @@ public class NiveauService {
     /**
      * FIND ALL ELEMENTS METHODE WITH PARAMETER QUERY findAll
      *
-     * @see Niveau
+     * @see Statistique
      */
     @SuppressWarnings("unchecked")
-    public List<Niveau> findAll() {
-        return entityManager.createNamedQuery("Niveau.findAll").getResultList();
+    public List<Statistique> findAll() {
+        return entityManager.createNamedQuery("Statistique.findAll").getResultList();
     }
 
     /**
      * FIND ONE ELEMENT METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveauId : Id du niveau recherché
+     * @param statistiqueId : Id du statistique recherché
      */
-    public Niveau findOne(Integer niveauId) {
+    public Statistique findOne(Integer statistiqueId) {
         try {
-            return entityManager.find(Niveau.class, niveauId);
+            return entityManager.find(Statistique.class, statistiqueId);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -46,13 +46,13 @@ public class NiveauService {
     /**
      * DELETE METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveau : Object de type Niveau (de la classe)
+     * @param statistique : Object de type Statistique (de la classe)
      */
-    public boolean delete(Niveau niveau) {
+    public boolean delete(Statistique statistique) {
         try {
-            Niveau result = entityManager.find(Niveau.class, niveau.getNiveauId());
+            Statistique result = entityManager.find(Statistique.class, statistique.getStatistiqueId());
             entityManager.remove(result);
-            //System.out.println("ID Supprimé = " + niveau.getNiveauId());
+            //System.out.println("ID Supprimé = " + statistique.getStatistiqueId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,12 +63,12 @@ public class NiveauService {
     /**
      * INSERT METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveau : Object de type Niveau (de la classe)
+     * @param statistique : Object de type Statistique (de la classe)
      */
-    public boolean insert(Niveau niveau) {
+    public boolean insert(Statistique statistique) {
         try {
-            entityManager.persist(niveau);
-            //System.out.println("ID inséré = " + niveau.getNiveauId());
+            entityManager.persist(statistique);
+            //System.out.println("ID inséré = " + statistique.getStatistiqueId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,12 +80,12 @@ public class NiveauService {
     /**
      * UPDATE METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveau : Object de type Niveau (de la classe)
+     * @param statistique : Object de type Statistique (de la classe)
      */
-    public boolean update(Niveau niveau) {
+    public boolean update(Statistique statistique) {
         try {
-            entityManager.merge(niveau);
-            //System.out.println("ID Update = " + niveau.getNiveauId());
+            entityManager.merge(statistique);
+            //System.out.println("ID Update = " + statistique.getStatistiqueId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

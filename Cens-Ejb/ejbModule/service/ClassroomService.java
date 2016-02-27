@@ -1,6 +1,6 @@
 package service;
 
-import model.Niveau;
+import model.Classroom;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -9,11 +9,11 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Session Bean implementation class NiveauService
+ * Session Bean implementation class ClassroomService
  */
 @Stateless
 @LocalBean
-public class NiveauService {
+public class ClassroomService {
 
     @PersistenceContext(unitName = "Cens-Jpa")
     EntityManager entityManager;
@@ -21,21 +21,21 @@ public class NiveauService {
     /**
      * FIND ALL ELEMENTS METHODE WITH PARAMETER QUERY findAll
      *
-     * @see Niveau
+     * @see Classroom
      */
     @SuppressWarnings("unchecked")
-    public List<Niveau> findAll() {
-        return entityManager.createNamedQuery("Niveau.findAll").getResultList();
+    public List<Classroom> findAll() {
+        return entityManager.createNamedQuery("Classroom.findAll").getResultList();
     }
 
     /**
      * FIND ONE ELEMENT METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveauId : Id du niveau recherché
+     * @param classroomId : Id du classroom recherché
      */
-    public Niveau findOne(Integer niveauId) {
+    public Classroom findOne(Integer classroomId) {
         try {
-            return entityManager.find(Niveau.class, niveauId);
+            return entityManager.find(Classroom.class, classroomId);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -46,13 +46,13 @@ public class NiveauService {
     /**
      * DELETE METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveau : Object de type Niveau (de la classe)
+     * @param classroom : Object de type Classroom (de la classe)
      */
-    public boolean delete(Niveau niveau) {
+    public boolean delete(Classroom classroom) {
         try {
-            Niveau result = entityManager.find(Niveau.class, niveau.getNiveauId());
+            Classroom result = entityManager.find(Classroom.class, classroom.getClassroomId());
             entityManager.remove(result);
-            //System.out.println("ID Supprimé = " + niveau.getNiveauId());
+            //System.out.println("ID Supprimé = " + classroom.getClassroomId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,12 +63,12 @@ public class NiveauService {
     /**
      * INSERT METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveau : Object de type Niveau (de la classe)
+     * @param classroom : Object de type Classroom (de la classe)
      */
-    public boolean insert(Niveau niveau) {
+    public boolean insert(Classroom classroom) {
         try {
-            entityManager.persist(niveau);
-            //System.out.println("ID inséré = " + niveau.getNiveauId());
+            entityManager.persist(classroom);
+            //System.out.println("ID inséré = " + classroom.getClassroomId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,12 +80,12 @@ public class NiveauService {
     /**
      * UPDATE METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveau : Object de type Niveau (de la classe)
+     * @param classroom : Object de type Classroom (de la classe)
      */
-    public boolean update(Niveau niveau) {
+    public boolean update(Classroom classroom) {
         try {
-            entityManager.merge(niveau);
-            //System.out.println("ID Update = " + niveau.getNiveauId());
+            entityManager.merge(classroom);
+            //System.out.println("ID Update = " + classroom.getClassroomId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

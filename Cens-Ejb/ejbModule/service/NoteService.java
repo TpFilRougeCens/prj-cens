@@ -1,6 +1,6 @@
 package service;
 
-import model.Niveau;
+import model.Note;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -9,11 +9,11 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Session Bean implementation class NiveauService
+ * Session Bean implementation class NoteService
  */
 @Stateless
 @LocalBean
-public class NiveauService {
+public class NoteService {
 
     @PersistenceContext(unitName = "Cens-Jpa")
     EntityManager entityManager;
@@ -21,21 +21,21 @@ public class NiveauService {
     /**
      * FIND ALL ELEMENTS METHODE WITH PARAMETER QUERY findAll
      *
-     * @see Niveau
+     * @see Note
      */
     @SuppressWarnings("unchecked")
-    public List<Niveau> findAll() {
-        return entityManager.createNamedQuery("Niveau.findAll").getResultList();
+    public List<Note> findAll() {
+        return entityManager.createNamedQuery("Note.findAll").getResultList();
     }
 
     /**
      * FIND ONE ELEMENT METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveauId : Id du niveau recherché
+     * @param noteId : Id du note recherché
      */
-    public Niveau findOne(Integer niveauId) {
+    public Note findOne(Integer noteId) {
         try {
-            return entityManager.find(Niveau.class, niveauId);
+            return entityManager.find(Note.class, noteId);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -46,13 +46,13 @@ public class NiveauService {
     /**
      * DELETE METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveau : Object de type Niveau (de la classe)
+     * @param note : Object de type Note (de la classe)
      */
-    public boolean delete(Niveau niveau) {
+    public boolean delete(Note note) {
         try {
-            Niveau result = entityManager.find(Niveau.class, niveau.getNiveauId());
+            Note result = entityManager.find(Note.class, note.getNoteId());
             entityManager.remove(result);
-            //System.out.println("ID Supprimé = " + niveau.getNiveauId());
+            //System.out.println("ID Supprimé = " + note.getNoteId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,12 +63,12 @@ public class NiveauService {
     /**
      * INSERT METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveau : Object de type Niveau (de la classe)
+     * @param note : Object de type Note (de la classe)
      */
-    public boolean insert(Niveau niveau) {
+    public boolean insert(Note note) {
         try {
-            entityManager.persist(niveau);
-            //System.out.println("ID inséré = " + niveau.getNiveauId());
+            entityManager.persist(note);
+            //System.out.println("ID inséré = " + note.getNoteId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,12 +80,12 @@ public class NiveauService {
     /**
      * UPDATE METHODE WITH NATIVE JPA METHODE
      *
-     * @param niveau : Object de type Niveau (de la classe)
+     * @param note : Object de type Note (de la classe)
      */
-    public boolean update(Niveau niveau) {
+    public boolean update(Note note) {
         try {
-            entityManager.merge(niveau);
-            //System.out.println("ID Update = " + niveau.getNiveauId());
+            entityManager.merge(note);
+            //System.out.println("ID Update = " + note.getNoteId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
