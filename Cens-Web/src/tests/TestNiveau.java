@@ -56,15 +56,15 @@ public class TestNiveau extends HttpServlet {
         }
 
         // Test UPDATE
-        Niveau finNiv = niveauService.findOne(1);
-        finNiv.setNiveauLibelle("Depuis JPA JAVA test");
-        niveauService.update(finNiv);
-
-        // Test DELETE
-        List<Niveau> allNiv = niveauService.findAll();
-        Niveau az = allNiv.get(allNiv.size() - 1);
-        System.out.println(az.getNiveauId());
-        niveauService.delete(az);
+//        Niveau finNiv = niveauService.findOne(1);
+//        finNiv.setNiveauLibelle("Depuis JPA JAVA test");
+//        niveauService.update(finNiv);
+//
+//        // Test DELETE
+//        List<Niveau> allNiv = niveauService.findAll();
+//        Niveau az = allNiv.get(allNiv.size() - 1);
+//        System.out.println(az.getNiveauId());
+//        niveauService.delete(az);
 
 
         request.getRequestDispatcher("/WEB-INF/tags/exemple.jsp").forward(request, response);

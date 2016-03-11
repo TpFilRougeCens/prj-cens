@@ -80,7 +80,7 @@ public class EmployeService {
     /**
      * UPDATE METHODE WITH NATIVE JPA METHODE
      *
-     * @param employe : Object de type Employe (de la classe)
+     * @param employe : Object de type Employe
      */
     public boolean update(Employe employe) {
         try {

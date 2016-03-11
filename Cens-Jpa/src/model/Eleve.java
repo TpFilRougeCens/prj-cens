@@ -32,6 +32,9 @@ public class Eleve implements Serializable {
     @Column(name = "personne_date_naissance")
     private Date eleveDateNaissance;
 
+    @Column(name = "personne_login")
+    private String eleveLogin;
+
     @Column(name = "personne_nom")
     private String eleveNom;
 
@@ -94,6 +97,14 @@ public class Eleve implements Serializable {
 
     public void setEleveDateNaissance(Date eleveDateNaissance) {
         this.eleveDateNaissance = eleveDateNaissance;
+    }
+
+    public String getEleveLogin() {
+        return this.eleveLogin;
+    }
+
+    public void setEleveLogin(String eleveLogin) {
+        this.eleveLogin = eleveLogin;
     }
 
     public String getEleveNom() {

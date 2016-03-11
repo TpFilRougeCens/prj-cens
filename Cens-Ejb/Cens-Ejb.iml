@@ -5,9 +5,10 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/ejbModule" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Cens-Jpa" exported="" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="module" module-name="Cens-Jpa" />
   </component>
 </module>

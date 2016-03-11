@@ -1,10 +1,13 @@
 package service;
 
+import model.Employe;
+import model.Groupe;
 import model.Personne;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -40,6 +43,32 @@ public class PersonneService {
             e.printStackTrace();
             return null;
         }
+
+    }
+
+    /**
+     * RETOURNE UNE PERSONNE SI CELLE CI EST CONNUE
+     *
+     * @param login    : login utilisateur qui demande une connexion
+     * @param password : mot de passe tentative
+     */
+    public Personne findOne(String login, String password) {
+        try {
+            Personne personne = (Personne) entityManager
+                    .createNamedQuery("Personne.findByNameAndPassWord")
+                    .setParameter("loginn", login)
+                    .setParameter("passwordd", password)
+                    .getSingleResult();
+            return personne;
+
+        } catch (NoResultException e) {
+            System.out.println("Personne : FindOne : Pas de resultat");
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
 
     }
 
@@ -93,4 +122,21 @@ public class PersonneService {
         }
     }
 
+    public Groupe fonctionUtilisateur(Personne personne) {
+
+        try {
+            Employe result = entityManager.find(Employe.class, personne.getPersonneId());
+            // ??? ici en cours
+//            result.getAssocEmployeGroupes()
+            System.out.println(result.getEmployeLogin());
+        } catch (NoResultException e) {
+            System.out.println("Personne : fonctionUtilisatteur : Pas de resultat");
+        } catch (NullPointerException e) {
+            System.out.println("Personne : fonctionUtilisatteur : Null pointer");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

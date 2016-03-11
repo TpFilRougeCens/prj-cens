@@ -29,6 +29,9 @@ public class Employe implements Serializable {
     @Column(name = "personne_date_naissance")
     private Date employeDateNaissance;
 
+    @Column(name = "personne_login")
+    private String employeLogin;
+
     @Column(name = "personne_nom")
     private String employeNom;
 
@@ -87,6 +90,14 @@ public class Employe implements Serializable {
 
     public void setEmployeDateNaissance(Date employeDateNaissance) {
         this.employeDateNaissance = employeDateNaissance;
+    }
+
+    public String getEmployeLogin() {
+        return this.employeLogin;
+    }
+
+    public void setEmployeLogin(String employeLogin) {
+        this.employeLogin = employeLogin;
     }
 
     public String getEmployeNom() {

@@ -8,8 +8,12 @@ import java.util.Date;
 /**
  * The persistent class for the personne database table.
  */
+
 @Entity
-@NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p")
+@NamedQueries({
+        @NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p"),
+        @NamedQuery(name = "Personne.findByNameAndPassWord", query = "SELECT p FROM Personne p WHERE p.personneLogin = :loginn AND p.personnePassword = :passwordd")
+})
 public class Personne implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -27,6 +31,12 @@ public class Personne implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "personne_date_naissance")
     private Date personneDateNaissance;
+
+    @Column(name = "personne_login")
+    private String personneLogin;
+
+    @Column(name = "personne_password")
+    private String personnePassword;
 
     @Column(name = "personne_nom")
     private String personneNom;
@@ -70,6 +80,22 @@ public class Personne implements Serializable {
 
     public void setPersonneDateNaissance(Date personneDateNaissance) {
         this.personneDateNaissance = personneDateNaissance;
+    }
+
+    public String getPersonneLogin() {
+        return this.personneLogin;
+    }
+
+    public void setPersonneLogin(String personneLogin) {
+        this.personneLogin = personneLogin;
+    }
+
+    public String getPersonnePassword() {
+        return this.personnePassword;
+    }
+
+    public void setPersonnePassword(String personnePassword) {
+        this.personnePassword = personnePassword;
     }
 
     public String getPersonneNom() {

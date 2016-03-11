@@ -130,6 +130,8 @@ alter table ASSOC_COM_CAP
 /*==============================================================*/
 create table PERSONNE (
    PERSONNE_ID          SERIAL               not null,
+   PERSONNE_LOGIN                CHARACTER VARYING(150)         not null,
+   PERSONNE_PASSWORD             CHARACTER VARYING(150)         not null,
    PERSONNE_NOM                  CHARACTER VARYING(150)         not null,
    PERSONNE_PRENOM               CHARACTER VARYING(150)         not null,
    PERSONNE_DATE_NAISSANCE       DATE                 ,
