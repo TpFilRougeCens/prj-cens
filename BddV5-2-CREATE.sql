@@ -410,9 +410,9 @@ create table PARAMETRE (
 /* Table : STATISTIQUE                                          */
 /*==============================================================*/
 create table STATISTIQUE (
-   STATISTIQUE_STAT_ID              SERIAL               not null,
+   STATISTIQUE_ID              SERIAL               not null,
    STATISTIQUE_LIBELLE         CHARACTER VARYING(150)         not null,
    STATISTIQUE_VALEUR          CHARACTER VARYING(150)         not null,
    STATISTIQUE_DATE_STAT            TIMESTAMP                 not null,
-   constraint PK_STATISTIQUE primary key (STATISTIQUE_STAT_ID)
+   constraint PK_STATISTIQUE primary key (STATISTIQUE_ID)
 );

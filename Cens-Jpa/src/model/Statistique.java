@@ -15,8 +15,8 @@ public class Statistique implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "statistique_stat_id")
-    private Integer statistiqueStatId;
+    @Column(name = "statistique_id")
+    private Integer statistiqueId;
 
     @Column(name = "statistique_date_stat")
     private Timestamp statistiqueDateStat;
@@ -30,12 +30,12 @@ public class Statistique implements Serializable {
     public Statistique() {
     }
 
-    public Integer getStatistiqueStatId() {
-        return this.statistiqueStatId;
+    public Integer getstatistiqueId() {
+        return this.statistiqueId;
     }
 
-    private void setStatistiqueStatId(Integer statistiqueStatId) {
-        this.statistiqueStatId = statistiqueStatId;
+    private void setstatistiqueId(Integer statistiqueId) {
+        this.statistiqueId = statistiqueId;
     }
 
     public Timestamp getStatistiqueDateStat() {

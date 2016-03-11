@@ -1,205 +1,204 @@
 package model;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 
 /**
  * The persistent class for the employe database table.
- * 
  */
 @Entity
-@NamedQuery(name="Employe.findAll", query="SELECT e FROM Employe e")
+@NamedQuery(name = "Employe.findAll", query = "SELECT e FROM Employe e")
 public class Employe implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="personne_id")
-	private Integer personneId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "personne_id")
+    private Integer employeId;
 
-	@Column(name="personne_adresse")
-	private String personneAdresse;
+    @Column(name = "personne_adresse")
+    private String employeAdresse;
 
-	@Column(name="personne_cp")
-	private String personneCp;
+    @Column(name = "personne_cp")
+    private String employeCp;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="personne_date_naissance")
-	private Date personneDateNaissance;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "personne_date_naissance")
+    private Date employeDateNaissance;
 
-	@Column(name="personne_nom")
-	private String personneNom;
+    @Column(name = "personne_nom")
+    private String employeNom;
 
-	@Column(name="personne_prenom")
-	private String personnePrenom;
+    @Column(name = "personne_prenom")
+    private String employePrenom;
 
-	@Column(name="personne_ville")
-	private String personneVille;
+    @Column(name = "personne_ville")
+    private String employeVille;
 
-	//bi-directional many-to-one association to AssocEmployeGroupe
-	@OneToMany(mappedBy="employe")
-	private List<AssocEmployeGroupe> assocEmployeGroupes;
+    //bi-directional many-to-one association to AssocEmployeGroupe
+    @OneToMany(mappedBy = "employe")
+    private List<AssocEmployeGroupe> assocEmployeGroupes;
 
-	//bi-directional many-to-one association to AssocEnseigner
-	@OneToMany(mappedBy="employe")
-	private List<AssocEnseigner> assocEnseigners;
+    //bi-directional many-to-one association to AssocEnseigner
+    @OneToMany(mappedBy = "employe")
+    private List<AssocEnseigner> assocEnseigners;
 
-	//bi-directional many-to-one association to AssocEvaluer
-	@OneToMany(mappedBy="employe")
-	private List<AssocEvaluer> assocEvaluers;
+    //bi-directional many-to-one association to AssocEvaluer
+    @OneToMany(mappedBy = "employe")
+    private List<AssocEvaluer> assocEvaluers;
 
-	//bi-directional many-to-one association to Classroom
-	@OneToMany(mappedBy="employe")
-	private List<Classroom> classrooms;
+    //bi-directional many-to-one association to Classroom
+    @OneToMany(mappedBy = "employe")
+    private List<Classroom> classrooms;
 
-	public Employe() {
-	}
+    public Employe() {
+    }
 
-	public Integer getPersonneId() {
-		return this.personneId;
-	}
+    public Integer getEmployeId() {
+        return this.employeId;
+    }
 
-	public void setPersonneId(Integer personneId) {
-		this.personneId = personneId;
-	}
+    public void setEmployeId(Integer employeId) {
+        this.employeId = employeId;
+    }
 
-	public String getPersonneAdresse() {
-		return this.personneAdresse;
-	}
+    public String getEmployeAdresse() {
+        return this.employeAdresse;
+    }
 
-	public void setPersonneAdresse(String personneAdresse) {
-		this.personneAdresse = personneAdresse;
-	}
+    public void setEmployeAdresse(String employeAdresse) {
+        this.employeAdresse = employeAdresse;
+    }
 
-	public String getPersonneCp() {
-		return this.personneCp;
-	}
+    public String getEmployeCp() {
+        return this.employeCp;
+    }
 
-	public void setPersonneCp(String personneCp) {
-		this.personneCp = personneCp;
-	}
+    public void setEmployeCp(String employeCp) {
+        this.employeCp = employeCp;
+    }
 
-	public Date getPersonneDateNaissance() {
-		return this.personneDateNaissance;
-	}
+    public Date getEmployeDateNaissance() {
+        return this.employeDateNaissance;
+    }
 
-	public void setPersonneDateNaissance(Date personneDateNaissance) {
-		this.personneDateNaissance = personneDateNaissance;
-	}
+    public void setEmployeDateNaissance(Date employeDateNaissance) {
+        this.employeDateNaissance = employeDateNaissance;
+    }
 
-	public String getPersonneNom() {
-		return this.personneNom;
-	}
+    public String getEmployeNom() {
+        return this.employeNom;
+    }
 
-	public void setPersonneNom(String personneNom) {
-		this.personneNom = personneNom;
-	}
+    public void setEmployeNom(String employeNom) {
+        this.employeNom = employeNom;
+    }
 
-	public String getPersonnePrenom() {
-		return this.personnePrenom;
-	}
+    public String getEmployePrenom() {
+        return this.employePrenom;
+    }
 
-	public void setPersonnePrenom(String personnePrenom) {
-		this.personnePrenom = personnePrenom;
-	}
+    public void setEmployePrenom(String employePrenom) {
+        this.employePrenom = employePrenom;
+    }
 
-	public String getPersonneVille() {
-		return this.personneVille;
-	}
+    public String getEmployeVille() {
+        return this.employeVille;
+    }
 
-	public void setPersonneVille(String personneVille) {
-		this.personneVille = personneVille;
-	}
+    public void setEmployeVille(String employeVille) {
+        this.employeVille = employeVille;
+    }
 
-	public List<AssocEmployeGroupe> getAssocEmployeGroupes() {
-		return this.assocEmployeGroupes;
-	}
+    public List<AssocEmployeGroupe> getAssocEmployeGroupes() {
+        return this.assocEmployeGroupes;
+    }
 
-	public void setAssocEmployeGroupes(List<AssocEmployeGroupe> assocEmployeGroupes) {
-		this.assocEmployeGroupes = assocEmployeGroupes;
-	}
+    public void setAssocEmployeGroupes(List<AssocEmployeGroupe> assocEmployeGroupes) {
+        this.assocEmployeGroupes = assocEmployeGroupes;
+    }
 
-	public AssocEmployeGroupe addAssocEmployeGroupe(AssocEmployeGroupe assocEmployeGroupe) {
-		getAssocEmployeGroupes().add(assocEmployeGroupe);
-		assocEmployeGroupe.setEmploye(this);
+    public AssocEmployeGroupe addAssocEmployeGroupe(AssocEmployeGroupe assocEmployeGroupe) {
+        getAssocEmployeGroupes().add(assocEmployeGroupe);
+        assocEmployeGroupe.setEmploye(this);
 
-		return assocEmployeGroupe;
-	}
+        return assocEmployeGroupe;
+    }
 
-	public AssocEmployeGroupe removeAssocEmployeGroupe(AssocEmployeGroupe assocEmployeGroupe) {
-		getAssocEmployeGroupes().remove(assocEmployeGroupe);
-		assocEmployeGroupe.setEmploye(null);
+    public AssocEmployeGroupe removeAssocEmployeGroupe(AssocEmployeGroupe assocEmployeGroupe) {
+        getAssocEmployeGroupes().remove(assocEmployeGroupe);
+        assocEmployeGroupe.setEmploye(null);
 
-		return assocEmployeGroupe;
-	}
+        return assocEmployeGroupe;
+    }
 
-	public List<AssocEnseigner> getAssocEnseigners() {
-		return this.assocEnseigners;
-	}
+    public List<AssocEnseigner> getAssocEnseigners() {
+        return this.assocEnseigners;
+    }
 
-	public void setAssocEnseigners(List<AssocEnseigner> assocEnseigners) {
-		this.assocEnseigners = assocEnseigners;
-	}
+    public void setAssocEnseigners(List<AssocEnseigner> assocEnseigners) {
+        this.assocEnseigners = assocEnseigners;
+    }
 
-	public AssocEnseigner addAssocEnseigner(AssocEnseigner assocEnseigner) {
-		getAssocEnseigners().add(assocEnseigner);
-		assocEnseigner.setEmploye(this);
+    public AssocEnseigner addAssocEnseigner(AssocEnseigner assocEnseigner) {
+        getAssocEnseigners().add(assocEnseigner);
+        assocEnseigner.setEmploye(this);
 
-		return assocEnseigner;
-	}
+        return assocEnseigner;
+    }
 
-	public AssocEnseigner removeAssocEnseigner(AssocEnseigner assocEnseigner) {
-		getAssocEnseigners().remove(assocEnseigner);
-		assocEnseigner.setEmploye(null);
+    public AssocEnseigner removeAssocEnseigner(AssocEnseigner assocEnseigner) {
+        getAssocEnseigners().remove(assocEnseigner);
+        assocEnseigner.setEmploye(null);
 
-		return assocEnseigner;
-	}
+        return assocEnseigner;
+    }
 
-	public List<AssocEvaluer> getAssocEvaluers() {
-		return this.assocEvaluers;
-	}
+    public List<AssocEvaluer> getAssocEvaluers() {
+        return this.assocEvaluers;
+    }
 
-	public void setAssocEvaluers(List<AssocEvaluer> assocEvaluers) {
-		this.assocEvaluers = assocEvaluers;
-	}
+    public void setAssocEvaluers(List<AssocEvaluer> assocEvaluers) {
+        this.assocEvaluers = assocEvaluers;
+    }
 
-	public AssocEvaluer addAssocEvaluer(AssocEvaluer assocEvaluer) {
-		getAssocEvaluers().add(assocEvaluer);
-		assocEvaluer.setEmploye(this);
+    public AssocEvaluer addAssocEvaluer(AssocEvaluer assocEvaluer) {
+        getAssocEvaluers().add(assocEvaluer);
+        assocEvaluer.setEmploye(this);
 
-		return assocEvaluer;
-	}
+        return assocEvaluer;
+    }
 
-	public AssocEvaluer removeAssocEvaluer(AssocEvaluer assocEvaluer) {
-		getAssocEvaluers().remove(assocEvaluer);
-		assocEvaluer.setEmploye(null);
+    public AssocEvaluer removeAssocEvaluer(AssocEvaluer assocEvaluer) {
+        getAssocEvaluers().remove(assocEvaluer);
+        assocEvaluer.setEmploye(null);
 
-		return assocEvaluer;
-	}
+        return assocEvaluer;
+    }
 
-	public List<Classroom> getClassrooms() {
-		return this.classrooms;
-	}
+    public List<Classroom> getClassrooms() {
+        return this.classrooms;
+    }
 
-	public void setClassrooms(List<Classroom> classrooms) {
-		this.classrooms = classrooms;
-	}
+    public void setClassrooms(List<Classroom> classrooms) {
+        this.classrooms = classrooms;
+    }
 
-	public Classroom addClassroom(Classroom classroom) {
-		getClassrooms().add(classroom);
-		classroom.setEmploye(this);
+    public Classroom addClassroom(Classroom classroom) {
+        getClassrooms().add(classroom);
+        classroom.setEmploye(this);
 
-		return classroom;
-	}
+        return classroom;
+    }
 
-	public Classroom removeClassroom(Classroom classroom) {
-		getClassrooms().remove(classroom);
-		classroom.setEmploye(null);
+    public Classroom removeClassroom(Classroom classroom) {
+        getClassrooms().remove(classroom);
+        classroom.setEmploye(null);
 
-		return classroom;
-	}
+        return classroom;
+    }
 
 }
