@@ -400,10 +400,10 @@ alter table ASSOC_EVALUER
 /* Table : PARAMETRE                                            */
 /*==============================================================*/
 create table PARAMETRE (
-   PARAMETRE_PARAMETRE_ID            SERIAL               not null,
+   PARAMETRE_ID            SERIAL               not null,
    PARAMETRE_LIBELLE       CHARACTER VARYING(50)         not null,
    PARAMETRE_VALEUR        CHARACTER VARYING(255)         not null,
-   constraint PK_PARAMETRE primary key (PARAMETRE_PARAMETRE_ID)
+   constraint PK_PARAMETRE primary key (PARAMETRE_ID)
 );
 
 /*==============================================================*/
