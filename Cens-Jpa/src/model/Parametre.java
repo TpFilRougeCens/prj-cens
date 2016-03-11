@@ -14,8 +14,8 @@ public class Parametre implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "parametre_parametre_id")
-    private Integer parametreParametreId;
+    @Column(name = "parametre_id")
+    private Integer parametreId;
 
     @Column(name = "parametre_libelle")
     private String parametreLibelle;
@@ -26,12 +26,12 @@ public class Parametre implements Serializable {
     public Parametre() {
     }
 
-    public Integer getParametreParametreId() {
-        return this.parametreParametreId;
+    public Integer getParametreId() {
+        return this.parametreId;
     }
 
-    private void setParametreParametreId(Integer parametreParametreId) {
-        this.parametreParametreId = parametreParametreId;
+    private void setParametreId(Integer parametreId) {
+        this.parametreId = parametreId;
     }
 
     public String getParametreLibelle() {
