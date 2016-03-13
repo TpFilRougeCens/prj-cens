@@ -1,5 +1,10 @@
 package model;
 
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -97,11 +102,23 @@ public class Personne implements Serializable {
     }
 
     public String getPersonnePassword() {
-        return this.personnePassword;
+        try {
+            return decrypt(this.personnePassword);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     public void setPersonnePassword(String personnePassword) {
-        this.personnePassword = personnePassword;
+
+        try {
+            this.personnePassword = encrypt(personnePassword);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String getPersonneNom() {
@@ -136,4 +153,26 @@ public class Personne implements Serializable {
         this.groupe = groupe;
     }
 
+    private static String encrypt(String password) throws Exception {
+
+        // TODO Variable global à l'application a faire au lancement serveur
+        String key = "todo";
+        byte[] keyData = key.getBytes();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(keyData, "Blowfish");
+        Cipher cipher = Cipher.getInstance("Blowfish");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+        byte[] hasil = cipher.doFinal(password.getBytes());
+        return new BASE64Encoder().encode(hasil);
+    }
+
+    private static String decrypt(String password) throws Exception {
+        // TODO Variable global à l'application a faire au lancement serveur
+        String key = "todo";
+        byte[] keyData = key.getBytes();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(keyData, "Blowfish");
+        Cipher cipher = Cipher.getInstance("Blowfish");
+        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+        byte[] hasil = cipher.doFinal(new BASE64Decoder().decodeBuffer(password));
+        return new String(hasil);
+    }
 }

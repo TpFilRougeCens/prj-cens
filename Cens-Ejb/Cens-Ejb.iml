@@ -10,8 +10,5 @@
     <orderEntry type="module" module-name="Cens-Jpa" exported="" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="module" module-name="Cens-Jpa" />
-
-    <orderEntry type="library" scope="TEST" name="Arquillian JUnit:Release" level="project" />
-    <orderEntry type="library" name="Arquillian JUnit:Release" level="project" />
   </component>
 </module>

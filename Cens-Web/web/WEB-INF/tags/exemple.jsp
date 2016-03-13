@@ -9,7 +9,7 @@
     <jsp:attribute name="menu"> <!-- Just for add new Item on left menu --></jsp:attribute>
     <jsp:body>
 
-        <div class="row">
+        <%--<div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="panel panel-blue">
                     <div class="panel-heading">
@@ -111,7 +111,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div>--%>
 
         <div class="row">
             <div class="col-lg-12">
