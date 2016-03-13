@@ -93,7 +93,9 @@ public class DroitService {
     }
 
     public Integer findNiveauLecture(String idModule) {
-        Droit droit = (Droit) entityManager.createNamedQuery("Droit.findByUnite").getSingleResult();
+        Droit droit = (Droit) entityManager.createNamedQuery("Droit.findByUnite")
+                .setParameter("pathh", idModule)
+                .getSingleResult();
         return droit.getDroitLecture();
     }
 
