@@ -1,6 +1,7 @@
 package service;
 
 import model.Eleve;
+import model.Personne;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 @Stateless
 @LocalBean
-public class EleveService {
+public class EleveService extends PersonneService {
 
     @PersistenceContext(unitName = "Cens-Jpa")
     EntityManager entityManager;
@@ -24,7 +25,7 @@ public class EleveService {
      * @see Eleve
      */
     @SuppressWarnings("unchecked")
-    public List<Eleve> findAll() {
+    public List<Personne> findAll() {
         return entityManager.createNamedQuery("Eleve.findAll").getResultList();
     }
 
@@ -50,7 +51,7 @@ public class EleveService {
      */
     public boolean delete(Eleve eleve) {
         try {
-            Eleve result = entityManager.find(Eleve.class, eleve.getEleveId());
+            Eleve result = entityManager.find(Eleve.class, eleve.getPersonneId());
             entityManager.remove(result);
             //System.out.println("ID Supprimé = " + eleve.getEleveId());
             return true;
@@ -85,7 +86,6 @@ public class EleveService {
     public boolean update(Eleve eleve) {
         try {
             entityManager.merge(eleve);
-            //System.out.println("ID Update = " + eleve.getEleveId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

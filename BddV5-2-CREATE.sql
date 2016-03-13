@@ -3,288 +3,302 @@
 /* Date de création :  23/02/2016 21:17:19                      */
 /*==============================================================*/
 
-drop table IF EXISTS VOIE CASCADE;
-drop table IF EXISTS FILIERE CASCADE;
-drop table IF EXISTS NIVEAU CASCADE;
-drop table IF EXISTS BLOC CASCADE;
-drop table IF EXISTS MATIERE CASCADE;
-drop table IF EXISTS COM_CAP CASCADE;
-drop table IF EXISTS ASSOC_COM_CAP CASCADE;
-drop table IF EXISTS CLASSROOM CASCADE;
-drop table IF EXISTS PERSONNE CASCADE;
-drop table IF EXISTS ELEVE CASCADE;
-drop table IF EXISTS EMPLOYE CASCADE;
-drop table IF EXISTS GROUPE CASCADE;
-drop table IF EXISTS DROIT CASCADE;
-drop table IF EXISTS BILAN CASCADE;
-drop table IF EXISTS NOTE CASCADE;
+DROP TABLE IF EXISTS VOIE CASCADE;
+DROP TABLE IF EXISTS FILIERE CASCADE;
+DROP TABLE IF EXISTS NIVEAU CASCADE;
+DROP TABLE IF EXISTS BLOC CASCADE;
+DROP TABLE IF EXISTS MATIERE CASCADE;
+DROP TABLE IF EXISTS COM_CAP CASCADE;
+DROP TABLE IF EXISTS ASSOC_COM_CAP CASCADE;
+DROP TABLE IF EXISTS CLASSROOM CASCADE;
+DROP TABLE IF EXISTS PERSONNE CASCADE;
+DROP TABLE IF EXISTS ELEVE CASCADE;
+DROP TABLE IF EXISTS EMPLOYE CASCADE;
+DROP TABLE IF EXISTS GROUPE CASCADE;
+DROP TABLE IF EXISTS DROIT CASCADE;
+DROP TABLE IF EXISTS BILAN CASCADE;
+DROP TABLE IF EXISTS NOTE CASCADE;
 
-drop table IF EXISTS ASSOC_FILIERE_BLOC CASCADE;
-drop table IF EXISTS ASSOC_MATIERE_COM_CAP CASCADE;
-drop table IF EXISTS ASSOC_EMPLOYE_GROUPE CASCADE;
+DROP TABLE IF EXISTS ASSOC_FILIERE_BLOC CASCADE;
+DROP TABLE IF EXISTS ASSOC_MATIERE_COM_CAP CASCADE;
+DROP TABLE IF EXISTS ASSOC_EMPLOYE_GROUPE CASCADE;
 
-drop table IF EXISTS ASSOC_ENSEIGNER CASCADE;
-drop table IF EXISTS ASSOC_ETUDIER CASCADE;
-drop table IF EXISTS ASSOC_EVALUER CASCADE;
+DROP TABLE IF EXISTS ASSOC_ENSEIGNER CASCADE;
+DROP TABLE IF EXISTS ASSOC_ETUDIER CASCADE;
+DROP TABLE IF EXISTS ASSOC_EVALUER CASCADE;
 
-drop table IF EXISTS PARAMETRE CASCADE;
-drop table IF EXISTS STATISTIQUE CASCADE;
-drop table IF EXISTS PROMO CASCADE;
+DROP TABLE IF EXISTS PARAMETRE CASCADE;
+DROP TABLE IF EXISTS STATISTIQUE CASCADE;
+DROP TABLE IF EXISTS PROMO CASCADE;
 
 /*==============================================================*/
 /* Table : PROMO                                                 */
 /*==============================================================*/
-create table PROMO (
-   PROMO_ID              SERIAL               not null,
-   PROMO_LIBELLE         CHARACTER VARYING(9)         not null,
-   constraint PK_PROMO primary key (PROMO_ID)
+CREATE TABLE PROMO (
+  PROMO_ID      SERIAL               NOT NULL,
+  PROMO_LIBELLE CHARACTER VARYING(9) NOT NULL,
+  CONSTRAINT PK_PROMO PRIMARY KEY (PROMO_ID)
 );
 
 
 /*==============================================================*/
 /* Table : VOIE                                                 */
 /*==============================================================*/
-create table VOIE (
-   VOIE_ID              SERIAL               not null,
-   VOIE_LIBELLE         CHARACTER VARYING(150)         not null,
-   constraint PK_VOIE primary key (VOIE_ID)
+CREATE TABLE VOIE (
+  VOIE_ID      SERIAL                 NOT NULL,
+  VOIE_LIBELLE CHARACTER VARYING(150) NOT NULL,
+  CONSTRAINT PK_VOIE PRIMARY KEY (VOIE_ID)
 );
 
 /*==============================================================*/
 /* Table : FILIERE                                              */
 /*==============================================================*/
-create table FILIERE (
-   FILIERE_ID           SERIAL               not null,
-   FILIERE_FK_VOIE_ID           INT                 not null,
-   FILIERE_LIBELLE      CHARACTER VARYING(150)         not null,
-   constraint PK_FILIERE primary key (FILIERE_ID)
+CREATE TABLE FILIERE (
+  FILIERE_ID         SERIAL                 NOT NULL,
+  FILIERE_FK_VOIE_ID INT                    NOT NULL,
+  FILIERE_LIBELLE    CHARACTER VARYING(150) NOT NULL,
+  CONSTRAINT PK_FILIERE PRIMARY KEY (FILIERE_ID)
 );
-alter table FILIERE
-   add constraint FK_FILIERE_CONTENIR_VOIE foreign key (FILIERE_FK_VOIE_ID)
-      references VOIE (VOIE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE FILIERE
+ADD CONSTRAINT FK_FILIERE_CONTENIR_VOIE FOREIGN KEY (FILIERE_FK_VOIE_ID)
+REFERENCES VOIE (VOIE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /*==============================================================*/
 /* Table : NIVEAU                                               */
 /*==============================================================*/
-create table NIVEAU (
-   NIVEAU_ID            SERIAL               not null,
-   NIVEAU_LIBELLE       CHARACTER VARYING(150)         not null,
-   constraint PK_NIVEAU primary key (NIVEAU_ID)
+CREATE TABLE NIVEAU (
+  NIVEAU_ID      SERIAL                 NOT NULL,
+  NIVEAU_LIBELLE CHARACTER VARYING(150) NOT NULL,
+  CONSTRAINT PK_NIVEAU PRIMARY KEY (NIVEAU_ID)
 );
 
 /*==============================================================*/
 /* Table : BLOC                                                 */
 /*==============================================================*/
-create table BLOC (
-   BLOC_ID              SERIAL               not null,
-   BLOC_LIBELLE         CHARACTER VARYING(150)         not null,
-   constraint PK_BLOC primary key (BLOC_ID)
+CREATE TABLE BLOC (
+  BLOC_ID      SERIAL                 NOT NULL,
+  BLOC_LIBELLE CHARACTER VARYING(150) NOT NULL,
+  CONSTRAINT PK_BLOC PRIMARY KEY (BLOC_ID)
 );
 
 /*==============================================================*/
 /* Table : MATIERE                                              */
 /*==============================================================*/
-create table MATIERE (
-   MATIERE_ID           SERIAL               not null,
-   MATIERE_FK_BLOC_ID           INT                 not null,
-   MATIERE_LIBELLE      CHARACTER VARYING(150)         not null,
-   constraint PK_MATIERE primary key (MATIERE_ID)
+CREATE TABLE MATIERE (
+  MATIERE_ID         SERIAL                 NOT NULL,
+  MATIERE_FK_BLOC_ID INT                    NOT NULL,
+  MATIERE_LIBELLE    CHARACTER VARYING(150) NOT NULL,
+  CONSTRAINT PK_MATIERE PRIMARY KEY (MATIERE_ID)
 );
-alter table MATIERE
-   add constraint FK_MATIERE_COMPORTER_BLOC foreign key (MATIERE_FK_BLOC_ID)
-      references BLOC (BLOC_ID)
-      on delete restrict on update restrict;
+ALTER TABLE MATIERE
+ADD CONSTRAINT FK_MATIERE_COMPORTER_BLOC FOREIGN KEY (MATIERE_FK_BLOC_ID)
+REFERENCES BLOC (BLOC_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /*==============================================================*/
 /* Table : COM_CAP                                              */
 /*==============================================================*/
-create table COM_CAP (
-   COM_CAP_ID           SERIAL               not null,
-   COM_CAP_LIBELLE      CHARACTER VARYING(350)         not null,
-   constraint PK_COM_CAP primary key (COM_CAP_ID)
+CREATE TABLE COM_CAP (
+  COM_CAP_ID      SERIAL                 NOT NULL,
+  COM_CAP_LIBELLE CHARACTER VARYING(350) NOT NULL,
+  CONSTRAINT PK_COM_CAP PRIMARY KEY (COM_CAP_ID)
 );
 
 /*==============================================================*/
 /* Table : ASSOC_COM_CAP                                        */
 /*==============================================================*/
-create table ASSOC_COM_CAP (
-	ASSOC_COM_CAP_ID	SERIAL not null,
-   ASSOC_COM_CAP_FK_COM_ID               INT                 not null,
-   ASSOC_COM_CAP_FK_CAP_ID               INT                 not null,
-   constraint PK_ASSOC_COM_CAP primary key (ASSOC_COM_CAP_FK_COM_ID,ASSOC_COM_CAP_FK_CAP_ID)
+CREATE TABLE ASSOC_COM_CAP (
+  ASSOC_COM_CAP_ID        SERIAL NOT NULL,
+  ASSOC_COM_CAP_FK_COM_ID INT    NOT NULL,
+  ASSOC_COM_CAP_FK_CAP_ID INT    NOT NULL,
+  CONSTRAINT PK_ASSOC_COM_CAP PRIMARY KEY (ASSOC_COM_CAP_FK_COM_ID, ASSOC_COM_CAP_FK_CAP_ID)
 );
 
-alter table ASSOC_COM_CAP
-   add constraint FK_ASSOC_CO_A_POUR_CO_COM_CAP foreign key (ASSOC_COM_CAP_FK_CAP_ID)
-      references COM_CAP (COM_CAP_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_COM_CAP
+ADD CONSTRAINT FK_ASSOC_CO_A_POUR_CO_COM_CAP FOREIGN KEY (ASSOC_COM_CAP_FK_CAP_ID)
+REFERENCES COM_CAP (COM_CAP_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASSOC_COM_CAP
-   add constraint FK_ASSOC_CO_EST_UNE_C_COM_CAP foreign key (ASSOC_COM_CAP_FK_COM_ID)
-      references COM_CAP (COM_CAP_ID)
-      on delete restrict on update restrict;
-
-/*==============================================================*/
-/* Table : PERSONNE                                             */
-/*==============================================================*/
-create table PERSONNE (
-   PERSONNE_ID          SERIAL               not null,
-   PERSONNE_LOGIN                CHARACTER VARYING(150)         not null,
-   PERSONNE_PASSWORD             CHARACTER VARYING(150)         not null,
-   PERSONNE_NOM                  CHARACTER VARYING(150)         not null,
-   PERSONNE_PRENOM               CHARACTER VARYING(150)         not null,
-   PERSONNE_DATE_NAISSANCE       DATE                 ,
-   PERSONNE_ADRESSE              CHARACTER VARYING(300)         ,
-   PERSONNE_CP                   CHARACTER VARYING(5)          ,
-   PERSONNE_VILLE                CHARACTER VARYING(150)         ,
-   constraint PK_PERSONNE primary key (PERSONNE_ID)
-);
-
-/*==============================================================*/
-/* Table : ELEVE                                                */
-/*==============================================================*/
-create table ELEVE (
-   ELEVE_EMAIL_PARENT         CHARACTER VARYING(150)         ,
-   constraint PK_ELEVE primary key (PERSONNE_ID)
-)inherits(PERSONNE);
-
-/*==============================================================*/
-/* Table : EMPLOYE                                              */
-/*==============================================================*/
-create table EMPLOYE (
-   constraint PK_EMPLOYE primary key (PERSONNE_ID)
-)inherits(PERSONNE);
+ALTER TABLE ASSOC_COM_CAP
+ADD CONSTRAINT FK_ASSOC_CO_EST_UNE_C_COM_CAP FOREIGN KEY (ASSOC_COM_CAP_FK_COM_ID)
+REFERENCES COM_CAP (COM_CAP_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /*==============================================================*/
 /* Table : GROUPE                                               */
 /*==============================================================*/
-create table GROUPE (
-   GROUPE_ID            SERIAL               not null,
-   GROUPE_LIBELLE       CHARACTER VARYING(100)         not null,
-   constraint PK_GROUPE primary key (GROUPE_ID)
+CREATE TABLE GROUPE (
+  GROUPE_ID          SERIAL                 NOT NULL,
+  GROUPE_LIBELLE     CHARACTER VARYING(100) NOT NULL,
+  GROUPE_NIVEAUACCES INT2                   NOT NULL,
+  CONSTRAINT PK_GROUPE PRIMARY KEY (GROUPE_ID)
 );
 
 /*==============================================================*/
 /* Table : DROIT                                                */
 /*==============================================================*/
-create table DROIT (
-   DROIT_ID             SERIAL               not null,
-   DROIT_FK_GROUPE_ID         INT                 not null,
-   DROIT_UNITE               CHARACTER VARYING(250)         not null,
-   DROIT_DROIT                CHARACTER VARYING(3)           not null,
-   constraint PK_DROIT primary key (DROIT_ID)
+CREATE TABLE DROIT (
+  DROIT_ID           SERIAL                 NOT NULL,
+  DROIT_FK_GROUPE_ID INT                    NOT NULL,
+  DROIT_UNITE        CHARACTER VARYING(250) NOT NULL,
+  DROIT_LECTURE      INT2                   NOT NULL,
+  DROIT_ECRITURE     INT2                   NOT NULL,
+  CONSTRAINT PK_DROIT PRIMARY KEY (DROIT_ID)
 );
 
-alter table DROIT
-   add constraint FK_DROIT_DONNER_GROUPE foreign key (DROIT_FK_GROUPE_ID)
-      references GROUPE (GROUPE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE DROIT
+ADD CONSTRAINT FK_DROIT_DONNER_GROUPE FOREIGN KEY (DROIT_FK_GROUPE_ID)
+REFERENCES GROUPE (GROUPE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
+CREATE INDEX droit_unite_index ON public.droit (droit_unite);
 
+/*==============================================================*/
+/* Table : PERSONNE                                             */
+/*==============================================================*/
+CREATE TABLE PERSONNE (
+  PERSONNE_ID             SERIAL                 NOT NULL,
+  PERSONNE_LOGIN          CHARACTER VARYING(150) NOT NULL,
+  PERSONNE_PASSWORD       CHARACTER VARYING(150) NOT NULL,
+  PERSONNE_NOM            CHARACTER VARYING(150) NOT NULL,
+  PERSONNE_PRENOM         CHARACTER VARYING(150) NOT NULL,
+  PERSONNE_DATE_NAISSANCE DATE,
+  PERSONNE_ADRESSE        CHARACTER VARYING(300),
+  PERSONNE_CP             CHARACTER VARYING(5),
+  PERSONNE_VILLE          CHARACTER VARYING(150),
+  PERSONNE_FK_GROUPE_ID   INT                    NOT NULL,
+  CONSTRAINT PK_PERSONNE PRIMARY KEY (PERSONNE_ID)
+);
+
+
+ALTER TABLE PERSONNE
+ADD CONSTRAINT FK_PERSONNE_AFFILIER_GROUPE FOREIGN KEY (PERSONNE_FK_GROUPE_ID)
+REFERENCES GROUPE (GROUPE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+/*==============================================================*/
+/* Table : ELEVE                                                */
+/*==============================================================*/
+CREATE TABLE ELEVE (
+  ELEVE_EMAIL_PARENT CHARACTER VARYING(150),
+  CONSTRAINT PK_ELEVE PRIMARY KEY (PERSONNE_ID)
+)
+  INHERITS (PERSONNE);
+/* Faut t'il refaire la contrainte vers groupe sur les heritage?*/
+
+/*==============================================================*/
+/* Table : EMPLOYE                                              */
+/*==============================================================*/
+CREATE TABLE EMPLOYE (
+  CONSTRAINT PK_EMPLOYE PRIMARY KEY (PERSONNE_ID)
+)
+  INHERITS (PERSONNE);
 
 /*==============================================================*/
 /* Table : CLASSROOM                                               */
 /*==============================================================*/
-create table CLASSROOM (
-   CLASSROOM_ID            SERIAL               not null,
-   CLASSROOM_FK_FILIERE_ID        INT                 not null,
-   CLASSROOM_FK_NIVEAU_ID         INT                 not null,
-   CLASSROOM_FK_PERSONNE_MANAGER_ID        INT                 not null,
-   CLASSROOM_LIBELLE       CHARACTER VARYING(100)         not null,
-   constraint PK_CLASSROOM primary key (CLASSROOM_ID)
+CREATE TABLE CLASSROOM (
+  CLASSROOM_ID                     SERIAL                 NOT NULL,
+  CLASSROOM_FK_FILIERE_ID          INT                    NOT NULL,
+  CLASSROOM_FK_NIVEAU_ID           INT                    NOT NULL,
+  CLASSROOM_FK_PERSONNE_MANAGER_ID INT                    NOT NULL,
+  CLASSROOM_LIBELLE                CHARACTER VARYING(100) NOT NULL,
+  CONSTRAINT PK_CLASSROOM PRIMARY KEY (CLASSROOM_ID)
 );
 
-alter table CLASSROOM
-   add constraint FK_CLASSROOM_AFFILIER_NIVEAU foreign key (CLASSROOM_FK_NIVEAU_ID)
-      references NIVEAU (NIVEAU_ID)
-      on delete restrict on update restrict;
+ALTER TABLE CLASSROOM
+ADD CONSTRAINT FK_CLASSROOM_AFFILIER_NIVEAU FOREIGN KEY (CLASSROOM_FK_NIVEAU_ID)
+REFERENCES NIVEAU (NIVEAU_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table CLASSROOM
-   add constraint FK_CLASSROOM_APPARTENI_FILIERE foreign key (CLASSROOM_FK_FILIERE_ID)
-      references FILIERE (FILIERE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE CLASSROOM
+ADD CONSTRAINT FK_CLASSROOM_APPARTENI_FILIERE FOREIGN KEY (CLASSROOM_FK_FILIERE_ID)
+REFERENCES FILIERE (FILIERE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table CLASSROOM
-   add constraint FK_CLASSROOM_A_MANAGER foreign key (CLASSROOM_FK_PERSONNE_MANAGER_ID)
-      references EMPLOYE (PERSONNE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE CLASSROOM
+ADD CONSTRAINT FK_CLASSROOM_A_MANAGER FOREIGN KEY (CLASSROOM_FK_PERSONNE_MANAGER_ID)
+REFERENCES EMPLOYE (PERSONNE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
 /*==============================================================*/
 /* Table : BILAN                                                */
 /*==============================================================*/
-create table BILAN (
-   BILAN_ID             SERIAL               not null,
-   BILAN_FK_PERSONNE_ID       INT                 not null,
-   BILAN_LIBELLE        CHARACTER VARYING(150)         not null,
-   BILAN_COMMENTAIRE        CHARACTER VARYING(255)         not null,
-   BILAN_DATE_DEBUT           DATE                 not null,
-   BILAN_DATE_FIN             DATE                 not null,
-   constraint PK_BILAN primary key (BILAN_ID)
+CREATE TABLE BILAN (
+  BILAN_ID             SERIAL                 NOT NULL,
+  BILAN_FK_PERSONNE_ID INT                    NOT NULL,
+  BILAN_LIBELLE        CHARACTER VARYING(150) NOT NULL,
+  BILAN_COMMENTAIRE    CHARACTER VARYING(255) NOT NULL,
+  BILAN_DATE_DEBUT     DATE                   NOT NULL,
+  BILAN_DATE_FIN       DATE                   NOT NULL,
+  CONSTRAINT PK_BILAN PRIMARY KEY (BILAN_ID)
 );
 
-alter table BILAN
-   add constraint FK_BILAN_RECEVOIR_ELEVE foreign key (BILAN_FK_PERSONNE_ID)
-      references ELEVE (PERSONNE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE BILAN
+ADD CONSTRAINT FK_BILAN_RECEVOIR_ELEVE FOREIGN KEY (BILAN_FK_PERSONNE_ID)
+REFERENCES ELEVE (PERSONNE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /*==============================================================*/
 /* Table : NOTE                                                 */
 /*==============================================================*/
-create table NOTE (
-   NOTE_ID              SERIAL               not null,
-   NOTE_ABVR         		CHARACTER VARYING(3)         not null,
-   NOTE_LIBELLE         CHARACTER VARYING(100)         not null,
-   NOTE_VALEUR 		 INT                 not null,
-   NOTE_COULEUR              CHARACTER VARYING(7)           not null,
-   constraint PK_NOTE primary key (NOTE_ID)
+CREATE TABLE NOTE (
+  NOTE_ID      SERIAL                 NOT NULL,
+  NOTE_ABVR    CHARACTER VARYING(3)   NOT NULL,
+  NOTE_LIBELLE CHARACTER VARYING(100) NOT NULL,
+  NOTE_VALEUR  INT                    NOT NULL,
+  NOTE_COULEUR CHARACTER VARYING(7)   NOT NULL,
+  CONSTRAINT PK_NOTE PRIMARY KEY (NOTE_ID)
 );
 
 
 /*==============================================================*/
 /* Table : FILIERE_BLOC                                         */
 /*==============================================================*/
-create table ASSOC_FILIERE_BLOC (
-	ASSOC_FILIERE_BLOC_ID SERIAL not null,
-   ASSOC_FILIERE_BLOC_FK_FILIERE_ID           INT                 not null,
-   ASSOC_FILIERE_BLOC_FK_BLOC_ID              INT                 not null,
-   constraint PK_FILIERE_BLOC primary key (ASSOC_FILIERE_BLOC_FK_FILIERE_ID, ASSOC_FILIERE_BLOC_FK_BLOC_ID)
+CREATE TABLE ASSOC_FILIERE_BLOC (
+  ASSOC_FILIERE_BLOC_ID            SERIAL NOT NULL,
+  ASSOC_FILIERE_BLOC_FK_FILIERE_ID INT    NOT NULL,
+  ASSOC_FILIERE_BLOC_FK_BLOC_ID    INT    NOT NULL,
+  CONSTRAINT PK_FILIERE_BLOC PRIMARY KEY (ASSOC_FILIERE_BLOC_FK_FILIERE_ID, ASSOC_FILIERE_BLOC_FK_BLOC_ID)
 );
 
-alter table ASSOC_FILIERE_BLOC
-   add constraint FK_FILIERE__LIER_BLOC foreign key (ASSOC_FILIERE_BLOC_FK_BLOC_ID)
-      references BLOC (BLOC_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_FILIERE_BLOC
+ADD CONSTRAINT FK_FILIERE__LIER_BLOC FOREIGN KEY (ASSOC_FILIERE_BLOC_FK_BLOC_ID)
+REFERENCES BLOC (BLOC_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASSOC_FILIERE_BLOC
-   add constraint FK_FILIERE__LIER2_FILIERE foreign key (ASSOC_FILIERE_BLOC_FK_FILIERE_ID)
-      references FILIERE (FILIERE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_FILIERE_BLOC
+ADD CONSTRAINT FK_FILIERE__LIER2_FILIERE FOREIGN KEY (ASSOC_FILIERE_BLOC_FK_FILIERE_ID)
+REFERENCES FILIERE (FILIERE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /*==============================================================*/
 /* Table : MATIERE_COM_CAP                                      */
 /*==============================================================*/
-create table ASSOC_MATIERE_COM_CAP (
-	ASSOC_MATIERE_COM_CAP_ID SERIAL not null,
-   ASSOC_MATIERE_COM_CAP_FK_MATIERE_ID           INT                 not null,
-   ASSOC_MATIERE_COM_CAP_FK_COMPETENCE_ID          INT                 not null,
-   constraint PK_MATIERE_COM_CAP primary key (ASSOC_MATIERE_COM_CAP_FK_MATIERE_ID, ASSOC_MATIERE_COM_CAP_FK_COMPETENCE_ID)
+CREATE TABLE ASSOC_MATIERE_COM_CAP (
+  ASSOC_MATIERE_COM_CAP_ID               SERIAL NOT NULL,
+  ASSOC_MATIERE_COM_CAP_FK_MATIERE_ID    INT    NOT NULL,
+  ASSOC_MATIERE_COM_CAP_FK_COMPETENCE_ID INT    NOT NULL,
+  CONSTRAINT PK_MATIERE_COM_CAP PRIMARY KEY (ASSOC_MATIERE_COM_CAP_FK_MATIERE_ID, ASSOC_MATIERE_COM_CAP_FK_COMPETENCE_ID)
 );
 
-alter table ASSOC_MATIERE_COM_CAP
-   add constraint FK_MATIERE__POSSEDER_COM_CAP foreign key (ASSOC_MATIERE_COM_CAP_FK_COMPETENCE_ID)
-      references COM_CAP (COM_CAP_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_MATIERE_COM_CAP
+ADD CONSTRAINT FK_MATIERE__POSSEDER_COM_CAP FOREIGN KEY (ASSOC_MATIERE_COM_CAP_FK_COMPETENCE_ID)
+REFERENCES COM_CAP (COM_CAP_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASSOC_MATIERE_COM_CAP
-   add constraint FK_MATIERE__POSSEDER2_MATIERE foreign key (ASSOC_MATIERE_COM_CAP_FK_MATIERE_ID)
-      references MATIERE (MATIERE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_MATIERE_COM_CAP
+ADD CONSTRAINT FK_MATIERE__POSSEDER2_MATIERE FOREIGN KEY (ASSOC_MATIERE_COM_CAP_FK_MATIERE_ID)
+REFERENCES MATIERE (MATIERE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /*==============================================================*/
-/* Table : ASSOC_EMPLOYE_GROUPE                                       */
+/* Table : ASSOC_EMPLOYE_GROUPE                                 */
 /*==============================================================*/
-create table ASSOC_EMPLOYE_GROUPE (
+/* MAJ 13/03 */
+/*  Une personne ne peut pas avoir plusieurs groupe */
+/*create table ASSOC_EMPLOYE_GROUPE (
 	ASSOC_EMPLOYE_GROUPE_ID SERIAL not null,
    ASSOC_EMPLOYE_GROUPE_FK_PERSONNE_ID          INT                 not null,
    ASSOC_EMPLOYE_GROUPE_FK_GROUPE_ID            INT                 not null,
@@ -300,121 +314,121 @@ alter table ASSOC_EMPLOYE_GROUPE
    add constraint FK_EMPLOYE__AVOIR2_EMPLOYE foreign key (ASSOC_EMPLOYE_GROUPE_FK_PERSONNE_ID)
       references EMPLOYE (PERSONNE_ID)
       on delete restrict on update restrict;
-
+*/
 /*==============================================================*/
 /* Table : ASSOC_ENSEIGNER                                            */
 /*==============================================================*/
-create table ASSOC_ENSEIGNER (
-	ASSOC_ENSEIGNER_ID SERIAL not null,
-   ASSOC_ENSEIGNER_FK_PERSONNE_ID          INT                 not null,
-   ASSOC_ENSEIGNER_FK_CLASSROOM_ID            INT                 not null,
-   ASSOC_ENSEIGNER_FK_MATIERE_ID           INT                 not null,
-   ASSOC_ENSEIGNER_FK_PROMO_ENSEIGNEMENT_ID   INT              not null,
-   constraint PK_ENSEIGNER primary key (ASSOC_ENSEIGNER_FK_PERSONNE_ID, ASSOC_ENSEIGNER_FK_CLASSROOM_ID, ASSOC_ENSEIGNER_FK_MATIERE_ID,ASSOC_ENSEIGNER_FK_PROMO_ENSEIGNEMENT_ID)
+CREATE TABLE ASSOC_ENSEIGNER (
+  ASSOC_ENSEIGNER_ID                       SERIAL NOT NULL,
+  ASSOC_ENSEIGNER_FK_PERSONNE_ID           INT    NOT NULL,
+  ASSOC_ENSEIGNER_FK_CLASSROOM_ID          INT    NOT NULL,
+  ASSOC_ENSEIGNER_FK_MATIERE_ID            INT    NOT NULL,
+  ASSOC_ENSEIGNER_FK_PROMO_ENSEIGNEMENT_ID INT    NOT NULL,
+  CONSTRAINT PK_ENSEIGNER PRIMARY KEY (ASSOC_ENSEIGNER_FK_PERSONNE_ID, ASSOC_ENSEIGNER_FK_CLASSROOM_ID, ASSOC_ENSEIGNER_FK_MATIERE_ID, ASSOC_ENSEIGNER_FK_PROMO_ENSEIGNEMENT_ID)
 );
 
-alter table ASSOC_ENSEIGNER
-   add constraint FK_ENSEIGNE_ENSEIGNE_MATIERE foreign key (ASSOC_ENSEIGNER_FK_MATIERE_ID)
-      references MATIERE (MATIERE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_ENSEIGNER
+ADD CONSTRAINT FK_ENSEIGNE_ENSEIGNE_MATIERE FOREIGN KEY (ASSOC_ENSEIGNER_FK_MATIERE_ID)
+REFERENCES MATIERE (MATIERE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASSOC_ENSEIGNER
-   add constraint FK_ENSEIGNE_ENSEIGNE2_EMPLOYE foreign key (ASSOC_ENSEIGNER_FK_PERSONNE_ID)
-      references EMPLOYE (PERSONNE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_ENSEIGNER
+ADD CONSTRAINT FK_ENSEIGNE_ENSEIGNE2_EMPLOYE FOREIGN KEY (ASSOC_ENSEIGNER_FK_PERSONNE_ID)
+REFERENCES EMPLOYE (PERSONNE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASSOC_ENSEIGNER
-   add constraint FK_ENSEIGNE_ENSEIGNE3_CLASSROOM foreign key (ASSOC_ENSEIGNER_FK_CLASSROOM_ID)
-      references CLASSROOM (CLASSROOM_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_ENSEIGNER
+ADD CONSTRAINT FK_ENSEIGNE_ENSEIGNE3_CLASSROOM FOREIGN KEY (ASSOC_ENSEIGNER_FK_CLASSROOM_ID)
+REFERENCES CLASSROOM (CLASSROOM_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASSOC_ENSEIGNER
-   add constraint FK_ENSEIGNE_ENSEIGNE4_CLASSROOM foreign key (ASSOC_ENSEIGNER_FK_PROMO_ENSEIGNEMENT_ID)
-      references PROMO (PROMO_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_ENSEIGNER
+ADD CONSTRAINT FK_ENSEIGNE_ENSEIGNE4_CLASSROOM FOREIGN KEY (ASSOC_ENSEIGNER_FK_PROMO_ENSEIGNEMENT_ID)
+REFERENCES PROMO (PROMO_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /*==============================================================*/
 /* Table : ASSOC_ETUDIER                                              */
 /*==============================================================*/
-create table ASSOC_ETUDIER (
-	ASSOC_ETUDIER_ID SERIAL not null,
-   ASSOC_ETUDIER_FK_PERSONNE_ID          INT                 not null,
-   ASSOC_ETUDIER_FK_CLASSROOM_ID            INT                 not null,
-   ASSOC_ETUDIER_FK_PROMO_ETUDIANT_ID          INT               not null,
-   constraint PK_ETUDIER primary key (ASSOC_ETUDIER_FK_PERSONNE_ID, ASSOC_ETUDIER_FK_CLASSROOM_ID, ASSOC_ETUDIER_FK_PROMO_ETUDIANT_ID)
+CREATE TABLE ASSOC_ETUDIER (
+  ASSOC_ETUDIER_ID                   SERIAL NOT NULL,
+  ASSOC_ETUDIER_FK_PERSONNE_ID       INT    NOT NULL,
+  ASSOC_ETUDIER_FK_CLASSROOM_ID      INT    NOT NULL,
+  ASSOC_ETUDIER_FK_PROMO_ETUDIANT_ID INT    NOT NULL,
+  CONSTRAINT PK_ETUDIER PRIMARY KEY (ASSOC_ETUDIER_FK_PERSONNE_ID, ASSOC_ETUDIER_FK_CLASSROOM_ID, ASSOC_ETUDIER_FK_PROMO_ETUDIANT_ID)
 );
 
-alter table ASSOC_ETUDIER
-   add constraint FK_ETUDIER_ETUDIER_CLASSROOM foreign key (ASSOC_ETUDIER_FK_CLASSROOM_ID)
-      references CLASSROOM (CLASSROOM_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_ETUDIER
+ADD CONSTRAINT FK_ETUDIER_ETUDIER_CLASSROOM FOREIGN KEY (ASSOC_ETUDIER_FK_CLASSROOM_ID)
+REFERENCES CLASSROOM (CLASSROOM_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASSOC_ETUDIER
-   add constraint FK_ETUDIER_ETUDIER2_ELEVE foreign key (ASSOC_ETUDIER_FK_PERSONNE_ID)
-      references ELEVE (PERSONNE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_ETUDIER
+ADD CONSTRAINT FK_ETUDIER_ETUDIER2_ELEVE FOREIGN KEY (ASSOC_ETUDIER_FK_PERSONNE_ID)
+REFERENCES ELEVE (PERSONNE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-	  alter table ASSOC_ETUDIER
-   add constraint FK_ETUDIER_ETUDIER3_ELEVE foreign key (ASSOC_ETUDIER_FK_PROMO_ETUDIANT_ID)
-      references PROMO (PROMO_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_ETUDIER
+ADD CONSTRAINT FK_ETUDIER_ETUDIER3_ELEVE FOREIGN KEY (ASSOC_ETUDIER_FK_PROMO_ETUDIANT_ID)
+REFERENCES PROMO (PROMO_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /*==============================================================*/
 /* Table : ASSOC_EVALUER                                              */
 /*==============================================================*/
-create table ASSOC_EVALUER (
-   ASSOC_EVALUER_ID SERIAL not null,
-   ASSOC_EVALUER_FK_PERSONNE_EMP_ID      INT                 not null,
-   ASSOC_EVALUER_FK_PERSONNE_ELE_ID      INT                 not null,
-   ASSOC_EVALUER_FK_COM_CAP_ID           INT                 not null,
-   ASSOC_EVALUER_FK_NOTE_EMP_ID       INT                 null,
-   ASSOC_EVALUER_FK_NOTE_ELE_ID          INT                 not null,
-   ASSOC_EVALUER_DATE_EVALUATION      DATE                 not null,
-   constraint PK_EVALUER primary key (ASSOC_EVALUER_ID)
+CREATE TABLE ASSOC_EVALUER (
+  ASSOC_EVALUER_ID                 SERIAL NOT NULL,
+  ASSOC_EVALUER_FK_PERSONNE_EMP_ID INT    NOT NULL,
+  ASSOC_EVALUER_FK_PERSONNE_ELE_ID INT    NOT NULL,
+  ASSOC_EVALUER_FK_COM_CAP_ID      INT    NOT NULL,
+  ASSOC_EVALUER_FK_NOTE_EMP_ID     INT    NULL,
+  ASSOC_EVALUER_FK_NOTE_ELE_ID     INT    NOT NULL,
+  ASSOC_EVALUER_DATE_EVALUATION    DATE   NOT NULL,
+  CONSTRAINT PK_EVALUER PRIMARY KEY (ASSOC_EVALUER_ID)
 );
 
-alter table ASSOC_EVALUER
-   add constraint FK_EVALUER_EVALUER_COM_CAP foreign key (ASSOC_EVALUER_FK_COM_CAP_ID)
-      references COM_CAP (COM_CAP_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_EVALUER
+ADD CONSTRAINT FK_EVALUER_EVALUER_COM_CAP FOREIGN KEY (ASSOC_EVALUER_FK_COM_CAP_ID)
+REFERENCES COM_CAP (COM_CAP_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASSOC_EVALUER
-   add constraint FK_EVALUER_EVALUER2_ELEVE foreign key (ASSOC_EVALUER_FK_PERSONNE_ELE_ID)
-      references ELEVE (PERSONNE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_EVALUER
+ADD CONSTRAINT FK_EVALUER_EVALUER2_ELEVE FOREIGN KEY (ASSOC_EVALUER_FK_PERSONNE_ELE_ID)
+REFERENCES ELEVE (PERSONNE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASSOC_EVALUER
-   add constraint FK_EVALUER_EVALUER3_EMPLOYE foreign key (ASSOC_EVALUER_FK_PERSONNE_EMP_ID)
-      references EMPLOYE (PERSONNE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_EVALUER
+ADD CONSTRAINT FK_EVALUER_EVALUER3_EMPLOYE FOREIGN KEY (ASSOC_EVALUER_FK_PERSONNE_EMP_ID)
+REFERENCES EMPLOYE (PERSONNE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASSOC_EVALUER
-   add constraint FK_EVALUER_EVALUER4_NOTE foreign key (ASSOC_EVALUER_FK_NOTE_EMP_ID)
-      references NOTE (NOTE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_EVALUER
+ADD CONSTRAINT FK_EVALUER_EVALUER4_NOTE FOREIGN KEY (ASSOC_EVALUER_FK_NOTE_EMP_ID)
+REFERENCES NOTE (NOTE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASSOC_EVALUER
-   add constraint FK_EVALUER_EVALUER5_NOTE foreign key (ASSOC_EVALUER_FK_NOTE_ELE_ID)
-      references NOTE (NOTE_ID)
-      on delete restrict on update restrict;
+ALTER TABLE ASSOC_EVALUER
+ADD CONSTRAINT FK_EVALUER_EVALUER5_NOTE FOREIGN KEY (ASSOC_EVALUER_FK_NOTE_ELE_ID)
+REFERENCES NOTE (NOTE_ID)
+ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /*==============================================================*/
 /* Table : PARAMETRE                                            */
 /*==============================================================*/
-create table PARAMETRE (
-   PARAMETRE_ID            SERIAL               not null,
-   PARAMETRE_LIBELLE       CHARACTER VARYING(50)         not null,
-   PARAMETRE_VALEUR        CHARACTER VARYING(255)         not null,
-   constraint PK_PARAMETRE primary key (PARAMETRE_ID)
+CREATE TABLE PARAMETRE (
+  PARAMETRE_ID      SERIAL                 NOT NULL,
+  PARAMETRE_LIBELLE CHARACTER VARYING(50)  NOT NULL,
+  PARAMETRE_VALEUR  CHARACTER VARYING(255) NOT NULL,
+  CONSTRAINT PK_PARAMETRE PRIMARY KEY (PARAMETRE_ID)
 );
 
 /*==============================================================*/
 /* Table : STATISTIQUE                                          */
 /*==============================================================*/
-create table STATISTIQUE (
-   STATISTIQUE_ID              SERIAL               not null,
-   STATISTIQUE_LIBELLE         CHARACTER VARYING(150)         not null,
-   STATISTIQUE_VALEUR          CHARACTER VARYING(150)         not null,
-   STATISTIQUE_DATE_STAT            TIMESTAMP                 not null,
-   constraint PK_STATISTIQUE primary key (STATISTIQUE_ID)
+CREATE TABLE STATISTIQUE (
+  STATISTIQUE_ID        SERIAL                 NOT NULL,
+  STATISTIQUE_LIBELLE   CHARACTER VARYING(150) NOT NULL,
+  STATISTIQUE_VALEUR    CHARACTER VARYING(150) NOT NULL,
+  STATISTIQUE_DATE_STAT TIMESTAMP              NOT NULL,
+  CONSTRAINT PK_STATISTIQUE PRIMARY KEY (STATISTIQUE_ID)
 );

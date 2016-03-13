@@ -21,13 +21,13 @@ public class Groupe implements Serializable {
     @Column(name = "groupe_libelle")
     private String groupeLibelle;
 
-    //bi-directional many-to-one association to AssocEmployeGroupe
-    @OneToMany(mappedBy = "groupe", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<AssocEmployeGroupe> assocEmployeGroupes;
+    @Column(name = "groupe_niveauacces")
+    private Integer groupeNiveauAcces;
 
-    //bi-directional many-to-one association to Droit
+    //bi-directional many-to-one association to Personne
     @OneToMany(mappedBy = "groupe", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Droit> droits;
+    private List<Personne> personnes;
+
 
     public Groupe() {
     }
@@ -48,48 +48,35 @@ public class Groupe implements Serializable {
         this.groupeLibelle = groupeLibelle;
     }
 
-    public List<AssocEmployeGroupe> getAssocEmployeGroupes() {
-        return this.assocEmployeGroupes;
+    public Integer getGroupeNiveauAcces() {
+        return this.groupeNiveauAcces;
     }
 
-    public void setAssocEmployeGroupes(List<AssocEmployeGroupe> assocEmployeGroupes) {
-        this.assocEmployeGroupes = assocEmployeGroupes;
+    public void setGroupeNiveauAcces(Integer groupeNiveauAcces) {
+        this.groupeNiveauAcces = groupeNiveauAcces;
     }
 
-    public AssocEmployeGroupe addAssocEmployeGroupe(AssocEmployeGroupe assocEmployeGroupe) {
-        getAssocEmployeGroupes().add(assocEmployeGroupe);
-        assocEmployeGroupe.setGroupe(this);
-
-        return assocEmployeGroupe;
+    public List<Personne> getPersonnes() {
+        return this.personnes;
     }
 
-    public AssocEmployeGroupe removeAssocEmployeGroupe(AssocEmployeGroupe assocEmployeGroupe) {
-        getAssocEmployeGroupes().remove(assocEmployeGroupe);
-        assocEmployeGroupe.setGroupe(null);
-
-        return assocEmployeGroupe;
+    public void setPersonnes(List<Personne> personnes) {
+        this.personnes = personnes;
     }
 
-    public List<Droit> getDroits() {
-        return this.droits;
+    public Personne addPersonne(Personne personne) {
+        getPersonnes().add(personne);
+        personne.setGroupe(this);
+
+        return personne;
     }
 
-    public void setDroits(List<Droit> droits) {
-        this.droits = droits;
+    public Personne removePersonne(Personne personne) {
+        getPersonnes().remove(personne);
+        personne.setGroupe(null);
+
+        return personne;
     }
 
-    public Droit addDroit(Droit droit) {
-        getDroits().add(droit);
-        droit.setGroupe(this);
-
-        return droit;
-    }
-
-    public Droit removeDroit(Droit droit) {
-        getDroits().remove(droit);
-        droit.setGroupe(null);
-
-        return droit;
-    }
 
 }

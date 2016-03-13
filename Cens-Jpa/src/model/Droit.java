@@ -1,67 +1,81 @@
 package model;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 /**
  * The persistent class for the droit database table.
- * 
  */
 @Entity
-@NamedQuery(name="Droit.findAll", query="SELECT d FROM Droit d")
+@NamedQueries({
+        @NamedQuery(name = "Droit.findAll", query = "SELECT d FROM Droit d"),
+        @NamedQuery(name = "Droit.findByUnite", query = "SELECT d FROM Droit d WHERE d.droitUnite = :pathh")
+})
 public class Droit implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="droit_id")
-	private Integer droitId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "droit_id")
+    private Integer droitId;
 
-	@Column(name="droit_droit")
-	private String droitDroit;
+    @Column(name = "droit_unite")
+    private String droitUnite;
 
-	@Column(name="droit_unite")
-	private String droitUnite;
+    @Column(name = "droit_lecture")
+    private Integer droitLecture;
 
-	//bi-directional many-to-one association to Groupe
-	@ManyToOne
-	@JoinColumn(name="droit_fk_groupe_id")
-	private Groupe groupe;
+    @Column(name = "droit_ecriture")
+    private Integer droitEcriture;
 
-	public Droit() {
-	}
 
-	public Integer getDroitId() {
-		return this.droitId;
-	}
+    //bi-directional many-to-one association to Groupe
+    @ManyToOne
+    @JoinColumn(name = "droit_fk_groupe_id")
+    private Groupe groupe;
 
-	public void setDroitId(Integer droitId) {
-		this.droitId = droitId;
-	}
+    public Droit() {
+    }
 
-	public String getDroitDroit() {
-		return this.droitDroit;
-	}
+    public Integer getDroitId() {
+        return this.droitId;
+    }
 
-	public void setDroitDroit(String droitDroit) {
-		this.droitDroit = droitDroit;
-	}
+    public void setDroitId(Integer droitId) {
+        this.droitId = droitId;
+    }
 
-	public String getDroitUnite() {
-		return this.droitUnite;
-	}
+    public Integer getDroitLecture() {
+        return this.droitLecture;
+    }
 
-	public void setDroitUnite(String droitUnite) {
-		this.droitUnite = droitUnite;
-	}
+    public void setDroitLecture(Integer droitLecture) {
+        this.droitLecture = droitLecture;
+    }
 
-	public Groupe getGroupe() {
-		return this.groupe;
-	}
+    public Integer getDroitEcriture() {
+        return this.droitEcriture;
+    }
 
-	public void setGroupe(Groupe groupe) {
-		this.groupe = groupe;
-	}
+    public void setDroitEcriture(Integer droitEcriture) {
+        this.droitEcriture = droitEcriture;
+    }
+
+    public String getDroitUnite() {
+        return this.droitUnite;
+    }
+
+    public void setDroitUnite(String droitUnite) {
+        this.droitUnite = droitUnite;
+    }
+
+    public Groupe getGroupe() {
+        return this.groupe;
+    }
+
+    public void setGroupe(Groupe groupe) {
+        this.groupe = groupe;
+    }
 
 }

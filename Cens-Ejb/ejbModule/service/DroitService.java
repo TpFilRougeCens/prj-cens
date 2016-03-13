@@ -85,7 +85,6 @@ public class DroitService {
     public boolean update(Droit droit) {
         try {
             entityManager.merge(droit);
-            //System.out.println("ID Update = " + droit.getDroitId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,4 +92,13 @@ public class DroitService {
         }
     }
 
+    public Integer findNiveauLecture(String idModule) {
+        Droit droit = (Droit) entityManager.createNamedQuery("Droit.findByUnite").getSingleResult();
+        return droit.getDroitLecture();
+    }
+
+    public Integer findNiveauEcriture(String idModule) {
+        Droit droit = (Droit) entityManager.createNamedQuery("Droit.findByUnite").getSingleResult();
+        return droit.getDroitEcriture();
+    }
 }

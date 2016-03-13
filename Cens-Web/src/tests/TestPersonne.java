@@ -1,7 +1,12 @@
 package tests;
 
 
+import model.Eleve;
+import model.Groupe;
 import model.Personne;
+import service.EleveService;
+import service.EmployeService;
+import service.GroupeService;
 import service.PersonneService;
 
 import javax.ejb.EJB;
@@ -20,6 +25,13 @@ public class TestPersonne extends HttpServlet {
 
     @EJB
     PersonneService personneService;
+    @EJB
+    EmployeService employeService;
+    @EJB
+    EleveService eleveService;
+    @EJB
+    GroupeService groupeService;
+
 
     public TestPersonne() {
         super();
@@ -29,24 +41,30 @@ public class TestPersonne extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // Liste des personnes
-        List<Personne> desPersonnes = personneService.findAll();
+        List<Personne> desPersonnes = eleveService.findAll();
         for (Personne hop : desPersonnes) {
             System.out.println(hop.getPersonneId());
         }
 
+
         // Trouver une personne avec son login et pass
-        Personne az = new Personne();
-        az = personneService.findOne("login22", "pass1");
+//        Personne az = new Eleve();
+//        az = personneService.findOne(2);
+//        System.out.println(az.getPersonneLogin());
 
-//        if (az != null) {
-//            System.out.println("ok");
-//        } else {
-//            System.out.println("non");
-//        }
+        Groupe groupe = groupeService.findOne(3);
 
-        // Trouver
-        personneService.fonctionUtilisateur(az);
+//        System.out.println("depuis test" + az.getPersonneNom());
+//        eleve = (Eleve) az;
+//        eleve.setEleveEmailParent("parentEmail2");
+//        eleve.setGroupe(groupe);
+//        eleve.setPersonneNom("elev2Java");
+//        eleveService.insert(eleve);
 
+        // Trouver le groupe d'un utilisateur
+//        Groupe groupe = new Groupe();
+//        groupe = az.getGroupe();
+//        System.out.println(groupe.getGroupeLibelle());
 
         request.getRequestDispatcher("/WEB-INF/tags/exemple.jsp").forward(request, response);
     }

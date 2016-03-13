@@ -10,6 +10,7 @@ import java.util.Date;
  */
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @NamedQueries({
         @NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p"),
         @NamedQuery(name = "Personne.findByNameAndPassWord", query = "SELECT p FROM Personne p WHERE p.personneLogin = :loginn AND p.personnePassword = :passwordd")
@@ -18,7 +19,7 @@ public class Personne implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE) //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "personne_id")
     private Integer personneId;
 
@@ -46,6 +47,11 @@ public class Personne implements Serializable {
 
     @Column(name = "personne_ville")
     private String personneVille;
+
+    //bi-directional many-to-one association to Groupe
+    @ManyToOne
+    @JoinColumn(name = "personne_fk_groupe_id")
+    private Groupe groupe;
 
     public Personne() {
     }
@@ -120,6 +126,14 @@ public class Personne implements Serializable {
 
     public void setPersonneVille(String personneVille) {
         this.personneVille = personneVille;
+    }
+
+    public Groupe getGroupe() {
+        return this.groupe;
+    }
+
+    public void setGroupe(Groupe groupe) {
+        this.groupe = groupe;
     }
 
 }

@@ -1,9 +1,9 @@
 package model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -11,62 +11,68 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e")
-public class Eleve implements Serializable {
+public class Eleve extends Personne implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "personne_id")
-    private Integer eleveId;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "personne_id")
+//    private Integer eleveId;
 
     @Column(name = "eleve_email_parent")
     private String eleveEmailParent;
 
-    @Column(name = "personne_adresse")
-    private String eleveAdresse;
+    /*
+        @Column(name = "personne_adresse")
+        private String eleveAdresse;
 
-    @Column(name = "personne_cp")
-    private String eleveCp;
+        @Column(name = "personne_cp")
+        private String eleveCp;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "personne_date_naissance")
-    private Date eleveDateNaissance;
+        @Temporal(TemporalType.DATE)
+        @Column(name = "personne_date_naissance")
+        private Date eleveDateNaissance;
 
-    @Column(name = "personne_login")
-    private String eleveLogin;
+        @Column(name = "personne_login")
+        private String eleveLogin;
 
-    @Column(name = "personne_nom")
-    private String eleveNom;
+        @Column(name = "personne_nom")
+        private String eleveNom;
 
-    @Column(name = "personne_prenom")
-    private String elevePrenom;
+        @Column(name = "personne_prenom")
+        private String elevePrenom;
 
-    @Column(name = "personne_ville")
-    private String eleveVille;
+        @Column(name = "personne_ville")
+        private String eleveVille;
 
-    //bi-directional many-to-one association to AssocEtudier
-    @OneToMany(mappedBy = "eleve")
-    private List<AssocEtudier> assocEtudiers;
+        //bi-directional many-to-one association to AssocEtudier
+        @OneToMany(mappedBy = "eleve")
+        private List<AssocEtudier> assocEtudiers;
 
-    //bi-directional many-to-one association to AssocEvaluer
-    @OneToMany(mappedBy = "eleve")
-    private List<AssocEvaluer> assocEvaluers;
+        //bi-directional many-to-one association to AssocEvaluer
+        @OneToMany(mappedBy = "eleve")
+        private List<AssocEvaluer> assocEvaluers;
 
-    //bi-directional many-to-one association to Bilan
-    @OneToMany(mappedBy = "eleve")
-    private List<Bilan> bilans;
+        //bi-directional many-to-one association to Bilan
+        @OneToMany(mappedBy = "eleve")
+        private List<Bilan> bilans;
 
-    public Eleve() {
-    }
+        //bi-directional many-to-one association to Groupe
+        @ManyToOne
+        @JoinColumn(name = "personne_fk_groupe_id")
+        private Groupe groupe;
 
-    public Integer getEleveId() {
-        return this.eleveId;
-    }
+        public Eleve() {
+        }
 
-    public void setEleveId(Integer eleveId) {
-        this.eleveId = eleveId;
-    }
+        public Integer getEleveId() {
+            return this.eleveId;
+        }
 
+        public void setEleveId(Integer eleveId) {
+            this.eleveId = eleveId;
+        }
+    */
     public String getEleveEmailParent() {
         return this.eleveEmailParent;
     }
@@ -74,7 +80,7 @@ public class Eleve implements Serializable {
     public void setEleveEmailParent(String eleveEmailParent) {
         this.eleveEmailParent = eleveEmailParent;
     }
-
+/*
     public String getEleveAdresse() {
         return this.eleveAdresse;
     }
@@ -197,4 +203,13 @@ public class Eleve implements Serializable {
         return bilan;
     }
 
+    public Groupe getGroupe() {
+        return this.groupe;
+    }
+
+    public void setGroupe(Groupe groupe) {
+        this.groupe = groupe;
+    }
+
+*/
 }

@@ -11,9 +11,9 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name = "Employe.findAll", query = "SELECT e FROM Employe e")
-public class Employe implements Serializable {
+public class Employe extends Personne implements Serializable {
     private static final long serialVersionUID = 1L;
-
+/*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "personne_id")
@@ -41,9 +41,10 @@ public class Employe implements Serializable {
     @Column(name = "personne_ville")
     private String employeVille;
 
-    //bi-directional many-to-one association to AssocEmployeGroupe
-    @OneToMany(mappedBy = "employe")
-    private List<AssocEmployeGroupe> assocEmployeGroupes;
+    //bi-directional many-to-one association to Groupe
+    @ManyToOne
+    @JoinColumn(name = "personne_fk_groupe_id")
+    private Groupe groupe;
 
     //bi-directional many-to-one association to AssocEnseigner
     @OneToMany(mappedBy = "employe")
@@ -124,26 +125,12 @@ public class Employe implements Serializable {
         this.employeVille = employeVille;
     }
 
-    public List<AssocEmployeGroupe> getAssocEmployeGroupes() {
-        return this.assocEmployeGroupes;
+    public Groupe getGroupe() {
+        return this.groupe;
     }
 
-    public void setAssocEmployeGroupes(List<AssocEmployeGroupe> assocEmployeGroupes) {
-        this.assocEmployeGroupes = assocEmployeGroupes;
-    }
-
-    public AssocEmployeGroupe addAssocEmployeGroupe(AssocEmployeGroupe assocEmployeGroupe) {
-        getAssocEmployeGroupes().add(assocEmployeGroupe);
-        assocEmployeGroupe.setEmploye(this);
-
-        return assocEmployeGroupe;
-    }
-
-    public AssocEmployeGroupe removeAssocEmployeGroupe(AssocEmployeGroupe assocEmployeGroupe) {
-        getAssocEmployeGroupes().remove(assocEmployeGroupe);
-        assocEmployeGroupe.setEmploye(null);
-
-        return assocEmployeGroupe;
+    public void setGroupe(Groupe groupe) {
+        this.groupe = groupe;
     }
 
     public List<AssocEnseigner> getAssocEnseigners() {
@@ -211,5 +198,6 @@ public class Employe implements Serializable {
 
         return classroom;
     }
+*/
 
 }

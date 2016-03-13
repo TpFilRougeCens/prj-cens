@@ -1,6 +1,7 @@
 package service;
 
 import model.Employe;
+import model.Personne;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 @Stateless
 @LocalBean
-public class EmployeService {
+public class EmployeService extends PersonneService {
 
     @PersistenceContext(unitName = "Cens-Jpa")
     EntityManager entityManager;
@@ -24,7 +25,7 @@ public class EmployeService {
      * @see Employe
      */
     @SuppressWarnings("unchecked")
-    public List<Employe> findAll() {
+    public List<Personne> findAll() {
         return entityManager.createNamedQuery("Employe.findAll").getResultList();
     }
 
@@ -50,7 +51,7 @@ public class EmployeService {
      */
     public boolean delete(Employe employe) {
         try {
-            Employe result = entityManager.find(Employe.class, employe.getEmployeId());
+            Employe result = entityManager.find(Employe.class, employe.getPersonneId());
             entityManager.remove(result);
             //System.out.println("ID Supprimé = " + employe.getEmployeId());
             return true;
