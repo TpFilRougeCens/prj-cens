@@ -4,28 +4,29 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public abstract class Mapper<Dto, Model> {
-    public abstract Dto mapFromModel(Model model);
 
-    public abstract Model mapToModel(Dto model);
+    public abstract Dto mapFromEntity(Model model);
 
-    public Collection<Dto> mapFromModel(Collection<Model> entities) {
-        if (entities == null) {
+    public abstract Model mapToEntity(Dto dto);
+
+    public Collection<Dto> mapFromEntity(Collection<Model> models) {
+        if (models == null) {
             return new ArrayList<Dto>();
         }
         Collection<Dto> result = new ArrayList<Dto>();
-        for (Model model : entities) {
-            result.add(mapFromModel(model));
+        for (Model model : models) {
+            result.add(mapFromEntity(model));
         }
         return result;
     }
 
-    public Collection<Model> mapToModel(Collection<Dto> entities) {
-        if (entities == null) {
+    public Collection<Model> mapToEntity(Collection<Dto> dtos) {
+        if (dtos == null) {
             return new ArrayList<Model>();
         }
         Collection<Model> result = new ArrayList<Model>();
-        for (Dto model : entities) {
-            result.add(mapToModel(model));
+        for (Dto model : dtos) {
+            result.add(mapToEntity(model));
         }
         return result;
     }

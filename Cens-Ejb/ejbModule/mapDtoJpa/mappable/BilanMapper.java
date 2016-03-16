@@ -11,49 +11,37 @@ import javax.inject.Inject;
  */
 public class BilanMapper extends Mapper<BilanDTO, Bilan> {
 
-    // TODO : IMPLEMENTATION DE ELEVE MAPPER (COCHE GAEL ???)
     @Inject
     private EleveMapper eleveMapper;
 
     @Override
-    public BilanDTO mapFromModel(Bilan bilan) {
+    public BilanDTO mapFromEntity(Bilan bilan) {
+        if (bilan == null) {
+            return null;
+        }
         BilanDTO result = new BilanDTO();
         result.setBilanId(bilan.getBilanId());
+        result.setEleve(eleveMapper.mapFromEntity(bilan.getEleve()));
+        result.setBilanLibelle(bilan.getBilanLibelle());
         result.setBilanCommentaire(bilan.getBilanCommentaire());
         result.setBilanDateDebut(bilan.getBilanDateDebut());
         result.setBilanDateFin(bilan.getBilanDateFin());
-        result.setBilanLibelle(bilan.getBilanLibelle());
-        result.setEleve(eleveMapper.mapFromEntity(bilan.getEleve()));
-
-        return null;
+        return result;
     }
 
     @Override
-    public Bilan mapToModel(BilanDTO model) {
-        return null;
-    }
-
-
-/*
-    @Override
-    public PageDTO mapFromEntity(Page page) {
-        PageDTO retour = new PageDTO();
-        retour.setHtml(page.getHtml());
-        retour.setUrl(page.getUrl());
-        retour.setId(page.getId());
-        return retour;
-    }
-
-    @Override
-    public Page mapToEntity(PageDTO pagePB) {
-        Page retour = new Page();
-        if (pagePB.getId() != null) {
-            retour.setId(pagePB.getId());
+    public Bilan mapToEntity(BilanDTO bilanDTO) {
+        if (bilanDTO == null) {
+            return null;
         }
-        retour.setUrl(pagePB.getUrl());
-        retour.setHtml(pagePB.getHtml());
-        return retour;
+        Bilan result = new Bilan();
+        result.setBilanId(bilanDTO.getBilanId());
+        result.setEleve(eleveMapper.mapToEntity(bilanDTO.getEleve()));
+        result.setBilanLibelle(bilanDTO.getBilanLibelle());
+        result.setBilanCommentaire(bilanDTO.getBilanCommentaire());
+        result.setBilanDateDebut(bilanDTO.getBilanDateDebut());
+        result.setBilanDateFin(bilanDTO.getBilanDateFin());
+        return result;
     }
-*/
 
 }

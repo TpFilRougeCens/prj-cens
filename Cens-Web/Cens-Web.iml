@@ -20,7 +20,6 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Cens-Ejb" exported="" />
-    <orderEntry type="module" module-name="Cens-Jpa" exported="" />
     <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
