@@ -41,7 +41,7 @@ public class Filiere implements Serializable {
         return this.filiereId;
     }
 
-    private void setFiliereId(Integer filiereId) {
+    public void setFiliereId(Integer filiereId) {
         this.filiereId = filiereId;
     }
 

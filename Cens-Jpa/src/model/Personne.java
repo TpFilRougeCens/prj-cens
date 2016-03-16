@@ -1,6 +1,5 @@
 package model;
 
-import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
@@ -65,7 +64,7 @@ public class Personne implements Serializable {
         return this.personneId;
     }
 
-    private void setPersonneId(Integer personneId) {
+    public void setPersonneId(Integer personneId) {
         this.personneId = personneId;
     }
 
@@ -102,23 +101,11 @@ public class Personne implements Serializable {
     }
 
     public String getPersonnePassword() {
-        try {
-            return decrypt(this.personnePassword);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+        return this.personnePassword;
     }
 
     public void setPersonnePassword(String personnePassword) {
-
-        try {
-            this.personnePassword = encrypt(personnePassword);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        this.personnePassword = personnePassword;
     }
 
     public String getPersonneNom() {
@@ -156,6 +143,7 @@ public class Personne implements Serializable {
     private static String encrypt(String password) throws Exception {
 
         // TODO Variable global à l'application a faire au lancement serveur
+        // DEPLACER LA METHODE DANS LA COUCHE DE SERVICE
         String key = "todo";
         byte[] keyData = key.getBytes();
         SecretKeySpec secretKeySpec = new SecretKeySpec(keyData, "Blowfish");
@@ -165,14 +153,14 @@ public class Personne implements Serializable {
         return new BASE64Encoder().encode(hasil);
     }
 
-    private static String decrypt(String password) throws Exception {
-        // TODO Variable global à l'application a faire au lancement serveur
-        String key = "todo";
-        byte[] keyData = key.getBytes();
-        SecretKeySpec secretKeySpec = new SecretKeySpec(keyData, "Blowfish");
-        Cipher cipher = Cipher.getInstance("Blowfish");
-        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
-        byte[] hasil = cipher.doFinal(new BASE64Decoder().decodeBuffer(password));
-        return new String(hasil);
-    }
+    // NE JAMAIS DECRYPTER
+//    private static String decrypt(String password) throws Exception {
+//        String key = "todo";
+//        byte[] keyData = key.getBytes();
+//        SecretKeySpec secretKeySpec = new SecretKeySpec(keyData, "Blowfish");
+//        Cipher cipher = Cipher.getInstance("Blowfish");
+//        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+//        byte[] hasil = cipher.doFinal(new BASE64Decoder().decodeBuffer(password));
+//        return new String(hasil);
+//    }
 }

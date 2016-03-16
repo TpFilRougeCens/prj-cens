@@ -36,7 +36,7 @@ public class Groupe implements Serializable {
         return this.groupeId;
     }
 
-    private void setGroupeId(Integer groupeId) {
+    public void setGroupeId(Integer groupeId) {
         this.groupeId = groupeId;
     }
 

@@ -32,7 +32,7 @@ public class Voie implements Serializable {
         return this.voieId;
     }
 
-    private void setVoieId(Integer voieId) {
+    public void setVoieId(Integer voieId) {
         this.voieId = voieId;
     }
 
