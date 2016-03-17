@@ -1,7 +1,7 @@
 package dto;
 
 import java.io.Serializable;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 /**
  * Created by Gawel on 15/03/2016.
@@ -10,7 +10,7 @@ public class StatistiqueDTO implements Serializable {
 
     private static final long serialVersionUID = -747363276920241124L;
     private Integer statistiqueId;
-    private Timestamp statistiqueDateStat; // TODO verifier import : java.security du TimesTamp
+    private Timestamp statistiqueDateStat;
     private String statistiqueLibelle;
     private String statistiqueValeur;
 

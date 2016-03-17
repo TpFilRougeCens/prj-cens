@@ -29,8 +29,6 @@ public class TestNiveau extends HttpServlet {
      */
     public TestNiveau() {
         super();
-        // TODO Auto-generated constructor stub
-
     }
 
     /**

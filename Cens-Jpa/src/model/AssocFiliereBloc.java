@@ -13,7 +13,8 @@ import java.io.Serializable;
 public class AssocFiliereBloc implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    //TODO : verifier
+    //TODO : verifier EnbeddedId sur cette object
+    //Supression? => pas de contrainte d'unicité entre les filiere et bloc?
     //	@EmbeddedId
 //	private AssocFiliereBlocPK id;
     @Id

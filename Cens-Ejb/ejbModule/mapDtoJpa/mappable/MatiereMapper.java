@@ -46,8 +46,8 @@ public class MatiereMapper extends Mapper<MatiereDTO, Matiere> {
         result.setMatiereId(matiereDTO.getMatiereId());
         result.setBloc(blocMapper.mapToEntity(matiereDTO.getBloc()));
         result.setMatiereLibelle(matiereDTO.getMatiereLibelle());
-        result.setAssocEnseigners(assocEnseignerMapper.mapEntity(matiereDTO.getAssocEnseigners()));
-        result.setAssocMatiereComCaps(assocMatiereComCapMapper.mapFromEntity(matiereDTO.getAssocMatiereComCaps()));
+        result.setAssocEnseigners(assocEnseignerMapper.mapToEntity(matiereDTO.getAssocEnseigners()));
+        result.setAssocMatiereComCaps(assocMatiereComCapMapper.mapToEntity(matiereDTO.getAssocMatiereComCaps()));
         return result;
     }
 }

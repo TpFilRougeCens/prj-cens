@@ -50,7 +50,7 @@ public class StatistiqueService {
      */
     public boolean delete(Statistique statistique) {
         try {
-            Statistique result = entityManager.find(Statistique.class, statistique.getstatistiqueId());
+            Statistique result = entityManager.find(Statistique.class, statistique.getStatistiqueId());
             entityManager.remove(result);
             //System.out.println("ID Supprimé = " + statistique.getStatistiqueId());
             return true;

@@ -14,15 +14,23 @@ public class StatistiqueMapper extends Mapper<StatistiqueDTO, Statistique> {
             return null;
         }
         StatistiqueDTO result = new StatistiqueDTO();
-        result.setStatistiqueId(statistique.getstatistiqueId());
+        result.setStatistiqueId(statistique.getStatistiqueId());
         result.setStatistiqueLibelle(statistique.getStatistiqueLibelle());
-        result.setStatistiqueValeur(statistique.setStatistiqueValeur(););
+        result.setStatistiqueValeur(statistique.getStatistiqueValeur());
         result.setStatistiqueDateStat(statistique.getStatistiqueDateStat());
-        return result:
+        return result;
     }
 
     @Override
     public Statistique mapToEntity(StatistiqueDTO statistiqueDTO) {
-        return null;
+        if (statistiqueDTO == null) {
+            return null;
+        }
+        Statistique result = new Statistique();
+        result.setStatistiqueId(statistiqueDTO.getStatistiqueId());
+        result.setStatistiqueLibelle(statistiqueDTO.getStatistiqueLibelle());
+        result.setStatistiqueValeur(statistiqueDTO.getStatistiqueValeur());
+        result.setStatistiqueDateStat(statistiqueDTO.getStatistiqueDateStat());
+        return result;
     }
 }

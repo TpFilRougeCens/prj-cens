@@ -2,7 +2,7 @@
 <%@attribute name="scriptHeader" fragment="true" %>
 <%@attribute name="scriptFooter" fragment="true" %>
 
-<%--//TODO Attention les chemins sont en relatif en ref au dossier 'web' Cause : Include. c'est normal...--%>
+<%--// Attention les chemins sont en relatif en ref au dossier 'web' Cause : Include. c'est normal...--%>
 <!DOCTYPE html>
 <html lang="fr">
 

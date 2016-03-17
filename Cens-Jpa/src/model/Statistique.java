@@ -30,11 +30,11 @@ public class Statistique implements Serializable {
     public Statistique() {
     }
 
-    public Integer getstatistiqueId() {
+    public Integer getStatistiqueId() {
         return this.statistiqueId;
     }
 
-    private void setstatistiqueId(Integer statistiqueId) {
+    public void setStatistiqueId(Integer statistiqueId) {
         this.statistiqueId = statistiqueId;
     }
 

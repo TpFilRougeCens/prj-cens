@@ -1,7 +1,6 @@
 package tests;
 
 
-import model.Eleve;
 import model.Groupe;
 import model.Personne;
 import service.EleveService;
@@ -35,7 +34,6 @@ public class TestPersonne extends HttpServlet {
 
     public TestPersonne() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
