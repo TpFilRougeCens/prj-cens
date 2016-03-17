@@ -13,8 +13,9 @@ import java.io.Serializable;
 public class AssocEnseigner implements Serializable {
     private static final long serialVersionUID = 1L;
 
-        @EmbeddedId
+    @EmbeddedId
     private AssocEnseignerPK id;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "assoc_enseigner_id")

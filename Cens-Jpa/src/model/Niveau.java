@@ -32,7 +32,7 @@ public class Niveau implements Serializable {
         return this.niveauId;
     }
 
-    private void setNiveauId(Integer niveauId) {
+    public void setNiveauId(Integer niveauId) {
         this.niveauId = niveauId;
     }
 

@@ -8,11 +8,20 @@ import java.io.Serializable;
 public class AssocComCapDTO implements Serializable {
 
     private static final long serialVersionUID = -2519200385983250496L;
+    private Integer assocComCapId;
     private ComCapDTO comCap1;
     private ComCapDTO comCap2;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public Integer getAssocComCapId() {
+        return assocComCapId;
+    }
+
+    public void setAssocComCapId(Integer assocComCapId) {
+        this.assocComCapId = assocComCapId;
     }
 
     public ComCapDTO getComCap1() {

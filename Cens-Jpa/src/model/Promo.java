@@ -36,7 +36,7 @@ public class Promo implements Serializable {
         return this.promoId;
     }
 
-    private void setPromoId(Integer promoId) {
+    public void setPromoId(Integer promoId) {
         this.promoId = promoId;
     }
 

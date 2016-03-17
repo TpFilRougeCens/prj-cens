@@ -7,7 +7,7 @@ import model.Eleve;
 import javax.inject.Inject;
 
 /**
- * Created by gael.cdi12 on 16/03/2016.
+ * Created by gael.cdi12 : 16/03/2016.
  */
 public class EleveMapper extends Mapper<EleveDTO, Eleve> {
     @Inject
@@ -18,6 +18,7 @@ public class EleveMapper extends Mapper<EleveDTO, Eleve> {
         if (eleve == null) {
             return null;
         }
+
         EleveDTO result = new EleveDTO();
         result.setPersonneId(eleve.getPersonneId());
         result.setPersonneLogin(eleve.getPersonneLogin());

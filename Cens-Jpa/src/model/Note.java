@@ -45,7 +45,7 @@ public class Note implements Serializable {
         return this.noteId;
     }
 
-    private void setNoteId(Integer noteId) {
+    public void setNoteId(Integer noteId) {
         this.noteId = noteId;
     }
 

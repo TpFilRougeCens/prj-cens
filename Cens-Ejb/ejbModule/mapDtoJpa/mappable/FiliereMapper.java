@@ -1,17 +1,10 @@
 package mapDtoJpa.mappable;
 
-import dto.AssocFiliereBlocDTO;
-import dto.ClassroomDTO;
 import dto.FiliereDTO;
 import mapDtoJpa.mapper.Mapper;
-import model.AssocFiliereBloc;
-import model.Classroom;
 import model.Filiere;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Gawel on 16/03/2016.
@@ -19,14 +12,13 @@ import java.util.List;
 public class FiliereMapper extends Mapper<FiliereDTO, Filiere> {
 
     @Inject
-    AssocFiliereBlocMapper assocFiliereBlocMapper;
-
-    // TODO GAEL j'en suis la (???)
-    @Inject
-    ClassroomMapper classroomMapper;
+    private AssocFiliereBlocMapper assocFiliereBlocMapper;
 
     @Inject
-    VoieMapper voieMapper;
+    private ClassroomMapper classroomMapper;
+
+    @Inject
+    private VoieMapper voieMapper;
 
     @Override
     public FiliereDTO mapFromEntity(Filiere filiere) {
@@ -34,15 +26,12 @@ public class FiliereMapper extends Mapper<FiliereDTO, Filiere> {
             return null;
         }
 
-        Collection<AssocFiliereBlocDTO> blocsDeFiliere = assocFiliereBlocMapper.mapFromEntity(filiere.getAssocFiliereBlocs());
-        Collection<ClassroomDTO> classesDeFiliere = classroomMapper.mapFromEntity(filiere.getClassrooms());
-
         FiliereDTO result = new FiliereDTO();
         result.setFiliereId(filiere.getFiliereId());
-        result.setAssocFiliereBlocs(CollectionToListAssocDTO(blocsDeFiliere));
-        result.setClassrooms(CollectionToListClassDTO(classesDeFiliere));
+        result.setAssocFiliereBlocs(assocFiliereBlocMapper.mapFromEntity(filiere.getAssocFiliereBlocs()));
+        result.setClassrooms(classroomMapper.mapFromEntity(filiere.getClassrooms()));
         result.setFiliereLibelle(filiere.getFiliereLibelle());
-        result.setVoie(voieMapper.mapFromEntity(filiere.getVoie());
+        result.setVoie(voieMapper.mapFromEntity(filiere.getVoie()));
         return result;
     }
 
@@ -52,59 +41,13 @@ public class FiliereMapper extends Mapper<FiliereDTO, Filiere> {
             return null;
         }
 
-        Collection<AssocFiliereBloc> blocsDeFiliere = assocFiliereBlocMapper.mapToEntity(filiereDTO.getAssocFiliereBlocs());
-        Collection<Classroom> classesDeFiliere = classroomMapper.mapToEntity(filiereDTO.getClassrooms());
-
         Filiere result = new Filiere();
         result.setFiliereId(filiereDTO.getFiliereId());
-        result.setAssocFiliereBlocs(CollectionToListAssocENTITY(blocsDeFiliere));
-        result.setClassrooms(CollectionToListClassENTITY(classesDeFiliere));
+        result.setAssocFiliereBlocs(assocFiliereBlocMapper.mapToEntity(filiereDTO.getAssocFiliereBlocs()));
+        result.setClassrooms(classroomMapper.mapToEntity(filiereDTO.getClassrooms()));
         result.setFiliereLibelle(filiereDTO.getFiliereLibelle());
-        result.setVoie(voieMapper.mapToEntity(filiereDTO.getVoie());
+        result.setVoie(voieMapper.mapToEntity(filiereDTO.getVoie()));
         return result;
     }
 
-
-    // TODO Verifier ça... result.setMatiere attend une List le Mapper renvoi une Collection
-    // TODO REFACTOR
-    // ******************* CONVERTION DES TYPES ********************************************
-    private List<AssocFiliereBlocDTO> CollectionToListAssocDTO(Collection<AssocFiliereBlocDTO> assocFiliereBlocsDuBloc) {
-        List<AssocFiliereBlocDTO> listAssocFiliereBlocs;
-        if (assocFiliereBlocsDuBloc instanceof List) {
-            listAssocFiliereBlocs = (List<AssocFiliereBlocDTO>) assocFiliereBlocsDuBloc;
-        } else {
-            listAssocFiliereBlocs = new ArrayList<AssocFiliereBlocDTO>(assocFiliereBlocsDuBloc);
-        }
-        return listAssocFiliereBlocs;
-    }
-
-    private List<AssocFiliereBloc> CollectionToListAssocENTITY(Collection<AssocFiliereBloc> assocFiliereBlocsDuBloc) {
-        List<AssocFiliereBloc> listAssocFiliereBlocs;
-        if (assocFiliereBlocsDuBloc instanceof List) {
-            listAssocFiliereBlocs = (List<AssocFiliereBloc>) assocFiliereBlocsDuBloc;
-        } else {
-            listAssocFiliereBlocs = new ArrayList<AssocFiliereBloc>(assocFiliereBlocsDuBloc);
-        }
-        return listAssocFiliereBlocs;
-    }
-
-    private List<ClassroomDTO> CollectionToListClassDTO(Collection<ClassroomDTO> classroomsDuBloc) {
-        List<ClassroomDTO> listClassrooms;
-        if (classroomsDuBloc instanceof List) {
-            listClassrooms = (List<ClassroomDTO>) classroomsDuBloc;
-        } else {
-            listClassrooms = new ArrayList<ClassroomDTO>(classroomsDuBloc);
-        }
-        return listClassrooms;
-    }
-
-    private List<Classroom> CollectionToListClassENTITY(Collection<Classroom> classroomsDuBloc) {
-        List<Classroom> listClassrooms;
-        if (classroomsDuBloc instanceof List) {
-            listClassrooms = (List<Classroom>) classroomsDuBloc;
-        } else {
-            listClassrooms = new ArrayList<Classroom>(classroomsDuBloc);
-        }
-        return listClassrooms;
-    }
 }

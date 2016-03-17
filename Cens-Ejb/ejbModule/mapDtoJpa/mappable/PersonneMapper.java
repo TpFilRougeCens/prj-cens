@@ -12,7 +12,7 @@ import javax.inject.Inject;
 public class PersonneMapper extends Mapper<PersonneDTO, Personne> {
 
     @Inject
-    GroupeMapper groupeMapper;
+    private GroupeMapper groupeMapper;
 
     @Override
     public PersonneDTO mapFromEntity(Personne personne) {

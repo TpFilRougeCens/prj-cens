@@ -14,8 +14,8 @@ public class AssocEvaluerDTO implements Serializable {
     private ComCapDTO comCap;
     private EleveDTO eleve;
     private EmployeDTO employe;
-    private NoteDTO note1;
-    private NoteDTO note2;
+    private NoteDTO note1; //autoevaluation
+    private NoteDTO note2; //evaluation
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -61,18 +61,38 @@ public class AssocEvaluerDTO implements Serializable {
         this.employe = employe;
     }
 
+    /**
+     * Auto-évaluation de l'élève
+     *
+     * @return Auto-évaluation de l'élève
+     */
     public NoteDTO getNote1() {
         return note1;
     }
 
+    /**
+     * Auto-évaluation de l'élève
+     *
+     * @param note1 : Auto-évaluation
+     */
     public void setNote1(NoteDTO note1) {
         this.note1 = note1;
     }
 
+    /**
+     * Evaluation de l'enseignant sur l'élève
+     *
+     * @return Evaluation de l'enseignant
+     */
     public NoteDTO getNote2() {
         return note2;
     }
 
+    /**
+     * Evaluation de l'enseignant sur l'élève
+     *
+     * @param note2 Evaluation de l'enseignant
+     */
     public void setNote2(NoteDTO note2) {
         this.note2 = note2;
     }

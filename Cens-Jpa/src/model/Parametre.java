@@ -30,7 +30,7 @@ public class Parametre implements Serializable {
         return this.parametreId;
     }
 
-    private void setParametreId(Integer parametreId) {
+    public void setParametreId(Integer parametreId) {
         this.parametreId = parametreId;
     }
 

@@ -41,7 +41,7 @@ public class Matiere implements Serializable {
         return this.matiereId;
     }
 
-    private void setMatiereId(Integer matiereId) {
+    public void setMatiereId(Integer matiereId) {
         this.matiereId = matiereId;
     }
 
