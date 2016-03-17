@@ -20,11 +20,11 @@ public class ClassroomMapper extends Mapper<ClassroomDTO, Classroom> {
     @Inject
     private EmployeMapper employeMapper;
 
-    @Inject
-    private AssocEnseignerMapper assocEnseignerMapper;
-
-    @Inject
-    private AssocEtudierMapper assocEtudierMapper;
+//    @Inject
+//    private AssocEnseignerMapper assocEnseignerMapper;
+//
+//    @Inject
+//    private AssocEtudierMapper assocEtudierMapper;
 
 
     @Override
@@ -38,8 +38,8 @@ public class ClassroomMapper extends Mapper<ClassroomDTO, Classroom> {
         result.setNiveau(niveauMapper.mapFromEntity(classroom.getNiveau()));
         result.setEmploye(employeMapper.mapFromEntity(classroom.getEmploye()));
         result.setClassroomLibelle(classroom.getClassroomLibelle());
-        result.setAssocEnseigners(assocEnseignerMapper.mapFromEntity(classroom.getAssocEnseigners()));
-        result.setAssocEtudiers(assocEtudierMapper.mapFromEntity(classroom.getAssocEtudiers()));
+//        result.setAssocEnseigners(assocEnseignerMapper.mapFromEntity(classroom.getAssocEnseigners()));
+//        result.setAssocEtudiers(assocEtudierMapper.mapFromEntity(classroom.getAssocEtudiers()));
         return result;
     }
 
@@ -54,8 +54,8 @@ public class ClassroomMapper extends Mapper<ClassroomDTO, Classroom> {
         result.setNiveau(niveauMapper.mapToEntity(classroomDTO.getNiveau()));
         result.setEmploye(employeMapper.mapToEntity(classroomDTO.getEmploye()));
         result.setClassroomLibelle(classroomDTO.getClassroomLibelle());
-        result.setAssocEnseigners(assocEnseignerMapper.mapToEntity(classroomDTO.getAssocEnseigners()));
-        result.setAssocEtudiers(assocEtudierMapper.mapToEntity(classroomDTO.getAssocEtudiers()));
+//        result.setAssocEnseigners(assocEnseignerMapper.mapToEntity(classroomDTO.getAssocEnseigners()));
+//        result.setAssocEtudiers(assocEtudierMapper.mapToEntity(classroomDTO.getAssocEtudiers()));
         return result;
     }
 }

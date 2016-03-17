@@ -29,8 +29,8 @@ public class EleveMapper extends Mapper<EleveDTO, Eleve> {
         result.setPersonneAdresse(eleve.getPersonneAdresse());
         result.setPersonneCp(eleve.getPersonneCp());
         result.setPersonneVille(eleve.getPersonneVille());
-        result.setGroupe(groupeMapper.mapFromEntity(eleve.getGroupe()));
         result.setEleveEmailParent(eleve.getEleveEmailParent());
+        result.setGroupe(groupeMapper.mapFromEntity(eleve.getGroupe()));
         return result;
     }
 

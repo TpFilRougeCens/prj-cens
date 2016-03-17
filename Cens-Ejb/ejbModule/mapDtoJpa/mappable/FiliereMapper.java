@@ -11,11 +11,11 @@ import javax.inject.Inject;
  */
 public class FiliereMapper extends Mapper<FiliereDTO, Filiere> {
 
-    @Inject
-    private AssocFiliereBlocMapper assocFiliereBlocMapper;
-
-    @Inject
-    private ClassroomMapper classroomMapper;
+//    @Inject
+//    private AssocFiliereBlocMapper assocFiliereBlocMapper;
+//
+//    @Inject
+//    private ClassroomMapper classroomMapper;
 
     @Inject
     private VoieMapper voieMapper;
@@ -28,9 +28,10 @@ public class FiliereMapper extends Mapper<FiliereDTO, Filiere> {
 
         FiliereDTO result = new FiliereDTO();
         result.setFiliereId(filiere.getFiliereId());
-        result.setAssocFiliereBlocs(assocFiliereBlocMapper.mapFromEntity(filiere.getAssocFiliereBlocs()));
-        result.setClassrooms(classroomMapper.mapFromEntity(filiere.getClassrooms()));
+//        result.setAssocFiliereBlocs(assocFiliereBlocMapper.mapFromEntity(filiere.getAssocFiliereBlocs()));
+//        result.setClassrooms(classroomMapper.mapFromEntity(filiere.getClassrooms()));
         result.setFiliereLibelle(filiere.getFiliereLibelle());
+        filiere.getVoie();
         result.setVoie(voieMapper.mapFromEntity(filiere.getVoie()));
         return result;
     }
@@ -43,8 +44,8 @@ public class FiliereMapper extends Mapper<FiliereDTO, Filiere> {
 
         Filiere result = new Filiere();
         result.setFiliereId(filiereDTO.getFiliereId());
-        result.setAssocFiliereBlocs(assocFiliereBlocMapper.mapToEntity(filiereDTO.getAssocFiliereBlocs()));
-        result.setClassrooms(classroomMapper.mapToEntity(filiereDTO.getClassrooms()));
+//        result.setAssocFiliereBlocs(assocFiliereBlocMapper.mapToEntity(filiereDTO.getAssocFiliereBlocs()));
+//        result.setClassrooms(classroomMapper.mapToEntity(filiereDTO.getClassrooms()));
         result.setFiliereLibelle(filiereDTO.getFiliereLibelle());
         result.setVoie(voieMapper.mapToEntity(filiereDTO.getVoie()));
         return result;

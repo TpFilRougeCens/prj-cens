@@ -4,15 +4,10 @@ import dto.VoieDTO;
 import mapDtoJpa.mapper.Mapper;
 import model.Voie;
 
-import javax.inject.Inject;
-
 /**
  * Created by Gawel on 16/03/2016.
  */
 public class VoieMapper extends Mapper<VoieDTO, Voie> {
-
-    @Inject
-    private FiliereMapper filiereMapper;
 
     @Override
     public VoieDTO mapFromEntity(Voie voie) {
@@ -23,7 +18,7 @@ public class VoieMapper extends Mapper<VoieDTO, Voie> {
         VoieDTO result = new VoieDTO();
         result.setVoieId(voie.getVoieId());
         result.setVoieLibelle(voie.getVoieLibelle());
-        result.setFilieres(filiereMapper.mapFromEntity(voie.getFilieres()));
+//        result.setFilieres(filiereMapper.get().mapFromEntity(voie.getFilieres())); //Todo verif
         return result;
     }
 
@@ -36,7 +31,7 @@ public class VoieMapper extends Mapper<VoieDTO, Voie> {
         Voie result = new Voie();
         result.setVoieId(voieDTO.getVoieId());
         result.setVoieLibelle(voieDTO.getVoieLibelle());
-        result.setFilieres(filiereMapper.mapToEntity(voieDTO.getFilieres()));
+//        result.setFilieres(filiereMapper.get().mapToEntity(voieDTO.getFilieres()));
         return result;
 
     }

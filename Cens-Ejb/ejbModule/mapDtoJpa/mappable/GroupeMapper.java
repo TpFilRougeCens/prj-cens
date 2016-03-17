@@ -4,15 +4,13 @@ import dto.GroupeDTO;
 import mapDtoJpa.mapper.Mapper;
 import model.Groupe;
 
-import javax.inject.Inject;
-
 /**
  * Created by Gawel on 16/03/2016.
  */
 public class GroupeMapper extends Mapper<GroupeDTO, Groupe> {
 
-    @Inject
-    private PersonneMapper personneMapper;
+//    @Inject
+//    private PersonneMapper personneMapper;
 
     @Override
     public GroupeDTO mapFromEntity(Groupe groupe) {
@@ -24,7 +22,7 @@ public class GroupeMapper extends Mapper<GroupeDTO, Groupe> {
         result.setGroupeId(groupe.getGroupeId());
         result.setGroupeLibelle(groupe.getGroupeLibelle());
         result.setGroupeNiveauAcces(groupe.getGroupeNiveauAcces());
-        result.setPersonnes(personneMapper.mapFromEntity(groupe.getPersonnes()));
+//        result.setPersonnes(personneMapper.mapFromEntity(groupe.getPersonnes()));
         return result;
     }
 
@@ -39,7 +37,7 @@ public class GroupeMapper extends Mapper<GroupeDTO, Groupe> {
         result.setGroupeId(groupeDTO.getGroupeId());
         result.setGroupeLibelle(groupeDTO.getGroupeLibelle());
         result.setGroupeNiveauAcces(groupeDTO.getGroupeNiveauAcces());
-        result.setPersonnes(personneMapper.mapToEntity(groupeDTO.getPersonnes()));
+//        result.setPersonnes(personneMapper.mapToEntity(groupeDTO.getPersonnes()));
         return result;
     }
 
