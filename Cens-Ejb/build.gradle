@@ -1,0 +1,18 @@
+version = '1.0.0-SNAPSHOT'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'ejbModule'
+        }
+        resources {
+            srcDir 'ejbModule'
+        }
+    }
+}
+
+dependencies {
+    compile group: 'javax', name: 'javaee-api', version: '7.0'
+    compile project(':Cens-Dto')
+    compile project(':Cens-Jpa')
+}
