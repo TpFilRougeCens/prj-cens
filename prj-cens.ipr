@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ArtifactManager">
-    <artifact type="war" name="Gradle : prj-cens2 : Cens-Web-1.0.0-SNAPSHOT.war">
+    <artifact type="war" name="Gradle : prj-cens : Cens-Web-1.0.0-SNAPSHOT.war">
       <output-path>$PROJECT_DIR$/out/artifacts/Cens-Web</output-path>
       <properties id="gradle-properties">
         <options external-project-path="$PROJECT_DIR$" />
@@ -14,19 +14,19 @@
             <element id="dir-copy" path="$PROJECT_DIR$/Cens-Web/build/resources/main" />
           </element>
           <element id="directory" name="lib">
-            <element id="archive" name="prj-cens2-Cens-Ejb-1.0.0-SNAPSHOT.jar">
+            <element id="archive" name="prj-cens-Cens-Ejb-1.0.0-SNAPSHOT.jar">
               <element id="module-output" name="Cens-Ejb_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/Cens-Ejb/build/resources/main" />
             </element>
-            <element id="library" level="project" name="Gradle: javax:javaee-api:7.0" />
-            <element id="archive" name="prj-cens2-Cens-Dto-1.0.0-SNAPSHOT.jar">
+            <element id="archive" name="prj-cens-Cens-Dto-1.0.0-SNAPSHOT.jar">
               <element id="module-output" name="Cens-Dto_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/Cens-Dto/build/resources/main" />
             </element>
-            <element id="archive" name="prj-cens2-Cens-Jpa-1.0.0-SNAPSHOT.jar">
+            <element id="archive" name="prj-cens-Cens-Jpa-1.0.0-SNAPSHOT.jar">
               <element id="module-output" name="Cens-Jpa_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/Cens-Jpa/build/resources/main" />
             </element>
+            <element id="library" level="project" name="Gradle: javax:javaee-api:7.0" />
             <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.5.0" />
             <element id="library" level="project" name="Gradle: javax.activation:activation:1.1" />
             <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-server:1.13" />
@@ -40,7 +40,7 @@
         </element>
       </root>
     </artifact>
-    <artifact type="exploded-war" name="Gradle : prj-cens2 : Cens-Web-1.0.0-SNAPSHOT.war (exploded)">
+    <artifact type="exploded-war" name="Gradle : prj-cens : Cens-Web-1.0.0-SNAPSHOT.war (exploded)">
       <output-path>$PROJECT_DIR$/out/artifacts/Cens-Web/exploded/Cens-Web-1.0.0-SNAPSHOT.war</output-path>
       <properties id="gradle-properties">
         <options external-project-path="$PROJECT_DIR$" />
@@ -53,19 +53,19 @@
             <element id="dir-copy" path="$PROJECT_DIR$/Cens-Web/build/resources/main" />
           </element>
           <element id="directory" name="lib">
-            <element id="archive" name="prj-cens2-Cens-Ejb-1.0.0-SNAPSHOT.jar">
+            <element id="archive" name="prj-cens-Cens-Ejb-1.0.0-SNAPSHOT.jar">
               <element id="module-output" name="Cens-Ejb_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/Cens-Ejb/build/resources/main" />
             </element>
-            <element id="library" level="project" name="Gradle: javax:javaee-api:7.0" />
-            <element id="archive" name="prj-cens2-Cens-Dto-1.0.0-SNAPSHOT.jar">
+            <element id="archive" name="prj-cens-Cens-Dto-1.0.0-SNAPSHOT.jar">
               <element id="module-output" name="Cens-Dto_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/Cens-Dto/build/resources/main" />
             </element>
-            <element id="archive" name="prj-cens2-Cens-Jpa-1.0.0-SNAPSHOT.jar">
+            <element id="archive" name="prj-cens-Cens-Jpa-1.0.0-SNAPSHOT.jar">
               <element id="module-output" name="Cens-Jpa_main" />
               <element id="dir-copy" path="$PROJECT_DIR$/Cens-Jpa/build/resources/main" />
             </element>
+            <element id="library" level="project" name="Gradle: javax:javaee-api:7.0" />
             <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.5.0" />
             <element id="library" level="project" name="Gradle: javax.activation:activation:1.1" />
             <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-server:1.13" />
@@ -79,7 +79,7 @@
         </element>
       </root>
     </artifact>
-    <artifact type="exploded-ear" name="Gradle : prj-cens2 : Cens-EAR-1.0.0-SNAPSHOT.ear (exploded)">
+    <artifact type="exploded-ear" name="Gradle : prj-cens : Cens-EAR-1.0.0-SNAPSHOT.ear (exploded)">
       <output-path>$PROJECT_DIR$/out/artifacts/Cens-EAR/exploded/Cens-EAR-1.0.0-SNAPSHOT.ear</output-path>
       <properties id="gradle-properties">
         <options external-project-path="$PROJECT_DIR$" />
@@ -88,17 +88,17 @@
         <element id="javaee-facet-resources" facet="Cens-EAR_main/javaeeApplication/JavaEE Application Gradle : Cens-EAR-1.0.0-SNAPSHOT.ear" />
         <element id="dir-copy" path="$PROJECT_DIR$/Cens-EAR/src/main/application" />
         <element id="directory" name="Cens-Web-1.0.0-SNAPSHOT.war">
-          <element id="artifact" artifact-name="Gradle : prj-cens2 : Cens-Web-1.0.0-SNAPSHOT.war (exploded)" />
+          <element id="artifact" artifact-name="Gradle : prj-cens : Cens-Web-1.0.0-SNAPSHOT.war (exploded)" />
         </element>
         <element id="directory" name="Cens-Ejb-1.0.0-SNAPSHOT.jar">
           <element id="module-output" name="Cens-Ejb_main" />
           <element id="dir-copy" path="$PROJECT_DIR$/Cens-Ejb/build/resources/main" />
         </element>
-        <element id="archive" name="prj-cens2-Cens-Dto-1.0.0-SNAPSHOT.jar">
+        <element id="archive" name="prj-cens-Cens-Dto-1.0.0-SNAPSHOT.jar">
           <element id="module-output" name="Cens-Dto_main" />
           <element id="dir-copy" path="$PROJECT_DIR$/Cens-Dto/build/resources/main" />
         </element>
-        <element id="archive" name="prj-cens2-Cens-Jpa-1.0.0-SNAPSHOT.jar">
+        <element id="archive" name="prj-cens-Cens-Jpa-1.0.0-SNAPSHOT.jar">
           <element id="module-output" name="Cens-Jpa_main" />
           <element id="dir-copy" path="$PROJECT_DIR$/Cens-Jpa/build/resources/main" />
         </element>
@@ -107,13 +107,13 @@
         </element>
       </root>
     </artifact>
-    <artifact type="ear" name="Gradle : prj-cens2 : Cens-EAR-1.0.0-SNAPSHOT.ear">
+    <artifact type="ear" name="Gradle : prj-cens : Cens-EAR-1.0.0-SNAPSHOT.ear">
       <output-path>$PROJECT_DIR$/out/artifacts/Cens-EAR</output-path>
       <properties id="gradle-properties">
         <options external-project-path="$PROJECT_DIR$" />
       </properties>
       <root id="archive" name="Cens-EAR-1.0.0-SNAPSHOT.ear">
-        <element id="artifact" artifact-name="Gradle : prj-cens2 : Cens-EAR-1.0.0-SNAPSHOT.ear (exploded)" />
+        <element id="artifact" artifact-name="Gradle : prj-cens : Cens-EAR-1.0.0-SNAPSHOT.ear (exploded)" />
       </root>
     </artifact>
   </component>
@@ -145,6 +145,8 @@
       <module name="Cens-Web_test" target="1.8" />
       <module name="prj-cens2_main" target="1.8" />
       <module name="prj-cens2_test" target="1.8" />
+      <module name="prj-cens_main" target="1.8" />
+      <module name="prj-cens_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
@@ -213,10 +215,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web.iml" group="Cens-Web" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web_main.iml" group="Cens-Web" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web_test.iml" group="Cens-Web" />
-      <module fileurl="file://$PROJECT_DIR$/prj-cens.iml" filepath="$PROJECT_DIR$/prj-cens.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prj-cens2.iml" filepath="$PROJECT_DIR$/.idea/modules/prj-cens2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prj-cens2_main.iml" filepath="$PROJECT_DIR$/.idea/modules/prj-cens2_main.iml" group="prj-cens2" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prj-cens2_test.iml" filepath="$PROJECT_DIR$/.idea/modules/prj-cens2_test.iml" group="prj-cens2" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prj-cens.iml" filepath="$PROJECT_DIR$/.idea/modules/prj-cens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prj-cens_main.iml" filepath="$PROJECT_DIR$/.idea/modules/prj-cens_main.iml" group="prj-cens" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prj-cens_test.iml" filepath="$PROJECT_DIR$/.idea/modules/prj-cens_test.iml" group="prj-cens" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
