@@ -1,0 +1,32 @@
+apply plugin: 'ear'
+
+version = '1.0.0-SNAPSHOT'
+
+dependencies {
+    //following dependencies will become the ear modules and placed in the ear root
+    deploy project(path: ':Cens-Web', configuration: 'archives')
+    //earlib project(path: ':EkologiaService', configuration: 'archives')
+    earlib project(path: ':Cens-Dto', configuration: 'archives')
+    earlib project(path: ':Cens-Jpa', configuration: 'archives')
+    deploy project(path: ':Cens-Ejb', configuration: 'archives')
+    //deploy project(path: ':EkologiaDTO', configuration: 'archives')
+    //deploy project(path: ':EkologiaEntity', configuration: 'archives')
+}
+
+ear {
+    //appDirName 'src/main/app' // use application metadata found in this folder
+    libDirName '' // put dependency libraries into APP-INF/lib inside the generated EAR;
+    // also modify the generated deployment descriptor accordingly
+    deploymentDescriptor { // custom entries for application.xml:
+        applicationName = "Cens"
+        //initializeInOrder = true
+        displayName = "Cens" // defaults to project.name
+        description = "LpC" // defaults to project.description
+        //webModule("imieWEB.war", "/imieWEB") // wouldn't deploy since my.war isn't a deploy depencency
+        //module("EkologiaService-${project.version}.jar", "ejb")
+        module("Cens-Dto-${project.version}.jar", "java")
+        module("Cens-Jpa-${project.version}.jar", "java")
+        //webModule("imieWEB-${project.version}.war", "imieWEB")
+        webModule("Cens-Web-${project.version}.war", "Cens")
+    }
+}

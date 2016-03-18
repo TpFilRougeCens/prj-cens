@@ -1,0 +1,12 @@
+version = '1.0.0-SNAPSHOT'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+        resources {
+            srcDir 'src'
+        }
+    }
+}
