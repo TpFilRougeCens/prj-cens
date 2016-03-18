@@ -1,82 +1,330 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactManager">
+    <artifact type="war" name="Gradle : prj-cens2 : Cens-Web-1.0.0-SNAPSHOT.war">
+      <output-path>$PROJECT_DIR$/out/artifacts/Cens-Web</output-path>
+      <properties id="gradle-properties">
+        <options external-project-path="$PROJECT_DIR$" />
+      </properties>
+      <root id="archive" name="Cens-Web-1.0.0-SNAPSHOT.war">
+        <element id="javaee-facet-resources" facet="Cens-Web_main/web/Web Gradle : Cens-Web-1.0.0-SNAPSHOT.war" />
+        <element id="directory" name="WEB-INF">
+          <element id="directory" name="classes">
+            <element id="module-output" name="Cens-Web_main" />
+            <element id="dir-copy" path="$PROJECT_DIR$/Cens-Web/build/resources/main" />
+          </element>
+          <element id="directory" name="lib">
+            <element id="archive" name="prj-cens2-Cens-Ejb-1.0.0-SNAPSHOT.jar">
+              <element id="module-output" name="Cens-Ejb_main" />
+              <element id="dir-copy" path="$PROJECT_DIR$/Cens-Ejb/build/resources/main" />
+            </element>
+            <element id="library" level="project" name="Gradle: javax:javaee-api:7.0" />
+            <element id="archive" name="prj-cens2-Cens-Dto-1.0.0-SNAPSHOT.jar">
+              <element id="module-output" name="Cens-Dto_main" />
+              <element id="dir-copy" path="$PROJECT_DIR$/Cens-Dto/build/resources/main" />
+            </element>
+            <element id="archive" name="prj-cens2-Cens-Jpa-1.0.0-SNAPSHOT.jar">
+              <element id="module-output" name="Cens-Jpa_main" />
+              <element id="dir-copy" path="$PROJECT_DIR$/Cens-Jpa/build/resources/main" />
+            </element>
+            <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.5.0" />
+            <element id="library" level="project" name="Gradle: javax.activation:activation:1.1" />
+            <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-server:1.13" />
+            <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-core:1.13" />
+            <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-servlet:1.13" />
+            <element id="library" level="project" name="Gradle: asm:asm:3.1" />
+          </element>
+        </element>
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/Cens-Web/exploded/Cens-Web-1.0.0-SNAPSHOT.war/META-INF/MANIFEST.MF" />
+        </element>
+      </root>
+    </artifact>
+    <artifact type="exploded-war" name="Gradle : prj-cens2 : Cens-Web-1.0.0-SNAPSHOT.war (exploded)">
+      <output-path>$PROJECT_DIR$/out/artifacts/Cens-Web/exploded/Cens-Web-1.0.0-SNAPSHOT.war</output-path>
+      <properties id="gradle-properties">
+        <options external-project-path="$PROJECT_DIR$" />
+      </properties>
+      <root id="root">
+        <element id="javaee-facet-resources" facet="Cens-Web_main/web/Web Gradle : Cens-Web-1.0.0-SNAPSHOT.war" />
+        <element id="directory" name="WEB-INF">
+          <element id="directory" name="classes">
+            <element id="module-output" name="Cens-Web_main" />
+            <element id="dir-copy" path="$PROJECT_DIR$/Cens-Web/build/resources/main" />
+          </element>
+          <element id="directory" name="lib">
+            <element id="archive" name="prj-cens2-Cens-Ejb-1.0.0-SNAPSHOT.jar">
+              <element id="module-output" name="Cens-Ejb_main" />
+              <element id="dir-copy" path="$PROJECT_DIR$/Cens-Ejb/build/resources/main" />
+            </element>
+            <element id="library" level="project" name="Gradle: javax:javaee-api:7.0" />
+            <element id="archive" name="prj-cens2-Cens-Dto-1.0.0-SNAPSHOT.jar">
+              <element id="module-output" name="Cens-Dto_main" />
+              <element id="dir-copy" path="$PROJECT_DIR$/Cens-Dto/build/resources/main" />
+            </element>
+            <element id="archive" name="prj-cens2-Cens-Jpa-1.0.0-SNAPSHOT.jar">
+              <element id="module-output" name="Cens-Jpa_main" />
+              <element id="dir-copy" path="$PROJECT_DIR$/Cens-Jpa/build/resources/main" />
+            </element>
+            <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.5.0" />
+            <element id="library" level="project" name="Gradle: javax.activation:activation:1.1" />
+            <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-server:1.13" />
+            <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-core:1.13" />
+            <element id="library" level="project" name="Gradle: com.sun.jersey:jersey-servlet:1.13" />
+            <element id="library" level="project" name="Gradle: asm:asm:3.1" />
+          </element>
+        </element>
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/Cens-Web/exploded/Cens-Web-1.0.0-SNAPSHOT.war/META-INF/MANIFEST.MF" />
+        </element>
+      </root>
+    </artifact>
+    <artifact type="exploded-ear" name="Gradle : prj-cens2 : Cens-EAR-1.0.0-SNAPSHOT.ear (exploded)">
+      <output-path>$PROJECT_DIR$/out/artifacts/Cens-EAR/exploded/Cens-EAR-1.0.0-SNAPSHOT.ear</output-path>
+      <properties id="gradle-properties">
+        <options external-project-path="$PROJECT_DIR$" />
+      </properties>
+      <root id="root">
+        <element id="javaee-facet-resources" facet="Cens-EAR_main/javaeeApplication/JavaEE Application Gradle : Cens-EAR-1.0.0-SNAPSHOT.ear" />
+        <element id="dir-copy" path="$PROJECT_DIR$/Cens-EAR/src/main/application" />
+        <element id="directory" name="Cens-Web-1.0.0-SNAPSHOT.war">
+          <element id="artifact" artifact-name="Gradle : prj-cens2 : Cens-Web-1.0.0-SNAPSHOT.war (exploded)" />
+        </element>
+        <element id="directory" name="Cens-Ejb-1.0.0-SNAPSHOT.jar">
+          <element id="module-output" name="Cens-Ejb_main" />
+          <element id="dir-copy" path="$PROJECT_DIR$/Cens-Ejb/build/resources/main" />
+        </element>
+        <element id="archive" name="prj-cens2-Cens-Dto-1.0.0-SNAPSHOT.jar">
+          <element id="module-output" name="Cens-Dto_main" />
+          <element id="dir-copy" path="$PROJECT_DIR$/Cens-Dto/build/resources/main" />
+        </element>
+        <element id="archive" name="prj-cens2-Cens-Jpa-1.0.0-SNAPSHOT.jar">
+          <element id="module-output" name="Cens-Jpa_main" />
+          <element id="dir-copy" path="$PROJECT_DIR$/Cens-Jpa/build/resources/main" />
+        </element>
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/out/artifacts/Cens-EAR/exploded/Cens-EAR-1.0.0-SNAPSHOT.ear/META-INF/MANIFEST.MF" />
+        </element>
+      </root>
+    </artifact>
+    <artifact type="ear" name="Gradle : prj-cens2 : Cens-EAR-1.0.0-SNAPSHOT.ear">
+      <output-path>$PROJECT_DIR$/out/artifacts/Cens-EAR</output-path>
+      <properties id="gradle-properties">
+        <options external-project-path="$PROJECT_DIR$" />
+      </properties>
+      <root id="archive" name="Cens-EAR-1.0.0-SNAPSHOT.ear">
+        <element id="artifact" artifact-name="Gradle : prj-cens2 : Cens-EAR-1.0.0-SNAPSHOT.ear (exploded)" />
+      </root>
+    </artifact>
+  </component>
   <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="Javac"/>
+    <option name="DEFAULT_COMPILER" value="Javac" />
     <resourceExtensions>
-      <entry name=".+\.(properties|xml|html|dtd|tld)"/>
-      <entry name=".+\.(gif|png|jpeg|jpg)"/>
+      <entry name=".+\.(properties|xml|html|dtd|tld)" />
+      <entry name=".+\.(gif|png|jpeg|jpg)" />
     </resourceExtensions>
     <wildcardResourcePatterns>
-      <entry name="!?*.java"/>
-      <entry name="!?*.groovy"/>
+      <entry name="!?*.java" />
+      <entry name="!?*.groovy" />
     </wildcardResourcePatterns>
-    <annotationProcessing enabled="false" useClasspath="true"/>
-    <bytecodeTargetLevel target="1.8"/>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="Cens-Dto_main" target="1.8" />
+      <module name="Cens-Dto_test" target="1.8" />
+      <module name="Cens-EAR_main" target="1.8" />
+      <module name="Cens-EAR_test" target="1.8" />
+      <module name="Cens-Ejb_main" target="1.8" />
+      <module name="Cens-Ejb_test" target="1.8" />
+      <module name="Cens-Jpa_main" target="1.8" />
+      <module name="Cens-Jpa_test" target="1.8" />
+      <module name="Cens-Web_main" target="1.8" />
+      <module name="Cens-Web_test" target="1.8" />
+      <module name="prj-cens2_main" target="1.8" />
+      <module name="prj-cens2_test" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
-  <component name="CopyrightManager" default="">
-    <module2copyright/>
-  </component>
+  <component name="CopyrightManager" default="" />
   <component name="DependencyValidationManager">
-    <option name="SKIP_IMPORT_STATEMENTS" value="false"/>
+    <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false"/>
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="D:/prj-cens_gradle/.gradle/2.5" />
+        <option name="gradleJvm" value="1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Cens-Dto" />
+            <option value="$PROJECT_DIR$/Cens-EAR" />
+            <option value="$PROJECT_DIR$/Cens-Ejb" />
+            <option value="$PROJECT_DIR$/Cens-Jpa" />
+            <option value="$PROJECT_DIR$/Cens-Web" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
   <component name="GradleUISettings">
-    <setting name="root"/>
+    <setting name="root" />
   </component>
   <component name="GradleUISettings2">
-    <setting name="root"/>
+    <setting name="root" />
   </component>
-  <component name="IdProvider" IDEtalkID="11DA1DB66DD62DDA1ED602B7079FE97C"/>
+  <component name="IdProvider" IDEtalkID="11DA1DB66DD62DDA1ED602B7079FE97C" />
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY"/>
-    <option name="OPTION_SCOPE" value="protected"/>
-    <option name="OPTION_HIERARCHY" value="true"/>
-    <option name="OPTION_NAVIGATOR" value="true"/>
-    <option name="OPTION_INDEX" value="true"/>
-    <option name="OPTION_SEPARATE_INDEX" value="true"/>
-    <option name="OPTION_DOCUMENT_TAG_USE" value="false"/>
-    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="false"/>
-    <option name="OPTION_DOCUMENT_TAG_VERSION" value="false"/>
-    <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="true"/>
-    <option name="OPTION_DEPRECATED_LIST" value="true"/>
-    <option name="OTHER_OPTIONS" value=""/>
-    <option name="HEAP_SIZE"/>
-    <option name="LOCALE"/>
-    <option name="OPEN_IN_BROWSER" value="true"/>
+    <option name="OUTPUT_DIRECTORY" />
+    <option name="OPTION_SCOPE" value="protected" />
+    <option name="OPTION_HIERARCHY" value="true" />
+    <option name="OPTION_NAVIGATOR" value="true" />
+    <option name="OPTION_INDEX" value="true" />
+    <option name="OPTION_SEPARATE_INDEX" value="true" />
+    <option name="OPTION_DOCUMENT_TAG_USE" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_VERSION" value="false" />
+    <option name="OPTION_DOCUMENT_TAG_DEPRECATED" value="true" />
+    <option name="OPTION_DEPRECATED_LIST" value="true" />
+    <option name="OTHER_OPTIONS" value="" />
+    <option name="HEAP_SIZE" />
+    <option name="LOCALE" />
+    <option name="OPEN_IN_BROWSER" value="true" />
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/prj-cens.iml" filepath="$PROJECT_DIR$/prj-cens.iml"/>
-      <module fileurl="file://$PROJECT_DIR$/Cens-Dto/Cens-Dto.iml" filepath="$PROJECT_DIR$/Cens-Dto/Cens-Dto.iml"/>
-      <module fileurl="file://$PROJECT_DIR$/Cens-EAR/Cens-EAR.iml" filepath="$PROJECT_DIR$/Cens-EAR/Cens-EAR.iml"/>
-      <module fileurl="file://$PROJECT_DIR$/Cens-Ejb/Cens-Ejb.iml" filepath="$PROJECT_DIR$/Cens-Ejb/Cens-Ejb.iml"/>
-      <module fileurl="file://$PROJECT_DIR$/Cens-Jpa/Cens-Jpa.iml" filepath="$PROJECT_DIR$/Cens-Jpa/Cens-Jpa.iml"/>
-      <module fileurl="file://$PROJECT_DIR$/Cens-Web/Cens-Web.iml" filepath="$PROJECT_DIR$/Cens-Web/Cens-Web.iml"/>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Dto/Cens-Dto.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Dto/Cens-Dto.iml" group="Cens-Dto" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Dto/Cens-Dto_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Dto/Cens-Dto_main.iml" group="Cens-Dto" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Dto/Cens-Dto_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Dto/Cens-Dto_test.iml" group="Cens-Dto" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-EAR/Cens-EAR.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-EAR/Cens-EAR.iml" group="Cens-EAR" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-EAR/Cens-EAR_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-EAR/Cens-EAR_main.iml" group="Cens-EAR" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-EAR/Cens-EAR_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-EAR/Cens-EAR_test.iml" group="Cens-EAR" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Ejb/Cens-Ejb.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Ejb/Cens-Ejb.iml" group="Cens-Ejb" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Ejb/Cens-Ejb_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Ejb/Cens-Ejb_main.iml" group="Cens-Ejb" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Ejb/Cens-Ejb_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Ejb/Cens-Ejb_test.iml" group="Cens-Ejb" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Jpa/Cens-Jpa.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Jpa/Cens-Jpa.iml" group="Cens-Jpa" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Jpa/Cens-Jpa_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Jpa/Cens-Jpa_main.iml" group="Cens-Jpa" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Jpa/Cens-Jpa_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Jpa/Cens-Jpa_test.iml" group="Cens-Jpa" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web.iml" group="Cens-Web" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web_main.iml" group="Cens-Web" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Cens-Web/Cens-Web_test.iml" group="Cens-Web" />
+      <module fileurl="file://$PROJECT_DIR$/prj-cens.iml" filepath="$PROJECT_DIR$/prj-cens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prj-cens2.iml" filepath="$PROJECT_DIR$/.idea/modules/prj-cens2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prj-cens2_main.iml" filepath="$PROJECT_DIR$/.idea/modules/prj-cens2_main.iml" group="prj-cens2" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/prj-cens2_test.iml" filepath="$PROJECT_DIR$/.idea/modules/prj-cens2_test.iml" group="prj-cens2" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" assert-keyword="true" jdk-15="true" project-jdk-type="JavaSDK" assert-jdk-15="true" project-jdk-name="1.8">
-    <output url="file://$PROJECT_DIR$/out"/>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="SvnBranchConfigurationManager">
-    <option name="mySupportsUserInfoFilter" value="true"/>
+    <option name="mySupportsUserInfoFilter" value="true" />
   </component>
   <component name="VcsDirectoryMappings">
-    <mapping directory="" vcs=""/>
+    <mapping directory="" vcs="Git" />
+  </component>
+  <component name="libraryTable">
+    <library name="Gradle: asm:asm:3.1">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/asm/asm/3.1/c157def142714c544bdea2e6144645702adf7097/asm-3.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/asm/asm/3.1/2eaa4de56203f433f287a6df5885ef9ad3c5bcae/asm-3.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.sun.jersey:jersey-core:1.13">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.jersey/jersey-core/1.13/4326a56dc6b2d67b7313905c353e1af225bb164f/jersey-core-1.13.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.jersey/jersey-core/1.13/edb89ddc562d30a068bda4e6a7618681f2a2536a/jersey-core-1.13-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.sun.jersey:jersey-server:1.13">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.jersey/jersey-server/1.13/a83c83bf51fe532e2226a91110f1a2297711c536/jersey-server-1.13.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.jersey/jersey-server/1.13/1d6b04b77aa88a73f173bfc4e75dcf94ec3286f/jersey-server-1.13-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.sun.jersey:jersey-servlet:1.13">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.jersey/jersey-servlet/1.13/2e45e281002391865525c4bf0e525887dcd22341/jersey-servlet-1.13.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.jersey/jersey-servlet/1.13/9a40b43458d8a0895cc79b9e84bfb4a988192699/jersey-servlet-1.13-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.sun.mail:javax.mail:1.5.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.mail/javax.mail/1.5.0/ec2410fdf7e0a3022e7c2a2e6241039d1abc1e98/javax.mail-1.5.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.mail/javax.mail/1.5.0/6f759537630bbaad0f80781c0a2ebebf91125991/javax.mail-1.5.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: javax.activation:activation:1.1">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.activation/activation/1.1/e6cb541461c2834bdea3eb920f1884d1eb508b50/activation-1.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.activation/activation/1.1/3697e9f67a2ed7ac5f589cff30f21173299440/activation-1.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: javax:javaee-api:7.0">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/51399f902cc27a808122edcbebfaa1ad989954ba/javaee-api-7.0.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: junit:junit:4.12">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.hamcrest:hamcrest-core:1.3">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
   </component>
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
         <UIState>
           <splitter-proportions>
-            <SplitterProportionsDataImpl/>
+            <SplitterProportionsDataImpl />
           </splitter-proportions>
-          <settings/>
+          <settings />
         </UIState>
       </state>
       <state key="Copyright.UI">
         <UIState>
           <splitter-proportions>
-            <SplitterProportionsDataImpl/>
+            <SplitterProportionsDataImpl />
           </splitter-proportions>
         </UIState>
       </state>
@@ -86,7 +334,7 @@
             <SplitterProportionsDataImpl>
               <option name="proportions">
                 <list>
-                  <option value="0.2"/>
+                  <option value="0.2" />
                 </list>
               </option>
             </SplitterProportionsDataImpl>
@@ -97,9 +345,9 @@
       <state key="ScopeChooserConfigurable.UI">
         <UIState>
           <splitter-proportions>
-            <SplitterProportionsDataImpl/>
+            <SplitterProportionsDataImpl />
           </splitter-proportions>
-          <settings/>
+          <settings />
         </UIState>
       </state>
     </states>
