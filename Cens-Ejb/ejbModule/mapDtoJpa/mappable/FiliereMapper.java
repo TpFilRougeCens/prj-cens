@@ -5,7 +5,6 @@ import mapDtoJpa.mapper.Mapper;
 import model.Filiere;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 
 /**
  * Created by Gawel on 16/03/2016.
@@ -22,7 +21,8 @@ public class FiliereMapper extends Mapper<FiliereDTO, Filiere> {
     private VoieMapper voieMapper;
 
     @Override
-    public FiliereDTO mapFromEntity(Filiere filiere, String... instance) {
+    public FiliereDTO mapFromEntity(Filiere filiere) {
+//    public FiliereDTO mapFromEntity(Filiere filiere, String... instance) {
         if (filiere == null) {
             return null;
         }
@@ -34,14 +34,15 @@ public class FiliereMapper extends Mapper<FiliereDTO, Filiere> {
         result.setFiliereLibelle(filiere.getFiliereLibelle());
 
         // On vérifie si l'instance VoieMapper est l'appellant pour éviter une boucle infinie
-        if (Arrays.binarySearch(instance, "VoieMapper") < 0) {
-            result.setVoie(voieMapper.mapFromEntity(filiere.getVoie()));
-        }
+//        if (Arrays.binarySearch(instance, "VoieMapper") < 0) {
+        result.setVoie(voieMapper.mapFromEntity(filiere.getVoie()));
+//        }
         return result;
     }
 
     @Override
-    public Filiere mapToEntity(FiliereDTO filiereDTO, String... instance) {
+    public Filiere mapToEntity(FiliereDTO filiereDTO) {
+//    public Filiere mapToEntity(FiliereDTO filiereDTO, String... instance) {
         if (filiereDTO == null) {
             return null;
         }
@@ -51,9 +52,9 @@ public class FiliereMapper extends Mapper<FiliereDTO, Filiere> {
 //        result.setAssocFiliereBlocs(assocFiliereBlocMapper.mapToEntity(filiereDTO.getAssocFiliereBlocs()));
 //        result.setClassrooms(classroomMapper.mapToEntity(filiereDTO.getClassrooms()));
         result.setFiliereLibelle(filiereDTO.getFiliereLibelle());
-        if (Arrays.binarySearch(instance, "VoieMapper") < 0) {
-            result.setVoie(voieMapper.mapToEntity(filiereDTO.getVoie()));
-        }
+//        if (Arrays.binarySearch(instance, "VoieMapper") < 0) {
+        result.setVoie(voieMapper.mapToEntity(filiereDTO.getVoie()));
+//        }
         return result;
     }
 

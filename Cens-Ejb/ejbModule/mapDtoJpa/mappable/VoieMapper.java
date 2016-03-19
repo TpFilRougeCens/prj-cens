@@ -16,7 +16,8 @@ public class VoieMapper extends Mapper<VoieDTO, Voie> {
     Provider<FiliereMapper> filiereMapper;
 
     @Override
-    public VoieDTO mapFromEntity(Voie voie, String... instance) {
+    public VoieDTO mapFromEntity(Voie voie) {
+//    public VoieDTO mapFromEntity(Voie voie, String... instance) {
         if (voie == null) {
             return null;
         }
@@ -25,12 +26,13 @@ public class VoieMapper extends Mapper<VoieDTO, Voie> {
         result.setVoieId(voie.getVoieId());
         result.setVoieLibelle(voie.getVoieLibelle());
         //on passe le nom de la classe instance pour éviter une boucle infini entre Voie et Filière
-        result.setFilieres(filiereMapper.get().mapFromEntity(voie.getFilieres(), this.getClass().getSimpleName())); //Todo verif
+//        result.setFilieres(filiereMapper.get().mapFromEntity(voie.getFilieres(), this.getClass().getSimpleName())); //Todo verif
         return result;
     }
 
     @Override
-    public Voie mapToEntity(VoieDTO voieDTO, String... instance) {
+    public Voie mapToEntity(VoieDTO voieDTO) {
+//    public Voie mapToEntity(VoieDTO voieDTO, String... instance) {
         if (voieDTO == null) {
             return null;
         }
@@ -42,7 +44,7 @@ public class VoieMapper extends Mapper<VoieDTO, Voie> {
 //        for (Filiere elem : filiereMapper.get().mapToEntity(voieDTO.getFilieres())) {
 //            System.out.println("id filière : " + elem.getFiliereId());
 //        }
-        result.setFilieres(filiereMapper.get().mapToEntity(voieDTO.getFilieres(), this.getClass().getSimpleName())); //Todo verifier
+//        result.setFilieres(filiereMapper.get().mapToEntity(voieDTO.getFilieres(), this.getClass().getSimpleName())); //Todo verifier
 //        }
         return result;
 
