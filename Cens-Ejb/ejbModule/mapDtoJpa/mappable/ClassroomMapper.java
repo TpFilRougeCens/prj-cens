@@ -5,6 +5,8 @@ import mapDtoJpa.mapper.Mapper;
 import model.Classroom;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
+import java.util.Arrays;
 
 /**
  * Created by gael.cdi12 : 17/03/2016.
@@ -20,15 +22,15 @@ public class ClassroomMapper extends Mapper<ClassroomDTO, Classroom> {
     @Inject
     private EmployeMapper employeMapper;
 
-//    @Inject
-//    private AssocEnseignerMapper assocEnseignerMapper;
-//
-//    @Inject
-//    private AssocEtudierMapper assocEtudierMapper;
+    @Inject
+    private Provider<AssocEnseignerMapper> assocEnseignerMapper;
+
+    @Inject
+    private Provider<AssocEtudierMapper> assocEtudierMapper;
 
 
     @Override
-    public ClassroomDTO mapFromEntity(Classroom classroom) {
+    public ClassroomDTO mapFromEntity(Classroom classroom, String... instance) {
         if (classroom == null) {
             return null;
         }
@@ -38,13 +40,17 @@ public class ClassroomMapper extends Mapper<ClassroomDTO, Classroom> {
         result.setNiveau(niveauMapper.mapFromEntity(classroom.getNiveau()));
         result.setEmploye(employeMapper.mapFromEntity(classroom.getEmploye()));
         result.setClassroomLibelle(classroom.getClassroomLibelle());
-//        result.setAssocEnseigners(assocEnseignerMapper.mapFromEntity(classroom.getAssocEnseigners()));
-//        result.setAssocEtudiers(assocEtudierMapper.mapFromEntity(classroom.getAssocEtudiers()));
+        if (Arrays.binarySearch(instance, "AssocEnseignerMapper") < 0) {
+            result.setAssocEnseigners(assocEnseignerMapper.get().mapFromEntity(classroom.getAssocEnseigners()));
+        }
+        if (Arrays.binarySearch(instance, "AssocEtudierMapper") < 0) {
+            result.setAssocEtudiers(assocEtudierMapper.get().mapFromEntity(classroom.getAssocEtudiers()));
+        }
         return result;
     }
 
     @Override
-    public Classroom mapToEntity(ClassroomDTO classroomDTO) {
+    public Classroom mapToEntity(ClassroomDTO classroomDTO, String... instance) {
         if (classroomDTO == null) {
             return null;
         }
@@ -54,8 +60,12 @@ public class ClassroomMapper extends Mapper<ClassroomDTO, Classroom> {
         result.setNiveau(niveauMapper.mapToEntity(classroomDTO.getNiveau()));
         result.setEmploye(employeMapper.mapToEntity(classroomDTO.getEmploye()));
         result.setClassroomLibelle(classroomDTO.getClassroomLibelle());
-//        result.setAssocEnseigners(assocEnseignerMapper.mapToEntity(classroomDTO.getAssocEnseigners()));
-//        result.setAssocEtudiers(assocEtudierMapper.mapToEntity(classroomDTO.getAssocEtudiers()));
+        if (Arrays.binarySearch(instance, "AssocEnseignerMapper") < 0) {
+            result.setAssocEnseigners(assocEnseignerMapper.get().mapToEntity(classroomDTO.getAssocEnseigners()));
+        }
+        if (Arrays.binarySearch(instance, "AssocEtudierMapper") < 0) {
+            result.setAssocEtudiers(assocEtudierMapper.get().mapToEntity(classroomDTO.getAssocEtudiers()));
+        }
         return result;
     }
 }

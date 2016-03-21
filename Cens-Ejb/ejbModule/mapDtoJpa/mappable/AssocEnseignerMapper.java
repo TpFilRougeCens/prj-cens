@@ -24,7 +24,7 @@ public class AssocEnseignerMapper extends Mapper<AssocEnseignerDTO, AssocEnseign
     private EmployeMapper employeMapper;
 
     @Override
-    public AssocEnseignerDTO mapFromEntity(AssocEnseigner assocEnseigner) {
+    public AssocEnseignerDTO mapFromEntity(AssocEnseigner assocEnseigner, String... instance) {
         if (assocEnseigner == null) {
             return null;
         }
@@ -38,7 +38,7 @@ public class AssocEnseignerMapper extends Mapper<AssocEnseignerDTO, AssocEnseign
     }
 
     @Override
-    public AssocEnseigner mapToEntity(AssocEnseignerDTO assocEnseignerDTO) {
+    public AssocEnseigner mapToEntity(AssocEnseignerDTO assocEnseignerDTO, String... instance) {
         if (assocEnseignerDTO == null) {
             return null;
         }

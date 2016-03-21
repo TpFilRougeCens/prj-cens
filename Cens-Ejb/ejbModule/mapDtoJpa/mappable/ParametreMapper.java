@@ -9,7 +9,7 @@ import model.Parametre;
  */
 public class ParametreMapper extends Mapper<ParametreDTO, Parametre> {
     @Override
-    public ParametreDTO mapFromEntity(Parametre parametre) {
+    public ParametreDTO mapFromEntity(Parametre parametre, String... instance) {
         if (parametre == null) {
             return null;
         }
@@ -21,7 +21,7 @@ public class ParametreMapper extends Mapper<ParametreDTO, Parametre> {
     }
 
     @Override
-    public Parametre mapToEntity(ParametreDTO parametreDTO) {
+    public Parametre mapToEntity(ParametreDTO parametreDTO, String... instance) {
         if (parametreDTO == null) {
             return null;
         }

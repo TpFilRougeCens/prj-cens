@@ -15,7 +15,7 @@ public class EmployeMapper extends Mapper<EmployeDTO, Employe> {
     private GroupeMapper groupeMapper;
 
     @Override
-    public EmployeDTO mapFromEntity(Employe employe) {
+    public EmployeDTO mapFromEntity(Employe employe, String... instance) {
         if (employe == null) {
             return null;
         }
@@ -34,7 +34,7 @@ public class EmployeMapper extends Mapper<EmployeDTO, Employe> {
     }
 
     @Override
-    public Employe mapToEntity(EmployeDTO employeDTO) {
+    public Employe mapToEntity(EmployeDTO employeDTO, String... instance) {
         if (employeDTO == null) {
             return null;
         }

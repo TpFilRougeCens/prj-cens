@@ -9,35 +9,25 @@ import model.Promo;
  */
 public class PromoMapper extends Mapper<PromoDTO, Promo> {
 
-//    @Inject
-//    private AssocEnseignerMapper assocEnseignerMapper;
-//
-//    @Inject
-//    private AssocEtudierMapper assocEtudierMapper;
-
     @Override
-    public PromoDTO mapFromEntity(Promo promo) {
+    public PromoDTO mapFromEntity(Promo promo, String... instance) {
         if (promo == null) {
             return null;
         }
         PromoDTO result = new PromoDTO();
         result.setPromoId(promo.getPromoId());
         result.setPromoLibelle(promo.getPromoLibelle());
-//        result.setAssocEnseigners(assocEnseignerMapper.mapFromEntity(promo.getAssocEnseigners()));
-//        result.setAssocEtudiers(assocEtudierMapper.mapFromEntity(promo.getAssocEtudiers()));
         return result;
     }
 
     @Override
-    public Promo mapToEntity(PromoDTO promoDTO) {
+    public Promo mapToEntity(PromoDTO promoDTO, String... instance) {
         if (promoDTO == null) {
             return null;
         }
         Promo result = new Promo();
         result.setPromoId(promoDTO.getPromoId());
         result.setPromoLibelle(promoDTO.getPromoLibelle());
-//        result.setAssocEnseigners(assocEnseignerMapper.mapToEntity(promoDTO.getAssocEnseigners()));
-//        result.setAssocEtudiers(assocEtudierMapper.mapToEntity(promoDTO.getAssocEtudiers()));
         return result;
     }
 }

@@ -1,17 +1,11 @@
 package tests;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-
 /**
  * Created by Gawel on 13/03/2016.
  */
 public class testEncryption {
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         try {
             String key = "1234567890123456"; //MAX LENGHT 16CHARS
             String az = encrypt(key, "motdepasse");
@@ -40,5 +34,5 @@ public class testEncryption {
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
         byte[] hasil = cipher.doFinal(new BASE64Decoder().decodeBuffer(password));
         return new String(hasil);
-    }
+    }*/
 }

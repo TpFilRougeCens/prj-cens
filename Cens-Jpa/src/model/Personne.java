@@ -1,9 +1,5 @@
 package model;
 
-import sun.misc.BASE64Encoder;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -140,27 +136,4 @@ public class Personne implements Serializable {
         this.groupe = groupe;
     }
 
-    private static String encrypt(String password) throws Exception {
-
-        // TODO Variable global à l'application a faire au lancement serveur
-        // DEPLACER LA METHODE DANS LA COUCHE DE SERVICE
-        String key = "todo";
-        byte[] keyData = key.getBytes();
-        SecretKeySpec secretKeySpec = new SecretKeySpec(keyData, "Blowfish");
-        Cipher cipher = Cipher.getInstance("Blowfish");
-        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
-        byte[] hasil = cipher.doFinal(password.getBytes());
-        return new BASE64Encoder().encode(hasil);
-    }
-
-    // NE JAMAIS DECRYPTER
-//    private static String decrypt(String password) throws Exception {
-//        String key = "todo";
-//        byte[] keyData = key.getBytes();
-//        SecretKeySpec secretKeySpec = new SecretKeySpec(keyData, "Blowfish");
-//        Cipher cipher = Cipher.getInstance("Blowfish");
-//        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
-//        byte[] hasil = cipher.doFinal(new BASE64Decoder().decodeBuffer(password));
-//        return new String(hasil);
-//    }
 }

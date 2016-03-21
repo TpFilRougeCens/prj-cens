@@ -9,7 +9,7 @@ import model.Statistique;
  */
 public class StatistiqueMapper extends Mapper<StatistiqueDTO, Statistique> {
     @Override
-    public StatistiqueDTO mapFromEntity(Statistique statistique) {
+    public StatistiqueDTO mapFromEntity(Statistique statistique, String... instance) {
         if (statistique == null) {
             return null;
         }
@@ -22,7 +22,7 @@ public class StatistiqueMapper extends Mapper<StatistiqueDTO, Statistique> {
     }
 
     @Override
-    public Statistique mapToEntity(StatistiqueDTO statistiqueDTO) {
+    public Statistique mapToEntity(StatistiqueDTO statistiqueDTO, String... instance) {
         if (statistiqueDTO == null) {
             return null;
         }

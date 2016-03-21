@@ -5,56 +5,65 @@ import mapDtoJpa.mapper.Mapper;
 import model.Filiere;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
+import java.util.Arrays;
 
 /**
- * Created by Gawel on 16/03/2016.
+ * Created by Gawel : 16/03/2016.
  */
 public class FiliereMapper extends Mapper<FiliereDTO, Filiere> {
-
-//    @Inject
-//    private AssocFiliereBlocMapper assocFiliereBlocMapper;
-//
-//    @Inject
-//    private ClassroomMapper classroomMapper;
 
     @Inject
     private VoieMapper voieMapper;
 
+    @Inject
+    private Provider<ClassroomMapper> classroomMapper;
+
+    @Inject
+    private Provider<AssocFiliereBlocMapper> assocFiliereBlocMapper;
+
+
     @Override
-    public FiliereDTO mapFromEntity(Filiere filiere) {
-//    public FiliereDTO mapFromEntity(Filiere filiere, String... instance) {
+    public FiliereDTO mapFromEntity(Filiere filiere, String... instance) {
         if (filiere == null) {
             return null;
         }
 
         FiliereDTO result = new FiliereDTO();
         result.setFiliereId(filiere.getFiliereId());
-//        result.setAssocFiliereBlocs(assocFiliereBlocMapper.mapFromEntity(filiere.getAssocFiliereBlocs()));
-//        result.setClassrooms(classroomMapper.mapFromEntity(filiere.getClassrooms()));
         result.setFiliereLibelle(filiere.getFiliereLibelle());
-
-        // On vérifie si l'instance VoieMapper est l'appellant pour éviter une boucle infinie
-//        if (Arrays.binarySearch(instance, "VoieMapper") < 0) {
-        result.setVoie(voieMapper.mapFromEntity(filiere.getVoie()));
-//        }
+        // La boucle infinie est bloquée du coté de la Class Voie
+        result.setVoie(voieMapper.mapFromEntity(filiere.getVoie(), this.getClass().getSimpleName()));
+        //Blocage de classroom
+        if (Arrays.binarySearch(instance, "ClassroomMapper") < 0) {
+            result.setClassrooms(classroomMapper.get().mapFromEntity(filiere.getClassrooms(), this.getClass().getSimpleName()));
+        }
+        // blocage de assocfiliereBlocs
+        if (Arrays.binarySearch(instance, "AssocFiliereBlocsMapper") < 0) {
+            result.setAssocFiliereBlocs(assocFiliereBlocMapper.get().mapFromEntity(filiere.getAssocFiliereBlocs(), this.getClass().getSimpleName()));
+        }
         return result;
     }
 
     @Override
-    public Filiere mapToEntity(FiliereDTO filiereDTO) {
-//    public Filiere mapToEntity(FiliereDTO filiereDTO, String... instance) {
+    public Filiere mapToEntity(FiliereDTO filiereDTO, String... instance) {
         if (filiereDTO == null) {
             return null;
         }
 
         Filiere result = new Filiere();
         result.setFiliereId(filiereDTO.getFiliereId());
-//        result.setAssocFiliereBlocs(assocFiliereBlocMapper.mapToEntity(filiereDTO.getAssocFiliereBlocs()));
-//        result.setClassrooms(classroomMapper.mapToEntity(filiereDTO.getClassrooms()));
         result.setFiliereLibelle(filiereDTO.getFiliereLibelle());
-//        if (Arrays.binarySearch(instance, "VoieMapper") < 0) {
-        result.setVoie(voieMapper.mapToEntity(filiereDTO.getVoie()));
-//        }
+        // La boucle infinie est bloquée du coté de la Class Voie
+        result.setVoie(voieMapper.mapToEntity(filiereDTO.getVoie(), this.getClass().getSimpleName()));
+        //Blocage de classroom
+        if (Arrays.binarySearch(instance, "ClassroomMapper") < 0) {
+            result.setClassrooms(classroomMapper.get().mapToEntity(filiereDTO.getClassrooms(), this.getClass().getSimpleName()));
+        }
+        // blocage de assocfiliereBlocs
+        if (Arrays.binarySearch(instance, "AssocFiliereBlocsMapper") < 0) {
+            result.setAssocFiliereBlocs(assocFiliereBlocMapper.get().mapToEntity(filiereDTO.getAssocFiliereBlocs(), this.getClass().getSimpleName()));
+        }
         return result;
     }
 
