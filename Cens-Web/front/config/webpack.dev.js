@@ -171,9 +171,17 @@ module.exports = {
       {test: /\.html$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')]},
 
       // sass-loader not scss-loader
-      {
-        test: /\.scss$/, exclude: /node_modules/, loaders: ['raw-loader', 'sass-loader']
-      }
+      {test: /\.scss$/, exclude: /node_modules/, loaders: ['raw-loader', 'sass-loader']},
+ 
+     /*  // need to load bootstrap css with less for glyphicons
+      // See: https://github.com/webpack/webpack/issues/597
+      {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
+
+      // See: https://github.com/theodybrothers/webpack-bootstrap
+    { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+      { test: /\.(woff|woff2)$/, loader:"url?prefix=font/&limit=5000" },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" }*/
     ]
 
   },
