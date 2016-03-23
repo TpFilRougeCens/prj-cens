@@ -1,6 +1,5 @@
 package filtre;
 
-import bean.Utilisateur;
 import model.Personne;
 
 import javax.servlet.*;
@@ -68,7 +67,6 @@ public class AccesFiltre implements javax.servlet.Filter {
                     request.getRequestDispatcher(cheminRedir).forward(request,reponse);
                     break;
                 case "enseignant":
-                    System.out.println("test passage");
                     request.getRequestDispatcher(cheminRedir).forward(request,reponse);
                     break;
                 case "admin":

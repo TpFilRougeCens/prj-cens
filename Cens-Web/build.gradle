@@ -17,4 +17,5 @@ sourceSets {
 dependencies {
     compile project(':Cens-Ejb')
     compile group: 'javax', name: 'javaee-api', version: '7.0'
+    compile group: 'org.json', name: 'json', version: '20140107'
 }
