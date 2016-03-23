@@ -51,7 +51,8 @@ public class ConnexionServlet extends HttpServlet {
         if (persBase!=null) {
             session.setAttribute(SESSION_UTILISATEUR, persBase);
             String function = persBase.getGroupe().getGroupeLibelle();
-            switch (function) {
+            System.out.println("function dans servlet "+function.toLowerCase());
+            switch (function.toLowerCase()) {
                 case "enseignant":
                     response.sendRedirect("/Cens-Web-1.0.0-SNAPSHOT/enseignant");
                     break;
