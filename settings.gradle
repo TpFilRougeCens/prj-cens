@@ -1,1 +1,1 @@
-include 'Cens-Jpa', 'Cens-Dto', 'Cens-Web', 'Cens-Ejb', 'Cens-EAR'
+include 'Cens-Jpa', 'Cens-Dto', 'Cens-Ejb', 'Cens-Web', 'Cens-EAR'
