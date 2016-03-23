@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Created by Steven on 24/02/2016.
  */
-@WebFilter(urlPatterns = "/desactivé/")
+@WebFilter(urlPatterns = "/*")
 public class AccesFiltre implements javax.servlet.Filter {
     private static final String SESSION_UTILISATEUR = "sessionUtilisateur";
     private static final String ACCES_LOGIN = "/Connexion";
@@ -50,10 +50,27 @@ public class AccesFiltre implements javax.servlet.Filter {
 
         if (user!=null && recentUser != null) {
             System.out.println("passage filtre page demande");
-            request.getRequestDispatcher(chemin).forward(request,reponse);
-            //String pageDemande = (String) request.getSession().getAttribute("pageFiltre");
+            String fonc = ((Utilisateur) session.getAttribute("sessionUtilisateur")).getFonction();
+            System.out.println("fonction avancé "+fonc);
+            switch (fonc){
+                case "manager":
+                    request.getRequestDispatcher(fonc).forward(request,reponse);
+                    break;
+                case "coordinateur":
+                    request.getRequestDispatcher(fonc).forward(request,reponse);
+                    break;
+                case "eleve":
+                    request.getRequestDispatcher(fonc).forward(request,reponse);
+                    break;
+                case "enseignant":
+                    request.getRequestDispatcher(fonc).forward(request,reponse);
+                    break;
+                case "admin":
+                    request.getRequestDispatcher(fonc).forward(request,reponse);
+                    break;
+            }
+            //request.getRequestDispatcher(chemin).forward(request,reponse);
         }
-        //System.out.println("utilisateur session dans le filte " + SESSION_UTILISATEUR);
 
 
         if (session.getAttribute(SESSION_UTILISATEUR) == null && recentUser==null) {
