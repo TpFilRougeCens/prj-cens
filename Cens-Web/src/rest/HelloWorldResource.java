@@ -1,11 +1,10 @@
-/*
 package rest;
 
-import javax.enterprise.inject.Produces;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import static javax.swing.text.html.FormSubmitEvent.MethodType.GET;
 
 @Path("/hello")
 @Produces(MediaType.APPLICATION_JSON)
@@ -17,4 +16,3 @@ public class HelloWorldResource {
         return "{\"message\": \"hello\"}";
     }
 }
-*/
