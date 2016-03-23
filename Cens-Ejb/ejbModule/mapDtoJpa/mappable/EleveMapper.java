@@ -14,7 +14,7 @@ public class EleveMapper extends Mapper<EleveDTO, Eleve> {
     private GroupeMapper groupeMapper;
 
     @Override
-    public EleveDTO mapFromEntity(Eleve eleve) {
+    public EleveDTO mapFromEntity(Eleve eleve, String... instance) {
         if (eleve == null) {
             return null;
         }
@@ -35,7 +35,7 @@ public class EleveMapper extends Mapper<EleveDTO, Eleve> {
     }
 
     @Override
-    public Eleve mapToEntity(EleveDTO eleveDTO) {
+    public Eleve mapToEntity(EleveDTO eleveDTO, String... instance) {
         if (eleveDTO == null) {
             return null;
         }

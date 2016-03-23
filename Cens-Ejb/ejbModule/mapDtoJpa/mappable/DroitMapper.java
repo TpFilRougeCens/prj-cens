@@ -15,7 +15,7 @@ public class DroitMapper extends Mapper<DroitDTO, Droit> {
     GroupeMapper groupeMapper;
 
     @Override
-    public DroitDTO mapFromEntity(Droit droit) {
+    public DroitDTO mapFromEntity(Droit droit, String... instance) {
         if (droit == null) {
             return null;
         }
@@ -29,7 +29,7 @@ public class DroitMapper extends Mapper<DroitDTO, Droit> {
     }
 
     @Override
-    public Droit mapToEntity(DroitDTO droitDTO) {
+    public Droit mapToEntity(DroitDTO droitDTO, String... instance) {
         if (droitDTO == null) {
             return null;
         }

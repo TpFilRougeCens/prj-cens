@@ -21,7 +21,7 @@ public class AssocEtudierMapper extends Mapper<AssocEtudierDTO, AssocEtudier> {
     EleveMapper eleveMapper;
 
     @Override
-    public AssocEtudierDTO mapFromEntity(AssocEtudier assocEtudier) {
+    public AssocEtudierDTO mapFromEntity(AssocEtudier assocEtudier, String... instance) {
         if (assocEtudier == null) {
             return null;
         }
@@ -34,7 +34,7 @@ public class AssocEtudierMapper extends Mapper<AssocEtudierDTO, AssocEtudier> {
     }
 
     @Override
-    public AssocEtudier mapToEntity(AssocEtudierDTO assocEtudierDTO) {
+    public AssocEtudier mapToEntity(AssocEtudierDTO assocEtudierDTO, String... instance) {
         if (assocEtudierDTO == null) {
             return null;
         }

@@ -15,7 +15,7 @@ public class PersonneMapper extends Mapper<PersonneDTO, Personne> {
     private GroupeMapper groupeMapper;
 
     @Override
-    public PersonneDTO mapFromEntity(Personne personne) {
+    public PersonneDTO mapFromEntity(Personne personne, String... instance) {
         if (personne == null) {
             return null;
         }
@@ -34,7 +34,7 @@ public class PersonneMapper extends Mapper<PersonneDTO, Personne> {
     }
 
     @Override
-    public Personne mapToEntity(PersonneDTO personneDTO) {
+    public Personne mapToEntity(PersonneDTO personneDTO, String... instance) {
         if (personneDTO == null) {
             return null;
         }

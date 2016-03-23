@@ -18,7 +18,7 @@ public class AssocFiliereBlocMapper extends Mapper<AssocFiliereBlocDTO, AssocFil
     FiliereMapper filiereMapper;
 
     @Override
-    public AssocFiliereBlocDTO mapFromEntity(AssocFiliereBloc assocFiliereBloc) {
+    public AssocFiliereBlocDTO mapFromEntity(AssocFiliereBloc assocFiliereBloc, String... instance) {
         if (assocFiliereBloc == null) {
             return null;
         }
@@ -30,7 +30,7 @@ public class AssocFiliereBlocMapper extends Mapper<AssocFiliereBlocDTO, AssocFil
     }
 
     @Override
-    public AssocFiliereBloc mapToEntity(AssocFiliereBlocDTO assocFiliereBlocDTO) {
+    public AssocFiliereBloc mapToEntity(AssocFiliereBlocDTO assocFiliereBlocDTO, String... instance) {
         if (assocFiliereBlocDTO == null) {
             return null;
         }

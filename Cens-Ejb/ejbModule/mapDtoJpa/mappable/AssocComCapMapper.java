@@ -15,7 +15,7 @@ public class AssocComCapMapper extends Mapper<AssocComCapDTO, AssocComCap> {
     ComCapMapper comCapMapper;
 
     @Override
-    public AssocComCapDTO mapFromEntity(AssocComCap assocComCap) {
+    public AssocComCapDTO mapFromEntity(AssocComCap assocComCap, String... instance) {
         if (assocComCap == null) {
             return null;
         }
@@ -27,7 +27,7 @@ public class AssocComCapMapper extends Mapper<AssocComCapDTO, AssocComCap> {
     }
 
     @Override
-    public AssocComCap mapToEntity(AssocComCapDTO assocComCapDTO) {
+    public AssocComCap mapToEntity(AssocComCapDTO assocComCapDTO, String... instance) {
         if (assocComCapDTO == null) {
             return null;
         }

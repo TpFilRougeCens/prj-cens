@@ -15,7 +15,7 @@ public class BilanMapper extends Mapper<BilanDTO, Bilan> {
     private EleveMapper eleveMapper;
 
     @Override
-    public BilanDTO mapFromEntity(Bilan bilan) {
+    public BilanDTO mapFromEntity(Bilan bilan, String... instance) {
         if (bilan == null) {
             return null;
         }
@@ -30,7 +30,7 @@ public class BilanMapper extends Mapper<BilanDTO, Bilan> {
     }
 
     @Override
-    public Bilan mapToEntity(BilanDTO bilanDTO) {
+    public Bilan mapToEntity(BilanDTO bilanDTO, String... instance) {
         if (bilanDTO == null) {
             return null;
         }

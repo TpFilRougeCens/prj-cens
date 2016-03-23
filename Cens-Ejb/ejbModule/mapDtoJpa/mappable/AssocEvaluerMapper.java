@@ -24,7 +24,7 @@ public class AssocEvaluerMapper extends Mapper<AssocEvaluerDTO, AssocEvaluer> {
     ComCapMapper comCapMapper;
 
     @Override
-    public AssocEvaluerDTO mapFromEntity(AssocEvaluer assocEvaluer) {
+    public AssocEvaluerDTO mapFromEntity(AssocEvaluer assocEvaluer, String... instance) {
         if (assocEvaluer == null) {
             return null;
         }
@@ -40,7 +40,7 @@ public class AssocEvaluerMapper extends Mapper<AssocEvaluerDTO, AssocEvaluer> {
     }
 
     @Override
-    public AssocEvaluer mapToEntity(AssocEvaluerDTO assocEvaluerDTO) {
+    public AssocEvaluer mapToEntity(AssocEvaluerDTO assocEvaluerDTO, String... instance) {
         if (assocEvaluerDTO == null) {
             return null;
         }

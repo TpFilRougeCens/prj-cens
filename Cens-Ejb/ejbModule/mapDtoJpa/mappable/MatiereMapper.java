@@ -5,6 +5,8 @@ import mapDtoJpa.mapper.Mapper;
 import model.Matiere;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
+import java.util.Arrays;
 
 /**
  * Created by Gawel on 16/03/2016.
@@ -13,16 +15,16 @@ public class MatiereMapper extends Mapper<MatiereDTO, Matiere> {
 
     @Inject
     private BlocMapper blocMapper;
-//
-//    @Inject
-//    private AssocEnseignerMapper assocEnseignerMapper;
 
-//    @Inject
-//    private AssocMatiereComCapMapper assocMatiereComCapMapper;
+    @Inject
+    private Provider<AssocEnseignerMapper> assocEnseignerMapper;
+
+    @Inject
+    private Provider<AssocMatiereComCapMapper> assocMatiereComCapMapper;
 
 
     @Override
-    public MatiereDTO mapFromEntity(Matiere matiere) {
+    public MatiereDTO mapFromEntity(Matiere matiere, String... instance) {
         if (matiere == null) {
             return null;
         }
@@ -31,13 +33,17 @@ public class MatiereMapper extends Mapper<MatiereDTO, Matiere> {
         result.setMatiereId(matiere.getMatiereId());
         result.setMatiereLibelle(matiere.getMatiereLibelle());
         result.setBloc(blocMapper.mapFromEntity(matiere.getBloc()));
-//        result.setAssocEnseigners(assocEnseignerMapper.mapFromEntity(matiere.getAssocEnseigners()));
-//        result.setAssocMatiereComCaps(assocMatiereComCapMapper.mapFromEntity(matiere.getAssocMatiereComCaps()));
+        if (Arrays.binarySearch(instance, "AssocEnseignerMapper") < 0) {
+            result.setAssocEnseigners(assocEnseignerMapper.get().mapFromEntity(matiere.getAssocEnseigners()));
+        }
+        if (Arrays.binarySearch(instance, "AssocMatiereComCapMapper") < 0) {
+            result.setAssocMatiereComCaps(assocMatiereComCapMapper.get().mapFromEntity(matiere.getAssocMatiereComCaps()));
+        }
         return result;
     }
 
     @Override
-    public Matiere mapToEntity(MatiereDTO matiereDTO) {
+    public Matiere mapToEntity(MatiereDTO matiereDTO, String... instance) {
         if (matiereDTO == null) {
             return null;
         }
@@ -46,8 +52,12 @@ public class MatiereMapper extends Mapper<MatiereDTO, Matiere> {
         result.setMatiereId(matiereDTO.getMatiereId());
         result.setMatiereLibelle(matiereDTO.getMatiereLibelle());
         result.setBloc(blocMapper.mapToEntity(matiereDTO.getBloc()));
-//        result.setAssocEnseigners(assocEnseignerMapper.mapToEntity(matiereDTO.getAssocEnseigners()));
-//        result.setAssocMatiereComCaps(assocMatiereComCapMapper.mapToEntity(matiereDTO.getAssocMatiereComCaps()));
+        if (Arrays.binarySearch(instance, "AssocEnseignerMapper") < 0) {
+            result.setAssocEnseigners(assocEnseignerMapper.get().mapToEntity(matiereDTO.getAssocEnseigners()));
+        }
+        if (Arrays.binarySearch(instance, "AssocMatiereComCapMapper") < 0) {
+            result.setAssocMatiereComCaps(assocMatiereComCapMapper.get().mapToEntity(matiereDTO.getAssocMatiereComCaps()));
+        }
         return result;
     }
 }

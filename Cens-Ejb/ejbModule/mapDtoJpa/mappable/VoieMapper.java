@@ -6,18 +6,18 @@ import model.Voie;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
+import java.util.Arrays;
 
 /**
- * Created by Gawel on 16/03/2016.
+ * Created by Gawel : 16/03/2016.
  */
 public class VoieMapper extends Mapper<VoieDTO, Voie> {
 
     @Inject
-    Provider<FiliereMapper> filiereMapper;
+    private Provider<FiliereMapper> filiereMapper;
 
     @Override
-    public VoieDTO mapFromEntity(Voie voie) {
-//    public VoieDTO mapFromEntity(Voie voie, String... instance) {
+    public VoieDTO mapFromEntity(Voie voie, String... instance) {
         if (voie == null) {
             return null;
         }
@@ -26,13 +26,14 @@ public class VoieMapper extends Mapper<VoieDTO, Voie> {
         result.setVoieId(voie.getVoieId());
         result.setVoieLibelle(voie.getVoieLibelle());
         //on passe le nom de la classe instance pour éviter une boucle infini entre Voie et Filière
-//        result.setFilieres(filiereMapper.get().mapFromEntity(voie.getFilieres(), this.getClass().getSimpleName())); //Todo verif
+        if (Arrays.binarySearch(instance, "FiliereMapper") < 0) {
+            result.setFilieres(filiereMapper.get().mapFromEntity(voie.getFilieres(), this.getClass().getSimpleName()));
+        }
         return result;
     }
 
     @Override
-    public Voie mapToEntity(VoieDTO voieDTO) {
-//    public Voie mapToEntity(VoieDTO voieDTO, String... instance) {
+    public Voie mapToEntity(VoieDTO voieDTO, String... instance) {
         if (voieDTO == null) {
             return null;
         }
@@ -40,12 +41,10 @@ public class VoieMapper extends Mapper<VoieDTO, Voie> {
         Voie result = new Voie();
         result.setVoieId(voieDTO.getVoieId());
         result.setVoieLibelle(voieDTO.getVoieLibelle());
-//        if (Arrays.binarySearch(instance, "FiliereMapper") == 0) {
-//        for (Filiere elem : filiereMapper.get().mapToEntity(voieDTO.getFilieres())) {
-//            System.out.println("id filière : " + elem.getFiliereId());
-//        }
-//        result.setFilieres(filiereMapper.get().mapToEntity(voieDTO.getFilieres(), this.getClass().getSimpleName())); //Todo verifier
-//        }
+        //on passe le nom de la classe instance pour éviter une boucle infini entre Voie et Filière
+        if (Arrays.binarySearch(instance, "FiliereMapper") < 0) {
+            result.setFilieres(filiereMapper.get().mapToEntity(voieDTO.getFilieres(), this.getClass().getSimpleName()));
+        }
         return result;
 
     }
