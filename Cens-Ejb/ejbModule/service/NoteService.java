@@ -45,10 +45,12 @@ public class NoteService {
 
     /**
      * DELETE METHODE WITH NATIVE JPA METHODE
+     * //TODO FAIRE LA METHODE ACTIVE DE NOTE POUR REMPLASSER LA SUPPRESION
+     * METHODE INTERDITE UTILISER LA METHODE NOTEACTIVE
      *
      * @param note : Object de type Note (de la classe)
      */
-    public boolean delete(Note note) {
+    private boolean delete(Note note) {
         try {
             Note result = entityManager.find(Note.class, note.getNoteId());
             entityManager.remove(result);

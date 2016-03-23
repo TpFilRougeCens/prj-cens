@@ -14,6 +14,7 @@ public class NoteDTO implements Serializable {
     private String noteCouleur;
     private String noteLibelle;
     private Integer noteValeur;
+    private boolean noteActive;
     private List<AssocEvaluerDTO> assocEvaluers1;
     private List<AssocEvaluerDTO> assocEvaluers2;
 
@@ -59,6 +60,14 @@ public class NoteDTO implements Serializable {
 
     public void setNoteValeur(Integer noteValeur) {
         this.noteValeur = noteValeur;
+    }
+
+    public boolean getNoteActive() {
+        return noteActive;
+    }
+
+    public void setNoteActive(boolean noteActive) {
+        this.noteActive = noteActive;
     }
 
     public List<AssocEvaluerDTO> getAssocEvaluers1() {

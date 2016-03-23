@@ -30,6 +30,9 @@ public class Note implements Serializable {
     @Column(name = "note_valeur")
     private Integer noteValeur;
 
+    @Column(name = "note_active")
+    private boolean noteActive;
+
     //bi-directional many-to-one association to AssocEvaluer
     @OneToMany(mappedBy = "note1", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<AssocEvaluer> assocEvaluers1;
@@ -79,6 +82,14 @@ public class Note implements Serializable {
 
     public void setNoteValeur(Integer noteValeur) {
         this.noteValeur = noteValeur;
+    }
+
+    public boolean getNoteActive() {
+        return this.noteActive;
+    }
+
+    public void setNoteActive(boolean noteActive) {
+        this.noteActive = noteActive;
     }
 
     public List<AssocEvaluer> getAssocEvaluers1() {

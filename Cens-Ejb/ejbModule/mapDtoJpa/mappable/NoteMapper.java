@@ -27,6 +27,7 @@ public class NoteMapper extends Mapper<NoteDTO, Note> {
         result.setNoteLibelle(note.getNoteLibelle());
         result.setNoteValeur(note.getNoteValeur());
         result.setNoteCouleur(note.getNoteCouleur());
+        result.setNoteActive(note.getNoteActive());
 
         if (Arrays.binarySearch(instance, "AssocEvaluerMapper") < 0) {
             result.setAssocEvaluers1(assocEvaluerMapper.get().mapFromEntity(note.getAssocEvaluers1()));
@@ -46,6 +47,7 @@ public class NoteMapper extends Mapper<NoteDTO, Note> {
         result.setNoteLibelle(noteDTO.getNoteLibelle());
         result.setNoteValeur(noteDTO.getNoteValeur());
         result.setNoteCouleur(noteDTO.getNoteCouleur());
+        result.setNoteActive(noteDTO.getNoteActive());
 
         if (Arrays.binarySearch(instance, "AssocEvaluerMapper") < 0) {
             result.setAssocEvaluers1(assocEvaluerMapper.get().mapToEntity(noteDTO.getAssocEvaluers1()));

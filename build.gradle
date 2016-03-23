@@ -1,4 +1,4 @@
-println "Gradle "+gradle.gradleVersion
+println "Gradle " + gradle.gradleVersion
 
 subprojects {
     apply plugin: 'java'
@@ -11,7 +11,7 @@ subprojects {
     }
 
     dependencies {
-        testCompile "junit:junit:4.12"
+//        testCompile "junit:junit:4.12"
     }
 }
 
