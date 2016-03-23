@@ -6,6 +6,15 @@ package bean;
 public class Utilisateur {
     private String nom;
     private String motDePasse;
+    private String fonction;
+
+    public String getFonction() {
+        return fonction;
+    }
+
+    public void setFonction(String fonction) {
+        this.fonction = fonction;
+    }
 
     public String getNom() {
         return nom;
