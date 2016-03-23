@@ -12,7 +12,7 @@ import java.io.IOException;
  * Created by Steven on 24/02/2016.
  */
 
-@WebServlet("/Enseignant")
+@WebServlet("/enseignant")
 public class EnseignantServlet extends HttpServlet {
     private static final String ACCES_ENSEIGNANT = "/WEB-INF/jsp/PageEnseignant.jsp";
 

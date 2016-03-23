@@ -42,7 +42,9 @@ public class PersonneService {
      */
     public Personne findOne(Integer personneId) {
         try {
+            System.out.println("passage dans la couche service personne avec id");
             return entityManager.find(Personne.class, personneId);
+
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -58,11 +60,13 @@ public class PersonneService {
      */
     public Personne findOne(String login, String password) {
         try {
+            System.out.println("valeur de personne dans service ");
             Personne personne = (Personne) entityManager
                     .createNamedQuery("Personne.findByNameAndPassWord")
                     .setParameter("loginn", login)
                     .setParameter("passwordd", password)
                     .getSingleResult();
+            System.out.println("valeur de personne dans service "+personne);
             return personne;
 
         } catch (NoResultException e) {
@@ -72,7 +76,6 @@ public class PersonneService {
             e.printStackTrace();
             return null;
         }
-
 
     }
 

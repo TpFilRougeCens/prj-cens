@@ -1,6 +1,7 @@
 package filtre;
 
 import bean.Utilisateur;
+import model.Personne;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -17,7 +18,7 @@ public class AccesFiltre implements javax.servlet.Filter {
     private static final String SESSION_UTILISATEUR = "sessionUtilisateur";
     private static final String ACCES_LOGIN = "/Connexion";
 
-    private Utilisateur recentUser;
+    private Personne recentUser;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -46,27 +47,30 @@ public class AccesFiltre implements javax.servlet.Filter {
             return;
         }
 
-        Utilisateur user = (Utilisateur) session.getAttribute("sessionUtilisateur");
+        Personne user = (Personne) session.getAttribute("sessionUtilisateur");
 
-        if (user!=null && recentUser != null) {
-            System.out.println("passage filtre page demande");
-            String fonc = ((Utilisateur) session.getAttribute("sessionUtilisateur")).getFonction();
-            System.out.println("fonction avancé "+fonc);
+        if (user!=null && recentUser != null) {System.out.println("passage filtre page demande");
+            String fonc = ( ((Personne) session.getAttribute("sessionUtilisateur")).getGroupe().getGroupeLibelle());
+            String cheminRedir = "/"+fonc;
+            System.out.println("fonction avancé "+cheminRedir);
             switch (fonc){
                 case "manager":
-                    request.getRequestDispatcher(fonc).forward(request,reponse);
+                    request.getRequestDispatcher(cheminRedir).forward(request,reponse);
                     break;
                 case "coordinateur":
-                    request.getRequestDispatcher(fonc).forward(request,reponse);
+                    request.getRequestDispatcher(cheminRedir).forward(request,reponse);
                     break;
                 case "eleve":
-                    request.getRequestDispatcher(fonc).forward(request,reponse);
+                    request.getRequestDispatcher(cheminRedir).forward(request,reponse);
                     break;
                 case "enseignant":
-                    request.getRequestDispatcher(fonc).forward(request,reponse);
+                    request.getRequestDispatcher(cheminRedir).forward(request,reponse);
                     break;
                 case "admin":
-                    request.getRequestDispatcher(fonc).forward(request,reponse);
+                    request.getRequestDispatcher(cheminRedir).forward(request,reponse);
+                    break;
+                default:
+                    reponse.sendRedirect("/Cens-Web-1.0.0-SNAPSHOT/connexion");
                     break;
             }
             //request.getRequestDispatcher(chemin).forward(request,reponse);
@@ -78,14 +82,11 @@ public class AccesFiltre implements javax.servlet.Filter {
             request.getRequestDispatcher(ACCES_LOGIN).forward(request, reponse);
         } else if (user != null && recentUser == null) {
             recentUser = user;
-            String fonc = user.getFonction();
+            String fonc = user.getGroupe().getGroupeLibelle();
             request.getSession().setAttribute("pageFiltre", fonc);
             chain.doFilter(request, reponse);
-            System.out.println("user dans le filtre " + user);
-
         }
         System.out.println("valeur user "+user+" valeur recentUser "+recentUser);
-
     }
 
 

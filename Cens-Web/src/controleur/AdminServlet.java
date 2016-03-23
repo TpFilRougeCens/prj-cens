@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by steven.cdi12 on 21/03/2016.
  */
-@WebServlet("/Admin")
+@WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
 
     private static final String VUE_ADMIN= "/WEB-INF/jsp/PageAdmin.jsp";

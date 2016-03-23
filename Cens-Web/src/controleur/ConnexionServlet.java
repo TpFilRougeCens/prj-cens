@@ -1,9 +1,9 @@
 package controleur;
 
-import bean.Utilisateur;
-import filtre.AccesFiltre;
-import modelweb.FormulaireConnexion;
+import model.Personne;
+import service.*;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,59 +17,66 @@ import java.io.IOException;
  */
 @WebServlet("/Connexion")
 public class ConnexionServlet extends HttpServlet {
-    private static final String ATT_UTILISATEUR         = "utilisateur";
-    private static final String ATT_FORM                = "form";
-    private static final String SESSION_UTILISATEUR     = "sessionUtilisateur";
-    private static final String VUE                     = "/login.jsp";
 
-    public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+    private static final String SESSION_UTILISATEUR = "sessionUtilisateur";
+    private static final String VUE = "/login.jsp";
+
+    @EJB
+    PersonneService personneService;
+    @EJB
+    GroupeService groupeService;
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
 
-    public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /* Préparation de l'objet formulaire */
-        FormulaireConnexion form = new FormulaireConnexion();
+        String nom = null, mdp = null;
 
-        /* Traitement de la requête et récupération du bean en résultant */
-        Utilisateur utilisateur = form.connecterUtilisateur( request );
+        if (request.getParameter("nom") != null) {
+            nom = request.getParameter("nom");
+        }
+        if (request.getParameter("motdepasse") != null) {
+            mdp = request.getParameter("motdepasse");
+        }
 
         /* Récupération de la session depuis la requête */
         HttpSession session = request.getSession();
-
+        Personne persBase = personneService.findOne(nom, mdp);
         /**
          * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
          * Utilisateur à la session, sinon suppression du bean de la session.
          */
-        if ( form.getErreurs().isEmpty() ) {
-            utilisateur.setFonction("coordinateur");
-            session.setAttribute( SESSION_UTILISATEUR, utilisateur );
-            String function = utilisateur.getFonction();
-           switch (function){
-               case "enseignant":
-                   response.sendRedirect("/Cens/Enseignant");
-                   break;
-               case "manager":
-                   response.sendRedirect("/Cens/manager");
-                   break;
-               case "coordinateur":
-                   response.sendRedirect("/Cens/Coordinateur");
-                   break;
-               case "admin":
-                   response.sendRedirect("/Cens/Admin");
-                   break;
-               case "eleve":
-                   response.sendRedirect("/Cens/Eleve");
-                   break;
-               default:
-                   response.sendRedirect("/Cens/Connexion");
-                   break;
-           }
+        if (persBase!=null) {
+            session.setAttribute(SESSION_UTILISATEUR, persBase);
+            String function = persBase.getGroupe().getGroupeLibelle();
+            switch (function) {
+                case "enseignant":
+                    response.sendRedirect("/Cens-Web-1.0.0-SNAPSHOT/enseignant");
+                    break;
+                case "manager":
+                    response.sendRedirect("/Cens-Web-1.0.0-SNAPSHOT/manager");
+                    break;
+                case "coordinateur":
+                    response.sendRedirect("/Cens-Web-1.0.0-SNAPSHOT/coordinateur");
+                    break;
+                case "admin":
+                    response.sendRedirect("/Cens-Web-1.0.0-SNAPSHOT/admin");
+                    break;
+                case "eleve":
+                    response.sendRedirect("/Cens-Web-1.0.0-SNAPSHOT/eleve");
+                    break;
+                default:
+                    response.sendRedirect("/Cens-Web-1.0.0-SNAPSHOT/connexion");
+                    break;
+            }
         } else {
-            request.setAttribute( ATT_FORM, form );
-            request.setAttribute( ATT_UTILISATEUR, utilisateur );
+            //request.setAttribute(ATT_FORM, form);
+            //request.setAttribute(ATT_UTILISATEUR, utilisateur);
             System.out.println("réinitialisation session utilisateur");
-            session.setAttribute( SESSION_UTILISATEUR, null );
-            this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+            session.setAttribute(SESSION_UTILISATEUR, null);
+            this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
         }
     }
 }

@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by steven.cdi12 on 21/03/2016.
  */
-@WebServlet("/Coordinateur")
+@WebServlet("/coordinateur")
 public class CoordinateurServlet extends HttpServlet {
 
     private static final String VUE_COORDINATEUR= "/WEB-INF/jsp/PageCoordinateur.jsp";

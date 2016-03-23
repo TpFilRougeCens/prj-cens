@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by steven.cdi12 on 21/03/2016.
  */
-@WebServlet("/Eleve")
+@WebServlet("/eleve")
 public class EleveServlet extends HttpServlet {
 
     private static final String VUE_ELEVE = "/WEB-INF/jsp/PageEleve.jsp";
