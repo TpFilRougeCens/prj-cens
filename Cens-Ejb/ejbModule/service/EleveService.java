@@ -1,7 +1,6 @@
 package service;
 
 import model.Eleve;
-import model.Personne;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,7 +15,8 @@ import java.util.List;
  */
 @Stateless
 @LocalBean
-public class EleveService extends PersonneService {
+//public class EleveService extends EleveService {
+public class EleveService {
 
     @PersistenceContext(unitName = "Cens-Jpa")
     EntityManager entityManager;
@@ -27,7 +27,7 @@ public class EleveService extends PersonneService {
      * @see Eleve
      */
     @SuppressWarnings("unchecked")
-    public List<Personne> findAll() {
+    public List<Eleve> findAll() {
         try {
             return entityManager.createNamedQuery("Eleve.findAll").getResultList();
         } catch (Exception e) {
@@ -96,13 +96,38 @@ public class EleveService extends PersonneService {
     /**
      * DELETE METHODE WITH NATIVE JPA METHODE
      *
-     * @param eleve : Object de type Eleve (de la classe)
+     * @param eleveId : Id de eleve
      */
-    public boolean delete(Eleve eleve) {
+    public boolean delete(Integer eleveId) {
         try {
-            Eleve result = entityManager.find(Eleve.class, eleve.getPersonneId());
-            entityManager.remove(result);
-            //System.out.println("ID Supprimé = " + eleve.getEleveId());
+            Eleve result = entityManager.find(Eleve.class, eleveId);
+            System.out.println("suppression de " + result.getEleveId() + " " + result.getEleveLogin());
+
+            /*for (AssocEtudier elem : result.getAssocEtudiers()) {
+                System.out.println(elem.getAssocEtudierId());
+                entityManager.remove(elem);
+            }
+
+            for (AssocEvaluer elem : result.getAssocEvaluers()) {
+                System.out.println(elem.getAssocEvaluerId());
+                entityManager.remove(elem);
+            }*/
+
+            /*for (AssocEtudier elem : result.getAssocEtudiers()) {
+                result.removeAssocEtudier(elem);
+            }*/
+            /*for (AssocEvaluer elem : result.getAssocEvaluers()) {
+                result.removeAssocEvaluer(elem);
+            }*/
+            entityManager.createNamedQuery("Eleve.deleteBilan").setParameter("idd", eleveId).executeUpdate();
+            entityManager.createNamedQuery("Eleve.deleteEval").setParameter("idd", eleveId).executeUpdate();
+            entityManager.createNamedQuery("Eleve.deleteEtud").setParameter("idd", eleveId).executeUpdate();
+            entityManager.createNamedQuery("Eleve.deleteEleve").setParameter("idd", eleveId).executeUpdate();
+
+
+//            entityManager.remove(result);
+//            entityManager.flush();
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,15 +171,15 @@ public class EleveService extends PersonneService {
     //METHODE PRIVATE
     private JSONObject convertToJson(Eleve p) {
         JSONObject detailsJson = new JSONObject();
-        detailsJson.put("id", p.getPersonneId());
-        detailsJson.put("login", p.getPersonneLogin());
-        detailsJson.put("password", p.getPersonnePassword());
-        detailsJson.put("nom", p.getPersonneNom());
-        detailsJson.put("prenom", p.getPersonnePrenom());
-        detailsJson.put("dateNaissance", p.getPersonneDateNaissance());
-        detailsJson.put("adresse", p.getPersonneAdresse());
-        detailsJson.put("cp", p.getPersonneCp());
-        detailsJson.put("ville", p.getPersonneVille());
+        detailsJson.put("id", p.getEleveId());
+        detailsJson.put("login", p.getEleveLogin());
+        detailsJson.put("password", p.getElevePassword());
+        detailsJson.put("nom", p.getEleveNom());
+        detailsJson.put("prenom", p.getElevePrenom());
+        detailsJson.put("dateNaissance", p.getEleveDateNaissance());
+        detailsJson.put("adresse", p.getEleveAdresse());
+        detailsJson.put("cp", p.getEleveCp());
+        detailsJson.put("ville", p.getEleveVille());
         detailsJson.put("emailParent", p.getEleveEmailParent());
         detailsJson.put("groupeId", p.getGroupe().getGroupeId());
         detailsJson.put("groupeLibelle", p.getGroupe().getGroupeLibelle());

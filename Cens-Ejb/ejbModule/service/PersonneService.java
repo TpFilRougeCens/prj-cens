@@ -66,7 +66,7 @@ public class PersonneService {
                     .setParameter("loginn", login)
                     .setParameter("passwordd", password)
                     .getSingleResult();
-            System.out.println("valeur de personne dans service "+personne);
+            System.out.println("valeur de personne dans service " + personne);
             return personne;
 
         } catch (NoResultException e) {
@@ -82,11 +82,11 @@ public class PersonneService {
     /**
      * DELETE METHODE WITH NATIVE JPA METHODE
      *
-     * @param personne : Object de type Personne (de la classe)
+     * @param personneId : Type Integer ID de la personne
      */
-    public boolean delete(Personne personne) {
+    public boolean delete(Integer personneId) {
         try {
-            Personne result = entityManager.find(Personne.class, personne.getPersonneId());
+            Personne result = entityManager.find(Personne.class, personneId);
             entityManager.remove(result);
             //System.out.println("ID Supprimé = " + personne.getPersonneId());
             return true;

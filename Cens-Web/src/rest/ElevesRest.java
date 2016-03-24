@@ -36,12 +36,21 @@ public class ElevesRest {
         return Response.status(200).entity(jsonObject.toString()).build();
     }
 
-    @Path("{ideleve}")
+    @Path("/delete/{ideleve}")
     @DELETE
     public Response deleteEleveById(@PathParam("ideleve") Integer ideleve) throws JSONException {
+//        System.out.println("oui");
+
+//        Eleve test = new Eleve();
+//        test = eleveService.findOne(8);
+//        System.out.println("test : " + test.getPersonneLogin());
+//
+//        eleveService.delete(test.getPersonneId());
+
 
         //TODO
-        return null;
+        boolean result = eleveService.delete(ideleve);
+        return Response.status(200).entity("" + result).build();
     }
 
 }

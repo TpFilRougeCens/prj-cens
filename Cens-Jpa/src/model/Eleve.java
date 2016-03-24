@@ -1,78 +1,89 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 
 /**
  * The persistent class for the eleve database table.
  */
 @Entity
-@NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e")
-public class Eleve extends Personne implements Serializable {
+@NamedQueries({
+        @NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e"),
+        @NamedQuery(name = "Eleve.deleteBilan", query = "DELETE FROM Bilan b WHERE b.eleve.eleveId = :idd"),
+        @NamedQuery(name = "Eleve.deleteEval", query = "DELETE FROM AssocEvaluer a WHERE a.eleve.eleveId = :idd"),
+        @NamedQuery(name = "Eleve.deleteEleve", query = "DELETE FROM Eleve e WHERE e.eleveId = :idd"),
+        @NamedQuery(name = "Eleve.deleteEtud", query = "DELETE FROM AssocEtudier a WHERE a.eleve.eleveId = :idd")
+})
+//public class Eleve extends Personne implements Serializable {
+public class Eleve implements Serializable {
     private static final long serialVersionUID = 1L;
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "personne_id")
-//    private Integer eleveId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "personne_id")
+    private Integer eleveId;
 
     @Column(name = "eleve_email_parent")
     private String eleveEmailParent;
 
-    /*
-        @Column(name = "personne_adresse")
-        private String eleveAdresse;
 
-        @Column(name = "personne_cp")
-        private String eleveCp;
+    @Column(name = "personne_adresse")
+    private String eleveAdresse;
 
-        @Temporal(TemporalType.DATE)
-        @Column(name = "personne_date_naissance")
-        private Date eleveDateNaissance;
+    @Column(name = "personne_cp")
+    private String eleveCp;
 
-        @Column(name = "personne_login")
-        private String eleveLogin;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "personne_date_naissance")
+    private Date eleveDateNaissance;
 
-        @Column(name = "personne_nom")
-        private String eleveNom;
+    @Column(name = "personne_login")
+    private String eleveLogin;
 
-        @Column(name = "personne_prenom")
-        private String elevePrenom;
+    @Column(name = "personne_password")
+    private String elevePassword;
 
-        @Column(name = "personne_ville")
-        private String eleveVille;
+    @Column(name = "personne_nom")
+    private String eleveNom;
 
-        //bi-directional many-to-one association to AssocEtudier
-        @OneToMany(mappedBy = "eleve")
-        private List<AssocEtudier> assocEtudiers;
+    @Column(name = "personne_prenom")
+    private String elevePrenom;
 
-        //bi-directional many-to-one association to AssocEvaluer
-        @OneToMany(mappedBy = "eleve")
-        private List<AssocEvaluer> assocEvaluers;
+    @Column(name = "personne_ville")
+    private String eleveVille;
 
-        //bi-directional many-to-one association to Bilan
-        @OneToMany(mappedBy = "eleve")
-        private List<Bilan> bilans;
+    //bi-directional many-to-one association to AssocEtudier
+    @OneToMany
+    private List<AssocEtudier> assocEtudiers;
 
-        //bi-directional many-to-one association to Groupe
-        @ManyToOne
-        @JoinColumn(name = "personne_fk_groupe_id")
-        private Groupe groupe;
+    //bi-directional many-to-one association to AssocEvaluer
+    @OneToMany
+    private List<AssocEvaluer> assocEvaluers;
 
-        public Eleve() {
-        }
+    //bi-directional many-to-one association to Bilan
+    //todo cascade
+    @OneToMany
+    private List<Bilan> bilans;
 
-        public Integer getEleveId() {
-            return this.eleveId;
-        }
+    //bi-directional many-to-one association to Groupe
+    @ManyToOne
+    @JoinColumn(name = "personne_fk_groupe_id")
+    private Groupe groupe;
 
-        public void setEleveId(Integer eleveId) {
-            this.eleveId = eleveId;
-        }
-    */
+    public Eleve() {
+    }
+
+    public Integer getEleveId() {
+        return this.eleveId;
+    }
+
+    public void setEleveId(Integer eleveId) {
+        this.eleveId = eleveId;
+    }
+
     public String getEleveEmailParent() {
         return this.eleveEmailParent;
     }
@@ -80,7 +91,7 @@ public class Eleve extends Personne implements Serializable {
     public void setEleveEmailParent(String eleveEmailParent) {
         this.eleveEmailParent = eleveEmailParent;
     }
-/*
+
     public String getEleveAdresse() {
         return this.eleveAdresse;
     }
@@ -111,6 +122,14 @@ public class Eleve extends Personne implements Serializable {
 
     public void setEleveLogin(String eleveLogin) {
         this.eleveLogin = eleveLogin;
+    }
+
+    public String getElevePassword() {
+        return this.elevePassword;
+    }
+
+    public void setElevePassword(String elevePassword) {
+        this.elevePassword = elevePassword;
     }
 
     public String getEleveNom() {
@@ -211,5 +230,4 @@ public class Eleve extends Personne implements Serializable {
         this.groupe = groupe;
     }
 
-*/
 }
