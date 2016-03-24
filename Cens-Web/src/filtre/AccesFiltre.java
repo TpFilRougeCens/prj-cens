@@ -1,6 +1,5 @@
 package filtre;
 
-import bean.Utilisateur;
 import model.Personne;
 
 import javax.servlet.*;
@@ -46,14 +45,18 @@ public class AccesFiltre implements javax.servlet.Filter {
             chain.doFilter(request,reponse);
             return;
         }
+        if(chemin.startsWith("/img")){
+            chain.doFilter(request,reponse);
+            return;
+        }
 
         Personne user = (Personne) session.getAttribute("sessionUtilisateur");
 
         if (user!=null && recentUser != null) {System.out.println("passage filtre page demande");
             String fonc = ( ((Personne) session.getAttribute("sessionUtilisateur")).getGroupe().getGroupeLibelle());
-            String cheminRedir = "/"+fonc;
+            String cheminRedir = "/"+fonc.toLowerCase();
             System.out.println("fonction avancé "+cheminRedir);
-            switch (fonc){
+            switch (fonc.toLowerCase()){
                 case "manager":
                     request.getRequestDispatcher(cheminRedir).forward(request,reponse);
                     break;
@@ -73,7 +76,6 @@ public class AccesFiltre implements javax.servlet.Filter {
                     reponse.sendRedirect("/Cens-Web-1.0.0-SNAPSHOT/connexion");
                     break;
             }
-            //request.getRequestDispatcher(chemin).forward(request,reponse);
         }
 
 

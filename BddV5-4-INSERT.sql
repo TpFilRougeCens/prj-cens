@@ -553,9 +553,9 @@ INSERT INTO "public"."assoc_com_cap" ("assoc_com_cap_fk_com_id", "assoc_com_cap_
 
 --GROUPE
 INSERT INTO "public"."groupe" ("groupe_libelle", "groupe_niveauacces") VALUES ('Enseignant', 3);
-INSERT INTO "public"."groupe" ("groupe_libelle", "groupe_niveauacces") VALUES ('Directeur', 6);
+INSERT INTO "public"."groupe" ("groupe_libelle", "groupe_niveauacces") VALUES ('Admin', 6);
 INSERT INTO "public"."groupe" ("groupe_libelle", "groupe_niveauacces") VALUES ('Manager', 4);
-INSERT INTO "public"."groupe" ("groupe_libelle", "groupe_niveauacces") VALUES ('Pedagogie', 5);
+INSERT INTO "public"."groupe" ("groupe_libelle", "groupe_niveauacces") VALUES ('Coordinateur', 5);
 INSERT INTO "public"."groupe" ("groupe_libelle", "groupe_niveauacces") VALUES ('Eleve', 2);
 
 -- DROITS

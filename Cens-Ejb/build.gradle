@@ -14,6 +14,7 @@ sourceSets {
 dependencies {
     compile group: 'javax', name: 'javaee-api', version: '7.0'
     compile group: 'net.sf.dozer', name: 'dozer', version: '5.4.0'
+    compile group: 'org.json', name: 'json', version: '20140107'
     compile project(':Cens-Dto')
     compile project(':Cens-Jpa')
 }
