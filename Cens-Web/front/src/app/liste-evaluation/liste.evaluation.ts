@@ -1,23 +1,22 @@
 import {Component} from 'angular2/core';
 
-
 /*
  * We're loading this component asynchronously
  * We are using some magic with es6-promise-loader that will  wrap the module with a Promise
  * see https://github.com/gdi2290/es6-promise-loader for more info
  */
 
-console.log('`About` component loaded asynchronously');
+console.log('`Liste evaluation` component loaded asynchronously');
 
 @Component({
-  selector: 'about',
+  selector: 'liste-evaluation',
   directives: [],
-  template:  require('./liste-eleve.html')
+  template:  require('./liste.evaluation.html')
 })
-export class About {
+export class ListEvaluation {
 
   ngOnInit() {
-    console.log('hello `About` component');
+    console.log('hello `Liste evaluation` component');
     // static data that is bundled
     var mockData = require('assets/mock-data/mock-data.json');
     console.log('mockData', mockData);

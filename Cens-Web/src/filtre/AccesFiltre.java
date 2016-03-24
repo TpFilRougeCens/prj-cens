@@ -49,6 +49,10 @@ public class AccesFiltre implements javax.servlet.Filter {
             chain.doFilter(request,reponse);
             return;
         }
+        if(chemin.startsWith("/rest")){
+            chain.doFilter(request,reponse);
+            return;
+        }
 
         Personne user = (Personne) session.getAttribute("sessionUtilisateur");
 

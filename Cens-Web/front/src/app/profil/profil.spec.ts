@@ -10,19 +10,19 @@ import {
 import {Component, provide} from 'angular2/core';
 
 // Load the implementations that should be tested
-import {About} from './about';
+import {Profil} from './profil';
 
-describe('About', () => {
+describe('Profil', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEachProviders(() => [
-    About
+    Profil
   ]);
 
-  it('should log ngOnInit', inject([ About ], (about) => {
+  it('should log ngOnInit', inject([ Profil ], (profil) => {
     spyOn(console, 'log');
     expect(console.log).not.toHaveBeenCalled();
 
-    about.ngOnInit();
+    profil.ngOnInit();
     expect(console.log).toHaveBeenCalled();
   }));
 

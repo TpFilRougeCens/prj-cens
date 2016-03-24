@@ -15,8 +15,9 @@ import {ENV_PROVIDERS} from './platform/environment';
 * our top level component that holds all of our components
 */
 import {AppState} from './app/app.service';
-import {App} from './app/app';
+import {Filter} from './app/filter';
 
+import {Authentification} from 'app/service/authentification.ts';
 /*
  * Bootstrap our Angular app with a top level component `App` and inject
  * our Services and Providers into Angular's dependency injection
@@ -24,10 +25,11 @@ import {App} from './app/app';
 export function main(initialState = {}) {
   let APP_PROVIDERS = [
     provideInitialState(initialState),
-    AppState
+    AppState,
+    Authentification
   ];
 
-  return bootstrap(App, [
+  return bootstrap(Filter, [
     ...ENV_PROVIDERS,
     ...PROVIDERS,
     ...DIRECTIVES,

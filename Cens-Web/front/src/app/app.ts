@@ -5,13 +5,14 @@ import {Component} from 'angular2/core';
 import {RouteConfig, Router} from 'angular2/router';
 
 import {Home} from './home';
+import {ListEvaluation} from './liste-evaluation';
+import {ListEleve} from './liste-eleve';
+
 import {AppState} from './app.service';
 
 import {HeroService}       from './app.state.service';
 
-
 //require('bootstrap/less/bootstrap.less');
-
 
 /*
  * App Component
@@ -23,38 +24,40 @@ import {HeroService}       from './app.state.service';
   pipes: [ ],
   providers: [ HeroService ],
   directives: [ ],
-  styles: [ require('./app.scss') , require('bootstrap/dist/css/bootstrap.css') ],
+  styles: [ require('./app.scss') ],
   template: `
      <header>
-      <a [routerLink]=" ['Index'] "><img class="logo" [src]="angularclassLogo"></a>
+     <a [routerLink]=" ['Index'] "><img class="logo" [src]="angularclassLogo"></a>
 
-<ul class="nav navbar-right top-nav">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{nameProfil}} <b
-                class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li>
-                <a href="#"><i class="fa fa-fw fa-user"></i> Profil</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#"><i class="fa fa-fw fa-power-off"></i> Déconnexion</a>
-            </li>
-        </ul>
-     </li>
-</ul>
-
+     <ul class="nav navbar-right top-nav">
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{nameProfil}} <b
+                    class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-user"></i> Profil</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Déconnexion</a>
+                </li>
+            </ul>
+         </li>
+     </ul>
 
      </header>
      <div class="wrapper">
        <nav>
-         <a [routerLink]=" ['Index'] ">NAVIGATION</a>
+         <a [routerLink]=" ['Home'] ">NAVIGATION</a>
          <ul>
            <li router-active>
-             <a [routerLink]=" ['Home'] ">Mes évaluations</a>
+             <a [routerLink]=" ['ListEleve'] ">Mes élèves</a>
            </li>
            <li router-active>
-             <a [routerLink]=" ['About'] ">Mes élèves</a>
+             <a [routerLink]=" ['ListEvaluation'] ">Mes évaluations</a>
+           </li>
+           <li router-active>
+             <a [routerLink]=" ['Profil'] ">Mon profil</a>
            </li>
          </ul>
        </nav>
@@ -67,8 +70,10 @@ import {HeroService}       from './app.state.service';
 @RouteConfig([
   { path: '/',      name: 'Index', component: Home, useAsDefault: true },
   { path: '/home',  name: 'Home',  component: Home },
+    { path: '/liste-eleve',  name: 'ListEleve',  component: ListEleve },
+    { path: '/liste-evaluation',  name: 'ListEvaluation',  component: ListEvaluation },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-  { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') },
+  { path: '/profil', name: 'Profil', loader: () => require('es6-promise!./profil')('Profil') },
 ])
 export class App {
   angularclassLogo = 'assets/img/logoLPCFull.png';
@@ -98,6 +103,7 @@ export class App {
             },
             error =>  {
               this.errorMessage = <any>error;
+              console.log("cant get data from api");
               console.log(this.errorMessage);
             }
         );

@@ -270,7 +270,7 @@ module.exports = {
     },
     proxy: {
       '/rest/*': {
-        target: 'http://localhost:8080/lpc',
+        target: 'http://localhost:8080/Cens-Web-1.0.0-SNAPSHOT',
         secure: false,
       },
     }
