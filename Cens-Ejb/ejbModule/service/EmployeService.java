@@ -33,6 +33,7 @@ public class EmployeService extends PersonneService {
      * FIND ONE ELEMENT METHODE WITH NATIVE JPA METHODE
      *
      * @param employeId : Id du employe recherché
+     * @return Employe
      */
     public Employe findOne(Integer employeId) {
         try {
@@ -47,11 +48,11 @@ public class EmployeService extends PersonneService {
     /**
      * DELETE METHODE WITH NATIVE JPA METHODE
      *
-     * @param employe : Object de type Employe (de la classe)
+     * @param employeId : Object de type Employe (de la classe)
      */
-    public boolean delete(Employe employe) {
+    public boolean delete(Integer employeId) {
         try {
-            Employe result = entityManager.find(Employe.class, employe.getPersonneId());
+            Employe result = entityManager.find(Employe.class, employeId);
             entityManager.remove(result);
             //System.out.println("ID Supprimé = " + employe.getEmployeId());
             return true;
