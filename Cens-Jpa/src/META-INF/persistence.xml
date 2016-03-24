@@ -4,6 +4,18 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="Cens-Jpa" transaction-type="JTA">
         <jta-data-source>java:/jdbc/cens</jta-data-source>
+        <class>model.AssocComCap</class>
+        <class>model.AssocComCapPK</class>
+        <class>model.AssocEnseigner</class>
+        <class>model.AssocEnseignerPK</class>
+        <class>model.AssocEtudier</class>
+        <class>model.AssocEtudierPK</class>
+        <class>model.AssocEvaluer</class>
+        <class>model.AssocFiliereBloc</class>
+        <class>model.AssocFiliereBlocPK</class>
+        <class>model.AssocMatiereComCap</class>
+        <class>model.AssocMatiereComCapPK</class>
+
         <class>model.Bilan</class>
         <class>model.Bloc</class>
         <class>model.Classroom</class>
