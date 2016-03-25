@@ -25,7 +25,7 @@ public class LogoutEndpoint {
     public String logout(@FormParam("x-security-token") String token) throws JSONException {
         try{
             deleteToken(token);
-            return "ok";
+            return "token supprimé";
         }catch (Exception e){
             return "token pas supprimé";
         }
