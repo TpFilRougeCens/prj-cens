@@ -20,6 +20,7 @@ public class EleveMapper extends Mapper<EleveDTO, Eleve> {
         }
 
         EleveDTO result = new EleveDTO();
+        /*
         result.setPersonneId(eleve.getPersonneId());
         result.setPersonneLogin(eleve.getPersonneLogin());
         result.setPersonnePassword(eleve.getPersonnePassword());
@@ -31,6 +32,7 @@ public class EleveMapper extends Mapper<EleveDTO, Eleve> {
         result.setPersonneVille(eleve.getPersonneVille());
         result.setEleveEmailParent(eleve.getEleveEmailParent());
         result.setGroupe(groupeMapper.mapFromEntity(eleve.getGroupe()));
+        */
         return result;
     }
 
@@ -40,7 +42,7 @@ public class EleveMapper extends Mapper<EleveDTO, Eleve> {
             return null;
         }
         Eleve result = new Eleve();
-        result.setPersonneId(eleveDTO.getPersonneId());
+        /*result.setPersonneId(eleveDTO.getPersonneId());
         result.setPersonneLogin(eleveDTO.getPersonneLogin());
         result.setPersonnePassword(eleveDTO.getPersonnePassword());
         result.setPersonneNom(eleveDTO.getPersonneNom());
@@ -51,6 +53,7 @@ public class EleveMapper extends Mapper<EleveDTO, Eleve> {
         result.setPersonneVille(eleveDTO.getPersonneVille());
         result.setGroupe(groupeMapper.mapToEntity(eleveDTO.getGroupe()));
         result.setEleveEmailParent(eleveDTO.getEleveEmailParent());
+        */
         return result;
     }
 

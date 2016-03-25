@@ -30,6 +30,17 @@ DROP TABLE IF EXISTS ASSOC_EVALUER CASCADE;
 DROP TABLE IF EXISTS PARAMETRE CASCADE;
 DROP TABLE IF EXISTS STATISTIQUE CASCADE;
 DROP TABLE IF EXISTS PROMO CASCADE;
+DROP TABLE IF EXISTS TOKEN CASCADE;
+
+/*==============================================================*/
+/* Table : token                                                 */
+/*==============================================================*/
+CREATE TABLE TOKEN
+(
+  id SERIAL PRIMARY KEY  NOT NULL,
+  utilisateur  VARCHAR(40) NOT NULL,
+  token VARCHAR(40)
+)
 
 /*==============================================================*/
 /* Table : PROMO                                                 */

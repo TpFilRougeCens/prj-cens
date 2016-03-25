@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Created by Steven on 24/02/2016.
  */
-@WebFilter(urlPatterns = "/*")
+@WebFilter(urlPatterns = "/fhbsbflksfblkhfb/")
 public class AccesFiltre implements javax.servlet.Filter {
     private static final String SESSION_UTILISATEUR = "sessionUtilisateur";
     private static final String ACCES_LOGIN = "/Connexion";
