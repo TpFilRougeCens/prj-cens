@@ -13,8 +13,9 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @NamedQueries({
         @NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p"),
-        @NamedQuery(name = "Personne.findByNameAndPassWord", query = "SELECT p FROM Personne p WHERE p.personneLogin = :loginn AND p.personnePassword = :passwordd")
-})
+        @NamedQuery(name = "Personne.findByNameAndPassWord", query = "SELECT p FROM Personne p WHERE p.personneLogin = :loginn AND p.personnePassword = :passwordd"),
+        @NamedQuery(name = "Personne.findByLogin", query = "SELECT p FROM Personne p WHERE p.personneLogin = :loginn")
+        })
 public class Personne implements Serializable {
     private static final long serialVersionUID = 1L;
 

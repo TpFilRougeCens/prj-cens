@@ -1,6 +1,12 @@
-package rest;
+package rest.utilAuthentification;
+
+import model.Token;
+import service.TokenService;
 
 import javax.annotation.Priority;
+import javax.ejb.EJB;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -17,6 +23,13 @@ import java.io.IOException;
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class AuthentificationFilter implements ContainerRequestFilter {
+
+    @EJB
+    TokenService tokenService;
+
+    @Inject
+    @AuthenticateUser
+    Event<String> userAuthenticatedEvent;
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
@@ -43,10 +56,11 @@ public class AuthentificationFilter implements ContainerRequestFilter {
         }
     }
 
-    private void validateToken(String token) throws Exception {
+    private void validateToken(String tokenString) throws Exception {
         // Check if it was issued by the server and if it's not expired
         // Throw an Exception if the token is invalid
-        //TODO BDD requéte
+            Token token = tokenService.findOne(tokenString);
+            userAuthenticatedEvent.fire(token.getUtilisateur());
     }
 }
 

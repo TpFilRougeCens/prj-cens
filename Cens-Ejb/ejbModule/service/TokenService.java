@@ -16,7 +16,7 @@ public class TokenService {
     @PersistenceContext(unitName = "Cens-Jpa")
     EntityManager entityManager;
 
-    public Token findOne(Token token) {
+    public Token findOne(String token) {
         Token tokenBase = (Token) entityManager
                 .createNamedQuery("Token.findByToken")
                 .setParameter("token", token)

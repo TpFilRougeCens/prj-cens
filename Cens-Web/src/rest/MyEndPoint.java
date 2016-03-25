@@ -1,13 +1,24 @@
 package rest;
 
+import model.Personne;
+import rest.utilAuthentification.AuthenticateUser;
+import rest.utilAuthentification.RoleUtilisateur;
+import rest.utilAuthentification.Secured;
+
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 /**
  * Created by steven.cdi12 on 24/03/2016.
  */
-@Path("/")
+@Path("/endPoint")
 public class MyEndPoint {
+
+    @Inject
+    @AuthenticateUser
+    Personne authenticatedUser;
+
     @GET
     @Path("{id}")
     @Produces("application/json")
@@ -18,8 +29,19 @@ public class MyEndPoint {
         return null;
     }
 
+    @POST
+    @Path("/methodeSecurise")
+    @Secured(RoleUtilisateur.ELEVE)
+    @Produces("application/json")
+    public Response myUnsecuredMethod2()  {
+        // This method is not annotated with @Secured
+        // The authentication filter won't be executed before invoking this method
+        System.out.println("passage dans la méthode sécurisé");
+        return null;
+    }
+
     @DELETE
-    @Secured
+    @Secured({RoleUtilisateur.COORDINATEUR})
     @Path("{id}")
     @Produces("application/json")
     public Response mySecuredMethod(@PathParam("id") Long id) {

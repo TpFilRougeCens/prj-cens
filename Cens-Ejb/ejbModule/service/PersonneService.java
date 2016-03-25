@@ -79,6 +79,25 @@ public class PersonneService {
 
     }
 
+    public Personne findOne(String login) {
+        try {
+            Personne personne = (Personne) entityManager
+                    .createNamedQuery("Personne.findByLogin")
+                    .setParameter("loginn", login)
+                    .getSingleResult();
+            System.out.println("valeur de personne dans service " + personne);
+            return personne;
+
+        } catch (NoResultException e) {
+            System.out.println("Personne : FindOne : Pas de resultat");
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
     /**
      * DELETE METHODE WITH NATIVE JPA METHODE
      *
