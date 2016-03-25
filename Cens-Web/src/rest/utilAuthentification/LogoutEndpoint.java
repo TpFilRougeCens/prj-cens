@@ -1,19 +1,11 @@
 package rest.utilAuthentification;
 
 import model.Personne;
-import model.Token;
 import org.json.JSONException;
-import org.json.JSONObject;
-import service.GroupeService;
-import service.PersonneService;
 import service.TokenService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-import java.math.BigInteger;
-import java.security.SecureRandom;
-import java.util.Random;
 
 /**
  * Created by steven.cdi12 on 24/03/2016.
@@ -24,19 +16,23 @@ public class LogoutEndpoint {
 
     private Personne persBase;
 
+    @EJB
+    TokenService tokenService;
 
-    @GET
+    @POST
+    @Produces
     @Consumes("application/x-www-form-urlencoded")
-    public String logout() throws JSONException {
-
-            return "{\"name\": \"John Smith\"}";
+    public String logout(@FormParam("x-security-token") String token) throws JSONException {
+        try{
+            deleteToken(token);
+            return "petit penis";
+        }catch (Exception e){
+            return "token pas supprimé";
+        }
 
     }
 
-    @GET
-    public String getHtml() {
-        return "{\"name\": \"John Smith\"}";
+    private void deleteToken(String token) {
+        tokenService.delete(token);
     }
-
-
 }

@@ -28,7 +28,21 @@ public class TokenService {
         try {
             entityManager.persist(token);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean delete(String tokenString) {
+        try {
+            Token token = (Token) entityManager
+                    .createNamedQuery("Token.findByToken")
+                    .setParameter("token", tokenString)
+                    .getSingleResult();
+            entityManager.remove(token);
+            return true;
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
