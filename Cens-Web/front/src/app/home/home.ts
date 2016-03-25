@@ -36,7 +36,8 @@ export class Home {
 
   ngOnInit() {
     console.log('hello `Home` component');
-    // this.title.getData().subscribe(data => this.data = data);
+    this.localState.value = this.appState.get('value');
+    //this.title.getData().subscribe(data => this.data = data);
   }
 
   submitState(value) {

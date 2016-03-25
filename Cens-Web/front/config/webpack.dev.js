@@ -267,6 +267,12 @@ module.exports = {
     watchOptions: {
       aggregateTimeout: 300,
       poll: 1000
+    },
+    proxy: {
+      '/rest/*': {
+        target: 'http://localhost:8080/Cens-Web-1.0.0-SNAPSHOT',
+        secure: false,
+      },
     }
   },
 
