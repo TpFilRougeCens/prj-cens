@@ -68,7 +68,6 @@ public class AuthentificationEndpoint {
         Random random = new SecureRandom();
         String token = new BigInteger(130, random).toString(32);
         Token tokenBuild = new Token();
-        tokenBuild.setId(2);
         tokenBuild.setUtilisateur(username);
         tokenBuild.setToken(token);
         tokenservice.insert(tokenBuild);

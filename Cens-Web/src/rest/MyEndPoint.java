@@ -31,7 +31,7 @@ public class MyEndPoint {
 
     @POST
     @Path("/methodeSecurise")
-    @Secured(RoleUtilisateur.ELEVE)
+    @Secured(RoleUtilisateur.COORDINATEUR)
     @Produces("application/json")
     public Response myUnsecuredMethod2()  {
         // This method is not annotated with @Secured
