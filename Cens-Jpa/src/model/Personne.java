@@ -10,6 +10,7 @@ import java.util.Date;
  */
 
 @Entity
+@Table(name = "personne")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @NamedQueries({
         @NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p"),

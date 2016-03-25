@@ -13,8 +13,8 @@ import java.io.Serializable;
 public class AssocEtudier implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @EmbeddedId
-    private AssocEtudierPK id;
+    //    @EmbeddedId
+//    private AssocEtudierPK id;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "assoc_etudier_id")
@@ -38,13 +38,13 @@ public class AssocEtudier implements Serializable {
     public AssocEtudier() {
     }
 
-    public AssocEtudierPK getId() {
-        return this.id;
-    }
-
-    public void setId(AssocEtudierPK id) {
-        this.id = id;
-    }
+//    public AssocEtudierPK getId() {
+//        return this.id;
+//    }
+//
+//    public void setId(AssocEtudierPK id) {
+//        this.id = id;
+//    }
 
     public Integer getAssocEtudierId() {
         return this.assocEtudierId;

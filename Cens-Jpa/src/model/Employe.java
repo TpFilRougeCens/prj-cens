@@ -1,9 +1,8 @@
 package model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 
 /**

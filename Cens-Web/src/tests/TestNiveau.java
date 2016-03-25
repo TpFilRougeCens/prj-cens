@@ -1,8 +1,6 @@
 package tests;
 
 
-import model.Classroom;
-import model.Niveau;
 import service.NiveauService;
 
 import javax.ejb.EJB;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Servlet implementation class TestNiveau whith JPA IntelliJ
@@ -36,32 +33,31 @@ public class TestNiveau extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // Test d'un insert
-        Niveau niveau = new Niveau();
-        niveau.setNiveauLibelle("JavaTest");
-        niveauService.insert(niveau);
+        // Test d'un insert = ok
+//        Niveau niveau = new Niveau();
+//        niveau.setNiveauLibelle("JavaTest");
+//        niveauService.insert(niveau);
 
         // Test FIND MASTER + SLAVE
-        List<Niveau> desNiveaux = niveauService.findAll();
-        for (Niveau hop : desNiveaux) {
-            System.out.println("Niveau : " + hop.getNiveauLibelle());
-            List<Classroom> classes = hop.getClassrooms();
+//        List<Niveau> desNiveaux = niveauService.findAll();
+//        for (Niveau hop : desNiveaux) {
+//            System.out.println("Niveau : " + hop.getNiveauLibelle());
+//
+//
+//        }
 
-            for (Classroom hip : classes) {
-                System.out.println("     Classe : " + hip.getClassroomLibelle());
-            }
-
-        }
-
-        // Test UPDATE
+        // Test UPDATE = ok
 //        Niveau finNiv = niveauService.findOne(1);
 //        finNiv.setNiveauLibelle("Depuis JPA JAVA test");
 //        niveauService.update(finNiv);
 //
-//        // Test DELETE
+//        // Test DELETE = ok
 //        List<Niveau> allNiv = niveauService.findAll();
+//        for (Niveau elem : allNiv) {
+//            System.out.println(elem.getNiveauId() + " " + elem.getNiveauLibelle());
+//        }
 //        Niveau az = allNiv.get(allNiv.size() - 1);
-//        System.out.println(az.getNiveauId());
+//        System.out.println("id sup : " + az.getNiveauId());
 //        niveauService.delete(az);
 
 

@@ -38,17 +38,18 @@ public class PersonneMapper extends Mapper<PersonneDTO, Personne> {
         if (personneDTO == null) {
             return null;
         }
-        Personne result = new Personne();
-        result.setPersonneId(personneDTO.getPersonneId());
-        result.setPersonneLogin(personneDTO.getPersonneLogin());
-        result.setPersonnePassword(personneDTO.getPersonnePassword());
-        result.setPersonneNom(personneDTO.getPersonneNom());
-        result.setPersonnePrenom(personneDTO.getPersonnePrenom());
-        result.setPersonneDateNaissance(personneDTO.getPersonneDateNaissance());
-        result.setPersonneAdresse(personneDTO.getPersonneAdresse());
-        result.setPersonneCp(personneDTO.getPersonneCp());
-        result.setPersonneVille(personneDTO.getPersonneVille());
-        result.setGroupe(groupeMapper.mapToEntity(personneDTO.getGroupe()));
-        return result;
+//        Personne result = new Personne();
+//        result.setPersonneId(personneDTO.getPersonneId());
+//        result.setPersonneLogin(personneDTO.getPersonneLogin());
+//        result.setPersonnePassword(personneDTO.getPersonnePassword());
+//        result.setPersonneNom(personneDTO.getPersonneNom());
+//        result.setPersonnePrenom(personneDTO.getPersonnePrenom());
+//        result.setPersonneDateNaissance(personneDTO.getPersonneDateNaissance());
+//        result.setPersonneAdresse(personneDTO.getPersonneAdresse());
+//        result.setPersonneCp(personneDTO.getPersonneCp());
+//        result.setPersonneVille(personneDTO.getPersonneVille());
+//        result.setGroupe(groupeMapper.mapToEntity(personneDTO.getGroupe()));
+//        return result;
+        return null;
     }
 }

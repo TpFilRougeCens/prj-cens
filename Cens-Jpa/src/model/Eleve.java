@@ -10,13 +10,14 @@ import java.util.List;
  * The persistent class for the eleve database table.
  */
 @Entity
+@Table(name = "eleve")
 @NamedQueries({
         @NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e"),
-        @NamedQuery(name = "Eleve.deleteBilan", query = "DELETE FROM Bilan b WHERE b.eleve.eleveId = :idd"),
-        @NamedQuery(name = "Eleve.deleteEval", query = "DELETE FROM AssocEvaluer a WHERE a.eleve.eleveId = :idd"),
-        @NamedQuery(name = "Eleve.deleteEleve", query = "DELETE FROM Eleve e WHERE e.eleveId = :idd"),
-        @NamedQuery(name = "Eleve.deleteEtud", query = "DELETE FROM AssocEtudier a WHERE a.eleve.eleveId = :idd")
+        @NamedQuery(name = "Eleve.deleteEvaluer", query = "DELETE FROM AssocEvaluer a WHERE eleve.eleveId = :idd"),
+        @NamedQuery(name = "Eleve.deleteBilan", query = "DELETE FROM Bilan b WHERE eleve.eleveId = :idd"),
+        @NamedQuery(name = "Eleve.deleteEtudier", query = "DELETE FROM AssocEtudier a WHERE eleve.eleveId = :idd")
 })
+//@NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e")
 //public class Eleve extends Personne implements Serializable {
 public class Eleve implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -56,16 +57,15 @@ public class Eleve implements Serializable {
     private String eleveVille;
 
     //bi-directional many-to-one association to AssocEtudier
-    @OneToMany
+    @OneToMany(mappedBy = "eleve")//, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<AssocEtudier> assocEtudiers;
 
     //bi-directional many-to-one association to AssocEvaluer
-    @OneToMany
+    @OneToMany(mappedBy = "eleve")//, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<AssocEvaluer> assocEvaluers;
 
     //bi-directional many-to-one association to Bilan
-    //todo cascade
-    @OneToMany
+    @OneToMany(mappedBy = "eleve")//, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Bilan> bilans;
 
     //bi-directional many-to-one association to Groupe
@@ -76,11 +76,11 @@ public class Eleve implements Serializable {
     public Eleve() {
     }
 
-    public Integer getEleveId() {
+    public Integer getPersonneId() {
         return this.eleveId;
     }
 
-    public void setEleveId(Integer eleveId) {
+    public void setPersonneId(Integer eleveId) {
         this.eleveId = eleveId;
     }
 
@@ -92,67 +92,67 @@ public class Eleve implements Serializable {
         this.eleveEmailParent = eleveEmailParent;
     }
 
-    public String getEleveAdresse() {
+    public String getPersonneAdresse() {
         return this.eleveAdresse;
     }
 
-    public void setEleveAdresse(String eleveAdresse) {
+    public void setPersonneAdresse(String eleveAdresse) {
         this.eleveAdresse = eleveAdresse;
     }
 
-    public String getEleveCp() {
+    public String getPersonneCp() {
         return this.eleveCp;
     }
 
-    public void setEleveCp(String eleveCp) {
+    public void setPersonneCp(String eleveCp) {
         this.eleveCp = eleveCp;
     }
 
-    public Date getEleveDateNaissance() {
+    public Date getPersonneDateNaissance() {
         return this.eleveDateNaissance;
     }
 
-    public void setEleveDateNaissance(Date eleveDateNaissance) {
+    public void setPersonneDateNaissance(Date eleveDateNaissance) {
         this.eleveDateNaissance = eleveDateNaissance;
     }
 
-    public String getEleveLogin() {
+    public String getPersonneLogin() {
         return this.eleveLogin;
     }
 
-    public void setEleveLogin(String eleveLogin) {
+    public void setPersonneLogin(String eleveLogin) {
         this.eleveLogin = eleveLogin;
     }
 
-    public String getElevePassword() {
+    public String getPersonnePassword() {
         return this.elevePassword;
     }
 
-    public void setElevePassword(String elevePassword) {
+    public void setPersonnePassword(String elevePassword) {
         this.elevePassword = elevePassword;
     }
 
-    public String getEleveNom() {
+    public String getPersonneNom() {
         return this.eleveNom;
     }
 
-    public void setEleveNom(String eleveNom) {
+    public void setPersonneNom(String eleveNom) {
         this.eleveNom = eleveNom;
     }
 
-    public String getElevePrenom() {
+    public String getPersonnePrenom() {
         return this.elevePrenom;
     }
 
-    public void setElevePrenom(String elevePrenom) {
+    public void setPersonnePrenom(String elevePrenom) {
         this.elevePrenom = elevePrenom;
     }
 
-    public String getEleveVille() {
+    public String getPersonneVille() {
         return this.eleveVille;
     }
 
-    public void setEleveVille(String eleveVille) {
+    public void setPersonneVille(String eleveVille) {
         this.eleveVille = eleveVille;
     }
 
@@ -229,5 +229,6 @@ public class Eleve implements Serializable {
     public void setGroupe(Groupe groupe) {
         this.groupe = groupe;
     }
+
 
 }

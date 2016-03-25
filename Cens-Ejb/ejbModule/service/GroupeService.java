@@ -85,7 +85,6 @@ public class GroupeService {
     public boolean update(Groupe groupe) {
         try {
             entityManager.merge(groupe);
-            //System.out.println("ID Update = " + groupe.getGroupeId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
