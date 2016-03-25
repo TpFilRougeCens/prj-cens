@@ -12,6 +12,12 @@ import {AppState} from './app.service';
 
 import {HeroService}       from './app.state.service';
 
+import {isLoggedin}  from './service/is-loggedin';
+import {CanActivate} from "angular2/router";
+
+
+import {Authentification} from './service/authentification';
+
 //require('bootstrap/less/bootstrap.less');
 
 /*
@@ -33,6 +39,7 @@ import {HeroService}       from './app.state.service';
          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{nameProfil}} <b
                     class="caret"></b></a>
+                    <a href="#" (click)="onLogout()">Logout</a>
             <ul class="dropdown-menu">
                 <li>
                     <a href="#"><i class="fa fa-fw fa-user"></i> Profil</a>
@@ -81,16 +88,33 @@ export class App {
   url = 'https://twitter.com/AngularClass';
   errorMessage: string;
   nameProfil: string = "Loading profil...";
-  constructor(public appState: AppState, private _heroService: HeroService) {}
+  constructor(public appState: AppState, private _heroService: HeroService,public auth: Authentification, public router: Router) {
+
+  }
 
   get state() {
     return this.appState.get();
   }
 
   ngOnInit() {
-    console.log('Initial App State', this.state);
+    console.log("Im in App ngOnInit");
+    console.log("Im logged");
+    console.log(isLoggedin());
+    if(!isLoggedin()) {
+      console.log("redirecting ...");
+      this.router.navigate(['../Login']);
+    }
 
+    console.log('Initial App State', this.state);
    this.getName();
+  }
+
+
+  onLogout() {
+    this.auth.logout()
+        .subscribe(
+            () => this.router.navigate(['../Login'])
+        );
   }
 
   getName() {
@@ -109,6 +133,7 @@ export class App {
         );
 
   }
+
 
 }
 

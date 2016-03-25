@@ -13,13 +13,14 @@ export class Authentification {
     private _heroesUrl = 'rest/authentification';  // URL to web api
     login(username: String, password: String) {
 
+      // return this.http.get('/rest/profil/name');
          // If we had a login api, we would have done something like this
          return this.http.post(this._heroesUrl, JSON.stringify({
          username: username,
          password: password
          }), {
          headers: new Headers({
-         'Content-Type': 'application/json'
+         'Content-Type': 'application/x-www-form-urlencoded'
          })
          })
          .map((res : any) => {
@@ -45,16 +46,31 @@ export class Authentification {
     logout() {
 
          // If we had a login api, we would have done something like this
-
-         return this.http.get('/auth/logout', {
-         headers: new Headers({
-         'x-security-token': this.token
-         })
-         })
+/*
+         return this.http.get('rest/profil/name')
          .map((res : any) => {
          this.token = undefined;
          localStorage.removeItem('token');
          });
+*/
+
+
+
+         return this.http.get('rest/logout', {
+             headers: new Headers({
+                 'x-security-token': this.token
+             })
+         })
+         .map((res : any) => {
+             console.log("res:");
+             console.log(res);
+             this.token = undefined;
+             localStorage.removeItem('token');
+         });
+
+
+
+
 
 /*
         this.token = undefined;

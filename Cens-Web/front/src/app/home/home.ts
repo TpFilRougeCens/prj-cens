@@ -4,6 +4,9 @@ import {AppState} from '../app.service';
 import {Title} from './services/title';
 import {XLarge} from './directives/x-large';
 
+import {Router} from 'angular2/router';
+
+import {isLoggedin}  from '../service/is-loggedin';
 
 @Component({
   // The selector is what angular internally uses
@@ -30,12 +33,18 @@ export class Home {
   // Set our default values
   localState = { value: '' };
   // TypeScript public modifiers
-  constructor(public appState: AppState, public title: Title) {
+  constructor(public appState: AppState, public title: Title, public router: Router) {
 
   }
 
   ngOnInit() {
-    console.log('hello `Home` component');
+    console.log("Im in Home ngOnInit");
+    console.log("Im logged");
+    console.log(isLoggedin());
+    if(!isLoggedin()) {
+      console.log("redirecting ...");
+      this.router.navigate(['../../Login']);
+    }
     this.localState.value = this.appState.get('value');
     //this.title.getData().subscribe(data => this.data = data);
   }

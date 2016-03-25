@@ -237,7 +237,10 @@ module.exports = {
     //
     // See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
     // NOTE: when adding more properties make sure you include them in custom-typings.d.ts
-    new webpack.DefinePlugin({'ENV': JSON.stringify(METADATA.ENV), 'HMR': HMR})
+    new webpack.DefinePlugin({
+      'ENV': JSON.stringify(METADATA.ENV),
+      'HMR': HMR
+    })
 
 
 

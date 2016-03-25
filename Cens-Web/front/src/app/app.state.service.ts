@@ -15,7 +15,7 @@ export class HeroService {
   private _heroesUrl = 'rest/profil/name';  // URL to web api
 
   getHeroes () {
-
+    if(ENV == 'development') console.log(this._heroesUrl);
     return this.http.get(this._heroesUrl);
        // .catch(this.handleError);
   }
