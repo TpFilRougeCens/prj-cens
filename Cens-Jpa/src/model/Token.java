@@ -14,6 +14,7 @@ public class Token implements Serializable{
     private String token;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public Integer getId() {
         return id;
