@@ -220,54 +220,51 @@ public class EleveService {
     public JSONObject JSON_findHierarchiePedagogique(Integer eleveId) {
         Eleve eleve = entityManager.find(Eleve.class, eleveId);
         JSONObject resultJson = new JSONObject();
+
         JSONArray classeListJson = new JSONArray();
-        JSONObject classeEntityJson = new JSONObject();
-
-
-        JSONArray blocListJson = new JSONArray();
-        JSONObject blocEntityJson = new JSONObject();
-
-        JSONArray matiereListJson = new JSONArray();
-        JSONObject matiereEntityJson = new JSONObject();
-
-
-        JSONArray competenceListJson = new JSONArray();
-        JSONObject competenceEntityJson = new JSONObject();
-
-        JSONArray capaciteListJson = new JSONArray();
-        JSONObject capaciteEntityJson = new JSONObject();
 
         for (Classroom classroom : findClassrooms(eleve)) {
             System.out.println("classe : " + classroom.getClassroomLibelle());
 
+            JSONObject classeEntityJson = new JSONObject();
             classeEntityJson.put("id", classroom.getClassroomId());
             classeEntityJson.put("libelle", classroom.getClassroomLibelle());
-            classeEntityJson.put("filiere", classroom.getFiliere());
-            classeEntityJson.put("niveau", classroom.getNiveau());
-            classeEntityJson.put("manager", classroom.getEmploye());
+            classeEntityJson.put("filiere", classroom.getFiliere().getFiliereLibelle());
+            classeEntityJson.put("niveau", classroom.getNiveau().getNiveauLibelle());
+            classeEntityJson.put("manager", classroom.getEmploye().getPersonneNom() + "" + classroom.getEmploye().getPersonnePrenom());
+
+            JSONArray blocListJson = new JSONArray();
 
             for (Bloc bloc : findBlocs(classroom)) {
                 System.out.println("     Bloc de la classe " + bloc.getBlocLibelle());
 
+                JSONObject blocEntityJson = new JSONObject();
                 blocEntityJson.put("id", bloc.getBlocId());
                 blocEntityJson.put("libelle", bloc.getBlocLibelle());
 
+                JSONArray matiereListJson = new JSONArray();
                 for (Matiere matiere : findMatiere(bloc)) {
                     System.out.println("        matiere  :" + matiere.getMatiereLibelle());
 
+                    JSONObject matiereEntityJson = new JSONObject();
                     matiereEntityJson.put("id", matiere.getMatiereId());
                     matiereEntityJson.put("libelle", matiere.getMatiereLibelle());
 
                     // Remplissage des competences par matieres
+                    JSONArray competenceListJson = new JSONArray();
                     for (ComCap competence : findCompetences(matiere)) {
                         System.out.println("           competence " + competence.getComCapLibelle());
 
+                        JSONObject competenceEntityJson = new JSONObject();
                         competenceEntityJson.put("id", competence.getComCapId());
                         competenceEntityJson.put("libelle", competence.getComCapLibelle());
 
                         // Remplissage des capacitées pour chaque competences
+                        JSONArray capaciteListJson = new JSONArray();
                         for (ComCap capacite : findCapacitees(competence)) {
                             System.out.println("                Capacite " + capacite.getComCapLibelle());
+
+                            JSONObject capaciteEntityJson = new JSONObject();
                             capaciteEntityJson.put("id", capacite.getComCapId());
                             capaciteEntityJson.put("libelle", capacite.getComCapLibelle());
                             capaciteListJson.put(capaciteEntityJson);
@@ -280,7 +277,9 @@ public class EleveService {
                 }
                 blocEntityJson.put("matiere", matiereListJson);
                 blocListJson.put(blocEntityJson);
+                System.out.println(blocListJson);
             }
+            System.out.println(blocListJson);
             classeEntityJson.put("bloc", blocListJson);
             classeListJson.put(classeEntityJson);
         }
@@ -386,7 +385,6 @@ public class EleveService {
     private JSONObject convertToJson(Eleve p) {
         JSONObject detailsJson = new JSONObject();
         JSONObject groupeJson = new JSONObject();
-        JSONObject classeJson = new JSONObject();
         JSONArray classesJson = new JSONArray();
 
 
@@ -408,6 +406,7 @@ public class EleveService {
 
         // Boucle sur les classes de l'élève : 2sd 1er Term...
         for (AssocEtudier elem : p.getAssocEtudiers()) {
+            JSONObject classeJson = new JSONObject();
             classeJson.put("id", elem.getClassroom().getClassroomId());
             classeJson.put("libelle", elem.getClassroom().getClassroomLibelle());
             classeJson.put("niveau", elem.getClassroom().getNiveau().getNiveauLibelle());
