@@ -174,7 +174,7 @@ public class ElevesRest {
      * @return json
      * @throws JSONException
      */
-    @Path("{idEleve}/HierchieCompetence")
+    @Path("{idEleve}/lpc")
     @GET
     @Produces("application/json;charset=utf-8")
     public Response findCapaciteById(@PathParam("idEleve") Integer idEleve) throws JSONException {
