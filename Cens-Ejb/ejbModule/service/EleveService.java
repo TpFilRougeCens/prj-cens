@@ -197,8 +197,12 @@ public class EleveService {
         }
     }
 
-
-    public void findHierarchiePedagogique(Integer eleveId) {
+    /**
+     * Ne pas utiliser en prod. cette méthode permet le debuguage exclusivement
+     *
+     * @param eleveId de type Integer
+     */
+    public void CONSOLE_findHierarchiePedagogique(Integer eleveId) {
         Eleve eleve = entityManager.find(Eleve.class, eleveId);
         for (Classroom elem1 : findClassrooms(eleve)) {
             System.out.println("classe : " + elem1.getClassroomLibelle());
@@ -217,6 +221,11 @@ public class EleveService {
         }
     }
 
+    /**
+     * @param eleveId de type Integer
+     * @return un Json avec la hierarchie complète de la classe
+     * de l'élève jusqu'aux évaluations
+     */
     public JSONObject JSON_findHierarchiePedagogique(Integer eleveId) {
         Eleve eleve = entityManager.find(Eleve.class, eleveId);
         JSONObject resultJson = new JSONObject();
@@ -224,7 +233,7 @@ public class EleveService {
         JSONArray classeListJson = new JSONArray();
 
         for (Classroom classroom : findClassrooms(eleve)) {
-            System.out.println("classe : " + classroom.getClassroomLibelle());
+            //System.out.println("classe : " + classroom.getClassroomLibelle());
 
             JSONObject classeEntityJson = new JSONObject();
             classeEntityJson.put("id", classroom.getClassroomId());
@@ -236,7 +245,7 @@ public class EleveService {
             JSONArray blocListJson = new JSONArray();
 
             for (Bloc bloc : findBlocs(classroom)) {
-                System.out.println("     Bloc de la classe " + bloc.getBlocLibelle());
+                //System.out.println("     Bloc de la classe " + bloc.getBlocLibelle());
 
                 JSONObject blocEntityJson = new JSONObject();
                 blocEntityJson.put("id", bloc.getBlocId());
@@ -244,7 +253,7 @@ public class EleveService {
 
                 JSONArray matiereListJson = new JSONArray();
                 for (Matiere matiere : findMatiere(bloc)) {
-                    System.out.println("        matiere  :" + matiere.getMatiereLibelle());
+                    //System.out.println("        matiere  :" + matiere.getMatiereLibelle());
 
                     JSONObject matiereEntityJson = new JSONObject();
                     matiereEntityJson.put("id", matiere.getMatiereId());
@@ -253,7 +262,7 @@ public class EleveService {
                     // Remplissage des competences par matieres
                     JSONArray competenceListJson = new JSONArray();
                     for (ComCap competence : findCompetences(matiere)) {
-                        System.out.println("           competence " + competence.getComCapLibelle());
+                        //System.out.println("           competence " + competence.getComCapLibelle());
 
                         JSONObject competenceEntityJson = new JSONObject();
                         competenceEntityJson.put("id", competence.getComCapId());
@@ -262,7 +271,7 @@ public class EleveService {
                         // Remplissage des capacitées pour chaque competences
                         JSONArray capaciteListJson = new JSONArray();
                         for (ComCap capacite : findCapacitees(competence)) {
-                            System.out.println("                Capacite " + capacite.getComCapLibelle());
+                            //System.out.println("                Capacite " + capacite.getComCapLibelle());
 
                             JSONObject capaciteEntityJson = new JSONObject();
                             capaciteEntityJson.put("id", capacite.getComCapId());
@@ -271,7 +280,7 @@ public class EleveService {
                             // Remplissage des évaluations de la capacite
                             JSONArray evaluationListJson = new JSONArray();
                             for (AssocEvaluer evaluation : findEvaluation(capacite)) {
-                                System.out.println("                      Evaluation sur " + evaluation.getComCap() + " le " + evaluation.getAssocEvaluerDateEvaluation());
+                                //System.out.println("                      Evaluation sur " + evaluation.getComCap() + " le " + evaluation.getAssocEvaluerDateEvaluation());
 
                                 JSONObject evaluationEntityJson = new JSONObject();
                                 evaluationEntityJson.put("id", evaluation.getAssocEvaluerId());
@@ -314,6 +323,10 @@ public class EleveService {
         return resultJson.put("classe", classeListJson);
     }
 
+    /**
+     * @param eleve de type Eleve
+     * @return une liste de classes (2sd, 1er, Term etc...)
+     */
     public List<Classroom> findClassrooms(Eleve eleve) {
         List<Classroom> classrooms = new ArrayList<>();
         // Boucle sur les classrooms
@@ -325,6 +338,10 @@ public class EleveService {
         return classrooms;
     }
 
+    /**
+     * @param classroom de type Classromm
+     * @return une liste des blocs
+     */
     public List<Bloc> findBlocs(Classroom classroom) {
         List<Bloc> blocs = new ArrayList<>();
         // Boucle sur Bloc de chaque années étudiées
@@ -336,6 +353,10 @@ public class EleveService {
         return blocs;
     }
 
+    /**
+     * @param bloc de type Bloc
+     * @return Une liste de matières
+     */
     public List<Matiere> findMatiere(Bloc bloc) {
         List<Matiere> matieres = new ArrayList<>();
         //Boucle sur matière des blocs
@@ -347,6 +368,10 @@ public class EleveService {
         return matieres;
     }
 
+    /**
+     * @param matiere de type Matiere
+     * @return une liste de compétencces
+     */
     public List<ComCap> findCompetences(Matiere matiere) {
         List<ComCap> competences = new ArrayList<>();
         //boucle d'association Matière vers compétences
@@ -359,6 +384,10 @@ public class EleveService {
 
     }
 
+    /**
+     * @param competence de type ComCap
+     * @return liste de Capacitées
+     */
     public List<ComCap> findCapacitees(ComCap competence) {
         List<ComCap> capacitees = new ArrayList<>();
         // Boucle sur les capacités de la compétence
@@ -370,6 +399,10 @@ public class EleveService {
         return capacitees;
     }
 
+    /**
+     * @param capacite de type ComCap
+     * @return liste d'evaluations
+     */
     public List<AssocEvaluer> findEvaluation(ComCap capacite) {
         List<AssocEvaluer> evaluations = new ArrayList<>();
         // Boucle sur les evaluations des capacites
@@ -377,40 +410,6 @@ public class EleveService {
             evaluations.add(evaluation);
         }
         return evaluations;
-    }
-
-
-    public void BouclesDeLaMortOk(Integer eleveId) {
-        Eleve eleve = entityManager.find(Eleve.class, eleveId);
-//
-//        for (AssocEtudier elem : eleve.getAssocEtudiers()) {
-//            // => Affiche les classe de l'étudiant
-//            System.out.println("Eleve classe : " + elem.getClassroom().getClassroomLibelle());
-//            // Boucle sur Bloc de chaque années étudiées
-//            for (AssocFiliereBloc bloc : elem.getClassroom().getFiliere().getAssocFiliereBlocs()) {
-//                // => Affiche les blocs
-//                System.out.println("   Bloc de la classe " + bloc.getBloc().getBlocLibelle());
-//                //Boucle sur matière des blocs
-//                for (Matiere matiere : bloc.getBloc().getMatieres()) {
-//                    // => Affiche les matieres
-//                    System.out.println("       matieres du bloc : " + matiere.getMatiereId() + " " + matiere.getMatiereLibelle());
-//                    //boucle d'association Matière vers compétences
-//                    for (AssocMatiereComCap elem2 : matiere.getAssocMatiereComCaps()) {
-//                        // => Affiche les compétences
-//                        System.out.println("             Competence " + elem2.getComCap().getComCapId() + " " + elem2.getComCap().getComCapLibelle());
-//
-//                        // Boucle sur les capacités de la compétence
-//                        for (AssocComCap elem3 : elem2.getComCap().getAssocComCaps2()) {
-//                            // => Affiche les capacités
-//                            System.out.println("                  ComCap1 : " + elem3.getComCap1().getComCapLibelle());
-////                            System.out.println("                  ComCap2 : " + elem3.getComCap2().getComCapLibelle()); //Raffiche la compétence liée
-//                        }
-//                    }
-//                }
-//            }
-//
-//        }
-
     }
 
     /**

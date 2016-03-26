@@ -12,14 +12,7 @@ import javax.ws.rs.core.Response;
 /**
  * SERVICE REST ELEVES
  * <p>
- * <b>DESIGN PATTERN DE URI :</b>
- * <ul>
- * <li><b>GET</b>       /rest/eleve      RETURN JSONArray findAll</li>
- * <li><b>GET</b>       /rest/eleve/{id} RETURN JSONArray findById</li>
- * <li><b>DELETE</b>    /rest/eleve/{id} RETURN boolean</li>
- * <li><b>PUT</b>       /rest/eleve      RETURN boolean</li>
- * <li><b>POST</b>      /rest/eleve      RETURN boolean</li>
- * </ul>
+ * Voir les méthodes pour le design pattern des URI
  */
 @Path("/eleve")
 public class ElevesRest {
