@@ -1,7 +1,6 @@
 package service;
 
-import model.Eleve;
-import model.Groupe;
+import model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -155,6 +155,10 @@ public class EleveService {
      */
     public boolean JSON_insert(JSONObject eleve) {
         try {
+            if (eleve.has("id") && !eleve.isNull("id")) {
+                eleve.remove("id");
+            }
+
             entityManager.persist(convertToObject(eleve));
             return true;
         } catch (Exception e) {
@@ -194,6 +198,185 @@ public class EleveService {
     }
 
 
+    public void findHierarchiePedagogique(Integer eleveId) {
+        Eleve eleve = entityManager.find(Eleve.class, eleveId);
+        for (Classroom elem1 : findClassrooms(eleve)) {
+            System.out.println("classe : " + elem1.getClassroomLibelle());
+            for (Bloc elem2 : findBlocs(elem1)) {
+                System.out.println("     Bloc de la classe " + elem2.getBlocLibelle());
+                for (Matiere elem3 : findMatiere(elem2)) {
+                    System.out.println("        matiere  :" + elem3.getMatiereLibelle());
+                    for (ComCap elem4 : findCompetences(elem3)) {
+                        System.out.println("           competence " + elem4.getComCapLibelle());
+                        for (ComCap elem5 : findCapacitees(elem4)) {
+                            System.out.println("                Capacite " + elem5.getComCapLibelle());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public JSONObject JSON_findHierarchiePedagogique(Integer eleveId) {
+        Eleve eleve = entityManager.find(Eleve.class, eleveId);
+        JSONObject resultJson = new JSONObject();
+        JSONArray classeListJson = new JSONArray();
+        JSONObject classeEntityJson = new JSONObject();
+
+
+        JSONArray blocListJson = new JSONArray();
+        JSONObject blocEntityJson = new JSONObject();
+
+        JSONArray matiereListJson = new JSONArray();
+        JSONObject matiereEntityJson = new JSONObject();
+
+
+        JSONArray competenceListJson = new JSONArray();
+        JSONObject competenceEntityJson = new JSONObject();
+
+        JSONArray capaciteListJson = new JSONArray();
+        JSONObject capaciteEntityJson = new JSONObject();
+
+        for (Classroom classroom : findClassrooms(eleve)) {
+            System.out.println("classe : " + classroom.getClassroomLibelle());
+
+            classeEntityJson.put("id", classroom.getClassroomId());
+            classeEntityJson.put("libelle", classroom.getClassroomLibelle());
+            classeEntityJson.put("filiere", classroom.getFiliere());
+            classeEntityJson.put("niveau", classroom.getNiveau());
+            classeEntityJson.put("manager", classroom.getEmploye());
+
+            for (Bloc bloc : findBlocs(classroom)) {
+                System.out.println("     Bloc de la classe " + bloc.getBlocLibelle());
+
+                blocEntityJson.put("id", bloc.getBlocId());
+                blocEntityJson.put("libelle", bloc.getBlocLibelle());
+
+                for (Matiere matiere : findMatiere(bloc)) {
+                    System.out.println("        matiere  :" + matiere.getMatiereLibelle());
+
+                    matiereEntityJson.put("id", matiere.getMatiereId());
+                    matiereEntityJson.put("libelle", matiere.getMatiereLibelle());
+
+                    // Remplissage des competences par matieres
+                    for (ComCap competence : findCompetences(matiere)) {
+                        System.out.println("           competence " + competence.getComCapLibelle());
+
+                        competenceEntityJson.put("id", competence.getComCapId());
+                        competenceEntityJson.put("libelle", competence.getComCapLibelle());
+
+                        // Remplissage des capacitées pour chaque competences
+                        for (ComCap capacite : findCapacitees(competence)) {
+                            System.out.println("                Capacite " + capacite.getComCapLibelle());
+                            capaciteEntityJson.put("id", capacite.getComCapId());
+                            capaciteEntityJson.put("libelle", capacite.getComCapLibelle());
+                            capaciteListJson.put(capaciteEntityJson);
+                        }
+                        competenceEntityJson.put("capacite", capaciteListJson);
+                        competenceListJson.put(competenceEntityJson);
+                    }
+                    matiereEntityJson.put("competence", competenceListJson);
+                    matiereListJson.put(matiereEntityJson);
+                }
+                blocEntityJson.put("matiere", matiereListJson);
+                blocListJson.put(blocEntityJson);
+            }
+            classeEntityJson.put("bloc", blocListJson);
+            classeListJson.put(classeEntityJson);
+        }
+        return resultJson.put("classe", classeListJson);
+    }
+
+    public List<Classroom> findClassrooms(Eleve eleve) {
+        List<Classroom> classrooms = new ArrayList<>();
+        // Boucle sur les classrooms
+        for (AssocEtudier classroom : eleve.getAssocEtudiers()) {
+            // => Affiche les classe de l'étudiant
+//            System.out.println("Eleve classe : " + classroom.getClassroom().getClassroomLibelle());
+            classrooms.add(classroom.getClassroom());
+        }
+        return classrooms;
+    }
+
+    public List<Bloc> findBlocs(Classroom classroom) {
+        List<Bloc> blocs = new ArrayList<>();
+        // Boucle sur Bloc de chaque années étudiées
+        for (AssocFiliereBloc bloc : classroom.getFiliere().getAssocFiliereBlocs()) {
+            // => Affiche les blocs
+//            System.out.println("   Bloc de la classe " + bloc.getBloc().getBlocLibelle());
+            blocs.add(bloc.getBloc());
+        }
+        return blocs;
+    }
+
+    public List<Matiere> findMatiere(Bloc bloc) {
+        List<Matiere> matieres = new ArrayList<>();
+        //Boucle sur matière des blocs
+        for (Matiere matiere : bloc.getMatieres()) {
+            // => Affiche les matieres
+//            System.out.println("       matieres du bloc : " + matiere.getMatiereId() + " " + matiere.getMatiereLibelle());
+            matieres.add(matiere);
+        }
+        return matieres;
+    }
+
+    public List<ComCap> findCompetences(Matiere matiere) {
+        List<ComCap> competences = new ArrayList<>();
+        //boucle d'association Matière vers compétences
+        for (AssocMatiereComCap competence : matiere.getAssocMatiereComCaps()) {
+            // => Affiche les compétences
+//            System.out.println("             Competence " + competence.getComCap().getComCapId() + " " + competence.getComCap().getComCapLibelle());
+            competences.add(competence.getComCap());
+        }
+        return competences;
+
+    }
+
+    public List<ComCap> findCapacitees(ComCap competence) {
+        List<ComCap> capacitees = new ArrayList<>();
+        // Boucle sur les capacités de la compétence
+        for (AssocComCap capacite : competence.getAssocComCaps2()) {
+            // => Affiche les capacités
+//            System.out.println("                  ComCap1 : " + capacite.getComCap1().getComCapLibelle());
+            capacitees.add(capacite.getComCap1());
+        }
+        return capacitees;
+    }
+
+
+    public void BouclesDeLaMortOk(Integer eleveId) {
+        Eleve eleve = entityManager.find(Eleve.class, eleveId);
+//
+//        for (AssocEtudier elem : eleve.getAssocEtudiers()) {
+//            // => Affiche les classe de l'étudiant
+//            System.out.println("Eleve classe : " + elem.getClassroom().getClassroomLibelle());
+//            // Boucle sur Bloc de chaque années étudiées
+//            for (AssocFiliereBloc bloc : elem.getClassroom().getFiliere().getAssocFiliereBlocs()) {
+//                // => Affiche les blocs
+//                System.out.println("   Bloc de la classe " + bloc.getBloc().getBlocLibelle());
+//                //Boucle sur matière des blocs
+//                for (Matiere matiere : bloc.getBloc().getMatieres()) {
+//                    // => Affiche les matieres
+//                    System.out.println("       matieres du bloc : " + matiere.getMatiereId() + " " + matiere.getMatiereLibelle());
+//                    //boucle d'association Matière vers compétences
+//                    for (AssocMatiereComCap elem2 : matiere.getAssocMatiereComCaps()) {
+//                        // => Affiche les compétences
+//                        System.out.println("             Competence " + elem2.getComCap().getComCapId() + " " + elem2.getComCap().getComCapLibelle());
+//
+//                        // Boucle sur les capacités de la compétence
+//                        for (AssocComCap elem3 : elem2.getComCap().getAssocComCaps2()) {
+//                            // => Affiche les capacités
+//                            System.out.println("                  ComCap1 : " + elem3.getComCap1().getComCapLibelle());
+////                            System.out.println("                  ComCap2 : " + elem3.getComCap2().getComCapLibelle()); //Raffiche la compétence liée
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }
+
+    }
+
     /**
      * PERMET DE CONVERTIR UN OBJECT JAVA EN OBJECT JSON
      *
@@ -202,6 +385,11 @@ public class EleveService {
      */
     private JSONObject convertToJson(Eleve p) {
         JSONObject detailsJson = new JSONObject();
+        JSONObject groupeJson = new JSONObject();
+        JSONObject classeJson = new JSONObject();
+        JSONArray classesJson = new JSONArray();
+
+
         detailsJson.put("id", p.getPersonneId());
         detailsJson.put("login", p.getPersonneLogin());
         detailsJson.put("password", p.getPersonnePassword());
@@ -212,9 +400,22 @@ public class EleveService {
         detailsJson.put("cp", p.getPersonneCp());
         detailsJson.put("ville", p.getPersonneVille());
         detailsJson.put("emailParent", p.getEleveEmailParent());
-        detailsJson.put("groupeId", p.getGroupe().getGroupeId());
-        detailsJson.put("groupeLibelle", p.getGroupe().getGroupeLibelle());
-        detailsJson.put("groupeAccess", p.getGroupe().getGroupeNiveauAcces());
+
+        groupeJson.put("id", p.getGroupe().getGroupeId());
+        groupeJson.put("libelle", p.getGroupe().getGroupeLibelle());
+        groupeJson.put("access", p.getGroupe().getGroupeNiveauAcces());
+        detailsJson.put("groupe", groupeJson); // Json in Json
+
+        // Boucle sur les classes de l'élève : 2sd 1er Term...
+        for (AssocEtudier elem : p.getAssocEtudiers()) {
+            classeJson.put("id", elem.getClassroom().getClassroomId());
+            classeJson.put("libelle", elem.getClassroom().getClassroomLibelle());
+            classeJson.put("niveau", elem.getClassroom().getNiveau().getNiveauLibelle());
+            classeJson.put("filiere", elem.getClassroom().getFiliere().getFiliereLibelle());
+            classeJson.put("manager", elem.getClassroom().getEmploye().getPersonneNom());
+            classesJson.put(classeJson);
+        }
+        detailsJson.put("classes", classesJson);
         return detailsJson;
     }
 

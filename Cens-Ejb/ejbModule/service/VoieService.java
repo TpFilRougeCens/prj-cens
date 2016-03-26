@@ -1,6 +1,9 @@
 package service;
 
+import model.Filiere;
 import model.Voie;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -26,6 +29,45 @@ public class VoieService {
     @SuppressWarnings("unchecked")
     public List<Voie> findAll() {
         return entityManager.createNamedQuery("Voie.findAll").getResultList();
+    }
+
+    @SuppressWarnings("unchecked")
+    public JSONObject JSON_findAll() {
+        try {
+            List<Voie> listeVoie = entityManager.createNamedQuery("Voie.findAll").getResultList();
+            JSONObject jsonObject = new JSONObject();
+            JSONArray jsonArray = new JSONArray();
+            if (listeVoie != null) {
+                for (Voie p : listeVoie) {
+                    jsonArray.put(convertToJson(p));
+                }
+                jsonObject.put("voies", jsonArray);
+            } else {
+                jsonObject.put("voies", "null");
+            }
+            return jsonObject;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * FIND ONE ELEMENT METHODE WITH NATIVE JPA METHODE
+     *
+     * @param voieId : Id du eleve recherché
+     */
+    public JSONObject JSON_findOne(Integer voieId) {
+        Voie voie = findOne(voieId);
+        JSONObject jsonObject = new JSONObject();
+
+        if (voie != null) {
+            jsonObject.put("voie", convertToJson(voie));
+        } else {
+            jsonObject.put("voie", "null");
+        }
+        return jsonObject;
+
     }
 
     /**
@@ -93,4 +135,37 @@ public class VoieService {
         }
     }
 
+
+    /**
+     * PERMET DE CONVERTIR UN OBJECT JAVA EN OBJECT JSON
+     *
+     * @param p
+     * @return JSONObject
+     */
+    private JSONObject convertToJson(Voie p) {
+        JSONObject detailsJson = new JSONObject();
+        JSONObject filieresJson = new JSONObject();
+        detailsJson.put("id", p.getVoieId());
+        detailsJson.put("libelle", p.getVoieLibelle());
+        return detailsJson;
+    }
+
+    /**
+     * CONVERTIR UN OBJ JSON EN OBJ JAVA
+     *
+     * @param p
+     * @return Voie
+     */
+    private Voie convertToObject(JSONObject p) {
+        Voie result = new Voie();
+        Filiere filiere;
+
+        if (p.has("id") && !p.isNull("id")) {
+            result.setVoieId(p.getInt("id"));
+        }
+        if (p.has("libelle") && !p.isNull("libelle")) {
+            result.setVoieLibelle(p.getString("libelle"));
+        }
+        return result;
+    }
 }
