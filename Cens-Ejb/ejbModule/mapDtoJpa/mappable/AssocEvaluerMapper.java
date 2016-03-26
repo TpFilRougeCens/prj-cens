@@ -31,6 +31,7 @@ public class AssocEvaluerMapper extends Mapper<AssocEvaluerDTO, AssocEvaluer> {
         AssocEvaluerDTO result = new AssocEvaluerDTO();
         result.setAssocEvaluerId(assocEvaluer.getAssocEvaluerId());
         result.setAssocEvaluerDateEvaluation(assocEvaluer.getAssocEvaluerDateEvaluation());
+        result.setAssocEvaluerCommentaire(assocEvaluer.getAssocEvaluerCommentaire());
         result.setEleve(eleveMapper.mapFromEntity(assocEvaluer.getEleve()));
         result.setEmploye(employeMapper.mapFromEntity(assocEvaluer.getEmploye()));
         result.setNote1(noteMapper.mapFromEntity(assocEvaluer.getNote1())); //Auto-évaluation de l'élève
@@ -47,6 +48,7 @@ public class AssocEvaluerMapper extends Mapper<AssocEvaluerDTO, AssocEvaluer> {
         AssocEvaluer result = new AssocEvaluer();
         result.setAssocEvaluerId(assocEvaluerDTO.getAssocEvaluerId());
         result.setAssocEvaluerDateEvaluation(assocEvaluerDTO.getAssocEvaluerDateEvaluation());
+        result.setAssocEvaluerCommentaire(assocEvaluerDTO.getAssocEvaluerCommentaire());
         result.setEleve(eleveMapper.mapToEntity(assocEvaluerDTO.getEleve()));
         result.setEmploye(employeMapper.mapToEntity(assocEvaluerDTO.getEmploye()));
         result.setNote1(noteMapper.mapToEntity(assocEvaluerDTO.getNote1())); //Auto-évaluation de l'élève

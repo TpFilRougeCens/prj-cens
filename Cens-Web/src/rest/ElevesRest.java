@@ -161,14 +161,12 @@ public class ElevesRest {
     }
 
 
-    // ########################## WEB SERVICE /eleve/{idEleve}/competence #################################
+    // ########################## WEB SERVICE /eleve/{idEleve}/lpc #################################
 
     /**
-     * Retourne la hierarchie de l'élève jusqu'a ça liste de ses capacités
+     * Retourne la hierarchie de l'élève jusqu'a ça liste de ses evaluations
      * <p>
-     * Classe, blocs, matiere, competences, capacité
-     * <p>
-     * Attention très lourd
+     * Classe, blocs, matiere, competences, capacité, evaluations
      *
      * @param idEleve
      * @return json

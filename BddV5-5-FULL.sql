@@ -283,9 +283,9 @@ ON DELETE NO ACTION ON UPDATE NO ACTION;
 /*==============================================================*/
 CREATE TABLE NOTE (
   NOTE_ID      SERIAL                 NOT NULL,
-  NOTE_ABVR    CHARACTER VARYING(3)   NOT NULL,
-  NOTE_LIBELLE CHARACTER VARYING(100) NOT NULL,
-  NOTE_VALEUR  INT                    NOT NULL,
+  NOTE_ABVR    CHARACTER VARYING(3)   NULL,
+  NOTE_LIBELLE CHARACTER VARYING(100) NULL,
+  NOTE_VALEUR  INT                    NULL,
   NOTE_COULEUR CHARACTER VARYING(7)   NOT NULL,
   NOTE_ACTIVE  BOOLEAN                NOT NULL,
   CONSTRAINT PK_NOTE PRIMARY KEY (NOTE_ID)
@@ -420,9 +420,10 @@ CREATE TABLE ASSOC_EVALUER (
   ASSOC_EVALUER_FK_PERSONNE_EMP_ID INT    NOT NULL,
   ASSOC_EVALUER_FK_PERSONNE_ELE_ID INT    NOT NULL,
   ASSOC_EVALUER_FK_COM_CAP_ID      INT    NOT NULL,
-  ASSOC_EVALUER_FK_NOTE_EMP_ID     INT    NULL,
-  ASSOC_EVALUER_FK_NOTE_ELE_ID     INT    NOT NULL,
+  ASSOC_EVALUER_FK_NOTE_EMP_ID     INT    NOT NULL DEFAULT 1,
+  ASSOC_EVALUER_FK_NOTE_ELE_ID     INT    NOT NULL DEFAULT 1,
   ASSOC_EVALUER_DATE_EVALUATION    DATE   NOT NULL,
+  ASSOC_EVALUER_COMMENTAIRE    CHARACTER VARYING(255) NULL,
   CONSTRAINT PK_EVALUER PRIMARY KEY (ASSOC_EVALUER_ID)
 );
 
@@ -1137,17 +1138,19 @@ VALUES (10, '2em semestre blabla', 'Un bloc de commentaire \n de longeur 255 cha
 
 -- NOTES
 INSERT INTO "public"."note" ("note_abvr", "note_libelle", "note_valeur", "note_couleur", "note_active")
+VALUES ('', 'Non évalué', null, '#00af4c', TRUE);
+INSERT INTO "public"."note" ("note_abvr", "note_libelle", "note_valeur", "note_couleur", "note_active")
 VALUES ('A', 'Compétence acquise', 20, '#00af4c', TRUE);
 INSERT INTO "public"."note" ("note_abvr", "note_libelle", "note_valeur", "note_couleur", "note_active")
-VALUES ('A', 'Compétence presque acquise', 15, '#007baf', TRUE);
+VALUES ('PA', 'Compétence presque acquise', 15, '#007baf', TRUE);
 INSERT INTO "public"."note" ("note_abvr", "note_libelle", "note_valeur", "note_couleur", "note_active")
-VALUES ('A', 'Compétence encore fragile, en voie d''acquisition', 10, '#ffd600', TRUE);
+VALUES ('VA', 'Compétence encore fragile, en voie d''acquisition', 10, '#ffd600', TRUE);
 INSERT INTO "public"."note" ("note_abvr", "note_libelle", "note_valeur", "note_couleur", "note_active")
-VALUES ('A', 'Compétence en cours d''acquisition, débutant', 5, '#ff9600', TRUE);
+VALUES ('EA', 'Compétence en cours d''acquisition, débutant', 5, '#ff9600', TRUE);
 INSERT INTO "public"."note" ("note_abvr", "note_libelle", "note_valeur", "note_couleur", "note_active")
-VALUES ('A', 'Compétence non acquise', 0, '#ff0000', TRUE);
+VALUES ('NA', 'Compétence non acquise', 0, '#ff0000', TRUE);
 INSERT INTO "public"."note" ("note_abvr", "note_libelle", "note_valeur", "note_couleur", "note_active")
-VALUES ('DEC', 'Compétence désactivée', 0, '#ff0000', FALSE);
+VALUES ('DEC', 'Compétence désactivée', 0, '#ff1000', FALSE);
 
 -- ASSOC FILIERES BLOCS
 INSERT INTO "public"."assoc_filiere_bloc" ("assoc_filiere_bloc_fk_filiere_id", "assoc_filiere_bloc_fk_bloc_id")
@@ -1377,19 +1380,19 @@ VALUES (12, 3, 1);
 
 -- ASSOC EVALUER
 INSERT INTO "public"."assoc_evaluer" ("assoc_evaluer_fk_personne_emp_id", "assoc_evaluer_fk_personne_ele_id", "assoc_evaluer_fk_com_cap_id", "assoc_evaluer_fk_note_emp_id", "assoc_evaluer_fk_note_ele_id", "assoc_evaluer_date_evaluation")
-VALUES (1, 7, 1, 1, 2, '01/01/2016');
+VALUES (1, 7, 49, 1, 2, '01/01/2016');
+INSERT INTO "public"."assoc_evaluer" ("assoc_evaluer_fk_personne_emp_id", "assoc_evaluer_fk_personne_ele_id", "assoc_evaluer_fk_com_cap_id", "assoc_evaluer_fk_note_emp_id", "assoc_evaluer_fk_note_ele_id", "assoc_evaluer_date_evaluation", "assoc_evaluer_commentaire")
+VALUES (1, 7, 50, 2, 1, '01/01/2016', 'un commentaire de la part du prof sur cette eval');
+INSERT INTO "public"."assoc_evaluer" ("assoc_evaluer_fk_personne_emp_id", "assoc_evaluer_fk_personne_ele_id", "assoc_evaluer_fk_com_cap_id", "assoc_evaluer_fk_note_emp_id", "assoc_evaluer_fk_note_ele_id", "assoc_evaluer_date_evaluation", "assoc_evaluer_commentaire")
+VALUES (1, 8, 50, 3, 1, '01/01/2016', 'blabla sur cette eval');
 INSERT INTO "public"."assoc_evaluer" ("assoc_evaluer_fk_personne_emp_id", "assoc_evaluer_fk_personne_ele_id", "assoc_evaluer_fk_com_cap_id", "assoc_evaluer_fk_note_emp_id", "assoc_evaluer_fk_note_ele_id", "assoc_evaluer_date_evaluation")
-VALUES (1, 7, 2, 2, 1, '01/01/2016');
+VALUES (1, 8, 50, 4, 5, '01/01/2016');
 INSERT INTO "public"."assoc_evaluer" ("assoc_evaluer_fk_personne_emp_id", "assoc_evaluer_fk_personne_ele_id", "assoc_evaluer_fk_com_cap_id", "assoc_evaluer_fk_note_emp_id", "assoc_evaluer_fk_note_ele_id", "assoc_evaluer_date_evaluation")
-VALUES (1, 8, 3, 2, 1, '01/01/2016');
+VALUES (2, 7, 51, 5, 5, '01/01/2016');
 INSERT INTO "public"."assoc_evaluer" ("assoc_evaluer_fk_personne_emp_id", "assoc_evaluer_fk_personne_ele_id", "assoc_evaluer_fk_com_cap_id", "assoc_evaluer_fk_note_emp_id", "assoc_evaluer_fk_note_ele_id", "assoc_evaluer_date_evaluation")
-VALUES (1, 8, 4, 4, 5, '01/01/2016');
+VALUES (2, 7, 52, 4, 5, '01/01/2016');
 INSERT INTO "public"."assoc_evaluer" ("assoc_evaluer_fk_personne_emp_id", "assoc_evaluer_fk_personne_ele_id", "assoc_evaluer_fk_com_cap_id", "assoc_evaluer_fk_note_emp_id", "assoc_evaluer_fk_note_ele_id", "assoc_evaluer_date_evaluation")
-VALUES (2, 7, 5, 4, 5, '01/01/2016');
-INSERT INTO "public"."assoc_evaluer" ("assoc_evaluer_fk_personne_emp_id", "assoc_evaluer_fk_personne_ele_id", "assoc_evaluer_fk_com_cap_id", "assoc_evaluer_fk_note_emp_id", "assoc_evaluer_fk_note_ele_id", "assoc_evaluer_date_evaluation")
-VALUES (2, 7, 6, 4, 5, '01/01/2016');
-INSERT INTO "public"."assoc_evaluer" ("assoc_evaluer_fk_personne_emp_id", "assoc_evaluer_fk_personne_ele_id", "assoc_evaluer_fk_com_cap_id", "assoc_evaluer_fk_note_emp_id", "assoc_evaluer_fk_note_ele_id", "assoc_evaluer_date_evaluation")
-VALUES (3, 7, 7, 5, 1, '01/01/2015');
+VALUES (3, 7, 52, 1, 1, '01/01/2015');
 INSERT INTO "public"."assoc_evaluer" ("assoc_evaluer_fk_personne_emp_id", "assoc_evaluer_fk_personne_ele_id", "assoc_evaluer_fk_com_cap_id", "assoc_evaluer_fk_note_emp_id", "assoc_evaluer_fk_note_ele_id", "assoc_evaluer_date_evaluation")
 VALUES (3, 7, 8, 5, 1, '01/01/2015');
 INSERT INTO "public"."assoc_evaluer" ("assoc_evaluer_fk_personne_emp_id", "assoc_evaluer_fk_personne_ele_id", "assoc_evaluer_fk_com_cap_id", "assoc_evaluer_fk_note_emp_id", "assoc_evaluer_fk_note_ele_id", "assoc_evaluer_date_evaluation")

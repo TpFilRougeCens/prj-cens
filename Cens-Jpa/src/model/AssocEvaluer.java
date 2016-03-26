@@ -23,6 +23,9 @@ public class AssocEvaluer implements Serializable {
     @Column(name = "assoc_evaluer_date_evaluation")
     private Date assocEvaluerDateEvaluation;
 
+    @Column(name = "assoc_evaluer_commentaire")
+    private String assocEvaluerCommentaire;
+
     //bi-directional many-to-one association to ComCap
     @ManyToOne
     @JoinColumn(name = "assoc_evaluer_fk_com_cap_id")
@@ -69,6 +72,14 @@ public class AssocEvaluer implements Serializable {
         this.assocEvaluerDateEvaluation = assocEvaluerDateEvaluation;
     }
 
+    public String getAssocEvaluerCommentaire() {
+        return this.assocEvaluerCommentaire;
+    }
+
+    public void setAssocEvaluerCommentaire(String assocEvaluerCommentaire) {
+        this.assocEvaluerCommentaire = assocEvaluerCommentaire;
+    }
+
     public ComCap getComCap() {
         return this.comCap;
     }
@@ -94,36 +105,36 @@ public class AssocEvaluer implements Serializable {
     }
 
     /**
-     * Auto-évaluation de l'élève
+     * Evaluation de l'enseignant
      *
-     * @return auto-evaluation
+     * @return evaluation de l'enseignant
      */
     public Note getNote1() {
         return this.note1;
     }
 
     /**
-     * Auto-évaluation de l'élève
+     * AEvaluation de l'enseignant
      *
-     * @param note1 : Auto-evaluation de l'élève
+     * @param note1 : Evaluation de l'enseignant
      */
     public void setNote1(Note note1) {
         this.note1 = note1;
     }
 
     /**
-     * Evaluation de l'enseignant sur l'élève
+     * Auto-évalaution de l'élève
      *
-     * @return evaluation de l'enseignant
+     * @return Auto-évalaution de l'élève
      */
     public Note getNote2() {
         return this.note2;
     }
 
     /**
-     * Evaluation de l'enseignant sur l'élève
+     * Auto-évalaution de l'élève
      *
-     * @param note2 : evaluation de l'enseignant
+     * @param note2 : Auto-évalaution de l'élève
      */
     public void setNote2(Note note2) {
         this.note2 = note2;

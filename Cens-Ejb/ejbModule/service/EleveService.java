@@ -267,6 +267,36 @@ public class EleveService {
                             JSONObject capaciteEntityJson = new JSONObject();
                             capaciteEntityJson.put("id", capacite.getComCapId());
                             capaciteEntityJson.put("libelle", capacite.getComCapLibelle());
+
+                            // Remplissage des évaluations de la capacite
+                            JSONArray evaluationListJson = new JSONArray();
+                            for (AssocEvaluer evaluation : findEvaluation(capacite)) {
+                                System.out.println("                      Evaluation sur " + evaluation.getComCap() + " le " + evaluation.getAssocEvaluerDateEvaluation());
+
+                                JSONObject evaluationEntityJson = new JSONObject();
+                                evaluationEntityJson.put("id", evaluation.getAssocEvaluerId());
+                                evaluationEntityJson.put("date", evaluation.getAssocEvaluerDateEvaluation());
+
+                                // Notation de l'enseignant
+                                JSONObject evalEnsEntityJson = new JSONObject();
+                                evalEnsEntityJson.put("abvr", evaluation.getNote1().getNoteAbvr());
+                                evalEnsEntityJson.put("libelle", evaluation.getNote1().getNoteLibelle());
+                                evalEnsEntityJson.put("couleur", evaluation.getNote1().getNoteCouleur());
+                                evalEnsEntityJson.put("value", evaluation.getNote1().getNoteValeur());
+                                evalEnsEntityJson.put("commentaire", evaluation.getAssocEvaluerCommentaire());
+                                evaluationEntityJson.put("evalEnseignant", evalEnsEntityJson);
+
+                                // Notation de l'éleve = Autoevaluation
+                                JSONObject autoEvalEnsEntityJson = new JSONObject();
+                                autoEvalEnsEntityJson.put("abvr", evaluation.getNote2().getNoteAbvr());
+                                autoEvalEnsEntityJson.put("libelle", evaluation.getNote2().getNoteLibelle());
+                                autoEvalEnsEntityJson.put("couleur", evaluation.getNote2().getNoteCouleur());
+                                autoEvalEnsEntityJson.put("value", evaluation.getNote2().getNoteValeur());
+                                evaluationEntityJson.put("evalEleve", autoEvalEnsEntityJson);
+
+                                evaluationListJson.put(evaluationEntityJson);
+                            }
+                            capaciteEntityJson.put("evaluation", evaluationListJson);
                             capaciteListJson.put(capaciteEntityJson);
                         }
                         competenceEntityJson.put("capacite", capaciteListJson);
@@ -277,9 +307,7 @@ public class EleveService {
                 }
                 blocEntityJson.put("matiere", matiereListJson);
                 blocListJson.put(blocEntityJson);
-                System.out.println(blocListJson);
             }
-            System.out.println(blocListJson);
             classeEntityJson.put("bloc", blocListJson);
             classeListJson.put(classeEntityJson);
         }
@@ -340,6 +368,15 @@ public class EleveService {
             capacitees.add(capacite.getComCap1());
         }
         return capacitees;
+    }
+
+    public List<AssocEvaluer> findEvaluation(ComCap capacite) {
+        List<AssocEvaluer> evaluations = new ArrayList<>();
+        // Boucle sur les evaluations des capacites
+        for (AssocEvaluer evaluation : capacite.getAssocEvaluers()) {
+            evaluations.add(evaluation);
+        }
+        return evaluations;
     }
 
 

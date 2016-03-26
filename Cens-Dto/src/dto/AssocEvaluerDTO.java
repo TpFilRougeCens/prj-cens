@@ -11,6 +11,7 @@ public class AssocEvaluerDTO implements Serializable {
     private static final long serialVersionUID = 2924994134097419383L;
     private Integer assocEvaluerId;
     private Date assocEvaluerDateEvaluation;
+    private String assocEvaluerCommentaire;
     private ComCapDTO comCap;
     private EleveDTO eleve;
     private EmployeDTO employe;
@@ -35,6 +36,14 @@ public class AssocEvaluerDTO implements Serializable {
 
     public void setAssocEvaluerDateEvaluation(Date assocEvaluerDateEvaluation) {
         this.assocEvaluerDateEvaluation = assocEvaluerDateEvaluation;
+    }
+
+    public String getAssocEvaluerCommentaire() {
+        return assocEvaluerCommentaire;
+    }
+
+    public void setAssocEvaluerCommentaire(String assocEvaluerCommentaire) {
+        this.assocEvaluerCommentaire = assocEvaluerCommentaire;
     }
 
     public ComCapDTO getComCap() {
