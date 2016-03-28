@@ -31,8 +31,11 @@
 
   <!-- base url -->
   <base href="<%= webpackConfig.metadata.baseUrl %>">
+
+  <!-- TODO do not use a cdn, import it with webpack-->
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
   <style>
     html {
       box-sizing: border-box;
@@ -55,9 +58,9 @@
 
 <body>
 
-  <filter>
+  <app>
     Loading...
-  </filter>
+  </app>
 
   <% if (webpackConfig.metadata.ENV === 'development') { %>
   <!-- Webpack Dev Server reload -->

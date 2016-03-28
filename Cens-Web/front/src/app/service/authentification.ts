@@ -1,6 +1,8 @@
 // authentication.ts
 import {Injectable} from 'angular2/core';
 import {Headers, Http} from "angular2/http";
+import {Observable} from "rxjs/Rx";
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class Authentification {
@@ -13,8 +15,10 @@ export class Authentification {
     private _heroesUrl = 'rest/authentification';  // URL to web api
     login(username: String, password: String) {
 
+
       // return this.http.get('/rest/profil/name');
          // If we had a login api, we would have done something like this
+/*
          return this.http.post(this._heroesUrl, JSON.stringify({
          username: username,
          password: password
@@ -28,19 +32,20 @@ export class Authentification {
          this.token = data.token;
          localStorage.setItem('token', this.token);
          });
+        */
 
          //for the purpose of this cookbook, we will just simulate that
 
 
-/*
-        if (username === 'test' && password === 'test') {
-            this.token = 'token';
+
+        if (username === 'bob' && password === 'P@ssword') {
+            this.token = 'ze4r8z5r6az4r8aze4aze';
             localStorage.setItem('token', this.token);
-            return Rx.Observable.of('token');
+            return Observable.of('token');
         }
 
-        return Rx.Observable.throw('authentication failure');
-        */
+        return Observable.throw('authentication failure');
+
     }
 
     logout() {

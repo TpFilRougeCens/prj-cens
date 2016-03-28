@@ -2,11 +2,12 @@
 import {Component} from 'angular2/core';
 import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup, NgIf} from 'angular2/common';
 import {Router} from 'angular2/router';
-import {Authentification} from './service/authentification.ts';
+import {Authentification} from './../../service/authentification.ts';
+
 
 @Component({
   selector: 'login',
-  directives: [ FORM_DIRECTIVES, NgIf ],
+  directives: [ FORM_DIRECTIVES, NgIf],
   template: `
     <form [ngFormModel]="form" (submit)="$event.preventDefault(); onSubmit(form.value)">
       <div *ngIf="error">Check your password</div>
@@ -36,10 +37,11 @@ export class Login {
   }
 
   onSubmit(value: any) {
+    this.router.navigate(['../Lpc']);
     this.auth.login(value.username, value.password)
         .subscribe(
-            (token: any) => { this.router.navigate(['../App']); },
-            () => { this.error = true; }
+            (token: any) => { this.router.navigate(['../Lpc']); },
+            (err) => { this.error = true; }
         );
   }
 }

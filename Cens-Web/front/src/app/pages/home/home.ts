@@ -1,12 +1,12 @@
 import {Component} from 'angular2/core';
-import {AppState} from '../app.service';
+import {AppState} from '../../app.service';
 
 import {Title} from './services/title';
 import {XLarge} from './directives/x-large';
 
 import {Router} from 'angular2/router';
 
-import {isLoggedin}  from '../service/is-loggedin';
+import {isLoggedin}  from '../../service/is-loggedin';
 
 @Component({
   // The selector is what angular internally uses
@@ -43,7 +43,7 @@ export class Home {
     console.log(isLoggedin());
     if(!isLoggedin()) {
       console.log("redirecting ...");
-      this.router.navigate(['../../Login']);
+      //this.router.navigate(['../../Login']);
     }
     this.localState.value = this.appState.get('value');
     //this.title.getData().subscribe(data => this.data = data);

@@ -15,7 +15,6 @@ console.log('`Profil` component loaded asynchronously');
   template:  require('./profil.html')
 })
 export class Profil {
-
   ngOnInit() {
     console.log('hello `Profil` component');
     // static data that is bundled
