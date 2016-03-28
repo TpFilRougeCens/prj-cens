@@ -1,6 +1,28 @@
 # prj-cens
 <i>Projet pour le Cens</i>
 <hr/>
+<h2>Dev Server pour le front :</h2>
+<ul>
+<li>Basé sur : https://github.com/AngularClass/angular2-webpack-starter</li>
+<li>Support de sass</li>
+<li>Proxy : vérifier que celui-ci pointe bien vers le web service (fichier 'front/config/webpack.dev.js')</li>
+</ul>
+
+
+
+```javascript
+proxy: {
+      '/rest/*': {
+        target: 'http://localhost:8080/Cens-Web-1.0.0-SNAPSHOT',
+        secure: false,
+      },
+    }
+```
+
+
+
+
+<hr/>
 <h2>DataBase :</h2>
 <ul>
 <li>Name : cens </li>
@@ -25,8 +47,7 @@
 <li>JDK : Java 1.8.0_73 (for system environnement, app, IDEA and Wildfly</li>
 <li>ORM :  JPA Hibernate 2.1</li>
 <li>Class service : EJB</li>
-<li>Front : Bootstrap</li>
-<li>Chart : chart.js</li>
+<li>Front : Angular 2, Bootstrap CSS</li>
 <li>Template : tags (JEE)</li>
 <li>Artefact: 'Cens'</li>
 <li>Demo : http://127.0.0.1:8080/Cens/TestNiveau</li>
