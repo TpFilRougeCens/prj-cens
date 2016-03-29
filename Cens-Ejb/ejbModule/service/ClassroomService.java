@@ -85,6 +85,33 @@ public class ClassroomService {
     }
 
     /**
+     * FIND ALL METHODE WITH NATIVE JPA METHODE
+     *
+     * @param enseignantId : Id de l'enseignant
+     */
+    public JSONObject JSON_findByEnseignantId(Integer enseignantId) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
+        try {
+            Employe enseignant = entityManager.find(Employe.class, enseignantId);
+
+            for (AssocEnseigner classe : enseignant.getAssocEnseigners()) {
+                jsonArray.put(convertToJson(classe.getClassroom()));
+            }
+            jsonObject.put("classes", jsonArray);
+
+        } catch (NullPointerException e) {
+            return jsonObject.put("classes", "null");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return jsonObject.put("classes", "null");
+        }
+        return jsonObject;
+
+    }
+
+    /**
      * DELETE METHODE WITH NATIVE JPA METHODE
      *
      * @param classroom : Object de type Classroom (de la classe)

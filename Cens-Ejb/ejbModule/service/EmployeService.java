@@ -1,7 +1,6 @@
 package service;
 
 import model.Employe;
-import model.Personne;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -14,7 +13,7 @@ import java.util.List;
  */
 @Stateless
 @LocalBean
-public class EmployeService extends PersonneService {
+public class EmployeService {
 
     @PersistenceContext(unitName = "Cens-Jpa")
     EntityManager entityManager;
@@ -25,7 +24,7 @@ public class EmployeService extends PersonneService {
      * @see Employe
      */
     @SuppressWarnings("unchecked")
-    public List<Personne> findAll() {
+    public List<Employe> findAll() {
         return entityManager.createNamedQuery("Employe.findAll").getResultList();
     }
 
