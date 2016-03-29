@@ -9,7 +9,10 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "assoc_enseigner")
-@NamedQuery(name = "AssocEnseigner.findAll", query = "SELECT a FROM AssocEnseigner a")
+@NamedQueries({
+        @NamedQuery(name = "AssocEnseigner.findAll", query = "SELECT a FROM AssocEnseigner a"),
+        @NamedQuery(name = "AssocEnseigner.findByEnseignantId", query = "SELECT a FROM AssocEnseigner a WHERE employe.id = :idd")
+})
 public class AssocEnseigner implements Serializable {
     private static final long serialVersionUID = 1L;
 

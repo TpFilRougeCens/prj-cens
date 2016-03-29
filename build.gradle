@@ -4,6 +4,20 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
 
+    // test
+//    configurations {
+//        provided
+//        provided.extendsFrom(compile)
+//    }
+//
+//    idea {
+//        module {
+//            scopes.PROVIDED.plus += configurations.provided
+//        }
+//    }
+    //fin test
+
+
     sourceCompatibility = 1.8
 
     repositories {
@@ -13,8 +27,10 @@ subprojects {
     dependencies {
         testCompile "junit:junit:4.12"
     }
+
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.12'
 }
+

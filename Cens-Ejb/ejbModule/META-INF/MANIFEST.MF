@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Class-Path: 
+Class-Path: javax.mail-1.5.0.jar json-20140107.jar activation-1.1.jar
 

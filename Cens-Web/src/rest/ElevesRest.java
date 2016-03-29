@@ -194,6 +194,21 @@ public class ElevesRest {
         return Response.status(200).entity(jsonObject.toString()).build();
     }
 
+    /**
+     * Renvoi les classes (+élève) d'un enseignant
+     *
+     * @param idEnseignant
+     * @return
+     * @throws JSONException
+     */
+    @Path("classe/enseignant/{idEnseignant}")
+    @GET
+    @Produces("application/json;charset=utf-8")
+    public Response findClasseByEnseignantId(@PathParam("idEnseignant") Integer idEnseignant) throws JSONException {
+        JSONObject jsonObject = classeService.JSON_findByEnseignantId(idEnseignant);
+        return Response.status(200).entity(jsonObject.toString()).build();
+    }
+
 
     // ########################## WEB SERVICE /eleve/voie #################################
 

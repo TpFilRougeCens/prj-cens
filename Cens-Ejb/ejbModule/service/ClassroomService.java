@@ -85,6 +85,33 @@ public class ClassroomService {
     }
 
     /**
+     * FIND ALL METHODE WITH NATIVE JPA METHODE
+     *
+     * @param enseignantId : Id de l'enseignant
+     */
+    public JSONObject JSON_findByEnseignantId(Integer enseignantId) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
+        try {
+            Employe enseignant = entityManager.find(Employe.class, enseignantId);
+
+            for (AssocEnseigner classe : enseignant.getAssocEnseigners()) {
+                jsonArray.put(convertToJson(classe.getClassroom()));
+            }
+            jsonObject.put("classes", jsonArray);
+
+        } catch (NullPointerException e) {
+            return jsonObject.put("classes", "null");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return jsonObject.put("classes", "null");
+        }
+        return jsonObject;
+
+    }
+
+    /**
      * DELETE METHODE WITH NATIVE JPA METHODE
      *
      * @param classroom : Object de type Classroom (de la classe)
@@ -147,10 +174,7 @@ public class ClassroomService {
         JSONObject niveauJson = new JSONObject();
         JSONObject filiereJson = new JSONObject();
         JSONObject voieJson = new JSONObject();
-        JSONArray elevesJson = new JSONArray();
-        JSONObject eleveJson = new JSONObject();
-
-
+        System.out.println("Classe enseigne " + p.getClassroomId());
         detailsJson.put("id", p.getClassroomId());
         detailsJson.put("libelle", p.getClassroomLibelle());
 
@@ -171,11 +195,25 @@ public class ClassroomService {
         voieJson.put("libelle", p.getFiliere().getVoie().getVoieLibelle());
         detailsJson.put("voie", voieJson);
 
-        for (AssocEtudier elem : p.getAssocEtudiers()) {
-            eleveJson.put("id", elem.getEleve().getPersonneId());
-            eleveJson.put("nom", elem.getEleve().getPersonneNom());
-            eleveJson.put("prenom", elem.getEleve().getPersonnePrenom());
-            eleveJson.put("dateNaissance", elem.getEleve().getPersonneDateNaissance());
+        JSONArray enseignantsJson = new JSONArray();
+        for (AssocEnseigner enseignant : p.getAssocEnseigners()) {
+            JSONObject enseignantJson = new JSONObject();
+            enseignantJson.put("id", enseignant.getEmploye().getPersonneId());
+            enseignantJson.put("nom", enseignant.getEmploye().getPersonneNom());
+            enseignantJson.put("prenom", enseignant.getEmploye().getPersonnePrenom());
+            enseignantJson.put("matiereId", enseignant.getMatiere().getMatiereId());
+            enseignantJson.put("matiereLibelle", enseignant.getMatiere().getMatiereLibelle());
+            enseignantsJson.put(enseignantJson);
+        }
+        detailsJson.put("enseignants", enseignantsJson);
+
+        JSONArray elevesJson = new JSONArray();
+        for (AssocEtudier etudiant : p.getAssocEtudiers()) {
+            JSONObject eleveJson = new JSONObject();
+            eleveJson.put("id", etudiant.getEleve().getPersonneId());
+            eleveJson.put("nom", etudiant.getEleve().getPersonneNom());
+            eleveJson.put("prenom", etudiant.getEleve().getPersonnePrenom());
+            eleveJson.put("dateNaissance", etudiant.getEleve().getPersonneDateNaissance());
             elevesJson.put(eleveJson);
         }
         detailsJson.put("eleves", elevesJson);

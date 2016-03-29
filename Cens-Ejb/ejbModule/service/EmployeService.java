@@ -1,7 +1,6 @@
 package service;
 
 import model.Employe;
-import model.Personne;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -26,7 +25,7 @@ public class EmployeService {
      * @see Employe
      */
     @SuppressWarnings("unchecked")
-    public List<Personne> findAll() {
+    public List<Employe> findAll() {
         return entityManager.createNamedQuery("Employe.findAll").getResultList();
     }
 

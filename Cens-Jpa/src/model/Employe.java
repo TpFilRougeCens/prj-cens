@@ -49,7 +49,6 @@ public class Employe implements Serializable {
     private String employePassword;
 
 
-
     //bi-directional many-to-one association to Groupe
     @ManyToOne
     @JoinColumn(name = "personne_fk_groupe_id")
@@ -78,8 +77,8 @@ public class Employe implements Serializable {
         return this.employePassword;
     }
 
-    public void setPersonnePassword(String elevePassword) {
-        this.employePassword = elevePassword;
+    public void setPersonnePassword(String employePassword) {
+        this.employePassword = employePassword;
     }
 
 

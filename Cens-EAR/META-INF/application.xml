@@ -9,10 +9,10 @@
         <java>Cens-Dto-1.0.0-SNAPSHOT.jar</java>
     </module>
     <module>
-        <java>Cens-Ejb-1.0.0-SNAPSHOT.jar</java>
+        <java>Cens-Jpa-1.0.0-SNAPSHOT.jar</java>
     </module>
     <module>
-        <java>Cens-Jpa-1.0.0-SNAPSHOT.jar</java>
+        <ejb>Cens-Ejb-1.0.0-SNAPSHOT.jar</ejb>
     </module>
     <module>
         <web>
