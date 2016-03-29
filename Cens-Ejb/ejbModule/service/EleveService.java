@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -69,6 +70,57 @@ public class EleveService {
         }
     }
 
+    /**
+     * RETOURNE UN ELEVE SI CELLE CI EST CONNUE
+     *
+     * @param login    : login utilisateur qui demande une connexion
+     * @param password : mot de passe tentative
+     */
+    public Eleve findOne(String login, String password) {
+        try {
+            System.out.println("valeur de eleve dans service ");
+            Eleve eleve = (Eleve) entityManager
+                    .createNamedQuery("Eleve.findByNameAndPassWord")
+                    .setParameter("loginn", login)
+                    .setParameter("passwordd", password)
+                    .getSingleResult();
+            System.out.println("valeur de eleve dans service " + eleve);
+            return eleve;
+
+        } catch (NoResultException e) {
+            System.out.println("Eleve : FindOne : Pas de resultat");
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * RETOURNE UN ELEVE SI CELLE CI EST CONNUE
+     *
+     * @param login    : login utilisateur qui demande une connexion
+     */
+    public Eleve findOne(String login) {
+        try {
+            System.out.println("valeur de eleve dans service ");
+            Eleve eleve = (Eleve) entityManager
+                    .createNamedQuery("Eleve.findByLogin")
+                    .setParameter("loginn", login)
+                    .getSingleResult();
+            System.out.println("valeur de eleve dans service " + eleve);
+            return eleve;
+
+        } catch (NoResultException e) {
+            System.out.println("Eleve : FindOne : Pas de resultat");
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
     /**
      * FIND ONE ELEMENT METHODE WITH NATIVE JPA METHODE

@@ -1,9 +1,11 @@
 package rest;
 
-import model.Personne;
+import model.Eleve;
+import model.Employe;
 import model.Token;
+import service.EleveService;
+import service.EmployeService;
 import service.GroupeService;
-import service.PersonneService;
 import service.TokenService;
 
 import javax.ejb.EJB;
@@ -20,10 +22,13 @@ import java.util.Random;
 @Path("/authentification")
 public class AuthentificationEndpoint {
 
-    private Personne persBase;
+    private Employe empBase;
+    private Eleve eleBase;
 
     @EJB
-    PersonneService personneService;
+    EmployeService employeService;
+    @EJB
+    EleveService eleveService;
     @EJB
     GroupeService groupeService;
     @EJB
@@ -56,9 +61,16 @@ public class AuthentificationEndpoint {
     private void authenticate(String username, String password) throws Exception {
         // Authenticate against a database, LDAP, file or whatever
         // Throw an Exception if the credentials are invalid
-        persBase = personneService.findOne(username, password);
-        System.out.println("valeur de l'username persbase "+persBase.getPersonneLogin());
+        empBase = employeService.findOne(username,password);
 
+        eleBase = eleveService.findOne(username,password);
+        if (empBase!=null){
+            System.out.println("valeur de l'username empBase "+empBase.getPersonneLogin());
+
+        }else if(eleBase!=null){
+            System.out.println("valeur de l'username eleBase "+eleBase.getPersonneLogin());
+
+        }
     }
 
     private String issueToken(String username) {

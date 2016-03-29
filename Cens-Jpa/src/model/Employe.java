@@ -12,9 +12,10 @@ import java.util.List;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Employe.findAll", query = "SELECT e FROM Employe e"),
-        @NamedQuery(name = "Employe.findByNameAndPassWord", query = "SELECT e FROM Employe e WHERE e.employeLogin = :loginn AND e.employePassword = :paswordd")
+        @NamedQuery(name = "Employe.findByNameAndPassWord", query = "SELECT e FROM Employe e WHERE e.employeLogin = :loginn AND e.employePassword = :passwordd"),
+        @NamedQuery(name = "Employe.findByLogin", query = "SELECT e FROM Employe e WHERE e.employeLogin = :loginn")
 })
-public class Employe extends Personne implements Serializable {
+public class Employe implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -69,7 +70,7 @@ public class Employe extends Personne implements Serializable {
     public Employe() {
     }
 
-    public Integer getEmployeId() {
+    public Integer getPersonneId() {
         return this.employeId;
     }
 

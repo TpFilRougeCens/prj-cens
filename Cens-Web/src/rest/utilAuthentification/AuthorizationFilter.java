@@ -1,10 +1,8 @@
 package rest.utilAuthentification;
 
-import model.Personne;
-import service.PersonneService;
+import dto.PersonneDTO;
 
 import javax.annotation.Priority;
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -30,10 +28,8 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 
     @Inject
     @AuthenticateUser
-    Personne authenticatedUser;
+    PersonneDTO authentifierUser2;
 
-    @EJB
-    PersonneService personneService;
 
     @Context
     private ResourceInfo resourceInfo;
@@ -54,6 +50,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
                 checkPermissions(methodRoles);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             requestContext.abortWith(
                     Response.status(Response.Status.FORBIDDEN).build());
         }
@@ -74,11 +71,26 @@ public class AuthorizationFilter implements ContainerRequestFilter {
     }
 
     private void checkPermissions(List<RoleUtilisateur> allowedRoles) throws Exception {
-        String groupLibelle = authenticatedUser.getGroupe().getGroupeLibelle();
+
+        String groupLibelle = null;
+
+        try {
+            if (authentifierUser2 != null) {
+                System.out.println("valeur eleve authentifier " + authentifierUser2.getGroupe().getGroupeLibelle());
+                groupLibelle = authentifierUser2.getGroupe().getGroupeLibelle();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int cpt = 0;
         for (RoleUtilisateur role : allowedRoles) {
             System.out.println("value grouplibelle " + groupLibelle.toUpperCase() + " value role " + role);
             if (!groupLibelle.toUpperCase().equals(role.toString())) {
-                System.out.println("pass");
+                cpt++;
+                System.out.println(cpt +"gdhjqgdj"+allowedRoles.size());
+
+            }
+            if(cpt==allowedRoles.size()){
                 throw new Exception("le role n'est pas valide");
             }
         }

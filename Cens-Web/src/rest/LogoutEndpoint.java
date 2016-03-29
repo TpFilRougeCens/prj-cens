@@ -1,7 +1,8 @@
-package rest.utilAuthentification;
+package rest;
 
-import model.Personne;
 import org.json.JSONException;
+import rest.utilAuthentification.RoleUtilisateur;
+import rest.utilAuthentification.Secured;
 import service.TokenService;
 
 import javax.ejb.EJB;
@@ -12,9 +13,8 @@ import javax.ws.rs.*;
  */
 
 @Path("/logout")
+@Secured({RoleUtilisateur.ELEVE,RoleUtilisateur.ADMIN,RoleUtilisateur.COORDINATEUR,RoleUtilisateur.ENSEIGNANT,RoleUtilisateur.MANAGER})
 public class LogoutEndpoint {
-
-    private Personne persBase;
 
     @EJB
     TokenService tokenService;

@@ -1,6 +1,6 @@
 package rest;
 
-import model.Personne;
+import dto.PersonneDTO;
 import rest.utilAuthentification.AuthenticateUser;
 import rest.utilAuthentification.RoleUtilisateur;
 import rest.utilAuthentification.Secured;
@@ -15,9 +15,10 @@ import javax.ws.rs.core.Response;
 @Path("/endPoint")
 public class MyEndPoint {
 
+
     @Inject
     @AuthenticateUser
-    Personne authenticatedUser;
+    PersonneDTO authenticatedUser;
 
     @GET
     @Path("{id}")
@@ -31,7 +32,7 @@ public class MyEndPoint {
 
     @POST
     @Path("/methodeSecurise")
-    @Secured(RoleUtilisateur.COORDINATEUR)
+    @Secured(RoleUtilisateur.ELEVE)
     @Produces("application/json")
     public Response myUnsecuredMethod2()  {
         // This method is not annotated with @Secured
@@ -48,7 +49,6 @@ public class MyEndPoint {
         // This method is annotated with @Secured
         // The authentication filter will be executed before invoking this method
         // The HTTP request must be performed with a valid token
-        //TODO
         return null;
     }
 }

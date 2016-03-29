@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import service.*;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
@@ -22,19 +22,19 @@ public class ElevesRest {
     // ##############################################################
 
 
-    @Inject
+    @EJB
     EleveService eleveService;
 
-    @Inject
+    @EJB
     VoieService voieService;
 
-    @Inject
+    @EJB
     FiliereService filiereService;
 
-    @Inject
+    @EJB
     ClassroomService classeService;
 
-    @Inject
+    @EJB
     ComCapService competenceService;
 
     // ########################## WEB SERVICE SUR ELEVE ########################################

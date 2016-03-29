@@ -1,12 +1,8 @@
 package tests;
 
 
-import dto.FiliereDTO;
-import dto.VoieDTO;
 import mapDtoJpa.mappable.FiliereMapper;
 import mapDtoJpa.mappable.VoieMapper;
-import model.Filiere;
-import model.Voie;
 import service.*;
 
 import javax.ejb.EJB;
@@ -17,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 
 @WebServlet("/TestPersonne")
@@ -48,28 +43,30 @@ public class TestPersonne extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //TEST VOIE VERS FILIERE
-        List<Voie> voieJ = voieService.findAll();
-        List<VoieDTO> voieD = voieMapper.mapFromEntity(voieJ);
 
-        for (VoieDTO eleme : voieD) {
-            System.out.println("voie liebl :" + eleme.getVoieLibelle());
+        eleveService.delete(8);
+        //TEST VOIE VERS FILIERE
+//        List<Voie> voieJ = voieService.findAll();
+//        List<VoieDTO> voieD = voieMapper.mapFromEntity(voieJ);
+//
+//        for (VoieDTO eleme : voieD) {
+//            System.out.println("voie liebl :" + eleme.getVoieLibelle());
 //            for (FiliereDTO elem2 : eleme.getFilieres()) {
 //                System.out.println("filiere de la voie  : " + elem2.getFiliereLibelle());
 //            }
-        }
-
-        System.out.println("==========================================");
-
-        //TEST FILIERE VERS VOIE
-        List<Filiere> filJ = filiereService.findAll();
-        List<FiliereDTO> filD = filiereMapper.mapFromEntity(filJ);
-
-        for (FiliereDTO elm1 : filD) {
-            System.out.println("Filiere libel : " + elm1.getFiliereLibelle());
-            System.out.println("voie de la filliere : du type voie " + elm1.getVoie());
-        }
-
+//        }
+//
+//        System.out.println("==========================================");
+//
+//        //TEST FILIERE VERS VOIE
+//        List<Filiere> filJ = filiereService.findAll();
+//        List<FiliereDTO> filD = filiereMapper.mapFromEntity(filJ);
+//
+//        for (FiliereDTO elm1 : filD) {
+//            System.out.println("Filiere libel : " + elm1.getFiliereLibelle());
+//            System.out.println("voie de la filliere : du type voie " + elm1.getVoie());
+//        }
+//
 
         // Liste des personnes
 //        List<Personne> desPersonnes = eleveService.findAll();

@@ -21,11 +21,11 @@ public class ConnexionServlet extends HttpServlet {
     private static final String SESSION_UTILISATEUR = "sessionUtilisateur";
     private static final String VUE = "/login.jsp";
 
+
     @EJB
     PersonneService personneService;
     @EJB
     GroupeService groupeService;
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }

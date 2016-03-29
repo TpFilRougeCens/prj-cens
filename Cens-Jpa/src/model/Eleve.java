@@ -12,6 +12,8 @@ import java.util.List;
 @Entity
 @Table(name = "eleve")
 @NamedQueries({
+        @NamedQuery(name = "Eleve.findByNameAndPassWord", query = "SELECT e FROM Eleve e WHERE e.eleveLogin = :loginn AND e.elevePassword = :passwordd"),
+        @NamedQuery(name = "Eleve.findByLogin", query = "SELECT e FROM Eleve e WHERE e.eleveLogin = :loginn"),
         @NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e"),
         @NamedQuery(name = "Eleve.deleteEvaluer", query = "DELETE FROM AssocEvaluer a WHERE eleve.eleveId = :idd"),
         @NamedQuery(name = "Eleve.deleteBilan", query = "DELETE FROM Bilan b WHERE eleve.eleveId = :idd"),
