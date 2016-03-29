@@ -1075,17 +1075,17 @@ VALUES ('toor', 'Eleve5', 'nom5', 'prenom1', '10/12/1970', '5 rue dupont', NULL,
 INSERT INTO "public"."eleve" ("personne_password", "personne_login", "personne_nom", "personne_prenom", "personne_date_naissance", "personne_adresse", "personne_cp", "personne_ville", personne_fk_groupe_id)
 VALUES ('toor', 'Eleve6', 'nom6', 'prenom1', '10/12/1970', '5 rue dupont', NULL, NULL, 5);
 INSERT INTO "public"."eleve" ("personne_login", "personne_nom", "personne_prenom", "personne_date_naissance", "personne_adresse", "personne_cp", "personne_ville", personne_fk_groupe_id)
-VALUES ('Eleve1', 'nom1', 'prenom1', NULL, '1 rue dupont', NULL, 'NANTES1', 5);
+VALUES ('Eleve10', 'nom1', 'prenom1', NULL, '1 rue dupont', NULL, 'NANTES1', 5);
 INSERT INTO "public"."eleve" ("personne_login", "personne_nom", "personne_prenom", "personne_date_naissance", "personne_adresse", "personne_cp", "personne_ville", personne_fk_groupe_id)
-VALUES ('Eleve2', 'nom2', 'prenom1', NULL, '2 rue dupont', '20000', 'NANTES2', 5);
+VALUES ('Eleve20', 'nom2', 'prenom1', NULL, '2 rue dupont', '20000', 'NANTES2', 5);
 INSERT INTO "public"."eleve" ("personne_password", "personne_login", "personne_nom", "personne_prenom", "personne_date_naissance", "personne_adresse", "personne_cp", "personne_ville", personne_fk_groupe_id)
-VALUES ('toor', 'Eleve3', 'nom3', 'prenom1', '30/01/2014', NULL, '30000', 'NANTES3', 5);
+VALUES ('toor', 'Eleve30', 'nom3', 'prenom1', '30/01/2014', NULL, '30000', 'NANTES3', 5);
 INSERT INTO "public"."eleve" ("personne_password", "personne_login", "personne_nom", "personne_prenom", "personne_date_naissance", "personne_adresse", "personne_cp", "personne_ville", personne_fk_groupe_id)
-VALUES ('toor', 'Eleve4', 'nom4', 'prenom1', '31/01/2000', '4 rue dupont', NULL, 'NANTES4', 5);
+VALUES ('toor', 'Eleve40', 'nom4', 'prenom1', '31/01/2000', '4 rue dupont', NULL, 'NANTES4', 5);
 INSERT INTO "public"."eleve" ("personne_password", "personne_login", "personne_nom", "personne_prenom", "personne_date_naissance", "personne_adresse", "personne_cp", "personne_ville", personne_fk_groupe_id)
-VALUES ('toor', 'Eleve5', 'nom5', 'prenom1', '10/12/1970', '5 rue dupont', NULL, NULL, 5);
+VALUES ('toor', 'Eleve50', 'nom5', 'prenom1', '10/12/1970', '5 rue dupont', NULL, NULL, 5);
 INSERT INTO "public"."eleve" ("personne_password", "personne_login", "personne_nom", "personne_prenom", "personne_date_naissance", "personne_adresse", "personne_cp", "personne_ville", personne_fk_groupe_id)
-VALUES ('toor', 'Eleve6', 'nom6', 'prenom1', '10/12/1970', '5 rue dupont', NULL, NULL, 5);
+VALUES ('toor', 'Eleve60', 'nom6', 'prenom1', '10/12/1970', '5 rue dupont', NULL, NULL, 5);
 
 -- CLASSES
 INSERT INTO "public"."classroom" ("classroom_fk_filiere_id", "classroom_fk_niveau_id", "classroom_fk_personne_manager_id", "classroom_libelle")

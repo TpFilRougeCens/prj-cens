@@ -174,9 +174,6 @@ public class ClassroomService {
         JSONObject niveauJson = new JSONObject();
         JSONObject filiereJson = new JSONObject();
         JSONObject voieJson = new JSONObject();
-        JSONArray elevesJson = new JSONArray();
-        JSONObject eleveJson = new JSONObject();
-
 
         detailsJson.put("id", p.getClassroomId());
         detailsJson.put("libelle", p.getClassroomLibelle());
@@ -198,7 +195,21 @@ public class ClassroomService {
         voieJson.put("libelle", p.getFiliere().getVoie().getVoieLibelle());
         detailsJson.put("voie", voieJson);
 
+        JSONArray enseignantsJson = new JSONArray();
+        for (AssocEnseigner employe : p.getAssocEnseigners()) {
+            JSONObject enseignantJson = new JSONObject();
+            enseignantJson.put("id", p.getEmploye().getPersonneId());
+            enseignantJson.put("nom", p.getEmploye().getPersonneNom());
+            enseignantJson.put("prenom", p.getEmploye().getPersonnePrenom());
+            enseignantJson.put("matiereId", employe.getMatiere().getMatiereId());
+            enseignantJson.put("matiereLibelle", employe.getMatiere().getMatiereLibelle());
+            enseignantsJson.put(enseignantJson);
+        }
+        detailsJson.put("enseignants", enseignantsJson);
+
+        JSONArray elevesJson = new JSONArray();
         for (AssocEtudier elem : p.getAssocEtudiers()) {
+            JSONObject eleveJson = new JSONObject();
             eleveJson.put("id", elem.getEleve().getPersonneId());
             eleveJson.put("nom", elem.getEleve().getPersonneNom());
             eleveJson.put("prenom", elem.getEleve().getPersonnePrenom());
