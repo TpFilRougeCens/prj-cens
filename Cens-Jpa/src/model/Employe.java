@@ -1,18 +1,22 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 
 /**
  * The persistent class for the employe database table.
  */
 @Entity
-@NamedQuery(name = "Employe.findAll", query = "SELECT e FROM Employe e")
+@NamedQueries({
+        @NamedQuery(name = "Employe.findAll", query = "SELECT e FROM Employe e"),
+        @NamedQuery(name = "Employe.findByNameAndPassWord", query = "SELECT e FROM Employe e WHERE e.employeLogin = :loginn AND e.employePassword = :paswordd")
+})
 public class Employe extends Personne implements Serializable {
     private static final long serialVersionUID = 1L;
-/*
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "personne_id")
@@ -40,6 +44,11 @@ public class Employe extends Personne implements Serializable {
     @Column(name = "personne_ville")
     private String employeVille;
 
+    @Column(name = "personne_password")
+    private String employePassword;
+
+
+
     //bi-directional many-to-one association to Groupe
     @ManyToOne
     @JoinColumn(name = "personne_fk_groupe_id")
@@ -64,63 +73,72 @@ public class Employe extends Personne implements Serializable {
         return this.employeId;
     }
 
-    public void setEmployeId(Integer employeId) {
+    public String getPersonnePassword() {
+        return this.employePassword;
+    }
+
+    public void setPersonnePassword(String elevePassword) {
+        this.employePassword = elevePassword;
+    }
+
+
+    public void setPersonneId(Integer employeId) {
         this.employeId = employeId;
     }
 
-    public String getEmployeAdresse() {
+    public String getPersonneAdresse() {
         return this.employeAdresse;
     }
 
-    public void setEmployeAdresse(String employeAdresse) {
+    public void setPersonneAdresse(String employeAdresse) {
         this.employeAdresse = employeAdresse;
     }
 
-    public String getEmployeCp() {
+    public String getPersonneCp() {
         return this.employeCp;
     }
 
-    public void setEmployeCp(String employeCp) {
+    public void setPersonneCp(String employeCp) {
         this.employeCp = employeCp;
     }
 
-    public Date getEmployeDateNaissance() {
+    public Date getPersonneDateNaissance() {
         return this.employeDateNaissance;
     }
 
-    public void setEmployeDateNaissance(Date employeDateNaissance) {
+    public void setPersonneDateNaissance(Date employeDateNaissance) {
         this.employeDateNaissance = employeDateNaissance;
     }
 
-    public String getEmployeLogin() {
+    public String getPersonneLogin() {
         return this.employeLogin;
     }
 
-    public void setEmployeLogin(String employeLogin) {
+    public void setPersonneLogin(String employeLogin) {
         this.employeLogin = employeLogin;
     }
 
-    public String getEmployeNom() {
+    public String getPersonneNom() {
         return this.employeNom;
     }
 
-    public void setEmployeNom(String employeNom) {
+    public void setPersonneNom(String employeNom) {
         this.employeNom = employeNom;
     }
 
-    public String getEmployePrenom() {
+    public String getPersonnePrenom() {
         return this.employePrenom;
     }
 
-    public void setEmployePrenom(String employePrenom) {
+    public void setPersonnePrenom(String employePrenom) {
         this.employePrenom = employePrenom;
     }
 
-    public String getEmployeVille() {
+    public String getPersonneVille() {
         return this.employeVille;
     }
 
-    public void setEmployeVille(String employeVille) {
+    public void setPersonneVille(String employeVille) {
         this.employeVille = employeVille;
     }
 
@@ -197,6 +215,4 @@ public class Employe extends Personne implements Serializable {
 
         return classroom;
     }
-*/
-
 }
