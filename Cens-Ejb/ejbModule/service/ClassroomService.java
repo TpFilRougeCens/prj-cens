@@ -174,7 +174,7 @@ public class ClassroomService {
         JSONObject niveauJson = new JSONObject();
         JSONObject filiereJson = new JSONObject();
         JSONObject voieJson = new JSONObject();
-
+        System.out.println("Classe enseigne " + p.getClassroomId());
         detailsJson.put("id", p.getClassroomId());
         detailsJson.put("libelle", p.getClassroomLibelle());
 
@@ -196,24 +196,24 @@ public class ClassroomService {
         detailsJson.put("voie", voieJson);
 
         JSONArray enseignantsJson = new JSONArray();
-        for (AssocEnseigner employe : p.getAssocEnseigners()) {
+        for (AssocEnseigner enseignant : p.getAssocEnseigners()) {
             JSONObject enseignantJson = new JSONObject();
-            enseignantJson.put("id", p.getEmploye().getPersonneId());
-            enseignantJson.put("nom", p.getEmploye().getPersonneNom());
-            enseignantJson.put("prenom", p.getEmploye().getPersonnePrenom());
-            enseignantJson.put("matiereId", employe.getMatiere().getMatiereId());
-            enseignantJson.put("matiereLibelle", employe.getMatiere().getMatiereLibelle());
+            enseignantJson.put("id", enseignant.getEmploye().getPersonneId());
+            enseignantJson.put("nom", enseignant.getEmploye().getPersonneNom());
+            enseignantJson.put("prenom", enseignant.getEmploye().getPersonnePrenom());
+            enseignantJson.put("matiereId", enseignant.getMatiere().getMatiereId());
+            enseignantJson.put("matiereLibelle", enseignant.getMatiere().getMatiereLibelle());
             enseignantsJson.put(enseignantJson);
         }
         detailsJson.put("enseignants", enseignantsJson);
 
         JSONArray elevesJson = new JSONArray();
-        for (AssocEtudier elem : p.getAssocEtudiers()) {
+        for (AssocEtudier etudiant : p.getAssocEtudiers()) {
             JSONObject eleveJson = new JSONObject();
-            eleveJson.put("id", elem.getEleve().getPersonneId());
-            eleveJson.put("nom", elem.getEleve().getPersonneNom());
-            eleveJson.put("prenom", elem.getEleve().getPersonnePrenom());
-            eleveJson.put("dateNaissance", elem.getEleve().getPersonneDateNaissance());
+            eleveJson.put("id", etudiant.getEleve().getPersonneId());
+            eleveJson.put("nom", etudiant.getEleve().getPersonneNom());
+            eleveJson.put("prenom", etudiant.getEleve().getPersonnePrenom());
+            eleveJson.put("dateNaissance", etudiant.getEleve().getPersonneDateNaissance());
             elevesJson.put(eleveJson);
         }
         detailsJson.put("eleves", elevesJson);

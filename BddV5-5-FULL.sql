@@ -1089,23 +1089,23 @@ VALUES ('toor', 'Eleve60', 'nom6', 'prenom1', '10/12/1970', '5 rue dupont', NULL
 
 -- CLASSES
 INSERT INTO "public"."classroom" ("classroom_fk_filiere_id", "classroom_fk_niveau_id", "classroom_fk_personne_manager_id", "classroom_libelle")
-VALUES (1, 1, 1, 'A');
+VALUES (1, 1, 1, 'A1');
 INSERT INTO "public"."classroom" ("classroom_fk_filiere_id", "classroom_fk_niveau_id", "classroom_fk_personne_manager_id", "classroom_libelle")
-VALUES (1, 2, 1, 'A');
+VALUES (1, 2, 1, 'A2');
 INSERT INTO "public"."classroom" ("classroom_fk_filiere_id", "classroom_fk_niveau_id", "classroom_fk_personne_manager_id", "classroom_libelle")
-VALUES (1, 3, 2, 'A');
+VALUES (1, 3, 2, 'A3');
 INSERT INTO "public"."classroom" ("classroom_fk_filiere_id", "classroom_fk_niveau_id", "classroom_fk_personne_manager_id", "classroom_libelle")
-VALUES (2, 1, 3, 'B');
+VALUES (2, 1, 3, 'B1');
 INSERT INTO "public"."classroom" ("classroom_fk_filiere_id", "classroom_fk_niveau_id", "classroom_fk_personne_manager_id", "classroom_libelle")
-VALUES (2, 2, 4, 'B');
+VALUES (2, 2, 4, 'B2');
 INSERT INTO "public"."classroom" ("classroom_fk_filiere_id", "classroom_fk_niveau_id", "classroom_fk_personne_manager_id", "classroom_libelle")
-VALUES (2, 3, 4, 'B');
+VALUES (2, 3, 4, 'B3');
 INSERT INTO "public"."classroom" ("classroom_fk_filiere_id", "classroom_fk_niveau_id", "classroom_fk_personne_manager_id", "classroom_libelle")
-VALUES (3, 1, 1, 'C');
+VALUES (3, 1, 1, 'C1');
 INSERT INTO "public"."classroom" ("classroom_fk_filiere_id", "classroom_fk_niveau_id", "classroom_fk_personne_manager_id", "classroom_libelle")
-VALUES (3, 2, 1, 'C');
+VALUES (3, 2, 1, 'C2');
 INSERT INTO "public"."classroom" ("classroom_fk_filiere_id", "classroom_fk_niveau_id", "classroom_fk_personne_manager_id", "classroom_libelle")
-VALUES (3, 3, 2, 'C');
+VALUES (3, 3, 2, 'C3');
 
 -- BILANS
 INSERT INTO "public"."bilan" ("bilan_fk_personne_id", "bilan_libelle", "bilan_commentaire", "bilan_date_debut", "bilan_date_fin")
@@ -1321,13 +1321,13 @@ VALUES (29, 1);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
 VALUES (1, 1, 1, 1);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
-VALUES (1, 1, 1, 2);
+VALUES (1, 1, 2, 2);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
 VALUES (2, 1, 1, 3);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
 VALUES (2, 2, 1, 3);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
-VALUES (2, 2, 1, 1);
+VALUES (2, 2, 3, 1);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
 VALUES (3, 1, 2, 1);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
@@ -1337,12 +1337,12 @@ VALUES (4, 3, 1, 3);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
 VALUES (4, 4, 1, 3);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
-VALUES (4, 4, 1, 4);
+VALUES (4, 4, 1, 1);
 
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
-VALUES (1, 1, 3, 1);
+VALUES (1, 8, 3, 1);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
-VALUES (1, 1, 3, 2);
+VALUES (1, 9, 3, 2);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
 VALUES (2, 1, 3, 3);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
@@ -1354,7 +1354,7 @@ VALUES (3, 1, 3, 1);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
 VALUES (3, 3, 3, 2);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
-VALUES (4, 3, 3, 3);
+VALUES (4, 3, 3, 2);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
 VALUES (4, 4, 3, 3);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
