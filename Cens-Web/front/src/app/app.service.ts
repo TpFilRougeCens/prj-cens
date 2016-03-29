@@ -3,7 +3,8 @@ import {WebpackState} from 'angular2-hmr';
 
 @Injectable()
 export class AppState {
-  _state = {}; // you must set the initial value
+  _state = {};
+  // you must set the initial value
   constructor(webpackState: WebpackState) {
     this._state = webpackState.select('AppState', () => this._state);
   }

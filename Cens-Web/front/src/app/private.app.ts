@@ -18,6 +18,7 @@ import {CanActivate} from "angular2/router";
 import {Authentification} from './service/authentification';
 import {Login} from "./pages/login/login";
 import {Profil} from "./pages/profil/profil";
+import {Lpc} from "./pages/lpc/lpc";
 
 //require('bootstrap/less/bootstrap.less');
 
@@ -27,14 +28,14 @@ import {Profil} from "./pages/profil/profil";
  */
 // in-memory web api imports
 @Component({
-  selector: 'lpc',
+  selector: 'private-app',
   pipes: [ ],
   providers: [ HeroService ],
   directives: [ ROUTER_DIRECTIVES ],
-  styles: [ require('./lpc.scss') ],
+  styles: [ require('./private.app.scss') ],
   template: `
        <header>
-       <a [routerLink]=" ['Index'] "><img class="logo" [src]="angularclassLogo"></a>
+       <a [routerLink]=" ['Index'] "><img class="logo" src="{{logoLPCFull}}"></a>
   
        <ul class="nav navbar-right top-nav">
            <li class="dropdown">
@@ -81,11 +82,12 @@ import {Profil} from "./pages/profil/profil";
   { path: '/home',  name: 'Home',  component: Home },
   { path: '/liste-eleve',  name: 'ListEleve',  component: ListEleve },
   { path: '/liste-evaluation',  name: 'ListEvaluation',  component: ListEvaluation },
+  { path: '/lpc',  name: 'Lpc',  component: Lpc },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
   { path: '/profil', name: 'Profil', component: Profil } //loader: () => require('es6-promise!./profil')('Profil') }
 ])
-export class Lpc {
-  angularclassLogo = 'assets/img/logoLPCFull.png';
+export class PrivateApp {
+  logoLPCFull = 'assets/img/logoLPCFull.png';
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
   errorMessage: string;
@@ -101,7 +103,7 @@ export class Lpc {
   }
 
   ngOnInit() {
-    console.log("Im in Lpc ngOnInit");
+    console.log("Im in Private App ngOnInit");
     console.log("Im logged");
     console.log(isLoggedin());
     if(!isLoggedin()) {
