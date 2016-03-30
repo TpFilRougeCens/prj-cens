@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Session Bean implementation class EleveService
@@ -156,6 +157,51 @@ public class EleveService {
     }
 
     /**
+     * FIND BILAN DE L'ELEVE
+     *
+     * @param eleveId : Id du eleve recherché
+     */
+    public JSONObject JSON_findBilan(Integer eleveId) {
+        Eleve eleve = findOne(eleveId);
+        JSONArray jsonBilans = new JSONArray();
+        JSONArray jsonEvals = new JSONArray();
+        JSONArray jsonNotes = new JSONArray();
+        JSONObject jsonResult = new JSONObject();
+
+        //TODO REVOIR BDD SUR BILAN
+        for (Bilan bilan : eleve.getBilans()) {
+            JSONObject jsonBilan = new JSONObject();
+            jsonBilan.put("id", bilan.getBilanId());
+            jsonBilan.put("libelle", bilan.getBilanLibelle());
+            jsonBilan.put("dateDebut", bilan.getBilanDateDebut());
+            jsonBilan.put("dateFin", bilan.getBilanDateFin());
+            jsonBilan.put("commentaire", bilan.getBilanCommentaire());
+
+            JSONObject jsonEval = JSON_findHierarchiePedagogique(eleveId, "date", bilan.getBilanDateDebut().toString(), bilan.getBilanDateFin().toString());
+            jsonBilan.put("evaluations", jsonEval);
+
+            jsonBilans.put(jsonBilan);
+        }
+
+        jsonResult.put("bilans", jsonBilans);
+
+        //Legende pour les notations
+        for (Note note : entityManager.createNamedQuery("Note.findAll", Note.class).getResultList()) {
+            JSONObject jsonNote = new JSONObject();
+            if (note.getNoteActive() && !note.getNoteAbvr().equals("")) {
+                jsonNote.put("abvr", note.getNoteAbvr());
+                jsonNote.put("libelle", note.getNoteLibelle());
+                jsonNote.put("couleur", note.getNoteCouleur());
+                jsonNotes.put(jsonNote);
+            }
+        }
+        jsonResult.put("bilans", jsonBilans);
+        jsonResult.put("legende", jsonNotes);
+        return jsonResult;
+
+    }
+
+    /**
      * DELETE METHODE WITH NATIVE JPA METHODE
      *
      * @param eleveId : Id de eleve
@@ -177,6 +223,21 @@ public class EleveService {
             return true;
         } catch (Exception e) {
             System.err.print(e);
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * DELETE METHODE D'UNE EVALUATION WITH NATIVE JPA METHODE
+     *
+     * @param evaluationId : Id de l'évaluation de l'élève
+     */
+    public boolean deleteEvaluation(Integer evaluationId) {
+        try {
+            entityManager.createNamedQuery("Eleve.deleteEvaluerById").setParameter("idd", evaluationId).executeUpdate();
+            return true;
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -212,6 +273,44 @@ public class EleveService {
             }
 
             entityManager.persist(convertToObject(eleve));
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * INSERT D'UNE EVALUATION
+     * <p>
+     * METHODE WITH NATIVE JPA METHODE
+     *
+     * @param evaluation : Object de type JSON evaluation
+     */
+    public boolean JSON_insertEval(JSONObject evaluation) {
+        try {
+            // Supression de l'id pour une méthode POST
+            if (evaluation.has("id") && !evaluation.isNull("id")) {
+                evaluation.remove("id");
+            }
+            entityManager.persist(convertToObjectEval(evaluation));
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * INSERT D'UNE EVALUATION
+     * <p>
+     * METHODE WITH NATIVE JPA METHODE
+     *
+     * @param evaluation : Object de type JSON evaluation
+     */
+    public boolean JSON_updateEval(JSONObject evaluation) {
+        try {
+            entityManager.merge(convertToObjectEval(evaluation));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -278,7 +377,7 @@ public class EleveService {
      * @return un Json avec la hierarchie complète de la classe
      * de l'élève jusqu'aux évaluations
      */
-    public JSONObject JSON_findHierarchiePedagogique(Integer eleveId) {
+    public JSONObject JSON_findHierarchiePedagogique(Integer eleveId, String... filtre) {
         Eleve eleve = entityManager.find(Eleve.class, eleveId);
         JSONObject resultJson = new JSONObject();
 
@@ -332,30 +431,33 @@ public class EleveService {
                             // Remplissage des évaluations de la capacite
                             JSONArray evaluationListJson = new JSONArray();
                             for (AssocEvaluer evaluation : findEvaluation(capacite)) {
-                                //System.out.println("                      Evaluation sur " + evaluation.getComCap() + " le " + evaluation.getAssocEvaluerDateEvaluation());
 
-                                JSONObject evaluationEntityJson = new JSONObject();
-                                evaluationEntityJson.put("id", evaluation.getAssocEvaluerId());
-                                evaluationEntityJson.put("date", evaluation.getAssocEvaluerDateEvaluation());
+                                //filtre SI ne contient pas de filtrre date
+                                if (filtre[0] != null && filtre[0].equals("date")) {
+                                    System.out.println("passe dans le filtrre de date");
+                                    DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
+                                    Date dateEval = evaluation.getAssocEvaluerDateEvaluation();
+                                    Date dateDebut;
+                                    Date dateFin;
+                                    try {
+                                        dateDebut = sourceFormat.parse(filtre[1]);
+                                        dateFin = sourceFormat.parse(filtre[2]);
 
-                                // Notation de l'enseignant
-                                JSONObject evalEnsEntityJson = new JSONObject();
-                                evalEnsEntityJson.put("abvr", evaluation.getNote1().getNoteAbvr());
-                                evalEnsEntityJson.put("libelle", evaluation.getNote1().getNoteLibelle());
-                                evalEnsEntityJson.put("couleur", evaluation.getNote1().getNoteCouleur());
-                                evalEnsEntityJson.put("value", evaluation.getNote1().getNoteValeur());
-                                evalEnsEntityJson.put("commentaire", evaluation.getAssocEvaluerCommentaire());
-                                evaluationEntityJson.put("evalEnseignant", evalEnsEntityJson);
+                                        if (dateEval.after(dateDebut) && dateEval.before(dateFin)) {
+                                            evaluationListJson.put(convertToJsonEval(evaluation));
+                                        }
 
-                                // Notation de l'éleve = Autoevaluation
-                                JSONObject autoEvalEnsEntityJson = new JSONObject();
-                                autoEvalEnsEntityJson.put("abvr", evaluation.getNote2().getNoteAbvr());
-                                autoEvalEnsEntityJson.put("libelle", evaluation.getNote2().getNoteLibelle());
-                                autoEvalEnsEntityJson.put("couleur", evaluation.getNote2().getNoteCouleur());
-                                autoEvalEnsEntityJson.put("value", evaluation.getNote2().getNoteValeur());
-                                evaluationEntityJson.put("evalEleve", autoEvalEnsEntityJson);
+                                    } catch (ParseException e) {
+                                        // problème de format dans les dates stockés dans Bilan
+                                        System.out.println("Problème sur le format de date en base Vs Java");
+                                        e.printStackTrace();
+                                        return null;
+                                    }
 
-                                evaluationListJson.put(evaluationEntityJson);
+                                } else {
+                                    // LPC COMPLET
+                                    evaluationListJson.put(convertToJsonEval(evaluation));
+                                }
                             }
                             capaciteEntityJson.put("evaluation", evaluationListJson);
                             capaciteListJson.put(capaciteEntityJson);
@@ -374,6 +476,7 @@ public class EleveService {
         }
         return resultJson.put("classe", classeListJson);
     }
+
 
     /**
      * @param eleve de type Eleve
@@ -531,7 +634,7 @@ public class EleveService {
         }
 
         if (eleve.has("dateNaissance") && !eleve.isNull("dateNaissance")) {
-            DateFormat sourceFormat = new SimpleDateFormat("dd/MM/yyyy");
+            DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
             String dateAsString = eleve.getString("dateNaissance");
             Date date = null;
             try {
@@ -565,5 +668,93 @@ public class EleveService {
         }
 
         return result;
+    }
+
+    /**
+     * CONVERTIR UN OBJ JSON EN OBJ JAVA ASSOCEVALUER
+     * <p>
+     * Attention des FK_ID sont obligatoire
+     *
+     * @param eval
+     * @return un Eleve
+     */
+    private AssocEvaluer convertToObjectEval(JSONObject eval) {
+        AssocEvaluer result = new AssocEvaluer();
+        Employe enseignant;
+        Eleve eleve;
+        ComCap capacite;
+        Note evalEnseignant;
+        Note evalEleve;
+
+        if (eval.has("id") && !eval.isNull("id")) {
+            result.setAssocEvaluerId(eval.getInt("id"));
+        }
+
+        try {
+            enseignant = entityManager.find(Employe.class, eval.getInt("enseignant"));
+            result.setEmploye(enseignant);
+            eleve = entityManager.find(Eleve.class, eval.getInt("eleve"));
+            result.setEleve(eleve);
+            capacite = entityManager.find(ComCap.class, eval.getInt("capacite"));
+            result.setComCap(capacite);
+
+            // Si l'évaluation de l'enseignant est faite on récupère SINON on attribut la Note 1 = Non noté
+            if (eval.has("evalEnseignant") && !eval.isNull("evalEnseignant")) {
+                evalEnseignant = entityManager.find(Note.class, eval.getInt("evalEnseignant"));
+            } else {
+                evalEnseignant = entityManager.find(Note.class, 1);
+            }
+            result.setNote1(evalEnseignant);
+
+            if (eval.has("evalEleve") && !eval.isNull("evalEleve")) {
+                evalEleve = entityManager.find(Note.class, eval.getInt("evalEleve"));
+            } else {
+                evalEleve = entityManager.find(Note.class, 1);
+            }
+            result.setNote2(evalEleve);
+
+            //Convert to Date format
+            DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
+            String dateAsString = eval.getString("date");
+            Date date = null;
+            date = sourceFormat.parse(dateAsString);
+            result.setAssocEvaluerDateEvaluation(date);
+        } catch (Exception e) {
+            // Si une ref FK non trouvé on stop tout : fatal error
+            e.printStackTrace();
+            return null;
+        }
+
+        if (eval.has("commentaire") && !eval.isNull("commentaire")) {
+            result.setAssocEvaluerCommentaire(eval.getString("commentaire"));
+        }
+
+        return result;
+    }
+
+
+    private JSONObject convertToJsonEval(AssocEvaluer evaluation) {
+        JSONObject evaluationEntityJson = new JSONObject();
+        evaluationEntityJson.put("id", evaluation.getAssocEvaluerId());
+        evaluationEntityJson.put("date", evaluation.getAssocEvaluerDateEvaluation());
+
+        // Notation de l'enseignant
+        JSONObject evalEnsEntityJson = new JSONObject();
+        evalEnsEntityJson.put("abvr", evaluation.getNote1().getNoteAbvr());
+        evalEnsEntityJson.put("libelle", evaluation.getNote1().getNoteLibelle());
+        evalEnsEntityJson.put("couleur", evaluation.getNote1().getNoteCouleur());
+        evalEnsEntityJson.put("value", evaluation.getNote1().getNoteValeur());
+        evalEnsEntityJson.put("commentaire", evaluation.getAssocEvaluerCommentaire());
+        evaluationEntityJson.put("evalEnseignant", evalEnsEntityJson);
+
+        // Notation de l'éleve = Autoevaluation
+        JSONObject autoEvalEnsEntityJson = new JSONObject();
+        autoEvalEnsEntityJson.put("abvr", evaluation.getNote2().getNoteAbvr());
+        autoEvalEnsEntityJson.put("libelle", evaluation.getNote2().getNoteLibelle());
+        autoEvalEnsEntityJson.put("couleur", evaluation.getNote2().getNoteCouleur());
+        autoEvalEnsEntityJson.put("value", evaluation.getNote2().getNoteValeur());
+        evaluationEntityJson.put("evalEleve", autoEvalEnsEntityJson);
+
+        return evaluationEntityJson;
     }
 }

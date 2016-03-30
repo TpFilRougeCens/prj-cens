@@ -37,7 +37,10 @@ public class ElevesRest {
     @EJB
     ComCapService competenceService;
 
-    // ########################## WEB SERVICE SUR ELEVE ########################################
+    private final String JSON_SUCCES = "{\"msg\":\"Succès. L'opération à bien été réalisée!\"}";
+    private final String JSON_FAIL_SERVER = "{\"msg\":\"Echec. Le serveur ne peut pas traiter la demande. Contacter l'administrateur!\"}";
+    private final String JSON_FAIL_CLIENT = "{\"msg\":\"Echec. Le format des données n'est pas utilisable!\"}";
+    // ########################## WEB SERVICE /eleve ########################################
 
     /**
      * GET retourne tous les élèves en base
@@ -84,8 +87,17 @@ public class ElevesRest {
     @Path("{idEleve}")
     @DELETE
     public Response deleteEleveById(@PathParam("idEleve") Integer idEleve) throws JSONException {
-        boolean result = eleveService.delete(idEleve);
-        return Response.status(200).entity("" + result).build();
+        try {
+            boolean result = eleveService.delete(idEleve);
+            if (result) {
+                return Response.status(200).entity(JSON_SUCCES).build();
+            } else {
+                return Response.status(400).entity(JSON_FAIL_CLIENT).build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(500).entity(JSON_FAIL_SERVER).build();
+        }
     }
 
     /**
@@ -100,6 +112,7 @@ public class ElevesRest {
      * @throws JSONException
      */
     @PUT
+    @Produces("application/json;charset=utf-8")
     @Consumes("application/json;charset=utf-8")
     public Response putEleve(String jsonEntity) throws JSONException {
         JSONObject jsonObj;
@@ -109,16 +122,16 @@ public class ElevesRest {
             jsonObj = new JSONObject(jsonEntity);
             jsonEleve = jsonObj.getJSONObject("eleve");
         } catch (Exception e) {
-            return Response.status(400).entity("Format de données JSON incompatible").build();
+            return Response.status(400).entity(JSON_FAIL_CLIENT).build();
         }
 
         boolean result = eleveService.JSON_update(jsonEleve);
 
         if (!result) {
-            return Response.status(500).entity("Update fail").build();
+            return Response.status(500).entity(JSON_FAIL_SERVER).build();
         }
 
-        return Response.status(200).build();
+        return Response.status(200).entity(JSON_SUCCES).build();
     }
 
     /**
@@ -126,35 +139,38 @@ public class ElevesRest {
      * <p>
      * URI : http://localhost:8080/Cens-Web-1.0.0-SNAPSHOT/rest/eleve/
      * <p>
-     * Exemple : {"eleve":{"password": "P@ssword","ville": "NANTES1","adresse": "1 rue dupont",groupeId":1,"login": "Eleve1DepuisJson2","nom": "nom1","prenom": "prenom1","cp": "44000"}}
+     * Exemple : {"eleve":{"password": "P@ssword","ville": "NANTES1","adresse": "1 rue dupont","groupeId":1,"login": "Eleve1DepuisJson2","nom": "nom1Json","prenom": "prenom1","cp": "44000"}}
      *
      * @param jsonEntity
      * @return code HTTP + [message]
      * @throws JSONException
      */
     @POST
+    @Produces("application/json;charset=utf-8")
     @Consumes("application/json;charset=utf-8")
     public Response postEleve(String jsonEntity) throws JSONException {
         JSONObject jsonObj;
         JSONObject jsonEleve;
+
         try {
             jsonObj = new JSONObject(jsonEntity);
             jsonEleve = jsonObj.getJSONObject("eleve");
         } catch (Exception e) {
-            return Response.status(400).entity("Format de données JSON incompatible").build();
+            return Response.status(400).entity(JSON_FAIL_CLIENT).build();
         }
 
         boolean result = eleveService.JSON_insert(jsonEleve);
 
         if (!result) {
-            return Response.status(500).entity("Update fail").build();
+            return Response.status(500).entity(JSON_FAIL_SERVER).build();
         }
 
-        return Response.status(200).build();
+        return Response.status(200).entity(JSON_SUCCES).build();
     }
 
 
     // ########################## WEB SERVICE /eleve/{idEleve}/lpc #################################
+    // ########################## Construit le LPC de l'élève      #################################
 
     /**
      * Retourne la hierarchie de l'élève jusqu'a ça liste de ses evaluations
@@ -168,13 +184,134 @@ public class ElevesRest {
     @Path("{idEleve}/lpc")
     @GET
     @Produces("application/json;charset=utf-8")
-    public Response findCapaciteById(@PathParam("idEleve") Integer idEleve) throws JSONException {
-        JSONObject jsonObject = eleveService.JSON_findHierarchiePedagogique(idEleve);
+    public Response getLpcEleveById(@PathParam("idEleve") Integer idEleve) throws JSONException {
+        JSONObject jsonObject = eleveService.JSON_findHierarchiePedagogique(idEleve, null, null);
         return Response.status(200).entity(jsonObject.toString()).build();
     }
 
+    // ########################## WEB SERVICE /eleve/lps/evaluation #################################
+    // ########################## Traite les évaluation de l'élève  #################################
 
-    // !!!!!!!!!! NE SERT A RIEN ET PAS LOGIQUE ICI !!!!!!!!!!
+    /**
+     * AJOUTER UNE NOUVELLE EVALUATION AU LPC DE L'ELEVE
+     * <p>
+     * Exemple de post : {"evaluation":{"enseignant": 1,"eleve": 7,"capacite":49,"evalEnseignant": 2,"evalEleve": 3,"date": "31/01/1989","commentaire": "youpiiii un commentaire"}}
+     * <p>
+     * L'évaluation et l'auto-évaluation peuvent ne sont pas obligatoirement stipulé
+     * Si non stipuler : la Note Id = 1 = Non noté
+     * <p>
+     * Aucun Id à stipuler sur un nouvel ajout
+     *
+     * @param jsonEntity
+     * @return json
+     * @throws JSONException
+     */
+    @Path("lpc/evaluation")
+    @POST
+    @Consumes("application/json;charset=utf-8")
+    @Produces("application/json;charset=utf-8")
+    public Response postEvaluationEleveById(String jsonEntity) throws JSONException {
+        JSONObject jsonObj;
+        JSONObject jsonEval;
+
+        try {
+            jsonObj = new JSONObject(jsonEntity);
+            jsonEval = jsonObj.getJSONObject("evaluation");
+        } catch (Exception e) {
+            return Response.status(400).entity(JSON_FAIL_CLIENT).build();
+        }
+        boolean result = eleveService.JSON_insertEval(jsonEval);
+
+        if (!result) {
+            return Response.status(500).entity(JSON_FAIL_SERVER).build();
+        }
+
+        return Response.status(200).entity(JSON_SUCCES).build();
+    }
+
+    /**
+     * MODIFIER UNE NOUVELLE EVALUATION AU LPC DE L'ELEVE
+     * <p>
+     * Exemple de PUT : {"evaluation":{"id":1,"enseignant": 2,"eleve": 7,"capacite":49,"evalEnseignant": 2,"evalEleve": 3,"date": "31/01/1989","commentaire": "youpiiii un commentaire"}}
+     * <p>
+     * L'évaluation et l'auto-évaluation peuvent ne sont pas obligatoirement stipulé
+     * Si non stipuler : la Note Id = 1 = Non noté
+     * <p>
+     * Warning : Id à stipuler sur un update
+     *
+     * @param jsonEntity
+     * @return json
+     * @throws JSONException
+     */
+    @Path("lpc/evaluation")
+    @PUT
+    @Consumes("application/json;charset=utf-8")
+    @Produces("application/json;charset=utf-8")
+    public Response putEvaluationEleveById(String jsonEntity) throws JSONException {
+        JSONObject jsonObj;
+        JSONObject jsonEval;
+
+        try {
+            jsonObj = new JSONObject(jsonEntity);
+            jsonEval = jsonObj.getJSONObject("evaluation");
+        } catch (Exception e) {
+            return Response.status(400).entity(JSON_FAIL_CLIENT).build();
+        }
+        boolean result = eleveService.JSON_updateEval(jsonEval);
+
+        if (!result) {
+            return Response.status(500).entity(JSON_FAIL_SERVER).build();
+        }
+
+        return Response.status(200).entity(JSON_SUCCES).build();
+    }
+
+
+    /**
+     * SUPPRIMER UNE EVALUATION DU LPC DE L'ELEVE
+     *
+     * @param idEvaluation
+     * @return json
+     * @throws JSONException
+     */
+    @Path("lpc/evaluation/{idEvaluation}")
+    @DELETE
+    @Produces("application/json;charset=utf-8")
+    public Response deleteEvaluationEleveById(@PathParam("idEvaluation") Integer idEvaluation) throws JSONException {
+        try {
+            boolean result = eleveService.deleteEvaluation(idEvaluation);
+            if (result) {
+                return Response.status(200).entity(JSON_SUCCES).build();
+            } else {
+                return Response.status(400).entity(JSON_FAIL_CLIENT).build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(500).entity(JSON_FAIL_SERVER).build();
+        }
+    }
+
+
+    // ########################## WEB SERVICE /eleve/lps/bilans #################################
+    // ########################## Traite les bilans de l'élève  #################################
+
+    /**
+     * Retourne les bilans de l'élèves
+     * <p>
+     * Classe, bilans
+     *
+     * @param idEleve
+     * @return json
+     * @throws JSONException
+     */
+    @Path("{idEleve}/lpc/bilan")
+    @GET
+    @Produces("application/json;charset=utf-8")
+    public Response getBilan(@PathParam("idEleve") Integer idEleve) throws JSONException {
+        JSONObject jsonObject = eleveService.JSON_findBilan(idEleve);
+        return Response.status(200).entity(jsonObject.toString()).build();
+    }
+
 
     // ########################## WEB SERVICE /eleve/classe #################################
 

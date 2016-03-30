@@ -1348,8 +1348,6 @@ VALUES (2, 1, 3, 3);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
 VALUES (2, 2, 3, 3);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
-VALUES (2, 2, 3, 1);
-INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
 VALUES (3, 1, 3, 1);
 INSERT INTO "public"."assoc_enseigner" ("assoc_enseigner_fk_personne_id", "assoc_enseigner_fk_classroom_id", "assoc_enseigner_fk_matiere_id", "assoc_enseigner_fk_promo_enseignement_id")
 VALUES (3, 3, 3, 2);

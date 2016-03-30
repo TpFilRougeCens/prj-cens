@@ -174,7 +174,7 @@ public class ClassroomService {
         JSONObject niveauJson = new JSONObject();
         JSONObject filiereJson = new JSONObject();
         JSONObject voieJson = new JSONObject();
-        System.out.println("Classe enseigne " + p.getClassroomId());
+        //System.out.println("Classe enseigne " + p.getClassroomId());
         detailsJson.put("id", p.getClassroomId());
         detailsJson.put("libelle", p.getClassroomLibelle());
 
