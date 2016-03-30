@@ -11,9 +11,49 @@ import {LoadingImage} from "../../components/loading-image/loading.image";
 
 console.log('`Liste evaluation` component loaded asynchronously');
 
+
+@Component({
+  selector: 'bloc-matiere',
+  inputs: ['eval'],
+  template: `
+  <h3 (click)="toggle()">Matières: {{eval.libelle}}</h3>
+  <div *ngIf="show" *ngFor="#comp of eval.competence">
+    <div>Compétence: {{comp.libelle}}</div>
+    <div *ngFor="#cap of comp.capacite">
+      <div>Capacité: {{cap.libelle}}</div>
+      <div *ngFor="#cap of comp.capacite">
+        <div>Capacité: {{cap.libelle}}</div>
+        <div *ngFor="#eval of cap.evaluation">
+        <div>Date: {{eval.date}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  `
+})
+class BlocMatiere {
+  eval;
+  show: boolean = false;
+  // the EventEmitter is used to emit the event
+  //ponySelected: EventEmitter<Pony> = new EventEmitter<Pony>();
+
+  /**
+   * Selects a pony when the component is clicked.
+   * Emits a custom event.
+   */
+  selectPony() {
+    //this.ponySelected.emit(this.eval);
+  }
+
+  toggle(){
+    this.show = !this.show;
+  }
+}
+
+
 @Component({
   selector: 'lpc',
-  directives: [LoadingImage],
+  directives: [LoadingImage, BlocMatiere],
   providers: [ RestLpc ],
   template: `
   <h2>Lpc</h2>
@@ -25,26 +65,15 @@ console.log('`Liste evaluation` component loaded asynchronously');
       <div class="col-sm-3" (click)="onBlocSelect(3)">Bloc 4</div>
     </div>
     <h3>bloc</h3>
-      <div *ngFor="#eval of lpc[idBloc].matiere">
-        <div>Matières: {{eval.libelle}}</div>
-        <div *ngFor="#comp of eval.competence">
-          <div>Compétence: {{comp.libelle}}</div>
-          <div *ngFor="#cap of comp.capacite">
-            <div>Capacité: {{cap.libelle}}</div>
-            <div *ngFor="#cap of comp.capacite">
-              <div>Capacité: {{cap.libelle}}</div>
-              <div *ngFor="#eval of cap.evaluation">
-              <div>Date: {{eval.date}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div  *ngIf="lpc.length == 0">
-      <loading-image></loading-image>
+    <div *ngFor="#eval of lpc[idBloc].matiere">
+      <bloc-matiere [eval]="eval" ></bloc-matiere>
     </div>
+  </div>
+
+  <div  *ngIf="lpc.length == 0">
+    <loading-image></loading-image>
+  </div>
 
   `
 })
