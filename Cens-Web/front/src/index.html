@@ -28,6 +28,8 @@
     <meta name="msapplication-TileImage" content="/assets/icon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <link rel="icon" type="image/x-icon" href="/assets/icon/favicon.ico">
+
     <!-- base url -->
     <base href="<%= webpackConfig.metadata.baseUrl %>">
 
@@ -71,6 +73,10 @@
     </div>
 </app>
 
+
+</div>
+
+
 <% if (webpackConfig.metadata.ENV === 'development') { %>
 <!-- Webpack Dev Server reload -->
 <script src="http://<%= webpackConfig.metadata.host %>:<%= webpackConfig.metadata.port %>/webpack-dev-server.js"></script>
@@ -88,6 +94,7 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="/assets/js/sb-admin-2.js"></script>
+
 
 </body>
 </html>

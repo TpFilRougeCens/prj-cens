@@ -11,7 +11,7 @@ import {Component} from "angular2/core";
     selector: 'loading-image',
     directives: [],
     template: `
-    <img src="{{loadImg}}">
+    <img src="{{loadImg}}" class="img-responsive center-block" style="margin-top:60px;margin-bottom: 60px;">
   `,
     styles: [`
   img {
@@ -21,7 +21,7 @@ import {Component} from "angular2/core";
 })
 export class LoadingImage {
 
-    loadImg = 'assets/img/loading.gif';
+    loadImg = 'assets/img/loading-bar.gif';
 
     ngOnInit() {
         console.log('hello loading image component');
