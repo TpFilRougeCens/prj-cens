@@ -13,10 +13,10 @@ import {LoadingImage} from "../../components/loading-image/loading.image";
 console.log('`About` component loaded asynchronously');
 
 @Component({
-  selector: 'liste-eleve',
-  directives: [LoadingImage],
-  providers: [ RestEleve ],
-  template: `
+    selector: 'liste-eleve',
+    directives: [LoadingImage],
+    providers: [RestEleve],
+    template: `
    <h2>Liste des élèves</h2>
     <div class="form-group">
     <label for="classe">Classe</label>
@@ -60,53 +60,59 @@ console.log('`About` component loaded asynchronously');
   `
 })
 export class ListEleve {
-  eleves = [];
-  elevesVisible = [];
-  classes;
-  textAllClass = 'Toutes les classes';
-  model = {'filtre':'', 'classe':this.textAllClass};
-  submitted = false;
-  onSubmit() { this.submitted = true; }
-  // TODO: Remove this when we're done
-  get diagnostic() { return JSON.stringify(this.model); }
+    eleves = [];
+    elevesVisible = [];
+    classes;
+    textAllClass = 'Toutes les classes';
+    model = {'filtre': '', 'classe': this.textAllClass};
+    submitted = false;
 
-  constructor (private restEleveService: RestEleve, public appState: AppState, public router: Router) {
-  }
+    onSubmit() {
+        this.submitted = true;
+    }
 
-  ngOnInit() {
-    console.log('hello `Liste eleve` component');
-    // static data that is bundled
-    var mockData = require('assets/mock-data/mock-data.json');
-    console.log(this.appState.get('classes'));
+    // TODO: Remove this when we're done
+    get diagnostic() {
+        return JSON.stringify(this.model);
+    }
 
-    this.classes = ['Toutes les classes', ...this.appState.get('classes')];
-    this.restEleveService.getEleve()
-        .subscribe(
-            (restEleve: any) => {
-              console.log(restEleve.json());
-              restEleve.json().classes.forEach( (classe) => {
-                console.log(classe.voie.libelle);
-                classe.eleves.forEach( (eleve) => {
-                  this.eleves.push( Object.assign( {},  {'voie':classe.voie.libelle}, {'filiere': classe.filiere.libelle},{'classe':classe.niveau.libelle}, {'libelle': classe.libelle}, eleve ) );
-                  this.elevesVisible.push( Object.assign( {},  {'voie':classe.voie.libelle}, {'filiere': classe.filiere.libelle},{'classe':classe.niveau.libelle}, {'libelle': classe.libelle}, eleve ) );
-                });
-              });
+    constructor(private restEleveService:RestEleve, public appState:AppState, public router:Router) {
+    }
 
-              console.log("eleves", this.eleves);
+    ngOnInit() {
+        console.log('hello `Liste eleve` component');
+        // static data that is bundled
+        var mockData = require('assets/mock-data/mock-data.json');
+        console.log(this.appState.get('classes'));
 
-            },
-            (err) => {}
-        );
-    // if you're working with mock data you can also use http.get('assets/mock-data/mock-data.json')
-    //this.asyncDataWithWebpack();
-  }
+        this.classes = ['Toutes les classes', ...this.appState.get('classes')];
+        this.restEleveService.getEleve()
+            .subscribe(
+                (restEleve:any) => {
+                    console.log(restEleve.json());
+                    restEleve.json().classes.forEach((classe) => {
+                        console.log(classe.voie.libelle);
+                        classe.eleves.forEach((eleve) => {
+                            this.eleves.push(Object.assign({}, {'voie': classe.voie.libelle}, {'filiere': classe.filiere.libelle}, {'classe': classe.niveau.libelle}, {'libelle': classe.libelle}, eleve));
+                            this.elevesVisible.push(Object.assign({}, {'voie': classe.voie.libelle}, {'filiere': classe.filiere.libelle}, {'classe': classe.niveau.libelle}, {'libelle': classe.libelle}, eleve));
+                        });
+                    });
 
-  onEleveSelect(id: number) {
-    //console.log(id);
-    this.appState.set('idLpc',id);
-     this.router.navigate(['../Lpc']);
-  }
+                    console.log("eleves", this.eleves);
 
+                },
+                (err) => {
+                }
+            );
+        // if you're working with mock data you can also use http.get('assets/mock-data/mock-data.json')
+        //this.asyncDataWithWebpack();
+    }
+
+    onEleveSelect(id:number) {
+        //console.log(id);
+        this.appState.set('idLpc', id);
+        this.router.navigate(['../Lpc']);
+    }
 
 
 }

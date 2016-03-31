@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from "angular2/core";
 
 /*
  * We're loading this component asynchronously
@@ -8,12 +8,12 @@ import {Component} from 'angular2/core';
 
 
 @Component({
-  selector: 'loading-image',
-  directives: [],
-  template:  `
+    selector: 'loading-image',
+    directives: [],
+    template: `
     <img src="{{loadImg}}">
   `,
-  styles: [`
+    styles: [`
   img {
     width: 5%;
   }
@@ -21,11 +21,11 @@ import {Component} from 'angular2/core';
 })
 export class LoadingImage {
 
-  loadImg = 'assets/img/load_img_1.gif';
+    loadImg = 'assets/img/loading.gif';
 
-  ngOnInit() {
-    console.log('hello loading image component');
-  }
+    ngOnInit() {
+        console.log('hello loading image component');
+    }
 
 
 }
