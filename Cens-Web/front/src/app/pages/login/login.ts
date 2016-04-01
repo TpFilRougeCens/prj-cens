@@ -7,7 +7,7 @@ import {AppState} from "../../app.service";
 
 @Component({
     selector: 'login',
-    directive: [FORM_DIRECTIVES, NgIf],
+    directives: [FORM_DIRECTIVES, NgIf],
     template: `
 
 <div class="container">
@@ -31,7 +31,6 @@ import {AppState} from "../../app.service";
                                   <div class="form-group">
                                     <button type="submit" class="btn btn-lg btn-success btn-block" [disabled]="!form.valid">Connexion</button>
                                   </div>
-                                
                             </fieldset>
                         </form>
                     </div>
@@ -39,8 +38,6 @@ import {AppState} from "../../app.service";
             </div>
         </div>
     </div>
-    
-   
   `
 })
 export class Login {
@@ -58,6 +55,7 @@ export class Login {
         this.appState.set('classes', ['2sd Genérale Scientifique A', 'Term Genérale Littéraire B']);
         this.appState.set('nom', 'Jean');
         this.appState.set('prenom', 'Dupond');
+        this.appState.set('id', '8');
         this.appState.set('role', 'Enseignant');
         this.router.navigate(['../PrivateApp']);
         this.auth.login(value.username, value.password)

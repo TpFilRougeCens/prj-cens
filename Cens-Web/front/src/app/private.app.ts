@@ -7,7 +7,6 @@ import {Home} from "./pages/home";
 import {ListEvaluation} from "./pages/liste-evaluation";
 import {ListEleve} from "./pages/liste-eleve";
 import {AppState} from "./app.service";
-import {HeroService} from "./app.state.service";
 import {isLoggedin} from "./service/is-loggedin";
 import {Authentification} from "./service/authentification";
 import {Login} from "./pages/login/login";
@@ -24,7 +23,7 @@ import {Lpc} from "./pages/lpc/lpc";
 @Component({
     selector: 'private-app',
     pipes: [],
-    providers: [HeroService],
+    providers: [],
     directives: [ROUTER_DIRECTIVES],
     styles: [require('./private.app.scss')],
     template: require('./private-app.html')
@@ -47,7 +46,7 @@ export class PrivateApp {
     nameProfil:string = "Chargement...";
     isLoggedin:boolean = false;
 
-    constructor(public appState:AppState, private _heroService:HeroService, public auth:Authentification, public router:Router) {
+    constructor(public appState:AppState,public auth:Authentification, public router:Router) {
 
     }
 
@@ -65,7 +64,6 @@ export class PrivateApp {
         }
 
         console.log('Initial App State', this.state);
-        this.getName();
     }
 
 
@@ -76,22 +74,6 @@ export class PrivateApp {
             );
     }
 
-    getName() {
-        this._heroService.getHeroes()
-            .subscribe(
-                response => {
-                    console.log('result from rest api');
-                    console.log(response.json())
-                    this.nameProfil = response.json().name;
-                },
-                error => {
-                    this.errorMessage = <any>error;
-                    console.log("cant get data from api");
-                    console.log(this.errorMessage);
-                }
-            );
-
-    }
 
 
 }
