@@ -7,7 +7,7 @@ import {AppState} from "../../app.service";
 
 @Component({
     selector: 'login',
-    directives: [FORM_DIRECTIVES, NgIf],
+    directive: [FORM_DIRECTIVES, NgIf],
     template: `
 
 <div class="container">

@@ -15,15 +15,14 @@
             <div class="panel-body">
                 <div class="form-group">
                     <div class="col-lg-6">
-                        <!--TODO je comprend pas le for ici-->
-                        <label for="classe">Filtrer par classe</label>
+                        <label>Filtrer par classe</label>
                         <select class="form-control"
                                 [(ngModel)]="model.classe">
                             <option *ngFor="#classe of classes" [value]="classe">{{classe}}</option>
                         </select>
                     </div>
                     <div class="col-lg-6">
-                        <label for="filtre">Rechercher un élève</label>
+                        <label>Rechercher un élève</label>
                         <input type="text" class="form-control"
                                [(ngModel)]="model.filtre">
                     </div>

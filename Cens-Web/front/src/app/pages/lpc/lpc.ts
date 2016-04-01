@@ -13,17 +13,27 @@ console.log('`Liste evaluation` component loaded asynchronously');
 
 
 @Component({
-  selector: 'bloc-competance',
+  selector: 'bloc-competence',
   inputs: ['comp'],
   template: `
-  <div *ngIf="show">
-      <div *ngFor="#cap of comp.capacite">
-        <div>Capacité: {{cap.libelle}}</div>
-        <div *ngFor="#eval of cap.evaluation">
-          <div>Date: {{eval.date}}</div>
-        </div>
-    </div>
+  <div class="col-sm-12">
+      <div class="panel panel-default ">
+          <div class="panel-heading" (click)="toggle()">
+              Compétence: {{comp.libelle}}
+          </div>
+          <div *ngIf="show">
+              <div class="panel-body">
+                 <div *ngFor="#cap of comp.capacite">
+                    <div>Capacité: {{cap.libelle}}</div>
+                    <div *ngFor="#eval of cap.evaluation">
+                      <div>Date: {{eval.date}}</div>
+                    </div>
+                 </div>
+              </div>
+          </div>
+      </div>
   </div>
+
   `
 })
 class BlocCompetence {
@@ -31,6 +41,7 @@ class BlocCompetence {
   show: boolean = false;
 
   toggle(){
+    console.log("toggle comp");
     this.show = !this.show;
   }
 }
@@ -39,22 +50,22 @@ class BlocCompetence {
 @Component({
   selector: 'bloc-matiere',
   inputs: ['matiere'],
-  directive:['BlocCompetence'],
+  directives:[BlocCompetence],
   template: `
   <h3 (click)="toggle()">Matières: {{matiere.libelle}}</h3>
   <div *ngIf="show">
     <div *ngFor="#comp of matiere.competence">
-      <h4>Compétence: {{comp.libelle}}</h4>
-      <bloc-competance [comp]="comp"></bloc-competance>
+      <bloc-competence [comp]="comp"></bloc-competence>
     </div>
   </div>
   `
 })
 class BlocMatiere {
   matiere;
-  show: boolean = false;
+  show: boolean = true;
 
   toggle(){
+    console.log("toggle matiere");
     this.show = !this.show;
   }
 }
@@ -65,24 +76,44 @@ class BlocMatiere {
   directives: [LoadingImage, BlocMatiere],
   providers: [ RestLpc ],
   template: `
-  <h2>Lpc</h2>
-  <div  *ngIf="lpc.length != 0">
     <div class="row">
-      <div class="col-sm-3" (click)="onBlocSelect(0)">Bloc 1</div>
-      <div class="col-sm-3" (click)="onBlocSelect(1)">Bloc 2</div>
-      <div class="col-sm-3" (click)="onBlocSelect(2)">Bloc 3</div>
-      <div class="col-sm-3" (click)="onBlocSelect(3)">Bloc 4</div>
+      <div class="col-xs-12">
+          <h1 class="page-header"><i class="fa fa-female fa-fw"></i> LIVRET DE COMPÉTENCES</h1>
+
+      </div>
+    <!-- /.col-lg-12 -->
     </div>
 
-    <div *ngFor="#matiere of lpc[idBloc].matiere">
-      <bloc-matiere [matiere]="matiere" ></bloc-matiere>
+  <div  *ngIf="lpc.length != 0">
+
+    <div class="row">
+      <div *ngFor="#bloc of lpc; #i = index">
+        <div class="col-sm-3" (click)="onBlocSelect(i)">
+          <div class="panel panel-default ">
+              <div class="panel-heading">
+                  {{lpc[i].libelle}}
+              </div>
+              <div class="panel-body">
+                  stats go here
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngFor="#matiere of lpc[idBloc].matiere">
+        <div class="col-sm-12">
+          <bloc-matiere [matiere]="matiere" ></bloc-matiere>
+
+        </div>
+
+      </div>
+
     </div>
   </div>
 
   <div  *ngIf="lpc.length == 0">
     <loading-image></loading-image>
   </div>
-
   `
 })
 export class Lpc {
