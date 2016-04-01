@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from "angular2/core";
 import {RestLpc} from "../../service/rest.lpc";
 import {AppState} from "../../app.service";
 import {LoadingImage} from "../../components/loading-image/loading.image";
@@ -12,13 +12,13 @@ import {LoadingImage} from "../../components/loading-image/loading.image";
 console.log('`Liste evaluation` component loaded asynchronously');
 
 @Component({
-  selector: 'bloc-competence',
-  inputs: ['comp'],
-  template: `
+    selector: 'bloc-competence',
+    inputs: ['comp'],
+    template: `
   <div class="col-sm-12">
-      <div class="panel panel-default ">
-          <div class="panel-heading" (click)="toggle()">
-              Compétence: {{comp.libelle}}
+      <div class="panel panel-default">
+          <div class="panel-heading roll-cursor-pointer" (click)="toggle()">
+              {{comp.libelle}}
           </div>
           <div *ngIf="show">
               <div class="panel-body">
@@ -46,117 +46,81 @@ console.log('`Liste evaluation` component loaded asynchronously');
   `
 })
 class BlocCompetence {
-  comp;
-  show: boolean = false;
+    comp;
+    show:boolean = false;
 
-  constructor (public appState: AppState) {
-    // Les petites paquerettes dans la prairie
-  }
+    constructor(public appState:AppState) {
+        // Les petites paquerettes dans la prairie
+    }
 
-  toggle(){
-    console.log("toggle comp");
-    this.show = !this.show;
-  }
+    toggle() {
+        console.log("toggle comp");
+        this.show = !this.show;
+    }
 }
 
 
 @Component({
-  selector: 'bloc-matiere',
-  inputs: ['matiere'],
-  directives:[BlocCompetence],
-  template: `
-  <h3 (click)="toggle()">Matières: {{matiere.libelle}}</h3>
-  <div *ngIf="show">
-    <div *ngFor="#comp of matiere.competence">
-      <bloc-competence [comp]="comp"></bloc-competence>
+    selector: 'bloc-matiere',
+    inputs: ['matiere'],
+    directives: [BlocCompetence],
+    template: `
+ <div class="panel panel-default ">
+    <div class="roll-cursor-pointer panel-heading" (click)="toggle()">
+        <b>{{matiere.libelle}}</b>
     </div>
-  </div>
+    <div class="panel-body" *ngIf="show">
+        <div *ngFor="#comp of matiere.competence">
+          <bloc-competence [comp]="comp"></bloc-competence>
+        </div>
+    </div>
+ </div>
   `
 })
 class BlocMatiere {
-  matiere;
-  show: boolean = true;
+    matiere;
+    show:boolean = true;
 
-  toggle(){
-    console.log("toggle matiere");
-    this.show = !this.show;
-  }
+    toggle() {
+        console.log("toggle matiere");
+        this.show = !this.show;
+    }
 }
 
 
 @Component({
-  selector: 'lpc',
-  directives: [LoadingImage, BlocMatiere],
-  providers: [ RestLpc ],
-  template: `
-    <div class="row">
-      <div class="col-xs-12">
-          <h1 class="page-header"><i class="fa fa-female fa-fw"></i> LIVRET DE COMPÉTENCES</h1>
-
-      </div>
-    <!-- /.col-lg-12 -->
-    </div>
-
-  <div  *ngIf="lpc.length != 0">
-
-    <div class="row">
-      <div *ngFor="#bloc of lpc; #i = index">
-        <div class="col-sm-3" (click)="onBlocSelect(i)">
-          <div class="panel panel-default ">
-              <div class="panel-heading">
-                  {{lpc[i].libelle}}
-              </div>
-              <div class="panel-body">
-                  stats go here
-              </div>
-          </div>
-        </div>
-      </div>
-
-      <div *ngFor="#matiere of lpc[idBloc].matiere">
-        <div class="col-sm-12">
-          <bloc-matiere [matiere]="matiere" ></bloc-matiere>
-
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <div  *ngIf="lpc.length == 0">
-    <loading-image></loading-image>
-  </div>
-  `
+    selector: 'lpc',
+    directives: [LoadingImage, BlocMatiere],
+    providers: [RestLpc],
+    template: require('./lpc.html')
 })
 export class Lpc {
-  loadImg = 'assets/img/load_img_1.gif';
-  idBloc: number = 0;
-  lpc = []; // un element par bloc
+    loadImg = 'assets/img/loading-bar.gif';
+    idBloc:number = 0;
+    lpc = []; // un element par bloc
 
-  constructor ( private restLpc: RestLpc, public appState: AppState) {
-  // Les petites paquerettes dans la prairie
-  }
+    constructor(private restLpc:RestLpc, public appState:AppState) {
+        // Les petites paquerettes dans la prairie
+    }
 
-  ngOnInit() {
+    ngOnInit() {
 
-    console.log('hello `lpc` component, id:' + this.appState.get('idLpc'));
-    this.restLpc.getLpc(this.appState.get('idLpc'))
-        .subscribe(lpc => {
-          lpc.json().classe[lpc.json().classe.length-1].bloc.forEach( (bloc) => {
-            this.lpc.push(bloc);
-          });
+        console.log('hello `lpc` component, id:' + this.appState.get('idLpc'));
+        this.restLpc.getLpc(this.appState.get('idLpc'))
+            .subscribe(lpc => {
+                lpc.json().classe[lpc.json().classe.length - 1].bloc.forEach((bloc) => {
+                    this.lpc.push(bloc);
+                });
 
 
+                console.log(this.lpc);
+            });
 
-              console.log(this.lpc);
-        });
+    }
 
-  }
-
-  onBlocSelect(id) {
-    this.idBloc = id;
-    console.log(id);
-  }
+    onBlocSelect(id) {
+        this.idBloc = id;
+        console.log(id);
+    }
 
 }
