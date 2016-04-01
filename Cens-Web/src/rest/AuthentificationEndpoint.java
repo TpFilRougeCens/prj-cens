@@ -11,9 +11,6 @@ import service.TokenService;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.math.BigInteger;
-import java.security.SecureRandom;
-import java.util.Random;
 
 /**
  * Created by steven.cdi12 on 24/03/2016.
@@ -88,8 +85,6 @@ public class AuthentificationEndpoint {
         // Issue a token (can be a random String persisted to a database or a JWT token)
         // The issued token must be associated to a user
         // Return the issued token
-//        Random random = new SecureRandom();
-//        String token = new BigInteger(130, random).toString(32);
         AuthHelper auth = new AuthHelper();
         String tokenBuild=auth.createJsonWebToken(id,nomUtilisateur,prenomUtilisateur,role, (long) 30);
         return tokenBuild;
