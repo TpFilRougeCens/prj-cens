@@ -18,4 +18,6 @@ dependencies {
     compile project(':Cens-Ejb')
     compile group: 'javax', name: 'javaee-api', version: '7.0'
     compile group: 'org.json', name: 'json', version: '20140107'
+    compile "com.googlecode.jsontoken:jsontoken:1.0"
+    compile "com.google.guava:guava:18.0"
 }
