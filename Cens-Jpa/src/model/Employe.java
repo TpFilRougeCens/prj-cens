@@ -81,7 +81,6 @@ public class Employe implements Serializable {
         this.employePassword = employePassword;
     }
 
-
     public void setPersonneId(Integer employeId) {
         this.employeId = employeId;
     }

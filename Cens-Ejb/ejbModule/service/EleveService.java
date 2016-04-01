@@ -3,6 +3,7 @@ package service;
 import model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import service.util.EncryptPassword;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -42,33 +43,6 @@ public class EleveService {
             return null;
         }
 
-    }
-
-    /**
-     * FIND ALL ELEMENTS METHODE WITH PARAMETER QUERY findAll
-     *
-     * @see Eleve
-     */
-    @SuppressWarnings("unchecked")
-    public JSONObject JSON_findAll() {
-        try {
-            List<Eleve> listeEleves = entityManager.createNamedQuery("Eleve.findAll").getResultList();
-            JSONObject jsonObject = new JSONObject();
-            JSONArray jsonArray = new JSONArray();
-            if (listeEleves != null) {
-                for (Eleve p : listeEleves) {
-                    jsonArray.put(convertToJson(p));
-                }
-                jsonObject.put("eleves", jsonArray);
-            } else {
-                jsonObject.put("eleves", "null");
-            }
-
-            return jsonObject;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     /**
@@ -139,6 +113,116 @@ public class EleveService {
     }
 
     /**
+     * DELETE METHODE WITH NATIVE JPA METHODE
+     *
+     * @param eleveId : Id de eleve
+     */
+    public boolean delete(Integer eleveId) {
+        try {
+            Eleve result = entityManager.find(Eleve.class, eleveId);
+            if (result != null) {
+                // OK FONCTIONNE
+                while (result.getBilans().isEmpty() == false) {
+                    result.removeBilan(result.getBilans().get(0));
+                }
+                entityManager.createNamedQuery("Eleve.deleteEtudier").setParameter("idd", eleveId).executeUpdate();
+                entityManager.createNamedQuery("Eleve.deleteEvaluer").setParameter("idd", eleveId).executeUpdate();
+                entityManager.createNamedQuery("Eleve.deleteBilan").setParameter("idd", eleveId).executeUpdate();
+
+                entityManager.remove(result);
+            }
+            return true;
+        } catch (Exception e) {
+            System.err.print(e);
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * DELETE METHODE D'UNE EVALUATION WITH NATIVE JPA METHODE
+     *
+     * @param evaluationId : Id de l'évaluation de l'élève
+     */
+    public boolean deleteEvaluation(Integer evaluationId) {
+        try {
+            entityManager.createNamedQuery("Eleve.deleteEvaluerById").setParameter("idd", evaluationId).executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * INSERT METHODE WITH NATIVE JPA METHODE
+     *
+     * @param eleve : Object de type Eleve (de la classe)
+     */
+    public boolean insert(Eleve eleve) {
+        try {
+            String passNoCrypt = eleve.getPersonnePassword();
+            String passYesCrypt = new EncryptPassword().encrypt(passNoCrypt);
+            eleve.setPersonnePassword(passYesCrypt);
+            entityManager.persist(eleve);
+            return true;
+        } catch (Exception e) {
+            System.err.print(e);
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    /**
+     * UPDATE METHODE WITH NATIVE JPA METHODE
+     *
+     * @param eleve : Object de type Eleve (de la classe)
+     */
+    public boolean update(Eleve eleve) {
+        try {
+            Eleve eleveJPA = entityManager.find(Eleve.class, eleve.getPersonneId());
+            if (!eleve.getPersonnePassword().equals(eleveJPA.getPersonnePassword())) {
+                String passEncryt = new EncryptPassword().encrypt(eleve.getPersonnePassword());
+                eleve.setPersonnePassword(passEncryt);
+            }
+            entityManager.merge(eleve);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    /**
+     * FIND ALL ELEMENTS METHODE WITH PARAMETER QUERY findAll
+     *
+     * @see Eleve
+     */
+    @SuppressWarnings("unchecked")
+    public JSONObject JSON_findAll() {
+        try {
+            List<Eleve> listeEleves = entityManager.createNamedQuery("Eleve.findAll").getResultList();
+            JSONObject jsonObject = new JSONObject();
+            JSONArray jsonArray = new JSONArray();
+            if (listeEleves != null) {
+                for (Eleve p : listeEleves) {
+                    jsonArray.put(convertToJson(p));
+                }
+                jsonObject.put("eleves", jsonArray);
+            } else {
+                jsonObject.put("eleves", "null");
+            }
+
+            return jsonObject;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * FIND ONE ELEMENT METHODE WITH NATIVE JPA METHODE
      *
      * @param eleveId : Id du eleve recherché
@@ -202,66 +286,6 @@ public class EleveService {
     }
 
     /**
-     * DELETE METHODE WITH NATIVE JPA METHODE
-     *
-     * @param eleveId : Id de eleve
-     */
-    public boolean delete(Integer eleveId) {
-        try {
-            Eleve result = entityManager.find(Eleve.class, eleveId);
-            if (result != null) {
-                // OK FONCTIONNE
-                while (result.getBilans().isEmpty() == false) {
-                    result.removeBilan(result.getBilans().get(0));
-                }
-                entityManager.createNamedQuery("Eleve.deleteEtudier").setParameter("idd", eleveId).executeUpdate();
-                entityManager.createNamedQuery("Eleve.deleteEvaluer").setParameter("idd", eleveId).executeUpdate();
-                entityManager.createNamedQuery("Eleve.deleteBilan").setParameter("idd", eleveId).executeUpdate();
-
-                entityManager.remove(result);
-            }
-            return true;
-        } catch (Exception e) {
-            System.err.print(e);
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * DELETE METHODE D'UNE EVALUATION WITH NATIVE JPA METHODE
-     *
-     * @param evaluationId : Id de l'évaluation de l'élève
-     */
-    public boolean deleteEvaluation(Integer evaluationId) {
-        try {
-            entityManager.createNamedQuery("Eleve.deleteEvaluerById").setParameter("idd", evaluationId).executeUpdate();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * INSERT METHODE WITH NATIVE JPA METHODE
-     *
-     * @param eleve : Object de type Eleve (de la classe)
-     */
-    public boolean insert(Eleve eleve) {
-        try {
-            entityManager.persist(eleve);
-            //System.out.println("ID inséré = " + eleve.getEleveId());
-            return true;
-        } catch (Exception e) {
-            System.err.print(e);
-            e.printStackTrace();
-            return false;
-        }
-
-    }
-
-    /**
      * INSERT METHODE WITH NATIVE JPA METHODE
      *
      * @param eleve : Object de type JSON eleve
@@ -271,9 +295,21 @@ public class EleveService {
             if (eleve.has("id") && !eleve.isNull("id")) {
                 eleve.remove("id");
             }
+            return insert(convertToObject(eleve));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-            entityManager.persist(convertToObject(eleve));
-            return true;
+    /**
+     * UPDATE METHODE WITH NATIVE JPA METHODE
+     *
+     * @param eleve : Object de type Eleve (de la classe)
+     */
+    public boolean JSON_update(JSONObject eleve) {
+        try {
+            return update(convertToObject(eleve));
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -311,36 +347,6 @@ public class EleveService {
     public boolean JSON_updateEval(JSONObject evaluation) {
         try {
             entityManager.merge(convertToObjectEval(evaluation));
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * UPDATE METHODE WITH NATIVE JPA METHODE
-     *
-     * @param eleve : Object de type Eleve (de la classe)
-     */
-    public boolean update(Eleve eleve) {
-        try {
-            entityManager.merge(eleve);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * UPDATE METHODE WITH NATIVE JPA METHODE
-     *
-     * @param eleve : Object de type Eleve (de la classe)
-     */
-    public boolean JSON_update(JSONObject eleve) {
-        try {
-            entityManager.merge(convertToObject(eleve));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -627,7 +633,6 @@ public class EleveService {
 
         //****** Traitement des champs pouvant être NULL *****
         // Si le champs existe dans l'object JSON
-
         if (eleve.has("id") && !eleve.isNull("id")) {
             result.setPersonneId(eleve.getInt("id"));
         }

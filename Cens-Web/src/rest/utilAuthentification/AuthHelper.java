@@ -32,11 +32,12 @@ public class AuthHelper {
      * Creates a json web token which is a digitally signed token that contains a payload (e.g. userId to identify
      * the user). The signing key is secret. That ensures that the token is authentic and has not been modified.
      * Using a jwt eliminates the need to store authentication session information in a database.
+     *
      * @param userId
      * @param durationDays
      * @return
      */
-    public static String createJsonWebToken(Integer userId,String nomUtilisateur,String prenomUtilisateur,String role, Long durationDays)    {
+    public static String createJsonWebToken(Integer userId, String nomUtilisateur, String prenomUtilisateur, String role, Long durationDays) {
         //Current time and signing algorithm
         Calendar cal = Calendar.getInstance();
         HmacSHA256Signer signer;
@@ -55,9 +56,9 @@ public class AuthHelper {
         //Configure request object, which provides information of the item
         JsonObject request = new JsonObject();
         request.addProperty("userId", userId);
-        request.addProperty("userNom",nomUtilisateur);
-        request.addProperty("userPrenom",prenomUtilisateur);
-        request.addProperty("userRole",role);
+        request.addProperty("userNom", nomUtilisateur);
+        request.addProperty("userPrenom", prenomUtilisateur);
+        request.addProperty("userRole", role);
 
         JsonObject payload = token.getPayloadAsJsonObject();
         payload.add("info", request);
@@ -71,26 +72,26 @@ public class AuthHelper {
 
     /**
      * Verifies a json web token's validity and extracts the user id and other information from it.
+     *
      * @param token
      * @return
      * @throws SignatureException
      * @throws InvalidKeyException
      */
-    public static TokenInfo verifyToken(String token)
-    {
+    public static TokenInfo verifyToken(String token) {
         try {
             final Verifier hmacVerifier = new HmacSHA256Verifier(SIGNING_KEY.getBytes());
 
             VerifierProvider hmacLocator = new VerifierProvider() {
 
                 @Override
-                public List<Verifier> findVerifier(String id, String key){
+                public List<Verifier> findVerifier(String id, String key) {
                     return Lists.newArrayList(hmacVerifier);
                 }
             };
             VerifierProviders locators = new VerifierProviders();
             locators.setVerifierProvider(SignatureAlgorithm.HS256, hmacLocator);
-            net.oauth.jsontoken.Checker checker = new net.oauth.jsontoken.Checker(){
+            net.oauth.jsontoken.Checker checker = new net.oauth.jsontoken.Checker() {
 
                 @Override
                 public void check(JsonObject payload) throws SignatureException {
@@ -110,16 +111,13 @@ public class AuthHelper {
             JsonObject payload = jt.getPayloadAsJsonObject();
             TokenInfo t = new TokenInfo();
             String issuer = payload.getAsJsonPrimitive("iss").getAsString();
-            String userIdString =  payload.getAsJsonObject("info").getAsJsonPrimitive("userId").getAsString();
-            if (issuer.equals(ISSUER) && !StringUtils.isBlank(userIdString))
-            {
+            String userIdString = payload.getAsJsonObject("info").getAsJsonPrimitive("userId").getAsString();
+            if (issuer.equals(ISSUER) && !StringUtils.isBlank(userIdString)) {
                 t.setUserId(new Integer(userIdString));
                 t.setIssued(new DateTime(payload.getAsJsonPrimitive("iat").getAsLong()));
                 t.setExpires(new DateTime(payload.getAsJsonPrimitive("exp").getAsLong()));
                 return t;
-            }
-            else
-            {
+            } else {
                 return null;
             }
         } catch (InvalidKeyException e1) {

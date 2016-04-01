@@ -1,10 +1,7 @@
 package service;
 
 import model.Personne;
-import sun.misc.BASE64Encoder;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -214,7 +211,7 @@ public class PersonneService {
 
     }
 
-    public static Personne encryptPassword(Personne personne) {
+    /*public static Personne encryptPassword(Personne personne) {
         String password = personne.getPersonnePassword();
         String key = "todo"; //MAX LENGHT 16CHARS // TODO Variable global à l'application a faire au lancement serveur
         try {
@@ -229,7 +226,7 @@ public class PersonneService {
             return null;
         }
 //        return new BASE64Encoder().encode(hasil); //retourne le password encrypté
-    }
+    }*/
 
     // NE JAMAIS DECRYPTER
 //    private static String decrypt(String password) throws Exception {
