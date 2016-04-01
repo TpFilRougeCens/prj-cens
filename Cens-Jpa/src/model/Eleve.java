@@ -16,8 +16,11 @@ import java.util.List;
         @NamedQuery(name = "Eleve.findByLogin", query = "SELECT e FROM Eleve e WHERE e.eleveLogin = :loginn"),
         @NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e"),
         @NamedQuery(name = "Eleve.deleteEvaluer", query = "DELETE FROM AssocEvaluer a WHERE eleve.eleveId = :idd"),
+        @NamedQuery(name = "Eleve.deleteEvaluerById", query = "DELETE FROM AssocEvaluer a WHERE a.id = :idd"),
         @NamedQuery(name = "Eleve.deleteBilan", query = "DELETE FROM Bilan b WHERE eleve.eleveId = :idd"),
-        @NamedQuery(name = "Eleve.deleteEtudier", query = "DELETE FROM AssocEtudier a WHERE eleve.eleveId = :idd")
+        @NamedQuery(name = "Eleve.deleteBilanById", query = "DELETE FROM Bilan b WHERE b.id = :idd"),
+        @NamedQuery(name = "Eleve.deleteEtudier", query = "DELETE FROM AssocEtudier a WHERE eleve.eleveId = :idd"),
+        @NamedQuery(name = "Eleve.deleteEtudierById", query = "DELETE FROM AssocEtudier a WHERE a.id = :idd")
 })
 //@NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e")
 //public class Eleve extends Personne implements Serializable {

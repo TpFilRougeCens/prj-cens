@@ -1,1 +1,83 @@
-<div>Page profil</div>
+<div class="row">
+    <div class="col-xs-12">
+        <h1 class="page-header"><i class="fa fa-user fa-fw"></i> PROFIL UTILISATEUR</h1>
+
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                Informations personnelles
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>Nom</label>
+                        <input type="text" disabled="" placeholder="..." id="nom" class="form-control">
+                        <label>Date de naissance</label>
+                        <input type="text" disabled="" placeholder="..." id="dateNaissance" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Prénom</label>
+                        <input type="text" disabled="" placeholder="..." id="prenom" class="form-control">
+                        <label>Groupe utilisateur</label>
+                        <input type="text" disabled="" placeholder="..." id="groupe" class="form-control">
+                    </div>
+                    <div class="col-md12"> &nbsp; </div>
+                    <div class="col-md-4">
+                        <label>Adresse</label>
+                        <input type="text" disabled="" placeholder="..." id="adresse" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Code postal</label>
+                        <input type="text" disabled="" placeholder="..." id="cp" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label>Ville</label>
+                        <input type="text" disabled="" placeholder="..." id="ville" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                Informations de connexion
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label>Identifiant</label>
+                        <input disabled="" type="text" placeholder="..." id="login" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Modifier son mot de passe</label>
+                        <input type="password" class="form-control" id="mdp1" placeholder="Nouveau mot de passe"
+                               value="">
+                        <label>Répétez le mot de passe</label>
+                        <input type="password" class="form-control" id="mdp2"
+                               placeholder="Répéter le nouveau mot de passe" value="">
+                        <br/>
+                        <button class="btn btn-success center-block" type="button" id="changerMdp">Modifier</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br/><br/>
+<div class="col-md-12">
+    hopla : {{mockData}}
+</div>

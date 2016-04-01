@@ -1,7 +1,7 @@
 // app.ts
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/router';
-import {Lpc} from './lpc.ts';
+import {PrivateApp} from './private.app.ts';
 import {Login} from './pages/login';
 
 import {AppState} from './app.service';
@@ -17,8 +17,8 @@ import {AppState} from './app.service';
 
   { // we use a loader for async loading when user is logged
     path: '/app/...',
-    name: 'Lpc',
-    loader: () => require('es6-promise!./lpc')('Lpc')
+    name: 'PrivateApp',
+    loader: () => require('es6-promise!./private.app')('PrivateApp')
 
   },
 

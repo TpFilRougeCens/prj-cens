@@ -1,6 +1,7 @@
 package service;
 
 import model.Employe;
+import org.json.JSONObject;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -47,9 +48,27 @@ public class EmployeService {
     }
 
     /**
+     * FIND ONE ELEMENT METHODE WITH NATIVE JPA METHODE
+     *
+     * @param employeId : Id du eleve recherché
+     */
+    public JSONObject JSON_findOne(Integer employeId) {
+        Employe employe = findOne(employeId);
+        JSONObject jsonObject = new JSONObject();
+
+        if (employe != null) {
+            jsonObject.put("user", convertToJson(employe)); //TODO ici ???
+        } else {
+            jsonObject.put("user", "null");
+        }
+        return jsonObject;
+
+    }
+
+    /**
      * RETOURNE UN ELEVE SI CELLE CI EST CONNUE
      *
-     * @param login    : login utilisateur qui demande une connexion
+     * @param login : login utilisateur qui demande une connexion
      */
     public Employe findOne(String login) {
         try {
@@ -148,4 +167,46 @@ public class EmployeService {
         }
     }
 
+
+    /**
+     * PERMET DE CONVERTIR UN OBJECT JAVA EN OBJECT JSON
+     *
+     * @param p de type Employe
+     * @return JSONObject
+     */
+    private JSONObject convertToJson(Employe p) {
+        JSONObject detailsJson = new JSONObject();
+        JSONObject groupeJson = new JSONObject();
+
+        detailsJson.put("id", p.getPersonneId());
+        detailsJson.put("login", p.getPersonneLogin());
+        detailsJson.put("password", p.getPersonnePassword());
+        detailsJson.put("nom", p.getPersonneNom());
+        detailsJson.put("prenom", p.getPersonnePrenom());
+        detailsJson.put("dateNaissance", p.getPersonneDateNaissance());
+        detailsJson.put("adresse", p.getPersonneAdresse());
+        detailsJson.put("cp", p.getPersonneCp());
+        detailsJson.put("ville", p.getPersonneVille());
+
+        groupeJson.put("id", p.getGroupe().getGroupeId());
+        groupeJson.put("libelle", p.getGroupe().getGroupeLibelle());
+        groupeJson.put("access", p.getGroupe().getGroupeNiveauAcces());
+        detailsJson.put("groupe", groupeJson); // Json in Json
+
+        // Impl Assoc not yet
+        return detailsJson;
+    }
+
+    /**
+     * CONVERTIR UN OBJ JSON EN OBJ JAVA
+     * <p>
+     * Attention l'ID du groupe est OBLIGATOIRE
+     *
+     * @param employe
+     * @return un Eleve
+     */
+    private Employe convertToObject(JSONObject employe) {
+        // No impl. yet
+        return null;
+    }
 }

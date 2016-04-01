@@ -1,4 +1,8 @@
-import {Component} from 'angular2/core';
+import {Component} from "angular2/core";
+import {RestEleve} from "../../service/rest.eleve";
+import {AppState} from "../../app.service";
+import {Router} from "angular2/router";
+import {LoadingImage} from "../../components/loading-image/loading.image";
 
 /*
  * We're loading this component asynchronously
@@ -9,64 +13,107 @@ import {Component} from 'angular2/core';
 console.log('`About` component loaded asynchronously');
 
 @Component({
-  selector: 'liste-eleve',
-  directives: [],
-  template: `
-  <div>Liste des élèves</div>
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" required
-      [(ngModel)]="model.name" >
-    </div>
-    <div class="form-group">
-    <label for="alterEgo">Alter Ego</label>
-    <input type="text"  class="form-control"
-      [(ngModel)]="model.alterEgo">
-    </div>
-    <div class="form-group">
-    <label for="power">Hero Power</label>
-    <select class="form-control"  required
-      [(ngModel)]="model.power" >
-      <option *ngFor="#p of powers" [value]="p">{{p}}</option>
-    </select>
-  </div>
-  `
+    selector: 'liste-eleve',
+    directives: [LoadingImage],
+    providers: [RestEleve],
+    template: require('./liste-eleve.html')
+    /*template: `
+     <h2>Liste des élèves</h2>
+     <div class="form-group">
+     <label for="classe">Classe</label>
+     <select class="form-control"
+     [(ngModel)]="model.classe" >
+     <option *ngFor="#classe of classes" [value]="classe">{{classe}}</option>
+     </select>
+     <div class="form-group">
+     <label for="filtre">Filtre</label>
+     <input type="text" class="form-control"
+     [(ngModel)]="model.filtre" >
+     </div>
+     </div>
+
+     <table *ngIf="elevesVisible.length != 0" class="table table-hover">
+     <tr>
+     <td>Nom</td>
+     <td>Prénom</td>
+     <td>Classe</td>
+     <td>Voie</td>
+     <td>Filière</td>
+     </tr>
+     <tr *ngFor="#eleve of elevesVisible" (click)="onEleveSelect(eleve.id)">
+     <template [ngIf]="
+     (eleve.nom.indexOf(model.filtre) > -1 || eleve.prenom.indexOf(model.filtre) > -1 )&&
+     ( eleve.classe + ' ' + eleve.voie + ' ' + eleve.filiere + ' ' + eleve.libelle == model.classe
+     || model.classe == textAllClass )
+     ">
+     <td>{{eleve.nom}}</td>
+     <td>{{eleve.prenom}}</td>
+     <td>{{eleve.classe + " " + eleve.libelle}}</td>
+     <td>{{eleve.voie}}</td>
+     <td>{{eleve.filiere}}</td>
+     </template>
+     </tr>
+     </table>
+
+     <div *ngIf="elevesVisible.length == 0">
+     <loading-image></loading-image>
+     </div>
+     `*/
 })
 export class ListEleve {
+    eleves = [];
+    elevesVisible = [];
+    classes;
+    textAllClass = 'Toutes les classes';
+    model = {'filtre': '', 'classe': this.textAllClass};
+    submitted = false;
 
-  powers = ['Really Smart', 'Super Flexible',
-    'Super Hot', 'Weather Changer'];
-  model = {'id':18, 'name':'Dr IQ', 'power':this.powers[0], 'alterEgo':'Chuck Overstreet'};
-  submitted = false;
-  onSubmit() { this.submitted = true; }
-  // TODO: Remove this when we're done
-  get diagnostic() { return JSON.stringify(this.model); }
+    onSubmit() {
+        this.submitted = true;
+    }
 
+    // TODO: Remove this when we're done
+    get diagnostic() {
+        return JSON.stringify(this.model);
+    }
 
-  ngOnInit() {
-    console.log('hello `Liste eleve` component');
-    // static data that is bundled
-    var mockData = require('assets/mock-data/mock-data.json');
-    console.log('mockData', mockData);
-    // if you're working with mock data you can also use http.get('assets/mock-data/mock-data.json')
-    this.asyncDataWithWebpack();
-  }
+    constructor(private restEleveService:RestEleve, public appState:AppState, public router:Router) {
+    }
 
+    ngOnInit() {
+        console.log('hello `Liste eleve` component');
+        // static data that is bundled
+        var mockData = require('assets/mock-data/mock-data.json');
+        console.log(this.appState.get('classes'));
 
+        this.classes = ['Toutes les classes', ...this.appState.get('classes')];
+        this.restEleveService.getEleve()
+            .subscribe(
+                (restEleve:any) => {
+                    console.log(restEleve.json());
+                    restEleve.json().classes.forEach((classe) => {
+                        console.log(classe.voie.libelle);
+                        classe.eleves.forEach((eleve) => {
+                            this.eleves.push(Object.assign({}, {'voie': classe.voie.libelle}, {'filiere': classe.filiere.libelle}, {'classe': classe.niveau.libelle}, {'libelle': classe.libelle}, eleve));
+                            this.elevesVisible.push(Object.assign({}, {'voie': classe.voie.libelle}, {'filiere': classe.filiere.libelle}, {'classe': classe.niveau.libelle}, {'libelle': classe.libelle}, eleve));
+                        });
+                    });
 
-  asyncDataWithWebpack() {
-    // you can also async load mock data with 'es6-promise-loader'
-    // you would do this if you don't want the mock-data bundled
-    // remember that 'es6-promise-loader' is a promise
-    var asyncMockDataPromiseFactory = require('es6-promise!assets/mock-data/mock-data.json');
-    setTimeout(() => {
+                    console.log("eleves", this.eleves);
 
-      let asyncDataPromise = asyncMockDataPromiseFactory();
-      asyncDataPromise.then(json => {
-        console.log('async mockData', json);
-      });
+                },
+                (err) => {
+                }
+            );
+        // if you're working with mock data you can also use http.get('assets/mock-data/mock-data.json')
+        //this.asyncDataWithWebpack();
+    }
 
-    });
-  }
+    onEleveSelect(id:number) {
+        //console.log(id);
+        this.appState.set('idLpc', id);
+        this.router.navigate(['../Lpc']);
+    }
+
 
 }
