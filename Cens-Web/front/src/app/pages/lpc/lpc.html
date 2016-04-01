@@ -1,91 +1,66 @@
 <div class="row">
     <div class="col-xs-12">
-        <h1 class="page-header"><i class="fa fa-female fa-fw"></i> LIVRET DE COMPÉTENCES</h1>
-
+        <h1 class="page-header"><i class="fa fa-book fa-fw"></i> LIVRET DE COMPÉTENCES</h1>
     </div>
-    <!-- /.col-lg-12 -->
 </div>
-<div class="row">
 
-    <div *ngIf="lpc.length != 0">
-        <div class="col-md-3">
-            <div class="panel panel-default ">
-                <div class="panel-heading">
-                    Default Panel
-                </div>
-                <div class="panel-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae
-                        ultrices
-                        accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                </div>
-                <div class="panel-footer">
-                    Panel Footer
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="panel panel-default ">
-                <div class="panel-heading">
-                    Default Panel
-                </div>
-                <div class="panel-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae
-                        ultrices
-                        accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                </div>
-                <div class="panel-footer">
-                    Panel Footer
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
+<div *ngIf="lpc.length != 0">
 
-            <div class="panel panel-default ">
-                <div class="panel-heading">
-                    Default Panel
-                </div>
-                <div class="panel-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae
-                        ultrices
-                        accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                </div>
-                <div class="panel-footer">
-                    Panel Footer
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="panel panel-default ">
-                <div class="panel-heading">
-                    Default Panel
-                </div>
-                <div class="panel-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae
-                        ultrices
-                        accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                </div>
-                <div class="panel-footer">
-                    Panel Footer
+    <!--AFFICHAGE DES BLOCS-->
+    <div class="row">
+        <div *ngFor="#bloc of lpc; #i = index">
+            <div class="col-md-3" (click)="onBlocSelect(i)">
+                <div class="bloc-cursor-pointer panel panel-default ">
+                    <div class="panel-heading">
+                        <b>{{lpc[i].libelle}}</b>
+                    </div>
+
+                    <div class="panel-body">
+                        <ul>
+                            <li *ngFor="#matiere of lpc[i].matiere">
+                                {{matiere.libelle}}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-12">
-        <div class="panel panel-default ">
-            <div class="panel-heading">
-                Livret de compétences {{lpc}}
-            </div>
-            <div class="panel-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae
-                    ultrices
-                    accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-            </div>
-            <div class="panel-footer">
-                Panel Footer
-            </div>
-        </div>
-    </div>
 
+    <!--AFFICHAGE DU LPC-->
+    <div class="row">
+        <div *ngFor="#matiere of lpc[idBloc].matiere">
+            <div class="col-sm-12">
+
+                <bloc-matiere [matiere]="matiere"></bloc-matiere>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div *ngIf="lpc.length == 0">
+    <loading-image></loading-image>
 </div>
 
 
+<!--NE FONCTIONNE PAS-->
+<a href="/app/pages/lpc/data1.json">Hopla</a>
+<div class="container">
+    <h1>Editable</h1>
+    <table id="table"
+           data-toggle="table"
+           data-pagination="true"
+           data-show-export="true"
+           data-url="/app/pages/lpc/data1.json">
+        <thead>
+        <tr>
+            <th data-field="id">ID</th>
+            <th data-field="name" data-editable="true">Item Name</th>
+            <th data-field="price" data-editable="true">Item Price</th>
+        </tr>
+        </thead>
+    </table>
+</div>

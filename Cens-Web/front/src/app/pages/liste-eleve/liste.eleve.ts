@@ -17,48 +17,6 @@ console.log('`About` component loaded asynchronously');
     directives: [LoadingImage],
     providers: [RestEleve],
     template: require('./liste-eleve.html')
-    /*template: `
-     <h2>Liste des élèves</h2>
-     <div class="form-group">
-     <label for="classe">Classe</label>
-     <select class="form-control"
-     [(ngModel)]="model.classe" >
-     <option *ngFor="#classe of classes" [value]="classe">{{classe}}</option>
-     </select>
-     <div class="form-group">
-     <label for="filtre">Filtre</label>
-     <input type="text" class="form-control"
-     [(ngModel)]="model.filtre" >
-     </div>
-     </div>
-
-     <table *ngIf="elevesVisible.length != 0" class="table table-hover">
-     <tr>
-     <td>Nom</td>
-     <td>Prénom</td>
-     <td>Classe</td>
-     <td>Voie</td>
-     <td>Filière</td>
-     </tr>
-     <tr *ngFor="#eleve of elevesVisible" (click)="onEleveSelect(eleve.id)">
-     <template [ngIf]="
-     (eleve.nom.indexOf(model.filtre) > -1 || eleve.prenom.indexOf(model.filtre) > -1 )&&
-     ( eleve.classe + ' ' + eleve.voie + ' ' + eleve.filiere + ' ' + eleve.libelle == model.classe
-     || model.classe == textAllClass )
-     ">
-     <td>{{eleve.nom}}</td>
-     <td>{{eleve.prenom}}</td>
-     <td>{{eleve.classe + " " + eleve.libelle}}</td>
-     <td>{{eleve.voie}}</td>
-     <td>{{eleve.filiere}}</td>
-     </template>
-     </tr>
-     </table>
-
-     <div *ngIf="elevesVisible.length == 0">
-     <loading-image></loading-image>
-     </div>
-     `*/
 })
 export class ListEleve {
     eleves = [];

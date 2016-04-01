@@ -390,3 +390,51 @@ table.dataTable thead .sorting:after {
 .panel-yellow a:hover {
     color: #df8a13;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-pointer:hover {
+    background-color: #EEEEEE !important;
+}
+
+.cursor-pointer:hover .panel-heading {
+    background-color: #EEEEEE !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-pointer:hover {
+    background-color: #EEEEEE !important;
+}
+
+.roll-cursor-pointer {
+    cursor: pointer;
+}
+
+.roll-cursor-pointer:hover {
+    background-color: #EEEEEE !important;
+}
+
+.roll-cursor-pointer::after {
+    color: rgba(50, 50, 50, 0.5);
+    content: "";
+    float: right;
+    font-family: fontawesome;
+}
+
+.bloc-cursor-pointer {
+    cursor: pointer;
+}
+
+.bloc-cursor-pointer:hover {
+    background-color: #EEEEEE !important;
+}
+
+.bloc-cursor-pointer:hover .panel-heading {
+    background-color: #B10F29 !important;
+    color: #ffffff;
+}

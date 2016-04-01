@@ -5,6 +5,7 @@ import {Router} from "angular2/router";
 import {Authentification} from "./../../service/authentification.ts";
 import {AppState} from "../../app.service";
 
+
 @Component({
     selector: 'login',
     directives: [FORM_DIRECTIVES, NgIf],

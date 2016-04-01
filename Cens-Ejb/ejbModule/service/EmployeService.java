@@ -1,14 +1,21 @@
 package service;
 
 import model.Employe;
+import model.Groupe;
 import org.json.JSONObject;
+import service.util.EncryptPassword;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Session Bean implementation class EmployeService
@@ -44,24 +51,6 @@ public class EmployeService {
             e.printStackTrace();
             return null;
         }
-
-    }
-
-    /**
-     * FIND ONE ELEMENT METHODE WITH NATIVE JPA METHODE
-     *
-     * @param employeId : Id du eleve recherché
-     */
-    public JSONObject JSON_findOne(Integer employeId) {
-        Employe employe = findOne(employeId);
-        JSONObject jsonObject = new JSONObject();
-
-        if (employe != null) {
-            jsonObject.put("user", convertToJson(employe)); //TODO ici ???
-        } else {
-            jsonObject.put("user", "null");
-        }
-        return jsonObject;
 
     }
 
@@ -141,8 +130,10 @@ public class EmployeService {
      */
     public boolean insert(Employe employe) {
         try {
+            String passNoCrypt = employe.getPersonnePassword();
+            String passYesCrypt = new EncryptPassword().encrypt(passNoCrypt);
+            employe.setPersonnePassword(passYesCrypt);
             entityManager.persist(employe);
-            //System.out.println("ID inséré = " + employe.getEmployeId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,8 +149,12 @@ public class EmployeService {
      */
     public boolean update(Employe employe) {
         try {
+            Employe employeJPA = entityManager.find(Employe.class, employe.getPersonneId());
+            if (!employe.getPersonnePassword().equals(employeJPA.getPersonnePassword())) {
+                String passEncryt = new EncryptPassword().encrypt(employe.getPersonnePassword());
+                employe.setPersonnePassword(passEncryt);
+            }
             entityManager.merge(employe);
-            //System.out.println("ID Update = " + employe.getEmployeId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,6 +162,55 @@ public class EmployeService {
         }
     }
 
+
+    /**
+     * FIND ONE ELEMENT METHODE WITH NATIVE JPA METHODE
+     *
+     * @param employeId : Id du eleve recherché
+     */
+    public JSONObject JSON_findOne(Integer employeId) {
+        Employe employe = findOne(employeId);
+        JSONObject jsonObject = new JSONObject();
+
+        if (employe != null) {
+            jsonObject.put("user", convertToJson(employe)); //TODO ici ???
+        } else {
+            jsonObject.put("user", "null");
+        }
+        return jsonObject;
+
+    }
+
+    /**
+     * INSERT METHODE WITH NATIVE JPA METHODE
+     *
+     * @param employe : Object de type JSON Employe
+     */
+    public boolean JSON_insert(JSONObject employe) {
+        try {
+            if (employe.has("id") && !employe.isNull("id")) {
+                employe.remove("id");
+            }
+            return insert(convertToObject(employe));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * UPDATE METHODE WITH NATIVE JPA METHODE
+     *
+     * @param employe : Object de type JSON Employe
+     */
+    public boolean JSON_update(JSONObject employe) {
+        try {
+            return update(convertToObject(employe));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     /**
      * PERMET DE CONVERTIR UN OBJECT JAVA EN OBJECT JSON
@@ -206,7 +250,49 @@ public class EmployeService {
      * @return un Eleve
      */
     private Employe convertToObject(JSONObject employe) {
-        // No impl. yet
-        return null;
+        Employe result = new Employe();
+        Groupe groupe;
+
+        if (employe.has("id") && !employe.isNull("id")) {
+            result.setPersonneId(employe.getInt("id"));
+        }
+
+        result.setPersonneLogin(employe.getString("login"));
+        result.setPersonnePassword(employe.getString("password"));
+        result.setPersonneNom(employe.getString("nom"));
+        result.setPersonnePrenom(employe.getString("prenom"));
+
+        if (employe.has("dateNaissance") && !employe.isNull("dateNaissance")) {
+            DateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
+            String dateAsString = employe.getString("dateNaissance");
+            Date date = null;
+            try {
+                date = sourceFormat.parse(dateAsString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            result.setPersonneDateNaissance(date);
+        }
+        if (employe.has("adresse") && !employe.isNull("adresse")) {
+            result.setPersonneAdresse(employe.getString("adresse"));
+        }
+        if (employe.has("cp") && !employe.isNull("cp")) {
+            result.setPersonneCp(employe.getString("cp"));
+        }
+        if (employe.has("ville") && !employe.isNull("ville")) {
+            result.setPersonneVille(employe.getString("ville"));
+        }
+
+        // Consulter entityManger pour retrouver le groupe dans UP
+        try {
+            groupe = entityManager.find(Groupe.class, employe.getInt("groupeId"));
+            result.setGroupe(groupe);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Si le groupe est introuvable on stop la methode = ERREUR fatal
+            return null;
+        }
+
+        return result;
     }
 }
