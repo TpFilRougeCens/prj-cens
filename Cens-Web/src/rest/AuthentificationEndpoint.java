@@ -2,7 +2,7 @@ package rest;
 
 import model.Eleve;
 import model.Employe;
-import model.Token;
+import rest.utilAuthentification.AuthHelper;
 import service.EleveService;
 import service.EmployeService;
 import service.GroupeService;
@@ -21,6 +21,11 @@ import java.util.Random;
 
 @Path("/authentification")
 public class AuthentificationEndpoint {
+
+    private Integer id;
+    private String nomUtilisateur;
+    private String prenomUtilisateur;
+    private String role;
 
     private Employe empBase;
     private Eleve eleBase;
@@ -66,10 +71,16 @@ public class AuthentificationEndpoint {
         eleBase = eleveService.findOne(username,password);
         if (empBase!=null){
             System.out.println("valeur de l'username empBase "+empBase.getPersonneLogin());
-
+            id = empBase.getPersonneId();
+            nomUtilisateur = empBase.getPersonneNom();
+            prenomUtilisateur=empBase.getPersonnePrenom();
+            role=empBase.getGroupe().getGroupeLibelle();
         }else if(eleBase!=null){
             System.out.println("valeur de l'username eleBase "+eleBase.getPersonneLogin());
-
+            id = eleBase.getPersonneId();
+            nomUtilisateur = eleBase.getPersonneNom();
+            prenomUtilisateur=eleBase.getPersonnePrenom();
+            role=eleBase.getGroupe().getGroupeLibelle();
         }
     }
 
@@ -77,12 +88,10 @@ public class AuthentificationEndpoint {
         // Issue a token (can be a random String persisted to a database or a JWT token)
         // The issued token must be associated to a user
         // Return the issued token
-        Random random = new SecureRandom();
-        String token = new BigInteger(130, random).toString(32);
-        Token tokenBuild = new Token();
-        tokenBuild.setUtilisateur(username);
-        tokenBuild.setToken(token);
-        tokenservice.insert(tokenBuild);
-        return "{\"token\":\""+token+"\"}";
+//        Random random = new SecureRandom();
+//        String token = new BigInteger(130, random).toString(32);
+        AuthHelper auth = new AuthHelper();
+        String tokenBuild=auth.createJsonWebToken(id,nomUtilisateur,prenomUtilisateur,role, (long) 30);
+        return tokenBuild;
     }
 }
