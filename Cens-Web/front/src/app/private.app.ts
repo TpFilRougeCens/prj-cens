@@ -28,82 +28,6 @@ import {Lpc} from "./pages/lpc/lpc";
     directives: [ROUTER_DIRECTIVES],
     styles: [require('./private.app.scss')],
     template: require('./private-app.html')
-    /*template: `
-
-     <div id="wrapper">
-
-     <!-- Navigation -->
-     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-     <div class="navbar-header">
-     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-     <span class="sr-only">Menu</span>
-     <span class="icon-bar"></span>
-     <span class="icon-bar"></span>
-     <span class="icon-bar"></span>
-     </button>
-     <a class="navbar-brand" [routerLink]=" ['Index'] ">Livret de compétences LPC <img src="/assets/img/logo/perso30x30.png" alt="CENS" class="logo-general"></a>
-     </div>
-     <!-- /.navbar-header -->
-
-     <ul class="nav navbar-top-links navbar-right">
-
-     <li class="dropdown">
-     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-     {{nameProfil}} <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-     </a>
-     <ul class="dropdown-menu dropdown-user">
-     <li><a [routerLink]=" ['Profil'] "><i class="fa fa-user fa-fw"></i> Profil utilisateur</a>
-     </li>
-     <li class="divider"></li>
-     <li><a href="#" (click)="onLogout()"><i class="fa fa-sign-out fa-fw"></i> Déconnexion</a>
-     </li>
-     </ul>
-     <!-- /.dropdown-user -->
-     </li>
-
-     </ul>
-     <!-- /.navbar-top-links -->
-
-     <div class="navbar-default sidebar" role="navigation">
-     <div class="sidebar-nav navbar-collapse">
-     <ul class="nav" id="side-menu">
-     <li>
-     <a [routerLink]=" ['Home'] "><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
-     </li>
-     <li router-active>
-     <a [routerLink]=" ['ListEleve'] "><i class="fa fa-female fa-fw"></i> Liste des élèves</a>
-     </li>
-     <li router-active>
-     <a [routerLink]=" ['ListEvaluation'] "><i class="fa fa-bar-chart-o fa-fw"></i> Mes évaluations</a>
-     </li>
-     </ul>
-     </div>
-     <!-- /.sidebar-collapse -->
-     </div>
-     <!-- /.navbar-static-side -->
-     </nav>
-
-     <!-- Page Content -->
-     <div id="page-wrapper">
-     <div class="container-fluid">
-     <div class="row">
-     <div class="col-lg-12">
-     <main>
-     <router-outlet></router-outlet>
-     </main>
-     </div>
-     <!-- /.col-lg-12 -->
-     </div>
-     <!-- /.row -->
-     </div>
-     <!-- /.container-fluid -->
-     </div>
-     <!-- /#page-wrapper -->
-
-     </div>
-     <!-- /#wrapper -->
-
-     `*/
 })
 @RouteConfig([
     {path: '/', name: 'Index', component: Home, useAsDefault: true},
@@ -120,7 +44,7 @@ export class PrivateApp {
     name = 'Angular 2 Webpack Starter';
     url = 'https://twitter.com/AngularClass';
     errorMessage:string;
-    nameProfil:string = "Loading profil...";
+    nameProfil:string = "Chargement...";
     isLoggedin:boolean = false;
 
     constructor(public appState:AppState, private _heroService:HeroService, public auth:Authentification, public router:Router) {

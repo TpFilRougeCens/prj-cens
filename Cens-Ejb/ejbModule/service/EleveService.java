@@ -101,7 +101,7 @@ public class EleveService {
     /**
      * RETOURNE UN ELEVE SI CELLE CI EST CONNUE
      *
-     * @param login    : login utilisateur qui demande une connexion
+     * @param login : login utilisateur qui demande une connexion
      */
     public Eleve findOne(String login) {
         try {
@@ -577,7 +577,6 @@ public class EleveService {
         JSONObject detailsJson = new JSONObject();
         JSONObject groupeJson = new JSONObject();
         JSONArray classesJson = new JSONArray();
-
 
         detailsJson.put("id", p.getPersonneId());
         detailsJson.put("login", p.getPersonneLogin());

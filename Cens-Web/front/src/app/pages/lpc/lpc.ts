@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from "angular2/core";
 import {RestLpc} from "../../service/rest.lpc";
 import {AppState} from "../../app.service";
 import {LoadingImage} from "../../components/loading-image/loading.image";
@@ -37,18 +37,18 @@ class BlocCompetence {
 
 
 @Component({
-  selector: 'bloc-matiere',
-  inputs: ['matiere'],
-  directive:['BlocCompetence'],
-  template: `
-  <h3 (click)="toggle()">Matières: {{matiere.libelle}}</h3>
-  <div *ngIf="show">
-    <div *ngFor="#comp of matiere.competence">
-      <h4>Compétence: {{comp.libelle}}</h4>
-      <bloc-competance [comp]="comp"></bloc-competance>
-    </div>
-  </div>
-  `
+  /*selector: 'bloc-matiere',
+   inputs: ['matiere'],
+   directive:['BlocCompetence'],
+   template: `
+   <h3 (click)="toggle()">Matières: {{matiere.libelle}}</h3>
+   <div *ngIf="show">
+   <div *ngFor="#comp of matiere.competence">
+   <h4>Compétence: {{comp.libelle}}</h4>
+   <bloc-competance [comp]="comp"></bloc-competance>
+   </div>
+   </div>
+   `*/
 })
 class BlocMatiere {
   matiere;
