@@ -11,7 +11,6 @@ import {LoadingImage} from "../../components/loading-image/loading.image";
 
 console.log('`Liste evaluation` component loaded asynchronously');
 
-
 @Component({
   selector: 'bloc-competence',
   inputs: ['comp'],
@@ -25,20 +24,34 @@ console.log('`Liste evaluation` component loaded asynchronously');
               <div class="panel-body">
                  <div *ngFor="#cap of comp.capacite">
                     <div>Capacité: {{cap.libelle}}</div>
-                    <div *ngFor="#eval of cap.evaluation">
-                      <div>Date: {{eval.date}}</div>
-                    </div>
+                    <table class="table table-bordered">
+                        <tr>
+                          <td>Date</td>
+                          <td>Evaluation</td>
+                          <td>Auto évaluation</td>
+                          <td *ngIf="appState.get('role') == 'Enseignant'">Commentaire</td>
+                        </tr>
+                        <tr *ngFor="#eval of cap.evaluation">
+                          <td>{{eval.date}}</td>
+                          <td [style.background]="eval.evalEnseignant.couleur">{{eval.evalEnseignant.abvr}}</td>
+                          <td [style.background]="eval.evalEleve.couleur">{{eval.evalEleve.abvr}}</td>
+                          <td *ngIf="appState.get('role') == 'Enseignant'">{{eval.commentaire}}</td>
+                        </tr>
+                    </table>
                  </div>
               </div>
           </div>
       </div>
   </div>
-
   `
 })
 class BlocCompetence {
   comp;
   show: boolean = false;
+
+  constructor (public appState: AppState) {
+    // Les petites paquerettes dans la prairie
+  }
 
   toggle(){
     console.log("toggle comp");
