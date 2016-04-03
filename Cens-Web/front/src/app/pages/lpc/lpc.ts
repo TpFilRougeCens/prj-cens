@@ -2,6 +2,8 @@ import {Component} from "angular2/core";
 import {RestLpc} from "../../service/rest.lpc";
 import {AppState} from "../../app.service";
 import {LoadingImage} from "../../components/loading-image/loading.image";
+import {ConvertDatePipe} from "../../pipes/ConvertDate.pipe";
+
 
 /*
  * We're loading this component asynchronously
@@ -11,39 +13,42 @@ import {LoadingImage} from "../../components/loading-image/loading.image";
 
 console.log('`Liste evaluation` component loaded asynchronously');
 
+
 @Component({
     selector: 'bloc-competence',
     inputs: ['comp'],
     template: `
-  <div class="col-sm-12">
-      <div class="panel panel-default">
+  <!--<div class="col-sm-12">-->
+      <div class="panel panel-default bloc-competence">
           <div class="panel-heading roll-cursor-pointer" (click)="toggle()">
-              {{comp.libelle}}
+              <span class="label label-info">Compétence</span> {{comp.libelle}}
           </div>
           <div *ngIf="show">
               <div class="panel-body">
                  <div *ngFor="#cap of comp.capacite">
-                    <div>Capacité: {{cap.libelle}}</div>
-                    <table class="table table-bordered">
+                    <div><span class="label label-default">Capacité</span><b> {{cap.libelle}}</b></div>
+                    <table class="table table-striped table-bordered table-hover">
                         <tr>
-                          <td>Date</td>
-                          <td>Evaluation</td>
-                          <td>Auto évaluation</td>
-                          <td *ngIf="appState.get('role') == 'Enseignant'">Commentaire</td>
+                          <td class="text-center">Date</td>
+                          <td class="text-center">Evaluation</td>
+                          <td class="text-center">Auto-évaluation</td>
+                          <td *ngIf="appState.get('role') == 'Enseignant'" style="width:70%;">Commentaire</td>
                         </tr>
-                        <tr *ngFor="#eval of cap.evaluation">
-                          <td>{{eval.date}}</td>
-                          <td [style.background]="eval.evalEnseignant.couleur">{{eval.evalEnseignant.abvr}}</td>
-                          <td [style.background]="eval.evalEleve.couleur">{{eval.evalEleve.abvr}}</td>
+                        <tr *ngFor="#eval of cap.evaluation"  data-toggle="modal" data-target="#UpdateEvaluation">
+                          <td class="text-center">{{"FR" | convertToFrDate: eval.date}}</td>
+                          <td [style.color]="eval.evalEnseignant.couleur" class="text-center"><b>{{eval.evalEnseignant.abvr}}</b></td>
+                          <td [style.color]="eval.evalEleve.couleur" class="text-center"><b>{{eval.evalEleve.abvr}}</b></td>
                           <td *ngIf="appState.get('role') == 'Enseignant'">{{eval.commentaire}}</td>
                         </tr>
                     </table>
+                    <hr/>
                  </div>
               </div>
           </div>
       </div>
-  </div>
-  `
+  <!--</div>-->
+  `,
+    pipes: [ConvertDatePipe]
 })
 class BlocCompetence {
     comp;
@@ -57,6 +62,7 @@ class BlocCompetence {
         console.log("toggle comp");
         this.show = !this.show;
     }
+
 }
 
 
