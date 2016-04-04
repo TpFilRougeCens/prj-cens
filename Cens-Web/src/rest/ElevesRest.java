@@ -37,9 +37,9 @@ public class ElevesRest {
     @EJB
     ComCapService competenceService;
 
-    private final String JSON_SUCCES = "{\"msg\":\"Succès. L'opération à bien été réalisée!\"}";
-    private final String JSON_FAIL_SERVER = "{\"msg\":\"Echec. Le serveur ne peut pas traiter la demande. Contacter l'administrateur!\"}";
-    private final String JSON_FAIL_CLIENT = "{\"msg\":\"Echec. Le format des données n'est pas utilisable!\"}";
+    private static final String JSON_SUCCES = "{\"msg\":\"Succès. L'opération à bien été réalisée!\"}";
+    private static final String JSON_FAIL_SERVER = "{\"msg\":\"Echec. Le serveur ne peut pas traiter la demande. Contacter l'administrateur!\"}";
+    private static final String JSON_FAIL_CLIENT = "{\"msg\":\"Echec. Le format des données n'est pas utilisable!\"}";
     // ########################## WEB SERVICE /eleve ########################################
 
     /**

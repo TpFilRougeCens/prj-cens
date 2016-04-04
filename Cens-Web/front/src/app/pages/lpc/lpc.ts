@@ -62,7 +62,6 @@ class BlocCompetence {
         console.log("toggle comp");
         this.show = !this.show;
     }
-
 }
 
 
