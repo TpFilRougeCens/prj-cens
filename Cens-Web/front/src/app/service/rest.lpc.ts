@@ -24,9 +24,19 @@ export class RestLpc {
             localStorage.setItem('token', this.token);
             return Observable.of('token');
         }
-
         return Observable.throw('authentication failure');*/
+    }
 
+    putEval(evaluation) {
+
+        return this.http.put(
+            'rest/eleve/lpc/evaluation',
+            JSON.stringify({'evaluation': evaluation}),
+            {
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            });
     }
 
 }
