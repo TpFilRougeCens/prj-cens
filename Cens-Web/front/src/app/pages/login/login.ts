@@ -22,7 +22,7 @@ import {AppState} from "../../app.service";
                     <div class="panel-body">
                         <form role="form" [ngFormModel]="form" (submit)="$event.preventDefault(); onSubmit(form.value)">
                             <fieldset>
-                                <div class="control-label" for="inputError" *ngIf="error">Identifiant ou mot de passe invalide</div>
+                                <div class="control-label" for="inputError" *ngIf="error" style="color:red">Identifiant ou mot de passe invalide</div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Identifiant" name="username" autofocus ngControl="username">
                                 </div>
@@ -52,23 +52,29 @@ export class Login {
         });
     }
 
-    onSubmit(value:any) {
+    ngOnInit() {
         this.appState.set('classes', ['2sd Genérale Scientifique A', 'Term Genérale Littéraire B']);
         this.appState.set('nom', 'Jean');
         this.appState.set('prenom', 'Dupond');
-        this.appState.set('id', '8');
+        this.appState.set('id', 8);
         this.appState.set('role', 'Enseignant');
         this.router.navigate(['../PrivateApp']);
+    }
+
+    onSubmit(value:any) {
+
+
         this.auth.login(value.username, value.password)
             .subscribe(
-                (token:any) => {
-                    // TODO ask the values from the web service
-
+                (profil:any) => {
+                    console.log(profil.json());
                     this.router.navigate(['../PrivateApp']);
                 },
                 (err) => {
+                    console.log(err);
                     this.error = true;
                 }
             );
+
     }
 }
