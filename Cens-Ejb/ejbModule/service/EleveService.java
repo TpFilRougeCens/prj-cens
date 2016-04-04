@@ -203,7 +203,7 @@ public class EleveService {
     @SuppressWarnings("unchecked")
     public JSONObject JSON_findAll() {
         try {
-            List<Eleve> listeEleves = entityManager.createNamedQuery("Eleve.findAll").getResultList();
+            List<Eleve> listeEleves = findAll();
             JSONObject jsonObject = new JSONObject();
             JSONArray jsonArray = new JSONArray();
             if (listeEleves != null) {
@@ -573,6 +573,8 @@ public class EleveService {
         return evaluations;
     }
 
+    // MAPPER CONVERTION JSON / OBJ
+
     /**
      * PERMET DE CONVERTIR UN OBJECT JAVA EN OBJECT JSON
      *
@@ -735,7 +737,6 @@ public class EleveService {
 
         return result;
     }
-
 
     private JSONObject convertToJsonEval(AssocEvaluer evaluation) {
         JSONObject evaluationEntityJson = new JSONObject();
