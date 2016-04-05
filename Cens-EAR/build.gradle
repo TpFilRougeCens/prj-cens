@@ -7,7 +7,7 @@ dependencies {
     deploy project(path: ':Cens-Web', configuration: 'archives')
     earlib project(path: ':Cens-Dto', configuration: 'archives')
     earlib project(path: ':Cens-Jpa', configuration: 'archives')
-    deploy project(path: ':Cens-Ejb', configuration: 'archives')
+    earlib project(path: ':Cens-Ejb', configuration: 'archives')
     earlib group: 'javax', name: 'javaee-api', version: '7.0', ext: 'jar'
     earlib group: 'org.json', name: 'json', version: '20140107', ext: 'jar'
     earlib group: 'javax.activation', name: 'activation', version: '1.1', ext: 'jar'
@@ -20,12 +20,12 @@ ear {
     // also modify the generated deployment descriptor accordingly
     deploymentDescriptor { // custom entries for application.xml:
         applicationName = "Cens"
-        //initializeInOrder = true
+        initializeInOrder = true
         displayName = "Cens" // defaults to project.name
         description = "LpC" // defaults to project.description
-        module("Cens-Dto-${project.version}.jar", "java")
-        module("Cens-Jpa-${project.version}.jar", "java")
-        module("Cens-Ejb-${project.version}.jar", "ejb")
+        module("prj-cens-Cens-Dto-${project.version}.jar", "java")
+        module("prj-cens-Cens-Jpa-${project.version}.jar", "java")
+        module("prj-cens-Cens-Ejb-${project.version}.jar", "ejb")
         webModule("Cens-Web-${project.version}.war", "Cens")
     }
 }
