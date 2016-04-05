@@ -47,7 +47,7 @@ export class PrivateApp {
     isLoggedin:boolean = false;
 
     constructor(public appState:AppState,public auth:Authentification, public router:Router) {
-
+        console.log("Im in Private App constructor");
     }
 
     get state() {
@@ -68,10 +68,8 @@ export class PrivateApp {
 
 
     onLogout() {
-        this.auth.logout()
-            .subscribe(
-                () => this.router.navigate(['../Login'])
-            );
+        this.auth.logout();
+        window.location.href = '/';
     }
 
 

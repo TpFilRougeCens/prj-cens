@@ -19,11 +19,11 @@ import {AppState} from './app.service';
     path: '/app/...',
     name: 'PrivateApp',
     loader: () => require('es6-promise!./private.app')('PrivateApp')
-
   },
 
   { path: '/', redirectTo: ['Login']},
-  { path: '/login', as: 'Login', component: Login}
+  { path: '/login', as: 'Login', component: Login},
+  { path: '/**', redirectTo: ['PrivateApp']}
   // TODO fix routing: routes that do not exist ( /#/donotexist ) will crash the app
 ])
 export class App {
