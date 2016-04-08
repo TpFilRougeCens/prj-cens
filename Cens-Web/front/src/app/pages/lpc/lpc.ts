@@ -70,7 +70,6 @@ class CommentaireEditable {
             this.nouvelEval.emit(this.eval);
         }
     }
-
 }
 
 @Component({
@@ -129,7 +128,7 @@ class BlocCompetence {
         var newEval = {
             'id': evaluation.id,
             'enseignant': this.appState.get('id'),
-            'eleve': this.appState.get('idLpc'),
+            'eleve': this.appState.get('idLpc') || this.appState.get('id'),
             'capacite': cap.id,
             'evalEnseignant': evaluation.evalEnseignant.value,
             'evalEleve': evaluation.evalEleve.value,

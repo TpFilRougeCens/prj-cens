@@ -34,6 +34,12 @@ import {AppState} from "../../app.service";
                                   </div>
                             </fieldset>
                         </form>
+                        Log as
+                        <button (click)="onSubmit({'username':'eleve'})">Eleve</button>
+                        <button (click)="onSubmit({'username':'enseignant'})">Enseignant</button>
+                        <button (click)="onSubmit({'username':'manager'})">Manager</button>
+                        <button (click)="onSubmit({'username':'pedagogie'})">Pedagogie</button>
+                        <button (click)="onSubmit({'username':'directeur'})">Directeur</button>
                     </div>
                 </div>
             </div>
@@ -53,25 +59,21 @@ export class Login {
     }
 
     ngOnInit() {
-        this.appState.set('classes', ['2sd Genérale Scientifique A', 'Term Genérale Littéraire B']);
-        this.appState.set('nom', 'Jean');
-        this.appState.set('prenom', 'Dupond');
-        this.appState.set('id', 8);
-        this.appState.set('role', 'Enseignant');
-        this.router.navigate(['../PrivateApp']);
+
+        //this.router.navigate(['../PrivateApp']);
     }
 
     onSubmit(value:any) {
 
-
+        console.log(value);
         this.auth.login(value.username, value.password)
             .subscribe(
-                (profil:any) => {
-                    console.log(profil.json());
+                (token:any) => {
+                    console.log('token: ' + token);
                     this.router.navigate(['../PrivateApp']);
                 },
                 (err) => {
-                    console.log(err);
+                    console.log("erreur: " + err);
                     this.error = true;
                 }
             );

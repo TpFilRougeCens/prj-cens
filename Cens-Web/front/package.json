@@ -43,8 +43,9 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.12",
+    "angular2": "2.0.0-beta.13",
     "core-js": "^2.1.5",
+    "ng2-bootstrap": "^1.0.10",
     "rxjs": "5.0.0-beta.2",
     "zone.js": "0.6.6"
   },

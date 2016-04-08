@@ -3,22 +3,15 @@ import {RestEleve} from "../../service/rest.eleve";
 import {AppState} from "../../app.service";
 import {Router} from "angular2/router";
 import {LoadingImage} from "../../components/loading-image/loading.image";
-
-/*
- * We're loading this component asynchronously
- * We are using some magic with es6-promise-loader that will  wrap the module with a Promise
- * see https://github.com/gdi2290/es6-promise-loader for more info
- */
-
-console.log('`About` component loaded asynchronously');
+import {RestClasse} from "../../service/rest.classe";
 
 @Component({
-    selector: 'liste-eleve',
+    selector: 'gestion-eleve',
     directives: [LoadingImage],
-    providers: [RestEleve],
-    template: require('./liste-eleve.html')
+    providers: [RestEleve, RestClasse],
+    template: require('./gestion-eleve.html')
 })
-export class ListEleve {
+export class GestionEleve {
     eleves = [];
     elevesVisible = [];
     classes;
@@ -35,7 +28,7 @@ export class ListEleve {
         return JSON.stringify(this.model);
     }
 
-    constructor(private restEleveService: RestEleve, public appState: AppState, public router: Router) {
+    constructor(private restClasseService: RestClasse, private restEleveService: RestEleve, public appState: AppState, public router: Router) {
     }
 
     ngOnInit() {

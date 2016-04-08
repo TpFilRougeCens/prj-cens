@@ -18,6 +18,9 @@ import {AppState} from './app/app.service';
 
 import {Authentification} from 'app/service/authentification.ts';
 import {App} from "./app/app";
+import {provide} from "angular2/core";
+import {AuthentificationFake} from "./app/service/authentification.fake";
+import {MenuItem} from "./app/service/menu-items";
 /*
  * Bootstrap our Angular app with a top level component `App` and inject
  * our Services and Providers into Angular's dependency injection
@@ -26,7 +29,8 @@ export function main(initialState = {}) {
   let APP_PROVIDERS = [
     provideInitialState(initialState),
     AppState,
-    Authentification
+    provide(Authentification, {useClass: AuthentificationFake}),
+    MenuItem
   ];
 
   return bootstrap(App, [

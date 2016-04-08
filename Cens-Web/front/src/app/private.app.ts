@@ -8,10 +8,16 @@ import {ListEvaluation} from "./pages/liste-evaluation";
 import {ListEleve} from "./pages/liste-eleve";
 import {AppState} from "./app.service";
 import {isLoggedin} from "./service/is-loggedin";
+
+import {MenuItem} from "./service/menu-items";
 import {Authentification} from "./service/authentification";
 import {Login} from "./pages/login/login";
 import {Profil} from "./pages/profil/profil";
 import {Lpc} from "./pages/lpc/lpc";
+import {GestionVoie} from "./pages/gestion-voie/gestion.voie";
+import {GestionFiliere} from "./pages/gestion-filiere/gestion.filiere";
+import {GestionClasse} from "./pages/gestion-classe/gestion.classe";
+import {GestionEleve} from "./pages/gestion-eleve/gestion.eleve";
 
 //require('bootstrap/less/bootstrap.less');
 
@@ -35,6 +41,10 @@ import {Lpc} from "./pages/lpc/lpc";
     {path: '/liste-eleve', name: 'ListEleve', component: ListEleve},
     {path: '/liste-evaluation', name: 'ListEvaluation', component: ListEvaluation},
     {path: '/lpc', name: 'Lpc', component: Lpc},
+    {path: '/gestion-voie', name: 'GestionVoie', component: GestionVoie},
+    {path: '/gestion-filiere', name: 'GestionFiliere', component: GestionFiliere},
+    {path: '/gestion-classe', name: 'GestionClasse', component: GestionClasse},
+    {path: '/gestion-eleve', name: 'GestionEleve', component: GestionEleve},
     // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
     {path: '/profil', name: 'Profil', component: Profil} //loader: () => require('es6-promise!./profil')('Profil') }
 ])
@@ -46,7 +56,7 @@ export class PrivateApp {
     nameProfil:string = "Chargement...";
     isLoggedin:boolean = false;
 
-    constructor(public appState:AppState,public auth:Authentification, public router:Router) {
+    constructor(public appState:AppState,public auth:Authentification, public router:Router, public menuItem: MenuItem) {
         console.log("Im in Private App constructor");
     }
 
@@ -63,12 +73,16 @@ export class PrivateApp {
             //this.router.navigate(['../Login']);
         }
 
+        this.nameProfil = `${this.appState.get('prenom')} ${this.appState.get('nom')}`;
+
         console.log('Initial App State', this.state);
     }
 
 
     onLogout() {
         this.auth.logout();
+
+        // FIXME not the way to do it
         window.location.href = '/';
     }
 

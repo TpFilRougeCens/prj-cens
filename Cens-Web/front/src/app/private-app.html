@@ -39,12 +39,33 @@
                     <li>
                         <a [routerLink]=" ['Home'] "><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
                     </li>
-                    <li router-active>
+                    <li *ngIf="menuItem.isVisible('ListEleve')">
                         <a [routerLink]=" ['ListEleve'] "><i class="fa fa-group fa-fw"></i> Liste des élèves</a>
                     </li>
-                    <li router-active>
+                    <li *ngIf="menuItem.isVisible('Lpc')">
+                        <a [routerLink]=" ['Lpc'] "><i class="fa fa-book fa-fw"></i> Lpc</a>
+                    </li>
+                    <li *ngIf="menuItem.isVisible('ListEvaluation')">
                         <a [routerLink]=" ['ListEvaluation'] "><i class="fa fa-bar-chart-o fa-fw"></i> Mes
                             évaluations</a>
+                    </li>
+                    <li *ngIf="menuItem.isVisible('Gestion')">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i
+                                class="fa fa-fw fa-cogs"></i> Gestion <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a [routerLink]=" ['GestionVoie'] "> Voies</a>
+                            </li>
+                            <li>
+                                <a [routerLink]=" ['GestionFiliere'] "> Filieres</a>
+                            </li>
+                            <li>
+                                <a [routerLink]=" ['GestionClasse'] "> Classes</a>
+                            </li>
+                            <li>
+                                <a [routerLink]=" ['GestionEleve'] "> Eleves</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>

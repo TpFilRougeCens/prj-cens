@@ -13,16 +13,16 @@ import {LoadingImage} from "../../components/loading-image/loading.image";
 console.log('`About` component loaded asynchronously');
 
 @Component({
-    selector: 'liste-eleve',
+    selector: 'statistiques',
     directives: [LoadingImage],
     providers: [RestEleve],
-    template: require('./liste-eleve.html')
+    template: require('./statistiques.html')
 })
 export class ListEleve {
     eleves = [];
     elevesVisible = [];
     classes;
-    textAllClass = '0'; // classe.id = 0 means all classes
+    textAllClass = 'Toutes les classes';
     model = {'filtre': '', 'classe': this.textAllClass};
     submitted = false;
 
@@ -35,15 +35,16 @@ export class ListEleve {
         return JSON.stringify(this.model);
     }
 
-    constructor(private restEleveService: RestEleve, public appState: AppState, public router: Router) {
+    constructor(private restEleveService:RestEleve, public appState:AppState, public router:Router) {
     }
 
     ngOnInit() {
         console.log('hello `Liste eleve` component');
         // static data that is bundled
         var mockData = require('assets/mock-data/mock-data.json');
+        console.log(this.appState.get('classes'));
 
-        this.classes = [{'id':0,'niveau':'Toutes les classes', 'filiere': '', 'libelle':''}, ...this.appState.get('classesEnseignant')];
+        this.classes = ['Toutes les classes', ...this.appState.get('classes')];
         this.restEleveService.getEleve()
             .subscribe(
                 (restEleve:any) => {
@@ -51,8 +52,8 @@ export class ListEleve {
                     restEleve.json().classes.forEach((classe) => {
                         console.log(classe.voie.libelle);
                         classe.eleves.forEach((eleve) => {
-                            this.eleves.push(Object.assign({}, {'voie': classe.voie.libelle}, {'filiere': classe.filiere.libelle}, {'classe': classe.niveau.libelle}, {'libelle': classe.libelle}, {'idClasse':classe.id}, eleve));
-                            this.elevesVisible.push(Object.assign({}, {'voie': classe.voie.libelle}, {'filiere': classe.filiere.libelle}, {'classe': classe.niveau.libelle}, {'libelle': classe.libelle}, {'idClasse':classe.id}, eleve));
+                            this.eleves.push(Object.assign({}, {'voie': classe.voie.libelle}, {'filiere': classe.filiere.libelle}, {'classe': classe.niveau.libelle}, {'libelle': classe.libelle}, eleve));
+                            this.elevesVisible.push(Object.assign({}, {'voie': classe.voie.libelle}, {'filiere': classe.filiere.libelle}, {'classe': classe.niveau.libelle}, {'libelle': classe.libelle}, eleve));
                         });
                     });
 

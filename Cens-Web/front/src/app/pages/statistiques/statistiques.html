@@ -18,7 +18,7 @@
                         <label>Filtrer par classe</label>
                         <select class="form-control"
                                 [(ngModel)]="model.classe">
-                            <option *ngFor="#classe of classes" [value]="classe.id">{{classe.niveau}}{{classe.libelle}} {{classe.voie}} {{classe.filiere}}</option>
+                            <option *ngFor="#classe of classes" [value]="classe">{{classe}}</option>
                         </select>
                     </div>
                     <div class="col-lg-6">
@@ -31,8 +31,6 @@
             <!-- /.panel-body -->
 
         </div>
-
-
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -56,8 +54,8 @@
                         <tr *ngFor="#eleve of elevesVisible" (click)="onEleveSelect(eleve.id)" style="cursor: pointer;">
                             <template [ngIf]="
                              (eleve.nom.indexOf(model.filtre) > -1 || eleve.prenom.indexOf(model.filtre) > -1 )&&
-                                ( eleve.idClasse == model.classe
-                                || model.classe == 0 )
+                                ( eleve.classe + ' ' + eleve.voie + ' ' + eleve.filiere + ' ' + eleve.libelle == model.classe
+                                || model.classe == textAllClass )
                                 ">
                                 <td style="width:10%">{{eleve.voie}}</td>
                                 <td>{{eleve.filiere}}</td>

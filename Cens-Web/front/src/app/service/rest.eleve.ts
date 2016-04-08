@@ -35,6 +35,12 @@ export class RestEleve {
 
     }
 
+    getAllEleve() {
+
+        return this.http.get('rest/eleve');
+
+    }
+
     logout() {
 
          // If we had a login api, we would have done something like this
