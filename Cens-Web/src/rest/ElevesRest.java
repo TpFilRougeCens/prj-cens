@@ -347,26 +347,6 @@ public class ElevesRest {
     }
 
 
-    // ########################## WEB SERVICE /eleve/voie #################################
-
-    @Path("voie")
-    @GET
-    @Produces("application/json;charset=utf-8")
-    public Response findAllVoie() throws JSONException {
-        JSONObject jsonObject = voieService.JSON_findAll();
-        return Response.status(200).entity(jsonObject.toString()).build();
-    }
-
-
-    @Path("voie/{idVoie}")
-    @GET
-    @Produces("application/json;charset=utf-8")
-    public Response findVoieById(@PathParam("idVoie") Integer idVoie) throws JSONException {
-        JSONObject jsonObject = voieService.JSON_findOne(idVoie);
-        return Response.status(200).entity(jsonObject.toString()).build();
-    }
-
-
     // ########################## WEB SERVICE /eleve/filiere #######################
 
     /**

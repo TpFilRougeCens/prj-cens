@@ -82,17 +82,16 @@ public class VoieService {
             e.printStackTrace();
             return null;
         }
-
     }
 
     /**
      * DELETE METHODE WITH NATIVE JPA METHODE
      *
-     * @param voie : Object de type Voie (de la classe)
+     * @param voieId : identifiant de voie
      */
-    public boolean delete(Voie voie) {
+    public boolean delete(Integer voieId) {
         try {
-            Voie result = entityManager.find(Voie.class, voie.getVoieId());
+            Voie result = entityManager.find(Voie.class, voieId);
             entityManager.remove(result);
             //System.out.println("ID Supprimé = " + voie.getVoieId());
             return true;
@@ -168,4 +167,38 @@ public class VoieService {
         }
         return result;
     }
+
+
+    /**
+     * INSERT METHODE WITH NATIVE JPA METHODE
+     *
+     * @param voie : Object de type JSON eleve
+     */
+    public boolean JSON_insert(JSONObject voie) {
+        try {
+            if (voie.has("id") && !voie.isNull("id")) {
+                voie.remove("id");
+            }
+            return insert(convertToObject(voie));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * UPDATE METHODE WITH NATIVE JPA METHODE
+     *
+     * @param voie : Object de type Eleve (de la classe)
+     */
+    public boolean JSON_update(JSONObject voie) {
+        try {
+            return update(convertToObject(voie));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }
