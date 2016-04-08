@@ -78,6 +78,8 @@ public class AuthentificationEndpoint {
             nomUtilisateur = eleBase.getPersonneNom();
             prenomUtilisateur=eleBase.getPersonnePrenom();
             role=eleBase.getGroupe().getGroupeLibelle();
+        }else {
+            throw new Exception();
         }
     }
 
