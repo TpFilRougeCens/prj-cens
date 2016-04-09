@@ -3,20 +3,27 @@ import {RestVoie} from "../../service/rest.voie";
 import {AppState} from "../../app.service";
 import {Router} from "angular2/router";
 import {LoadingImage} from "../../components/loading-image/loading.image";
+import {MODAL_DIRECTIVES, ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {ViewChild} from "angular2/core";
+import {EditableComponent} from "../../components/editable-component";
 
 @Component({
     selector: 'gestion-voie',
-    directives: [LoadingImage],
+    directives: [LoadingImage, MODAL_DIRECTIVES, EditableComponent],
     providers: [RestVoie],
     template: require('./gestion-voie.html')
 })
 export class GestionVoie {
+    voieIdToDelete: number;
     voies = [];
     classes;
     textAllClass = '0'; // classe.id = 0 means all classes
     model = {'filtre': '', 'classe': this.textAllClass};
     submitted = false;
+    error: boolean;
 
+    @ViewChild('modalDelete')
+    modalDelete: ModalComponent;
 
     onSubmit() {
         this.submitted = true;
@@ -44,6 +51,46 @@ export class GestionVoie {
                 }
             );
     }
+
+    openModalDelete(voieId: number) {
+        this.voieIdToDelete = voieId;
+        this.modalDelete.open();
+    }
+
+    saveVoie(event, voie) {
+
+        console.log(event);
+        voie.libelle = event;
+        this.restVoieService.update(voie)
+            .subscribe(
+                (restVoie:any) => {
+                    console.log("response");
+                    console.log(restVoie);
+                },
+                (err) => {
+                }
+            );
+
+    }
+
+    deleteVoie() {
+        console.log("delete: " +this.voieIdToDelete);
+        this.restVoieService.delete(this.voieIdToDelete)
+            .subscribe(
+            (msg:any) => {
+                console.log('msg: ' + msg);
+
+            },
+            (err) => {
+                console.log("erreur: " + err);
+                this.error = true;
+            }
+        );
+
+        this.modalDelete.close();
+    }
+
+
 
 
 

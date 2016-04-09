@@ -6,12 +6,6 @@ import {ConvertDatePipe} from "../../pipes/ConvertDate.pipe";
 import {ClickOutsideDirective} from "../../directives/click.outside";
 import {EventEmitter} from "angular2/core";
 
-/*
- * We're loading this component asynchronously
- * We are using some magic with es6-promise-loader that will  wrap the module with a Promise
- * see https://github.com/gdi2290/es6-promise-loader for more info
- */
-
 console.log('`Liste evaluation` component loaded asynchronously');
 
 @Component({
@@ -44,7 +38,6 @@ class CommentaireEditable {
     eval;
 
     constructor(public appState:AppState) {
-        // Les petites paquerettes dans la prairie
         this.eval = eval;
     }
 
@@ -60,6 +53,7 @@ class CommentaireEditable {
     }
 
     clickOutside(event, commentaire ) {
+        // Des paquerettes dans ton ...
         if (this.targetId != event.target.id) {
             this.eval.evalEnseignant.commentaire = commentaire;
             this.editable = false;

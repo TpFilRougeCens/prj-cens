@@ -80,7 +80,8 @@ public class AuthentificationEndpoint {
             nomUtilisateur = eleBase.getPersonneNom();
             prenomUtilisateur=eleBase.getPersonnePrenom();
             role=eleBase.getGroupe().getGroupeLibelle();
-            System.out.println("caleur de la base : "+id+" "+nomUtilisateur+" "+prenomUtilisateur+" "+role);
+        }else {
+            throw new Exception();
         }
     }
 
