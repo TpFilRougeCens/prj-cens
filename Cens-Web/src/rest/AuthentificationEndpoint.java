@@ -12,6 +12,8 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
+import static rest.utilAuthentification.AuthHelper.createJsonWebToken;
+
 /**
  * Created by steven.cdi12 on 24/03/2016.
  */
@@ -78,6 +80,7 @@ public class AuthentificationEndpoint {
             nomUtilisateur = eleBase.getPersonneNom();
             prenomUtilisateur=eleBase.getPersonnePrenom();
             role=eleBase.getGroupe().getGroupeLibelle();
+            System.out.println("caleur de la base : "+id+" "+nomUtilisateur+" "+prenomUtilisateur+" "+role);
         }
     }
 
@@ -85,8 +88,6 @@ public class AuthentificationEndpoint {
         // Issue a token (can be a random String persisted to a database or a JWT token)
         // The issued token must be associated to a user
         // Return the issued token
-        AuthHelper auth = new AuthHelper();
-        String tokenBuild=auth.createJsonWebToken(id,nomUtilisateur,prenomUtilisateur,role, (long) 30);
-        return tokenBuild;
+        return createJsonWebToken(id,nomUtilisateur,prenomUtilisateur,role, (long) 30);
     }
 }

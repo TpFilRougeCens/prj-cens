@@ -1,5 +1,6 @@
 package service;
 
+import model.Eleve;
 import model.Matiere;
 
 import javax.ejb.LocalBean;

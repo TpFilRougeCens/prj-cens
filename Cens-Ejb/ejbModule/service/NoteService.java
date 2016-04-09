@@ -1,5 +1,8 @@
 package service;
 
+import model.AssocEvaluer;
+import model.ComCap;
+import model.Eleve;
 import model.Note;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -8,6 +11,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +23,17 @@ public class NoteService {
 
     @PersistenceContext(unitName = "Cens-Jpa")
     EntityManager entityManager;
+
+    public List<Note> findNoteByEleve(Eleve eleve) {
+        List<Note> listeNote = new ArrayList<>();
+        for(AssocEvaluer note:eleve.getAssocEvaluers()){
+            listeNote.add(note.getNote1());
+        }
+        listeNote
+                .stream()
+                .forEach(e-> System.out.println(e.getNoteLibelle()));
+        return listeNote;
+    }
 
     /**
      * FIND ALL ELEMENTS METHODE WITH PARAMETER QUERY findAll
