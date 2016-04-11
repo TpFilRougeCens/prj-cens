@@ -5,6 +5,12 @@ import {LoadingImage} from "../../components/loading-image/loading.image";
 import {ConvertDatePipe} from "../../pipes/ConvertDate.pipe";
 import {ClickOutsideDirective} from "../../directives/click.outside";
 import {EventEmitter} from "angular2/core";
+import {ViewChild} from "angular2/core";
+import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
+import {ControlGroup} from "angular2/common";
+import {FormBuilder} from "angular2/common";
+import {Validators} from "angular2/common";
+import {MODAL_DIRECTIVES} from "ng2-bs3-modal/ng2-bs3-modal";
 
 console.log('`Liste evaluation` component loaded asynchronously');
 
@@ -66,10 +72,11 @@ class CommentaireEditable {
     }
 }
 
+
 @Component({
     selector: 'bloc-competence',
     inputs: ['comp'],
-    directives: [CommentaireEditable],
+    directives: [CommentaireEditable, MODAL_DIRECTIVES],
     template: `
   <!--<div class="col-sm-12">-->
       <div class="panel panel-default bloc-competence">
@@ -80,18 +87,24 @@ class CommentaireEditable {
               <div class="panel-body">
                  <div *ngFor="#cap of comp.capacite">
                     <div><span class="label label-default">Capacité</span><b> {{cap.libelle}}</b></div>
+                    <p align="right">
+                        <button type="button" class="btn btn-success" (click)="modalAdd.open()">Ajouter une évaluation</button>
+                    </p>
                     <table class="table table-striped table-bordered table-hover">
                         <tr>
                           <th class="text-center">Date</th>
                           <th class="text-center">Evaluation</th>
                           <th class="text-center">Auto-évaluation</th>
                           <th *ngIf="appState.get('role') == 'Enseignant'" style="width:70%;">Commentaire</th>
+                          <th *ngIf="appState.get('role') == 'Enseignant'"></th>
+
                         </tr>
                         <tr *ngFor="#eval of cap.evaluation">
                           <td class="text-center">{{"FR" | convertToFrDate: eval.date}}</td>
                           <td [style.color]="eval.evalEnseignant.couleur" class="text-center"><b>{{eval.evalEnseignant.abvr}}</b></td>
                           <td [style.color]="eval.evalEleve.couleur" class="text-center"><b>{{eval.evalEleve.abvr}}</b></td>
                           <td *ngIf="appState.get('role') == 'Enseignant'"  [ngStyle]="{'padding':'0px'}"><commentaire-editable [eval]="eval"  (nouvelEval)="saveEval($event, cap)"></commentaire-editable></td>
+                          <td *ngIf="appState.get('role') == 'Enseignant'" (click)="openModalDelete(eval.id)"><div class="text-center"><span [ngStyle]="{'color':'red','text-align':'center'}" class="glyphicon glyphicon-remove" aria-hidden="true"></span></div></td>
                         </tr>
                     </table>
                     <hr/>
@@ -100,6 +113,59 @@ class CommentaireEditable {
           </div>
       </div>
   <!--</div>-->
+
+        <modal #modalDelete>
+            <modal-header [show-close]="true">
+                <h4 class="modal-title">Confirmation</h4>
+            </modal-header>
+            <modal-body>
+                Confirmez la suppression de l'évaluation
+            </modal-body>
+            <modal-footer>
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalDelete.dismiss()">Annuler</button>
+                <button type="button" class="btn btn-danger" (click)="deleteEval()">Supprimer</button>
+            </modal-footer>
+        </modal>
+
+        <modal #modalAdd>
+            <modal-header [show-close]="true">
+                <h4 class="modal-title">Ajouter une évaluation</h4>
+            </modal-header>
+                <form role="form" [ngFormModel]="form" (submit)="$event.preventDefault(); onSubmit(form.value)">
+                    <fieldset>
+                        <modal-body>
+                            <div class="form-group">
+                               <label>Date de l'évaluation</label>
+                               <input class="form-control" placeholder="JJ/MM/AAAA" name="date" autofocus ngControl="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="evalEnseignant">Evaluation</label>
+                                <select class="form-control"
+                                    ngControl="evalEnseignant">
+                                  <option *ngFor="#note of notes" [value]="note.abvr" [ngStyle]="{'color':note.couleur}">{{note.abvr}} ({{note.libelle}})</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="evalEleve">Auto-évaluation</label>
+                                <select class="form-control"
+                                    ngControl="evalEleve">
+                                  <option *ngFor="#note of notes" [value]="note.abvr" [ngStyle]="{'color':note.couleur}">{{note.abvr}} ({{note.libelle}})</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="commentaire">Commentaire</label>
+                                <input class="form-control" placeholder="Identifiant" name="commentaire" ngControl="commentaire">
+                            </div>
+                        </modal-body>
+                        <modal-footer>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Ajouter</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalAdd.dismiss()">Annuler</button>
+                            </div>
+                        </modal-footer>
+                    </fieldset>
+                </form>
+        </modal>
   `,
     pipes: [ConvertDatePipe]
 })
@@ -107,8 +173,41 @@ class BlocCompetence {
     comp;
     show: boolean = false;
 
-    constructor(public appState:AppState, public restLpc:RestLpc) {
-        // Les petites paquerettes dans la prairie
+    // TODO récupérer les valeurs depuis la table note, web service à faire
+    notes = [
+        {'abvr':'', 'libelle':"Non évalué", 'valeur': '',	'couleur':'#00af4c' },
+        {'abvr':'A',	'libelle':"Compétence acquise",	'valeur':20,	'couleur':'#00af4c'},
+        {'abvr':'PA',	'libelle':"Compétence presque acquise",	'valeur':15,	'couleur':'#007baf'},
+        {'abvr':'VA',	'libelle':"Compétence encore fragile, en voie d'acquisition",	'valeur':10,	'couleur':'#ffd600'},
+        {'abvr':'EA',	'libelle':"Compétence en cours d'acquisition, débutant",	'valeur':5,	'couleur':'#ff9600'},
+        {'abvr':'NA',	'libelle':"Compétence non acquise",	'valeur':0,	'couleur':'#ff0000'},
+        {'abvr':'DEC',	'libelle':"Compétence désactivée",	'valeur':0,	'couleur':'#ff1000'}
+    ];
+
+
+    // modal delete
+
+    @ViewChild('modalDelete')
+    modalDelete: ModalComponent;
+
+    evalIdToDelete: number;
+
+
+    // modal add
+
+    @ViewChild('modalAdd')
+    modalAdd: ModalComponent;
+
+    form:ControlGroup;
+
+
+    constructor(fb:FormBuilder, public appState:AppState, public restLpc:RestLpc) {
+        this.form = fb.group({
+            date: ['', Validators.required],
+            evalEnseignant: ['', Validators.required],
+            evalEleve: ['', Validators.required],
+            commentaire: ['', Validators.required]
+        });
     }
 
     toggle() {
@@ -130,29 +229,8 @@ class BlocCompetence {
             'commentaire': evaluation.commentaire
         };
 
-        /*
-        "evaluation":{
-            "id":1,
-            "enseignant": 2,
-            "eleve": 7,
-            "capacite":49,
-            "evalEnseignant": 2,
-            "evalEleve": 3,
-            "date": "31/01/1989",
-            "commentaire": "youpiiii un commentaire"}
-            */
-
-        /*
-
-         date: "2016-01-01",
-         evalEleve: Object,
-         evalEnseignant: Object,
-         id: 2,
-         commentaire: "un commentaire de la part du prof sur cette eval"}
-
-         */
-
         console.log("sending: ", newEval);
+
         this.restLpc.putEval(newEval)
             .subscribe(
                 (response:any) => {
@@ -163,6 +241,40 @@ class BlocCompetence {
 
                 }
             );
+
+    }
+
+
+    openModalDelete(evalId: number) {
+        this.evalIdToDelete = evalId;
+        this.modalDelete.open();
+    }
+
+
+    deleteEval() {
+
+        this.restLpc.delete(this.evalIdToDelete)
+            .subscribe(
+                (msg:any) => {
+                    console.log('msg: ' + msg);
+                    /*this.comp.forEarch( () => {
+
+                    })*/
+
+                    //this.refreshVoie();
+                },
+                (err) => {
+                    console.log("erreur: " + err);
+                    //this.error = true;
+                }
+            );
+
+        this.modalDelete.close();
+
+    }
+
+    onSubmit(value: any) {
+
     }
 
 

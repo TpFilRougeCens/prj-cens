@@ -27,11 +27,35 @@ export class RestLpc {
         return Observable.throw('authentication failure');*/
     }
 
+
+    delete(id: number) {
+        return this.http.delete('rest/eleve/lpc/evaluation/'+id);
+    }
+
     putEval(evaluation) {
+
+        // TODO convert "31/01/1989" to "1989-01-27"
+        // evalution.date
 
         return this.http.put(
             'rest/eleve/lpc/evaluation',
-            JSON.stringify({'evaluation': evaluation}),
+            JSON.stringify({evaluation: evaluation}),
+            {
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            });
+
+    }
+
+
+
+    add(evaluation) {
+        return this.http.post(
+            'rest/eleve/lpc/evaluation',
+            JSON.stringify({
+                voie: { evaluation: evaluation}
+            }),
             {
                 headers: new Headers({
                     'Content-Type': 'application/json'
