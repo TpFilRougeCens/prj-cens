@@ -12,6 +12,7 @@ import {FormBuilder} from "angular2/common";
 import {Validators} from "angular2/common";
 import {MODAL_DIRECTIVES} from "ng2-bs3-modal/ng2-bs3-modal";
 import {RestEleve} from "../../service/rest.eleve";
+import {Input} from "angular2/core";
 
 console.log('`Liste evaluation` component loaded asynchronously');
 
@@ -76,7 +77,6 @@ class CommentaireEditable {
 
 @Component({
     selector: 'bloc-competence',
-    inputs: ['comp'],
     directives: [CommentaireEditable, MODAL_DIRECTIVES],
     template: `
   <!--<div class="col-sm-12">-->
@@ -171,7 +171,8 @@ class CommentaireEditable {
     pipes: [ConvertDatePipe]
 })
 class BlocCompetence {
-    comp;
+    @Input() comp;
+
     show: boolean = false;
 
     // TODO récupérer les valeurs depuis la table note, web service à faire
@@ -239,29 +240,34 @@ class BlocCompetence {
                 },
                 (err) => {
                     console.log("erreur", err);
-
                 }
             );
-
     }
-
 
     openModalDelete(evalId: number) {
         this.evalIdToDelete = evalId;
         this.modalDelete.open();
     }
 
-
     deleteEval() {
-
         this.restLpc.delete(this.evalIdToDelete)
             .subscribe(
                 (msg:any) => {
-                    console.log('msg: ' + msg);
-                    /*this.comp.forEarch( () => {
-
-                    })*/
-
+                    console.log('msg: ' , msg);
+                    console.log('competence: ');
+                    console.log(this.comp);
+                    this.comp.capacite.forEach( (cap) => {
+                            var position = -1;
+                            cap.evaluation.forEach( (evaluation, index) => {
+                                if (evaluation.id == this.evalIdToDelete) {
+                                    position = index;
+                                }
+                            })
+                            if (position != -1) {
+                                cap.evaluation.splice(position,1);
+                                position = 1;
+                            }
+                        })
                     //this.refreshVoie();
                 },
                 (err) => {
@@ -269,9 +275,7 @@ class BlocCompetence {
                     //this.error = true;
                 }
             );
-
         this.modalDelete.close();
-
     }
 
     onSubmit(value: any) {
