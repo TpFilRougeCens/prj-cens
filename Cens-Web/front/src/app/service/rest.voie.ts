@@ -36,4 +36,20 @@ export class RestVoie {
         });
     }
 
+
+    add(voie) {
+        return this.http.post(
+            this._voieUrl,
+            JSON.stringify({
+                voie: { libelle: voie}
+            }),
+            {
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            });
+    }
+
+
+
 }
