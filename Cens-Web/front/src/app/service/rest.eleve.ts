@@ -12,12 +12,14 @@ export class RestEleve {
         //this.token = localStorage.getItem('token');
     }
 
-    getEleve() {
+
+    getClasse() {
 
 
       // return this.http.get('/rest/profil/name');
          // If we had a login api, we would have done something like this
 
+        // TODO doit retourner les eleves d'un enseignant passé en paramètre
          return this.http.get('rest/eleve/classe/enseignant/1');
 
 
@@ -33,6 +35,11 @@ export class RestEleve {
 
         return Observable.throw('authentication failure');*/
 
+    }
+
+    // eleve profil
+    getEleve(id: number) {
+        return this.http.get('rest/eleve/' + id);
     }
 
     getAllEleve() {

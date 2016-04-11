@@ -36,7 +36,10 @@ export class RestLpc {
 
         // TODO convert "31/01/1989" to "1989-01-27"
         // evalution.date
-
+        console.log(evaluation.date);
+        //var date = evaluation.date.split("-");
+        //evaluation.date = date[2] + "/" + date[1] + "/" + date[0];
+        //console.log(date);
         return this.http.put(
             'rest/eleve/lpc/evaluation',
             JSON.stringify({evaluation: evaluation}),

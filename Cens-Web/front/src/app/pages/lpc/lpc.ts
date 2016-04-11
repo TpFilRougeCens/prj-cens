@@ -11,6 +11,7 @@ import {ControlGroup} from "angular2/common";
 import {FormBuilder} from "angular2/common";
 import {Validators} from "angular2/common";
 import {MODAL_DIRECTIVES} from "ng2-bs3-modal/ng2-bs3-modal";
+import {RestEleve} from "../../service/rest.eleve";
 
 console.log('`Liste evaluation` component loaded asynchronously');
 
@@ -86,9 +87,9 @@ class CommentaireEditable {
           <div *ngIf="show">
               <div class="panel-body">
                  <div *ngFor="#cap of comp.capacite">
-                    <div><span class="label label-default">Capacité</span><b> {{cap.libelle}}</b></div>
-                    <p align="right">
-                        <button type="button" class="btn btn-success" (click)="modalAdd.open()">Ajouter une évaluation</button>
+                    <p>
+                        <span class="label label-default">Capacité</span><b> {{cap.libelle}}</b>
+                        <button [ngStyle]="{'float': 'right', 'margin-bottom':'10px'}" type="button" class="btn btn-success" (click)="modalAdd.open()">Ajouter une évaluation</button>
                     </p>
                     <table class="table table-striped table-bordered table-hover">
                         <tr>
@@ -312,36 +313,68 @@ class BlocMatiere {
 @Component({
     selector: 'lpc',
     directives: [LoadingImage, BlocMatiere],
-    providers: [RestLpc],
+    providers: [RestLpc, RestEleve],
     template: require('./lpc.html')
 })
 export class Lpc {
     loadImg = 'assets/img/loading-bar.gif';
     idBloc:number = 0;
-    lpc = []; // un element par bloc
+    anneeLpc: number;
+    lpc = []; // un element par annee
+    eleve;
 
-    constructor(private restLpc:RestLpc, public appState:AppState) {
+    constructor(private restLpc:RestLpc, private restEleveService:RestEleve, public appState:AppState) {
         // Les petites paquerettes dans la prairie
     }
 
     ngOnInit() {
 
-        console.log('hello `lpc` component, id:' + this.appState.get('idLpc'));
+        console.log('hello `lpc` component, id:' )+ this.appState.get('idLpc');
         this.restLpc.getLpc(this.appState.get('idLpc'))
             .subscribe(lpc => {
-                lpc.json().classe[lpc.json().classe.length - 1].bloc.forEach((bloc) => {
-                    this.lpc.push(bloc);
-                });
+
+                this.lpc = lpc.json().classe;
+                // this.lpc = lpc.json().classe.reverse();
+                /*
+                var lpcNotReversed = lpc.json().classe;
+
+                for (let i = 0; i < lpcNotReversed.length; i++) {
+                    this.lpc.push(lpcNotReversed[lpcNotReversed.length-1-i]);
+                }
+                */
+
+                //this.lpc.reverse();
+                this.anneeLpc = this.lpc.length - 1;
 
 
+                console.log("lpc complet: ");
                 console.log(this.lpc);
             });
+
+        this.restEleveService.getEleve(this.appState.get('idLpc'))
+            .subscribe(
+                (eleve:any) => {
+                    console.log(eleve.json());
+                    this.eleve = eleve.json().eleve;
+                    console.log("eleve: ", this.eleve);
+                  //  this.eleve.classes.reverse();
+
+                },
+                (err) => {
+                }
+            );
+
 
     }
 
     onBlocSelect(id) {
         this.idBloc = id;
         console.log(id);
+    }
+
+    changeAnnee(annee: number) {
+        this.anneeLpc = annee;
+        console.log("annee: " + annee);
     }
 
 }
