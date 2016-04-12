@@ -48,7 +48,6 @@ export class RestLpc {
                     'Content-Type': 'application/json'
                 })
             });
-
     }
 
 
@@ -57,7 +56,7 @@ export class RestLpc {
         return this.http.post(
             'rest/eleve/lpc/evaluation',
             JSON.stringify({
-                voie: { evaluation: evaluation}
+                evaluation: evaluation
             }),
             {
                 headers: new Headers({

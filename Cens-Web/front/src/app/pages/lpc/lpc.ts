@@ -89,7 +89,7 @@ class CommentaireEditable {
                  <div *ngFor="#cap of comp.capacite">
                     <p>
                         <span class="label label-default">Capacité</span><b> {{cap.libelle}}</b>
-                        <button [ngStyle]="{'float': 'right', 'margin-bottom':'10px'}" type="button" class="btn btn-success" (click)="modalAdd.open()">Ajouter une évaluation</button>
+                        <button [ngStyle]="{'float': 'right', 'margin-bottom':'10px'}" type="button" class="btn btn-success" (click)="openModalAdd(cap.id)">Ajouter une évaluation</button>
                     </p>
                     <table class="table table-striped table-bordered table-hover">
                         <tr>
@@ -143,14 +143,14 @@ class CommentaireEditable {
                                 <label for="evalEnseignant">Evaluation</label>
                                 <select class="form-control"
                                     ngControl="evalEnseignant">
-                                  <option *ngFor="#note of notes" [value]="note.abvr" [ngStyle]="{'color':note.couleur}">{{note.abvr}} ({{note.libelle}})</option>
+                                  <option *ngFor="#note of notes; #j = index" [value]="j+1" [ngStyle]="{'color':note.couleur}">{{note.abvr}} ({{note.libelle}})</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="evalEleve">Auto-évaluation</label>
                                 <select class="form-control"
                                     ngControl="evalEleve">
-                                  <option *ngFor="#note of notes" [value]="note.abvr" [ngStyle]="{'color':note.couleur}">{{note.abvr}} ({{note.libelle}})</option>
+                                  <option *ngFor="#note of notes; #k = index" [value]="k+1" [ngStyle]="{'color':note.couleur}">{{note.abvr}} ({{note.libelle}})</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -201,6 +201,7 @@ class BlocCompetence {
     modalAdd: ModalComponent;
 
     form:ControlGroup;
+    private capId: number;
 
 
     constructor(fb:FormBuilder, public appState:AppState, public restLpc:RestLpc) {
@@ -278,8 +279,37 @@ class BlocCompetence {
         this.modalDelete.close();
     }
 
-    onSubmit(value: any) {
+    openModalAdd(capId: number) {
+        this.capId = capId;
+        this.modalAdd.open();
+    }
 
+    onSubmit(value: any) {
+        value.evalEnseignant == 0 ? value.evalEnseignant = 1 : "";
+        value.evalEleve == 0 ? value.evalEleve = 1 : "";
+        var newEval = {
+            'enseignant': this.appState.get('id'),
+            'eleve': this.appState.get('idLpc') || this.appState.get('id'),
+            'capacite': this.capId,
+            'evalEnseignant': +value.evalEnseignant,
+            'evalEleve': +value.evalEleve,
+            'date': value.date,
+            'commentaire': value.commentaire
+        };
+
+        console.log(newEval);
+        this.restLpc.add(newEval)
+            .subscribe(
+                (msg:any) => {
+                    console.log('msg: ' , msg);
+                    this.modalAdd.close();
+                    //this.refreshVoie();
+                },
+                (err) => {
+                    console.log("erreur: " + err);
+                    //this.error = true;
+                }
+            );
     }
 
 

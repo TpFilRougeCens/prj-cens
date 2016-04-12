@@ -195,7 +195,7 @@ public class ElevesRest {
     /**
      * AJOUTER UNE NOUVELLE EVALUATION AU LPC DE L'ELEVE
      * <p>
-     * Exemple de post : {"evaluation":{"enseignant": 1,"eleve": 7,"capacite":49,"evalEnseignant": 2,"evalEleve": 3,"date": "31/01/1989","commentaire": "youpiiii un commentaire"}}
+     * Exemple de post : {"evaluation":{"enseignant": 1,"eleve": 7,"capacite":49,"evalEnseignant": 2,"evalEleve": 3,"date": "2016-11-27","commentaire": "youpiiii un commentaire"}}
      * <p>
      * L'évaluation et l'auto-évaluation peuvent ne sont pas obligatoirement stipulé
      * Si non stipuler : la Note Id = 1 = Non noté
