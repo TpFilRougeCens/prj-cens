@@ -13,6 +13,7 @@ import {Validators} from "angular2/common";
 import {MODAL_DIRECTIVES} from "ng2-bs3-modal/ng2-bs3-modal";
 import {RestEleve} from "../../service/rest.eleve";
 import {Input} from "angular2/core";
+import {Output} from "angular2/core";
 
 console.log('`Liste evaluation` component loaded asynchronously');
 
@@ -89,7 +90,7 @@ class CommentaireEditable {
                  <div *ngFor="#cap of comp.capacite">
                     <p>
                         <span class="label label-default">Capacité</span><b> {{cap.libelle}}</b>
-                        <button [ngStyle]="{'float': 'right', 'margin-bottom':'10px'}" type="button" class="btn btn-success" (click)="openModalAdd(cap.id)">Ajouter une évaluation</button>
+                        <button [ngStyle]="{'float': 'right', 'margin-bottom':'10px'}" type="button" class="btn btn-success" (click)="openModalAdd(cap)">Ajouter une évaluation</button>
                     </p>
                     <table class="table table-striped table-bordered table-hover">
                         <tr>
@@ -201,8 +202,10 @@ class BlocCompetence {
     modalAdd: ModalComponent;
 
     form:ControlGroup;
-    private capId: number;
+    private cap;
 
+    @Output('refreshEvent')
+    refreshEvent: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(fb:FormBuilder, public appState:AppState, public restLpc:RestLpc) {
         this.form = fb.group({
@@ -279,35 +282,53 @@ class BlocCompetence {
         this.modalDelete.close();
     }
 
-    openModalAdd(capId: number) {
-        this.capId = capId;
+    openModalAdd(cap) {
+        this.cap = cap;
         this.modalAdd.open();
     }
 
     onSubmit(value: any) {
         value.evalEnseignant == 0 ? value.evalEnseignant = 1 : "";
         value.evalEleve == 0 ? value.evalEleve = 1 : "";
-        var newEval = {
+        var newEvalJson = {
             'enseignant': this.appState.get('id'),
             'eleve': this.appState.get('idLpc') || this.appState.get('id'),
-            'capacite': this.capId,
+            'capacite': this.cap.id,
             'evalEnseignant': +value.evalEnseignant,
             'evalEleve': +value.evalEleve,
             'date': value.date,
             'commentaire': value.commentaire
         };
 
-        console.log(newEval);
-        this.restLpc.add(newEval)
+        console.log(newEvalJson);
+        this.restLpc.add(newEvalJson)
             .subscribe(
                 (msg:any) => {
-                    console.log('msg: ' , msg);
                     this.modalAdd.close();
-                    //this.refreshVoie();
+                    var newEval = {
+                        'date': value.date,
+                        'evalEleve': {
+                            'abvr': this.notes[+value.evalEleve].abvr,
+                            'libelle': this.notes[+value.evalEleve].libelle,
+                            'couleur': this.notes[+value.evalEleve].couleur,
+                            'value': this.notes[+value.evalEleve].valeur
+                        },
+                        "evalEnseignant": {
+                            'abvr': this.notes[+value.evalEnseignant].abvr,
+                            'libelle': this.notes[+value.evalEnseignant].libelle,
+                            'couleur': this.notes[+value.evalEnseignant].couleur
+                        },
+                        "id": msg.json().idEval
+                    };
+                    // {'abvr':'', 'libelle':"Non évalué", 'valeur': '',	'couleur':'#00af4c' },
+                    this.cap.evaluation.push(newEval);
+                    console.log('newEval: ' , newEval);
+
+                    // this.refreshEvent.emit(null);
                 },
                 (err) => {
                     console.log("erreur: " + err);
-                    //this.error = true;
+                    // this.error = true;
                 }
             );
     }
@@ -327,7 +348,7 @@ class BlocCompetence {
     </div>
     <div class="panel-body" *ngIf="show">
         <div *ngFor="#comp of matiere.competence">
-          <bloc-competence [comp]="comp"></bloc-competence>
+          <bloc-competence [comp]="comp" (refreshEvent)="refresh()"></bloc-competence>
         </div>
     </div>
  </div>
@@ -337,9 +358,18 @@ class BlocMatiere {
     matiere;
     show:boolean = true;
 
+    @Output('refreshEvent')
+    refreshEvent: EventEmitter<any> = new EventEmitter<any>();
+
+
     toggle() {
         console.log("toggle matiere");
         this.show = !this.show;
+    }
+
+    refresh(){
+        console.log("refresh from BlocMatiere");
+        this.refreshEvent.emit(null);
     }
 }
 
@@ -357,33 +387,16 @@ export class Lpc {
     lpc = []; // un element par annee
     eleve;
 
+    @Output('refreshEvent')
+    refreshEvent: EventEmitter<any> = new EventEmitter<any>();
+
     constructor(private restLpc:RestLpc, private restEleveService:RestEleve, public appState:AppState) {
-        // Les petites paquerettes dans la prairie
     }
 
     ngOnInit() {
-
         console.log('hello `lpc` component, id:' )+ this.appState.get('idLpc');
-        this.restLpc.getLpc(this.appState.get('idLpc'))
-            .subscribe(lpc => {
 
-                this.lpc = lpc.json().classe;
-                // this.lpc = lpc.json().classe.reverse();
-                /*
-                var lpcNotReversed = lpc.json().classe;
-
-                for (let i = 0; i < lpcNotReversed.length; i++) {
-                    this.lpc.push(lpcNotReversed[lpcNotReversed.length-1-i]);
-                }
-                */
-
-                //this.lpc.reverse();
-                this.anneeLpc = this.lpc.length - 1;
-
-
-                console.log("lpc complet: ");
-                console.log(this.lpc);
-            });
+        this.getEleve();
 
         this.restEleveService.getEleve(this.appState.get('idLpc'))
             .subscribe(
@@ -410,5 +423,35 @@ export class Lpc {
         this.anneeLpc = annee;
         console.log("annee: " + annee);
     }
+
+
+    getEleve() {
+        this.restLpc.getLpc(this.appState.get('idLpc'))
+            .subscribe(lpc => {
+
+                this.lpc = lpc.json().classe;
+                this.anneeLpc = this.anneeLpc | this.lpc.length - 1;
+
+                console.log("lpc complet: ");
+                console.log(this.lpc);
+            });
+    }
+
+
+    refresh() {
+        this.restLpc.getLpc(this.appState.get('idLpc'))
+            .subscribe(lpc => {
+
+                this.lpc = lpc.json().classe;
+                this.anneeLpc = this.anneeLpc | this.lpc.length - 1;
+
+                console.log("lpc complet: ");
+                console.log(this.lpc);
+            });
+    }
+
+
+
+
 
 }

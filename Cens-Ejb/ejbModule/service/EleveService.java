@@ -323,17 +323,19 @@ public class EleveService {
      *
      * @param evaluation : Object de type JSON evaluation
      */
-    public boolean JSON_insertEval(JSONObject evaluation) {
+    public Integer JSON_insertEval(JSONObject evaluation) {
         try {
             // Supression de l'id pour une méthode POST
             if (evaluation.has("id") && !evaluation.isNull("id")) {
                 evaluation.remove("id");
             }
-            entityManager.persist(convertToObjectEval(evaluation));
-            return true;
+            AssocEvaluer assocEvaluer = convertToObjectEval(evaluation);
+            entityManager.persist(assocEvaluer);
+            entityManager.flush();
+            return assocEvaluer.getAssocEvaluerId();
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 

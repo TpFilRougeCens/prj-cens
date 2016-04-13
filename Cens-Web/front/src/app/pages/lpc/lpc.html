@@ -48,7 +48,7 @@
     <div class="row">
         <div *ngFor="#matiere of lpc[anneeLpc].bloc[idBloc].matiere">
             <div class="col-sm-12">
-                <bloc-matiere [matiere]="matiere"></bloc-matiere>
+                <bloc-matiere [matiere]="matiere" (refreshEvent)="refresh()"></bloc-matiere>
             </div>
         </div>
     </div>

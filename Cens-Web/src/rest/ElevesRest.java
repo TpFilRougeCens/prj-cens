@@ -203,7 +203,7 @@ public class ElevesRest {
      * Aucun Id à stipuler sur un nouvel ajout
      *
      * @param jsonEntity
-     * @return json
+     * @return json avec l'id de l'évaluation ajouté
      * @throws JSONException
      */
     @Path("lpc/evaluation")
@@ -220,13 +220,12 @@ public class ElevesRest {
         } catch (Exception e) {
             return Response.status(400).entity(JSON_FAIL_CLIENT).build();
         }
-        boolean result = eleveService.JSON_insertEval(jsonEval);
-
-        if (!result) {
+        Integer result = eleveService.JSON_insertEval(jsonEval);
+        if (result == null) {
             return Response.status(500).entity(JSON_FAIL_SERVER).build();
         }
 
-        return Response.status(200).entity(JSON_SUCCES).build();
+        return Response.status(200).entity("{\"idEval\":"+result+"}").build();
     }
 
     /**
