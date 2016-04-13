@@ -385,7 +385,7 @@ export class Lpc {
     idBloc:number = 0;
     anneeLpc: number;
     lpc = []; // un element par annee
-    eleve;
+    eleve = null;
 
     @Output('refreshEvent')
     refreshEvent: EventEmitter<any> = new EventEmitter<any>();
