@@ -19,7 +19,7 @@ import java.io.IOException;
 public class TestPersonne extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @EJB
+   /* @EJB
     PersonneService personneService;
     @EJB
     EmployeService employeService;
@@ -35,7 +35,7 @@ public class TestPersonne extends HttpServlet {
     @Inject
     private FiliereMapper filiereMapper;
     @EJB
-    FiliereService filiereService;
+    FiliereService filiereService;*/
 
     public TestPersonne() {
         super();
@@ -44,7 +44,7 @@ public class TestPersonne extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        eleveService.delete(8);
+        //eleveService.delete(8);
         //TEST VOIE VERS FILIERE
 //        List<Voie> voieJ = voieService.findAll();
 //        List<VoieDTO> voieD = voieMapper.mapFromEntity(voieJ);

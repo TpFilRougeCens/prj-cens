@@ -109,7 +109,6 @@ public class EleveService {
             e.printStackTrace();
             return null;
         }
-
     }
 
     /**
@@ -747,6 +746,7 @@ public class EleveService {
 
         // Notation de l'enseignant
         JSONObject evalEnsEntityJson = new JSONObject();
+        evalEnsEntityJson.put("id", evaluation.getNote1().getNoteId());
         evalEnsEntityJson.put("abvr", evaluation.getNote1().getNoteAbvr());
         evalEnsEntityJson.put("libelle", evaluation.getNote1().getNoteLibelle());
         evalEnsEntityJson.put("couleur", evaluation.getNote1().getNoteCouleur());
@@ -756,6 +756,7 @@ public class EleveService {
 
         // Notation de l'éleve = Autoevaluation
         JSONObject autoEvalEnsEntityJson = new JSONObject();
+        autoEvalEnsEntityJson.put("id", evaluation.getNote2().getNoteId());
         autoEvalEnsEntityJson.put("abvr", evaluation.getNote2().getNoteAbvr());
         autoEvalEnsEntityJson.put("libelle", evaluation.getNote2().getNoteLibelle());
         autoEvalEnsEntityJson.put("couleur", evaluation.getNote2().getNoteCouleur());

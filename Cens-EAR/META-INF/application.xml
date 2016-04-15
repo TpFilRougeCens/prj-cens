@@ -6,13 +6,13 @@
     <description>LpC</description>
     <display-name>Cens</display-name>
     <module>
-        <java>Cens-Dto-1.0.0-SNAPSHOT.jar</java>
+        <java>prj-cens-Cens-Dto-1.0.0-SNAPSHOT.jar</java>
     </module>
     <module>
-        <java>Cens-Jpa-1.0.0-SNAPSHOT.jar</java>
+        <java>prj-cens-Cens-Jpa-1.0.0-SNAPSHOT.jar</java>
     </module>
     <module>
-        <ejb>Cens-Ejb-1.0.0-SNAPSHOT.jar</ejb>
+        <ejb>prj-cens-Cens-Ejb-1.0.0-SNAPSHOT.jar</ejb>
     </module>
     <module>
         <web>

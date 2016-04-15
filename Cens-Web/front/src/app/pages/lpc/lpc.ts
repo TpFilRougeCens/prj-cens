@@ -2,7 +2,7 @@ import {Component} from "angular2/core";
 import {RestLpc} from "../../service/rest.lpc";
 import {AppState} from "../../app.service";
 import {LoadingImage} from "../../components/loading-image/loading.image";
-import {ConvertDatePipe} from "../../pipes/ConvertDate.pipe";
+import {ConvertDatePipe} from "../../pipes/convert.date.pipe.ts";
 import {ClickOutsideDirective} from "../../directives/click.outside";
 import {EventEmitter} from "angular2/core";
 import {ViewChild} from "angular2/core";
@@ -14,71 +14,14 @@ import {MODAL_DIRECTIVES} from "ng2-bs3-modal/ng2-bs3-modal";
 import {RestEleve} from "../../service/rest.eleve";
 import {Input} from "angular2/core";
 import {Output} from "angular2/core";
-
-console.log('`Liste evaluation` component loaded asynchronously');
-
-@Component({
-    selector: 'commentaire-editable',
-    inputs: ['eval'],
-    outputs: ['nouvelEval'],
-    directives: [ClickOutsideDirective],
-    template: `
-       <div *ngIf="!editable" id={{eval.id}} (click)="edit($event,eval.id)"
-             [ngStyle]="{'width':'100%','padding':'10px','margin': '0px','box-sizing': 'border-box',
-               '-webkit-box-sizing':'border-box',
-               '-moz-box-sizing': 'border-box'}">{{eval.evalEnseignant.commentaire}}</div>
-       <input *ngIf="editable"
-           id={{eval.id}}
-           [ngStyle]="{'width':'100%','padding':'10px','margin': '0px','box-sizing': 'border-box',
-               '-webkit-box-sizing':'border-box',
-               '-moz-box-sizing': 'border-box'}"
-           #comInput
-           value="{{eval.evalEnseignant.commentaire}}"
-           (clickOutside)="clickOutside($event, comInput.value, eval.id)">
-
-  `,
-    pipes: [ConvertDatePipe]
-})
-class CommentaireEditable {
-    editable: boolean = false;
-    targetTagName;
-    targetId;
-    nouvelEval: EventEmitter<any> = new EventEmitter<any>();
-    eval;
-
-    constructor(public appState:AppState) {
-        this.eval = eval;
-    }
-
-    edit(event, id) {
-        console.log("Click inside! " +event.target.tagName);
-        console.log("event: " ,event);
-
-        console.log("id: " ,id);
-        this.editable = true;
-        this.targetTagName = event.target.tagName;
-        this.targetId = id;
-
-    }
-
-    clickOutside(event, commentaire ) {
-        // Des paquerettes dans ton ...
-        if (this.targetId != event.target.id) {
-            this.eval.evalEnseignant.commentaire = commentaire;
-            this.editable = false;
-            this.eval.commentaire = commentaire;
-            console.log( "Click outside! ", event.target.tagName );
-            console.log( "new comment: ", commentaire );
-            console.log( "new eval: ", this.eval );
-            this.nouvelEval.emit(this.eval);
-        }
-    }
-}
-
+import {SortDatePipe} from "../../pipes/sort.date.pipe";
+import {CommentaireEditable} from "./commentaire.editable";
+import {DateEditable} from "./date.editable";
+import {NoteEditable} from "./note.editable";
 
 @Component({
     selector: 'bloc-competence',
-    directives: [CommentaireEditable, MODAL_DIRECTIVES],
+    directives: [CommentaireEditable, DateEditable, NoteEditable, MODAL_DIRECTIVES],
     template: `
   <!--<div class="col-sm-12">-->
       <div class="panel panel-default bloc-competence">
@@ -99,13 +42,12 @@ class CommentaireEditable {
                           <th class="text-center">Auto-évaluation</th>
                           <th *ngIf="appState.get('role') == 'Enseignant'" style="width:70%;">Commentaire</th>
                           <th *ngIf="appState.get('role') == 'Enseignant'"></th>
-
                         </tr>
-                        <tr *ngFor="#eval of cap.evaluation">
-                          <td class="text-center">{{"FR" | convertToFrDate: eval.date}}</td>
-                          <td [style.color]="eval.evalEnseignant.couleur" class="text-center"><b>{{eval.evalEnseignant.abvr}}</b></td>
-                          <td [style.color]="eval.evalEleve.couleur" class="text-center"><b>{{eval.evalEleve.abvr}}</b></td>
-                          <td *ngIf="appState.get('role') == 'Enseignant'"  [ngStyle]="{'padding':'0px'}"><commentaire-editable [eval]="eval"  (nouvelEval)="saveEval($event, cap)"></commentaire-editable></td>
+                        <tr *ngFor="#eval of cap.evaluation | sortDate">
+                          <td [ngStyle]="{'padding':'0px'}"><date-editable [eval]="eval" (nouvelEval)="saveEval($event, cap)"></date-editable></td>
+                          <td [style.color]="eval.evalEnseignant.couleur" class="text-center" [ngStyle]="{'padding':'0px'}"><note-editable [eval]="eval" [autoEval]="false" (nouvelEval)="saveEval($event, cap)"></note-editable></td>
+                          <td [style.color]="eval.evalEleve.couleur" class="text-center" [ngStyle]="{'padding':'0px'}"><note-editable [eval]="eval" [autoEval]="true" (nouvelEval)="saveEval($event, cap)"></note-editable></td>
+                          <td *ngIf="appState.get('role') == 'Enseignant'" [ngStyle]="{'padding':'0px'}"><commentaire-editable [eval]="eval"  (nouvelEval)="saveEval($event, cap)"></commentaire-editable></td>
                           <td *ngIf="appState.get('role') == 'Enseignant'" (click)="openModalDelete(eval.id)"><div class="text-center"><span [ngStyle]="{'color':'red','text-align':'center'}" class="glyphicon glyphicon-remove" aria-hidden="true"></span></div></td>
                         </tr>
                     </table>
@@ -144,14 +86,14 @@ class CommentaireEditable {
                                 <label for="evalEnseignant">Evaluation</label>
                                 <select class="form-control"
                                     ngControl="evalEnseignant">
-                                  <option *ngFor="#note of notes; #j = index" [value]="j+1" [ngStyle]="{'color':note.couleur}">{{note.abvr}} ({{note.libelle}})</option>
+                                  <option *ngFor="#note of notes; #j = index" [value]="j" [ngStyle]="{'color':note.couleur}">{{note.abvr}} ({{note.libelle}})</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="evalEleve">Auto-évaluation</label>
                                 <select class="form-control"
                                     ngControl="evalEleve">
-                                  <option *ngFor="#note of notes; #k = index" [value]="k+1" [ngStyle]="{'color':note.couleur}">{{note.abvr}} ({{note.libelle}})</option>
+                                  <option *ngFor="#note of notes; #k = index" [value]="k" [ngStyle]="{'color':note.couleur}">{{note.abvr}} ({{note.libelle}})</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -169,7 +111,7 @@ class CommentaireEditable {
                 </form>
         </modal>
   `,
-    pipes: [ConvertDatePipe]
+    pipes: [ConvertDatePipe, SortDatePipe]
 })
 class BlocCompetence {
     @Input() comp;
@@ -178,13 +120,13 @@ class BlocCompetence {
 
     // TODO récupérer les valeurs depuis la table note, web service à faire
     notes = [
-        {'abvr':'', 'libelle':"Non évalué", 'valeur': '',	'couleur':'#00af4c' },
-        {'abvr':'A',	'libelle':"Compétence acquise",	'valeur':20,	'couleur':'#00af4c'},
-        {'abvr':'PA',	'libelle':"Compétence presque acquise",	'valeur':15,	'couleur':'#007baf'},
-        {'abvr':'VA',	'libelle':"Compétence encore fragile, en voie d'acquisition",	'valeur':10,	'couleur':'#ffd600'},
-        {'abvr':'EA',	'libelle':"Compétence en cours d'acquisition, débutant",	'valeur':5,	'couleur':'#ff9600'},
-        {'abvr':'NA',	'libelle':"Compétence non acquise",	'valeur':0,	'couleur':'#ff0000'},
-        {'abvr':'DEC',	'libelle':"Compétence désactivée",	'valeur':0,	'couleur':'#ff1000'}
+        {'abvr':'', 'libelle':"Non évalué", 'valeur': '',	'couleur':'#00af4c' , 'id':1},
+        {'abvr':'A',	'libelle':"Compétence acquise",	'valeur':20,	'couleur':'#00af4c', 'id':2},
+        {'abvr':'PA',	'libelle':"Compétence presque acquise",	'valeur':15,	'couleur':'#007baf', 'id':3},
+        {'abvr':'VA',	'libelle':"Compétence encore fragile, en voie d'acquisition",	'valeur':10,	'couleur':'#ffd600', 'id':4},
+        {'abvr':'EA',	'libelle':"Compétence en cours d'acquisition, débutant",	'valeur':5,	'couleur':'#ff9600', 'id':5},
+        {'abvr':'NA',	'libelle':"Compétence non acquise",	'valeur':0,	'couleur':'#ff0000', 'id':6},
+        {'abvr':'DEC',	'libelle':"Compétence désactivée",	'valeur':0,	'couleur':'#ff1000', 'id':7}
     ];
 
 
@@ -203,10 +145,10 @@ class BlocCompetence {
 
     form:ControlGroup;
     private cap;
-
+/*
     @Output('refreshEvent')
     refreshEvent: EventEmitter<any> = new EventEmitter<any>();
-
+*/
     constructor(fb:FormBuilder, public appState:AppState, public restLpc:RestLpc) {
         this.form = fb.group({
             date: ['', Validators.required],
@@ -229,11 +171,22 @@ class BlocCompetence {
             'enseignant': this.appState.get('id'),
             'eleve': this.appState.get('idLpc') || this.appState.get('id'),
             'capacite': cap.id,
-            'evalEnseignant': evaluation.evalEnseignant.value,
-            'evalEleve': evaluation.evalEleve.value,
             'date': evaluation.date,
-            'commentaire': evaluation.commentaire
+            'commentaire': evaluation.commentaire,
+            'evalEnseignant': evaluation.evalEnseignant.id,
+            'evalEleve': evaluation.evalEleve.id
         };
+
+/*
+
+        evaluation.evalEnseignant.value != 0 ? newEval["evalEnseignant"] = +value.evalEnseignant : "";
+        value.evalEleve != 0 ? newEvalJson["evalEleve"] = +value.evalEleve : "";
+
+
+        if (evaluation.evalEnseignant.value != 0 ) newEval["evalEnseignant"] = +value.evalEnseignant + 1;
+        if (value.evalEleve != 0 ) newEvalJson["evalEleve"] = +value.evalEleve + 1;
+*/
+
 
         console.log("sending: ", newEval);
 
@@ -288,16 +241,19 @@ class BlocCompetence {
     }
 
     onSubmit(value: any) {
-        value.evalEnseignant == 0 ? value.evalEnseignant = 1 : "";
-        value.evalEleve == 0 ? value.evalEleve = 1 : "";
+        var dateArray = value.date.split("/");
+        console.log(dateArray);
+        var dateFormated = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
+        console.log(dateFormated);
+
         var newEvalJson = {
             'enseignant': this.appState.get('id'),
             'eleve': this.appState.get('idLpc') || this.appState.get('id'),
             'capacite': this.cap.id,
-            'evalEnseignant': +value.evalEnseignant,
-            'evalEleve': +value.evalEleve,
-            'date': value.date,
-            'commentaire': value.commentaire
+            'date': dateFormated,
+            'commentaire': value.commentaire,
+            'evalEnseignant': +value.evalEnseignant + 1,
+            'evalEleve': +value.evalEleve + 1
         };
 
         console.log(newEvalJson);
@@ -306,22 +262,25 @@ class BlocCompetence {
                 (msg:any) => {
                     this.modalAdd.close();
                     var newEval = {
-                        'date': value.date,
+                        'date': dateFormated,
                         'evalEleve': {
                             'abvr': this.notes[+value.evalEleve].abvr,
                             'libelle': this.notes[+value.evalEleve].libelle,
                             'couleur': this.notes[+value.evalEleve].couleur,
-                            'value': this.notes[+value.evalEleve].valeur
+                            'value': this.notes[+value.evalEleve ].valeur,
+                            'id': +value.evalEleve + 1
                         },
                         "evalEnseignant": {
                             'abvr': this.notes[+value.evalEnseignant].abvr,
                             'libelle': this.notes[+value.evalEnseignant].libelle,
-                            'couleur': this.notes[+value.evalEnseignant].couleur
+                            'couleur': this.notes[+value.evalEnseignant].couleur,
+                            'value': this.notes[+value.evalEnseignant].valeur,
+                            'id': +value.evalEnseignant + 1
                         },
                         "id": msg.json().idEval
                     };
                     // {'abvr':'', 'libelle':"Non évalué", 'valeur': '',	'couleur':'#00af4c' },
-                    this.cap.evaluation.push(newEval);
+                    this.cap.evaluation.unshift(newEval);
                     console.log('newEval: ' , newEval);
 
                     // this.refreshEvent.emit(null);
@@ -348,7 +307,7 @@ class BlocCompetence {
     </div>
     <div class="panel-body" *ngIf="show">
         <div *ngFor="#comp of matiere.competence">
-          <bloc-competence [comp]="comp" (refreshEvent)="refresh()"></bloc-competence>
+          <bloc-competence [comp]="comp" ></bloc-competence>
         </div>
     </div>
  </div>
@@ -357,20 +316,20 @@ class BlocCompetence {
 class BlocMatiere {
     matiere;
     show:boolean = true;
-
+/*
     @Output('refreshEvent')
     refreshEvent: EventEmitter<any> = new EventEmitter<any>();
-
+*/
 
     toggle() {
         console.log("toggle matiere");
         this.show = !this.show;
     }
-
+/*
     refresh(){
         console.log("refresh from BlocMatiere");
         this.refreshEvent.emit(null);
-    }
+    }*/
 }
 
 
@@ -386,10 +345,10 @@ export class Lpc {
     anneeLpc: number;
     lpc = []; // un element par annee
     eleve = null;
-
+/*
     @Output('refreshEvent')
     refreshEvent: EventEmitter<any> = new EventEmitter<any>();
-
+*/
     constructor(private restLpc:RestLpc, private restEleveService:RestEleve, public appState:AppState) {
     }
 
@@ -437,7 +396,7 @@ export class Lpc {
             });
     }
 
-
+/*
     refresh() {
         this.restLpc.getLpc(this.appState.get('idLpc'))
             .subscribe(lpc => {
@@ -449,7 +408,7 @@ export class Lpc {
                 console.log(this.lpc);
             });
     }
-
+*/
 
 
 
