@@ -111,7 +111,10 @@ module.exports = {
       // Returns file content as string
       //
       // See: https://github.com/webpack/raw-loader
-      {test: /\.css$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')]}
+      {test: /\.css$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')]},
+
+      // sass-loader not scss-loader
+      {test: /\.scss$/, exclude: /node_modules/, loaders: ['raw-loader', 'sass-loader']}
 
     ],
 

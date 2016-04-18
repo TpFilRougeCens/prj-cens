@@ -78,8 +78,7 @@ export class AuthentificationFake {
             this.appState.set('id', 1);
             this.appState.set('role', 'Enseignant');
             return Observable.of('token');
-        }
-        else if (username === 'manager') {
+        } else if (username === 'manager') {
             this.appState.set('classesEnseignant', [
                 {
                     'id':1,
@@ -114,8 +113,7 @@ export class AuthentificationFake {
             this.appState.set('id', 4);
             this.appState.set('role', 'Manager');
             return Observable.of('token');
-        }
-        else if (username === 'pedagogie') {
+        } else if (username === 'pedagogie') {
             this.appState.set('classesEnseignant', [
                 {
                     'id':1,
