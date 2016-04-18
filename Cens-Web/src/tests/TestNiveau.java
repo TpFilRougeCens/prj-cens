@@ -4,6 +4,7 @@ package tests;
 import service.NiveauService;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +19,8 @@ import java.io.IOException;
 public class TestNiveau extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    @EJB
-    NiveauService niveauService;
+//    @Inject
+//    NiveauService niveauService;
 
     /**
      * @see HttpServlet#HttpServlet()

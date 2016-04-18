@@ -195,7 +195,7 @@ public class ElevesRest {
     /**
      * AJOUTER UNE NOUVELLE EVALUATION AU LPC DE L'ELEVE
      * <p>
-     * Exemple de post : {"evaluation":{"enseignant": 1,"eleve": 7,"capacite":49,"evalEnseignant": 2,"evalEleve": 3,"date": "31/01/1989","commentaire": "youpiiii un commentaire"}}
+     * Exemple de post : {"evaluation":{"enseignant": 1,"eleve": 7,"capacite":49,"evalEnseignant": 2,"evalEleve": 3,"date": "2016-11-27","commentaire": "youpiiii un commentaire"}}
      * <p>
      * L'évaluation et l'auto-évaluation peuvent ne sont pas obligatoirement stipulé
      * Si non stipuler : la Note Id = 1 = Non noté
@@ -203,7 +203,7 @@ public class ElevesRest {
      * Aucun Id à stipuler sur un nouvel ajout
      *
      * @param jsonEntity
-     * @return json
+     * @return json avec l'id de l'évaluation ajouté
      * @throws JSONException
      */
     @Path("lpc/evaluation")
@@ -220,13 +220,12 @@ public class ElevesRest {
         } catch (Exception e) {
             return Response.status(400).entity(JSON_FAIL_CLIENT).build();
         }
-        boolean result = eleveService.JSON_insertEval(jsonEval);
-
-        if (!result) {
+        Integer result = eleveService.JSON_insertEval(jsonEval);
+        if (result == null) {
             return Response.status(500).entity(JSON_FAIL_SERVER).build();
         }
 
-        return Response.status(200).entity(JSON_SUCCES).build();
+        return Response.status(200).entity("{\"idEval\":"+result+"}").build();
     }
 
     /**

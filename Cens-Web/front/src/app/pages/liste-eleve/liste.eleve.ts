@@ -44,7 +44,7 @@ export class ListEleve {
         var mockData = require('assets/mock-data/mock-data.json');
 
         this.classes = [{'id':0,'niveau':'Toutes les classes', 'filiere': '', 'libelle':''}, ...this.appState.get('classesEnseignant')];
-        this.restEleveService.getEleve()
+        this.restEleveService.getClasse()
             .subscribe(
                 (restEleve:any) => {
                     console.log(restEleve.json());
