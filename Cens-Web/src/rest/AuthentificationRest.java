@@ -2,7 +2,6 @@ package rest;
 
 import model.Eleve;
 import model.Employe;
-import rest.utilAuthentification.AuthHelper;
 import service.EleveService;
 import service.EmployeService;
 import service.GroupeService;
@@ -19,12 +18,13 @@ import static rest.utilAuthentification.AuthHelper.createJsonWebToken;
  */
 
 @Path("/authentification")
-public class AuthentificationEndpoint {
+public class AuthentificationRest {
 
     private Integer id;
     private String nomUtilisateur;
     private String prenomUtilisateur;
     private String role;
+    private String login;
 
     private Employe empBase;
     private Eleve eleBase;
@@ -33,10 +33,6 @@ public class AuthentificationEndpoint {
     EmployeService employeService;
     @EJB
     EleveService eleveService;
-    @EJB
-    GroupeService groupeService;
-    @EJB
-    TokenService tokenservice;
 
     @POST
     @Produces("application/json")
@@ -46,14 +42,14 @@ public class AuthentificationEndpoint {
         System.out.println("entré valeur du login "+username+" valeur du pass "+password);
 
         try {
-            // Authenticate the user using the credentials provided
-            authenticate(username, password);
+            // Authentifier l'utilisateur avec les paramétre des champ
+            authentifier(username, password);
             System.out.println("test before jason");
-            // Issue a token for the user
-            String token = issueToken(username);
+            // Mise en place du token pour l'utilisateur
+            String token = creerToken(username);
 
             System.out.println("test before response");
-            // Return the token on the response
+            // Renvoi du token dans la réponse
             return Response.ok(token).build();
 
         } catch (Exception e) {
@@ -62,9 +58,9 @@ public class AuthentificationEndpoint {
         }
     }
 
-    private void authenticate(String username, String password) throws Exception {
-        // Authenticate against a database, LDAP, file or whatever
-        // Throw an Exception if the credentials are invalid
+    private void authentifier(String username, String password) throws Exception {
+        // Authentification dans la base de donnée de l'utilisateur
+
         empBase = employeService.findOne(username,password);
 
         eleBase = eleveService.findOne(username,password);
@@ -72,12 +68,14 @@ public class AuthentificationEndpoint {
             System.out.println("valeur de l'username empBase "+empBase.getPersonneLogin());
             id = empBase.getPersonneId();
             nomUtilisateur = empBase.getPersonneNom();
+            login = eleBase.getPersonneLogin();
             prenomUtilisateur=empBase.getPersonnePrenom();
             role=empBase.getGroupe().getGroupeLibelle();
         }else if(eleBase!=null){
             System.out.println("valeur de l'username eleBase "+eleBase.getPersonneLogin());
             id = eleBase.getPersonneId();
             nomUtilisateur = eleBase.getPersonneNom();
+            login = eleBase.getPersonneLogin();
             prenomUtilisateur=eleBase.getPersonnePrenom();
             role=eleBase.getGroupe().getGroupeLibelle();
         }else {
@@ -85,10 +83,9 @@ public class AuthentificationEndpoint {
         }
     }
 
-    private String issueToken(String username) {
-        // Issue a token (can be a random String persisted to a database or a JWT token)
-        // The issued token must be associated to a user
-        // Return the issued token
-        return createJsonWebToken(id,nomUtilisateur,prenomUtilisateur,role, (long) 30);
+    private String creerToken(String username) {
+
+        //Création du JWT et le retouner
+        return createJsonWebToken(id,login,nomUtilisateur,prenomUtilisateur,role, (long) 30);
     }
 }

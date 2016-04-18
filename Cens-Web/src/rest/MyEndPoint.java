@@ -1,7 +1,7 @@
 package rest;
 
 import dto.PersonneDTO;
-import rest.utilAuthentification.AuthenticateUser;
+import rest.utilAuthentification.AuthentifierUser;
 import rest.utilAuthentification.RoleUtilisateur;
 import rest.utilAuthentification.Secured;
 
@@ -17,16 +17,17 @@ public class MyEndPoint {
 
 
     @Inject
-    @AuthenticateUser
-    PersonneDTO authenticatedUser;
+    @AuthentifierUser
+    PersonneDTO authentifierUser;
 
-    @GET
-    @Path("{id}")
+    @POST
+    @Path("/methodeNonSecurise")
     @Produces("application/json")
-    public Response myUnsecuredMethod(@PathParam("id") Long id) {
+    public Response myUnsecuredMethod() {
         // This method is not annotated with @Secured
         // The authentication filter won't be executed before invoking this method
         //TODO
+        System.out.println("passage dans la methode non securise");
         return null;
     }
 
@@ -42,13 +43,14 @@ public class MyEndPoint {
     }
 
     @DELETE
-    @Secured({RoleUtilisateur.COORDINATEUR})
+    @Secured({RoleUtilisateur.ELEVE})
     @Path("{id}")
     @Produces("application/json")
     public Response mySecuredMethod(@PathParam("id") Long id) {
         // This method is annotated with @Secured
         // The authentication filter will be executed before invoking this method
         // The HTTP request must be performed with a valid token
+        System.out.println("passage methode securisée");
         return null;
     }
 }

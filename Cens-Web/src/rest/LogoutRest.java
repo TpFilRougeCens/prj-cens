@@ -14,7 +14,7 @@ import javax.ws.rs.*;
 
 @Path("/logout")
 @Secured({RoleUtilisateur.ELEVE,RoleUtilisateur.ADMIN,RoleUtilisateur.COORDINATEUR,RoleUtilisateur.ENSEIGNANT,RoleUtilisateur.MANAGER})
-public class LogoutEndpoint {
+public class LogoutRest {
 
     @EJB
     TokenService tokenService;

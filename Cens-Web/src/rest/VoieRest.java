@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
  * Voir les méthodes pour le design pattern des URI
  */
 @Path("/voie")
-public class Voie {
+public class VoieRest {
 
     // ##############################################################
     // Web service sur la logique données axes élèves

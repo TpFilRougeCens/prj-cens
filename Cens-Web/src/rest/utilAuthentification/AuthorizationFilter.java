@@ -27,8 +27,8 @@ import java.util.List;
 public class AuthorizationFilter implements ContainerRequestFilter {
 
     @Inject
-    @AuthenticateUser
-    PersonneDTO authentifierUser2;
+    @AuthentifierUser
+    PersonneDTO authentifierUser;
 
 
     @Context
@@ -75,9 +75,9 @@ public class AuthorizationFilter implements ContainerRequestFilter {
         String groupLibelle = null;
 
         try {
-            if (authentifierUser2 != null) {
-                System.out.println("valeur eleve authentifier " + authentifierUser2.getGroupe().getGroupeLibelle());
-                groupLibelle = authentifierUser2.getGroupe().getGroupeLibelle();
+            if (authentifierUser != null) {
+                System.out.println("valeur eleve authentifier " + authentifierUser.getGroupe().getGroupeLibelle());
+                groupLibelle = authentifierUser.getGroupe().getGroupeLibelle();
             }
         } catch (Exception e) {
             e.printStackTrace();
