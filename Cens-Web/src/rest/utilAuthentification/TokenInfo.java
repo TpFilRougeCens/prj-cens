@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
  */
 public class TokenInfo {
     private Integer userId;
+    private String userLogin;
     private String userNom;
     private String userPrenom;
     private String userRole;
@@ -55,5 +56,13 @@ public class TokenInfo {
     }
     public void setExpires(DateTime expires) {
         this.expires = expires;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 }

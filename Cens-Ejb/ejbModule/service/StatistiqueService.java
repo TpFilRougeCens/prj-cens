@@ -1,5 +1,6 @@
 package service;
 
+import model.Matiere;
 import model.Statistique;
 
 import javax.ejb.LocalBean;
@@ -17,6 +18,7 @@ public class StatistiqueService {
 
     @PersistenceContext(unitName = "Cens-Jpa")
     EntityManager entityManager;
+
 
     /**
      * FIND ALL ELEMENTS METHODE WITH PARAMETER QUERY findAll

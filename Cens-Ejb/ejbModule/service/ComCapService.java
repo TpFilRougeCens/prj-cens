@@ -1,11 +1,12 @@
 package service;
 
-import model.ComCap;
+import model.*;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,17 @@ public class ComCapService {
 
     @PersistenceContext(unitName = "Cens-Jpa")
     EntityManager entityManager;
+
+    public List<ComCap> findComCapByEleveId(int eleveId) {
+        Eleve eleve = entityManager.find(Eleve.class, eleveId);
+        List<ComCap> listeComCap = new ArrayList<>();
+        for(AssocEvaluer comCap:eleve.getAssocEvaluers()){
+            listeComCap.add(comCap.getComCap());
+            System.out.println("liste competence "+comCap.getComCap().getComCapLibelle());
+        }
+
+        return listeComCap;
+    }
 
     /**
      * FIND ALL ELEMENTS METHODE WITH PARAMETER QUERY findAll

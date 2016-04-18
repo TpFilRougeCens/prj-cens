@@ -36,11 +36,11 @@ public class AuthentifierUserProducer {
 
     @Produces
     @RequestScoped
-    @AuthenticateUser
+    @AuthentifierUser
     private PersonneDTO authentifierUser;
 
 
-    public void handleAuthentificationEvent(@Observes @AuthenticateUser String login) {
+    public void authentificationEvent(@Observes @AuthentifierUser String login) {
 
             this.authentifierUser = findUser(login);
             System.out.println("valeur authentifierUseremp " + authentifierUser);
