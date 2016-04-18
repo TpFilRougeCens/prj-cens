@@ -45,7 +45,7 @@ export class AuthentificationFake {
         this.token = 'ze4r8z5r6az4r8aze4aze';
         localStorage.setItem('token', this.token);
 
-        if (username === 'enseignant' && password === 'password') {
+        if (username === 'jean' && password === 'password') {
             this.appState.set('classesEnseignant', [
                 {
                     'id': 1,
@@ -81,7 +81,7 @@ export class AuthentificationFake {
             this.appState.set('id', 1);
             this.appState.set('role', 'Enseignant');
             return Observable.of('token');
-        } else if (username === 'manager' && password === 'password') {
+        } else if (username === 'paul' && password === 'password') {
             this.appState.set('classesEnseignant', [
                 {
                     'id': 1,
@@ -111,12 +111,12 @@ export class AuthentificationFake {
                     'niveau': 'Term'
                 }
             ]);
-            this.appState.set('prenom', 'Jean');
-            this.appState.set('nom', 'Dupond');
+            this.appState.set('prenom', 'Paul');
+            this.appState.set('nom', 'Dupont');
             this.appState.set('id', 4);
             this.appState.set('role', 'Manager');
             return Observable.of('token');
-        } else if (username === 'pedagogie' && password === 'password') {
+        } else if (username === 'delphine' && password === 'password') {
             this.appState.set('classesEnseignant', [
                 {
                     'id': 1,
@@ -130,12 +130,12 @@ export class AuthentificationFake {
                     }]
                 }
             ]);
-            this.appState.set('prenom', 'Jean');
-            this.appState.set('nom', 'Dupond');
+            this.appState.set('prenom', 'Delphine');
+            this.appState.set('nom', 'Dube');
             this.appState.set('id', 6);
             this.appState.set('role', 'Pedagogie');
             return Observable.of('token');
-        } else if (username === 'directeur' && password === 'password') {
+        } else if (username === 'philippe' && password === 'password') {
             this.appState.set('classesEnseignant', [
                 {
                     'id': 1,
@@ -149,12 +149,12 @@ export class AuthentificationFake {
                     }]
                 }
             ]);
-            this.appState.set('prenom', 'Jean');
-            this.appState.set('nom', 'Dupond');
+            this.appState.set('prenom', 'Philippe');
+            this.appState.set('nom', 'Hervé');
             this.appState.set('id', 3);
             this.appState.set('role', 'Directeur');
             return Observable.of('token');
-        } else if (username === 'eleve' && password === 'password') {
+        } else if (username === 'theo' && password === 'password') {
             this.appState.set('classeEleve', [
                 {
                     'id': 1,
@@ -164,8 +164,8 @@ export class AuthentificationFake {
                     'niveau': '2sd'
                 }
             ]);
-            this.appState.set('prenom', 'Jean');
-            this.appState.set('nom', 'Dupond');
+            this.appState.set('prenom', 'Theo');
+            this.appState.set('nom', 'Durand');
             this.appState.set('id', 8);
             this.appState.set('idLpc', 8);
             this.appState.set('role', 'Eleve');

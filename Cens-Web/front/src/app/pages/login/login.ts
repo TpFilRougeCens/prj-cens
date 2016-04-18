@@ -42,12 +42,7 @@ import {AppState} from '../../app.service';
                                   </div>
                             </fieldset>
                         </form>
-                        Log as
-                        <button (click)="onSubmit({'username': 'eleve'})">Eleve</button>
-                        <button (click)="onSubmit({'username': 'enseignant'})">Enseignant</button>
-                        <button (click)="onSubmit({'username': 'manager'})">Manager</button>
-                        <button (click)="onSubmit({'username': 'pedagogie'})">Pedagogie</button>
-                        <button (click)="onSubmit({'username': 'directeur'})">Directeur</button>
+                      
                     </div>
                 </div>
             </div>
@@ -55,6 +50,11 @@ import {AppState} from '../../app.service';
     </div>
   `
 })
+/* <button (click)="onSubmit({'username': 'eleve'})">Eleve</button>
+ <button (click)="onSubmit({'username': 'enseignant'})">Enseignant</button>
+ <button (click)="onSubmit({'username': 'manager'})">Manager</button>
+ <button (click)="onSubmit({'username': 'pedagogie'})">Pedagogie</button>
+ <button (click)="onSubmit({'username': 'directeur'})">Directeur</button> */
 export class Login {
     form: ControlGroup;
     error: boolean = false;
