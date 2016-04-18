@@ -41,7 +41,6 @@ export class AuthentificationFake {
 */
          //for the purpose of this cookbook, we will just simulate that
 
-
         this.token = 'ze4r8z5r6az4r8aze4aze';
         localStorage.setItem('token', this.token);
 
@@ -155,7 +154,7 @@ export class AuthentificationFake {
             this.appState.set('role', 'Directeur');
             return Observable.of('token');
         }
-        else {
+        else if (username === 'eleve') {
             this.appState.set('classeEleve', [
                 {
                     'id':1,
@@ -171,6 +170,9 @@ export class AuthentificationFake {
             this.appState.set('idLpc', 8);
             this.appState.set('role', 'Eleve');
             return Observable.of('token');
+        }
+        else {
+            return Observable.throw('authentication failure');
         }
 
 

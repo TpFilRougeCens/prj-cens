@@ -30,7 +30,7 @@ import {AppState} from "../../app.service";
                                     <input class="form-control" placeholder="Mot de passe" name="password" type="password" value="" ngControl="password">
                                 </div>
                                   <div class="form-group">
-                                    <button type="submit" class="btn btn-lg btn-success btn-block" [disabled]="!form.valid">Connexion</button>
+                                    <button id="login" type="submit" class="btn btn-lg btn-success btn-block" [disabled]="!form.valid">Connexion</button>
                                   </div>
                             </fieldset>
                         </form>

@@ -35,6 +35,7 @@ import {NoteEditable} from "./note.editable";
                         <span class="label label-default">Capacité</span><b> {{cap.libelle}}</b>
                         <button [ngStyle]="{'float': 'right', 'margin-bottom':'10px'}" type="button" class="btn btn-success" (click)="openModalAdd(cap)">Ajouter une évaluation</button>
                     </p>
+                    
                     <table class="table table-striped table-bordered table-hover">
                         <tr>
                           <th class="text-center">Date</th>
@@ -128,7 +129,6 @@ class BlocCompetence {
         {'abvr':'NA',	'libelle':"Compétence non acquise",	'valeur':0,	'couleur':'#ff0000', 'id':6},
         {'abvr':'DEC',	'libelle':"Compétence désactivée",	'valeur':0,	'couleur':'#ff1000', 'id':7}
     ];
-
 
     // modal delete
 

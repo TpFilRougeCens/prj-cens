@@ -37,19 +37,19 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a [routerLink]=" ['Home'] "><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
+                        <a [routerLink]=" ['Home'] " id="nav-home"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
                     </li>
                     <li *ngIf="menuItem.isVisible('ListEleve')">
-                        <a [routerLink]=" ['ListEleve'] "><i class="fa fa-group fa-fw"></i> Liste des élèves</a>
+                        <a [routerLink]=" ['ListEleve'] " id="nav-liste-eleve"><i class="fa fa-group fa-fw"></i> Liste des élèves</a>
                     </li>
                     <li *ngIf="menuItem.isVisible('Lpc')">
-                        <a [routerLink]=" ['Lpc'] "><i class="fa fa-book fa-fw"></i> Lpc</a>
+                        <a [routerLink]=" ['Lpc'] " id="nav-lpc"><i class="fa fa-book fa-fw"></i> Lpc</a>
                     </li>
                     <li *ngIf="menuItem.isVisible('ListEvaluation')">
-                        <a [routerLink]=" ['ListEvaluation'] "><i class="fa fa-bar-chart-o fa-fw"></i> Mes
+                        <a [routerLink]=" ['ListEvaluation'] " id="nav-liste-evaluation"><i class="fa fa-bar-chart-o fa-fw"></i> Mes
                             évaluations</a>
                     </li>
-                    <li *ngIf="menuItem.isVisible('Gestion')">
+                    <li *ngIf="menuItem.isVisible('Gestion')" id="nav-gestion">
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i
                                 class="fa fa-fw fa-cogs"></i> Gestion <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
