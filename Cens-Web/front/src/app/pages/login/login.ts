@@ -1,9 +1,9 @@
 // login.ts
-import {Component} from "angular2/core";
-import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup, NgIf} from "angular2/common";
-import {Router} from "angular2/router";
-import {Authentification} from "./../../service/authentification.ts";
-import {AppState} from "../../app.service";
+import {Component} from 'angular2/core';
+import {FORM_DIRECTIVES, FormBuilder, Validators, ControlGroup, NgIf} from 'angular2/common';
+import {Router} from 'angular2/router';
+import {Authentification} from './../../service/authentification.ts';
+import {AppState} from '../../app.service';
 
 
 @Component({
@@ -20,26 +20,34 @@ import {AppState} from "../../app.service";
                         <h3 class="panel-title">Livret de compétences</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" [ngFormModel]="form" (submit)="$event.preventDefault(); onSubmit(form.value)">
+                        <form role="form" [ngFormModel]="form" 
+                            (submit)="$event.preventDefault(); onSubmit(form.value)">
                             <fieldset>
-                                <div class="control-label" for="inputError" *ngIf="error" style="color:red">Identifiant ou mot de passe invalide</div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Identifiant" name="username" autofocus ngControl="username">
+                                <div class="control-label" for="inputError" 
+                                    *ngIf="error" style="color:red">
+                                    Identifiant ou mot de passe invalide
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Mot de passe" name="password" type="password" value="" ngControl="password">
+                                    <input class="form-control" placeholder="Identifiant" 
+                                        name="username" autofocus ngControl="username">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Mot de passe" 
+                                        name="password" type="password" 
+                                        value="" ngControl="password">
                                 </div>
                                   <div class="form-group">
-                                    <button type="submit" class="btn btn-lg btn-success btn-block" [disabled]="!form.valid">Connexion</button>
+                                    <button type="submit" class="btn btn-lg btn-success btn-block" 
+                                        [disabled]="!form.valid">Connexion</button>
                                   </div>
                             </fieldset>
                         </form>
                         Log as
-                        <button (click)="onSubmit({'username':'eleve'})">Eleve</button>
-                        <button (click)="onSubmit({'username':'enseignant'})">Enseignant</button>
-                        <button (click)="onSubmit({'username':'manager'})">Manager</button>
-                        <button (click)="onSubmit({'username':'pedagogie'})">Pedagogie</button>
-                        <button (click)="onSubmit({'username':'directeur'})">Directeur</button>
+                        <button (click)="onSubmit({'username': 'eleve'})">Eleve</button>
+                        <button (click)="onSubmit({'username': 'enseignant'})">Enseignant</button>
+                        <button (click)="onSubmit({'username': 'manager'})">Manager</button>
+                        <button (click)="onSubmit({'username': 'pedagogie'})">Pedagogie</button>
+                        <button (click)="onSubmit({'username': 'directeur'})">Directeur</button>
                     </div>
                 </div>
             </div>
@@ -48,10 +56,12 @@ import {AppState} from "../../app.service";
   `
 })
 export class Login {
-    form:ControlGroup;
-    error:boolean = false;
+    form: ControlGroup;
+    error: boolean = false;
 
-    constructor(fb:FormBuilder, public auth:Authentification, public router:Router, public appState:AppState) {
+    constructor(fb: FormBuilder, public auth: Authentification, public router: Router,
+                public appState:
+        AppState) {
         this.form = fb.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
@@ -60,20 +70,19 @@ export class Login {
 
     ngOnInit() {
 
-        //this.router.navigate(['../PrivateApp']);
     }
 
-    onSubmit(value:any) {
+    onSubmit(value: any) {
 
         console.log(value);
         this.auth.login(value.username, value.password)
             .subscribe(
-                (token:any) => {
+                (token: any) => {
                     console.log('token: ' + token);
                     this.router.navigate(['../PrivateApp']);
                 },
                 (err) => {
-                    console.log("erreur: " + err);
+                    console.log('erreur: ' + err);
                     this.error = true;
                 }
             );

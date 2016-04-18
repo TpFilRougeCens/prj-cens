@@ -1,7 +1,7 @@
 // authentication.ts
 import {Injectable} from 'angular2/core';
-import {Headers, Http} from "angular2/http";
-import {Observable} from "rxjs/Rx";
+import {Headers, Http} from 'angular2/http';
+import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class RestLpc {
 
         // If we had a login api, we would have done something like this
 
-         return this.http.get('rest/eleve/'+id+'/lpc');
+         return this.http.get('rest/eleve/' + id + '/lpc');
 
          //for the purpose of this cookbook, we will just simulate that
 /*
@@ -29,7 +29,7 @@ export class RestLpc {
 
 
     delete(id: number) {
-        return this.http.delete('rest/eleve/lpc/evaluation/'+id);
+        return this.http.delete('rest/eleve/lpc/evaluation/' + id);
     }
 
     putEval(evaluation) {

@@ -1,8 +1,8 @@
-import {Component} from "angular2/core";
-import {ClickOutsideDirective} from "../../directives/click.outside";
-import {ConvertDatePipe} from "../../pipes/convert.date.pipe";
-import {EventEmitter} from "angular2/core";
-import {AppState} from "../../app.service";
+import {Component} from 'angular2/core';
+import {ClickOutsideDirective} from '../../directives/click.outside';
+import {ConvertDatePipe} from '../../pipes/convert.date.pipe';
+import {EventEmitter} from 'angular2/core';
+import {AppState} from '../../app.service';
 console.log('`Liste evaluation` component loaded asynchronously');
 
 @Component({
@@ -32,6 +32,7 @@ export class CommentaireEditable {
     targetTagName;
     targetId;
     nouvelEval: EventEmitter<any> = new EventEmitter<any>();
+
     eval;
 
     constructor(public appState:AppState) {

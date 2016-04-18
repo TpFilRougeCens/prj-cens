@@ -1,21 +1,21 @@
-import {AppState} from "../app.service";
-import {Injectable} from "angular2/core";
+import {AppState} from '../app.service';
+import {Injectable} from 'angular2/core';
 
 var menuItem = {
     // enseignant
-    'Enseignant':['ListEleve', 'ListEvaluation'],
+    'Enseignant': ['ListEleve', 'ListEvaluation'],
 
 // directeur
-    'Directeur':['ListEleve', 'ListEvaluation','GestionVoie', 'Gestion'],
+    'Directeur': ['ListEleve', 'ListEvaluation', 'GestionVoie', 'Gestion'],
 
     // manager
-    'Manager':['ListEleve', 'ListEvaluation'],
+    'Manager': ['ListEleve', 'ListEvaluation'],
 
     // pedagogie
-    'Pedagogie':['ListEleve', 'ListEvaluation'],
+    'Pedagogie': ['ListEleve', 'ListEvaluation'],
 
     // eleve
-    'Eleve':['Lpc']
+    'Eleve': ['Lpc']
 };
 
 @Injectable()
@@ -24,6 +24,6 @@ export class MenuItem {
     constructor(private appState: AppState) {}
 
     isVisible(route: String): boolean {
-        return menuItem[this.appState.get('role')].indexOf(route) != -1;
+        return menuItem[this.appState.get('role')].indexOf(route) !== -1;
     }
 }

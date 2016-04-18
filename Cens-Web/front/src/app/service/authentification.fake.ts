@@ -1,17 +1,17 @@
 // authentication.ts
 import {Injectable} from 'angular2/core';
-import {Headers, Http} from "angular2/http";
-import {Observable} from "rxjs/Rx";
+import {Headers, Http} from 'angular2/http';
+import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import {AuthHttp, AuthConfig, JwtHelper} from 'angular2-jwt';
-import {AppState} from "../app.service";
+import {AppState} from '../app.service';
 
 @Injectable()
 export class AuthentificationFake {
     token: string;
     jwtHelper: JwtHelper = new JwtHelper();
 
-    constructor(private http: Http, public appState:AppState) {
+    constructor(private http: Http, public appState: AppState) {
         this.token = localStorage.getItem('token');
     }
 
@@ -45,31 +45,34 @@ export class AuthentificationFake {
         this.token = 'ze4r8z5r6az4r8aze4aze';
         localStorage.setItem('token', this.token);
 
-        if (username === 'enseignant') {
+        if (username === 'enseignant' && password === 'password') {
             this.appState.set('classesEnseignant', [
                 {
-                    'id':1,
-                    'voie':'Générale',
-                    'filiere':'Scientifique',
-                    'libelle':'A',
-                    'niveau':'2sd',
-                    'matiere':[{
-                        'id': 1,
-                        'libelle':'Mathématiques',
-                    },{
-                        'id': 2,
-                        'libelle':'Sciences',
-                    }]
+                    'id': 1,
+                    'voie': 'Générale',
+                    'filiere': 'Scientifique',
+                    'libelle': 'A',
+                    'niveau': '2sd',
+                    'matiere': [
+                        {
+                            'id': 1,
+                            'libelle': 'Mathématiques',
+                        },
+                        {
+                            'id': 2,
+                            'libelle': 'Sciences',
+                        }
+                    ]
                 },
                 {
-                    'id':2,
-                    'voie':'Technologique',
-                    'filiere':'STMG',
-                    'libelle':'B',
-                    'niveau':'Term',
-                    'matiere':[{
+                    'id': 2,
+                    'voie': 'Technologique',
+                    'filiere': 'STMG',
+                    'libelle': 'B',
+                    'niveau': 'Term',
+                    'matiere': [{
                         'id': 1,
-                        'libelle':'Mathématiques',
+                        'libelle': 'Mathématiques',
                     }]
                 }
             ]);
@@ -78,34 +81,34 @@ export class AuthentificationFake {
             this.appState.set('id', 1);
             this.appState.set('role', 'Enseignant');
             return Observable.of('token');
-        } else if (username === 'manager') {
+        } else if (username === 'manager' && password === 'password') {
             this.appState.set('classesEnseignant', [
                 {
-                    'id':1,
-                    'voie':'Générale',
-                    'filiere':'Scientifique',
-                    'libelle':'A',
-                    'niveau':'2sd',
-                    'matiere':[{
+                    'id': 1,
+                    'voie': 'Générale',
+                    'filiere': 'Scientifique',
+                    'libelle': 'A',
+                    'niveau': '2sd',
+                    'matiere': [{
                         'id': 1,
-                        'libelle':'Mathématiques',
+                        'libelle': 'Mathématiques',
                     }]
                 }
             ]);
             this.appState.set('classesManager', [
                 {
-                    'id':1,
-                    'voie':'Générale',
-                    'filiere':'Scientifique',
-                    'libelle':'A',
-                    'niveau':'2sd'
+                    'id': 1,
+                    'voie': 'Générale',
+                    'filiere': 'Scientifique',
+                    'libelle': 'A',
+                    'niveau': '2sd'
                 },
                 {
-                    'id':2,
-                    'voie':'Technologique',
-                    'filiere':'STMG',
-                    'libelle':'B',
-                    'niveau':'Term'
+                    'id': 2,
+                    'voie': 'Technologique',
+                    'filiere': 'STMG',
+                    'libelle': 'B',
+                    'niveau': 'Term'
                 }
             ]);
             this.appState.set('prenom', 'Jean');
@@ -113,17 +116,17 @@ export class AuthentificationFake {
             this.appState.set('id', 4);
             this.appState.set('role', 'Manager');
             return Observable.of('token');
-        } else if (username === 'pedagogie') {
+        } else if (username === 'pedagogie' && password === 'password') {
             this.appState.set('classesEnseignant', [
                 {
-                    'id':1,
-                    'voie':'Générale',
-                    'filiere':'Scientifique',
-                    'libelle':'A',
-                    'niveau':'2sd',
-                    'matiere':[{
+                    'id': 1,
+                    'voie': 'Générale',
+                    'filiere': 'Scientifique',
+                    'libelle': 'A',
+                    'niveau': '2sd',
+                    'matiere': [{
                         'id': 1,
-                        'libelle':'Mathématiques',
+                        'libelle': 'Mathématiques',
                     }]
                 }
             ]);
@@ -132,18 +135,17 @@ export class AuthentificationFake {
             this.appState.set('id', 6);
             this.appState.set('role', 'Pedagogie');
             return Observable.of('token');
-        }
-        else if (username === 'directeur') {
+        } else if (username === 'directeur' && password === 'password') {
             this.appState.set('classesEnseignant', [
                 {
-                    'id':1,
-                    'voie':'Générale',
-                    'filiere':'Scientifique',
-                    'libelle':'A',
-                    'niveau':'2sd',
-                    'matiere':[{
+                    'id': 1,
+                    'voie': 'Générale',
+                    'filiere': 'Scientifique',
+                    'libelle': 'A',
+                    'niveau': '2sd',
+                    'matiere': [{
                         'id': 1,
-                        'libelle':'Mathématiques',
+                        'libelle': 'Mathématiques',
                     }]
                 }
             ]);
@@ -152,15 +154,14 @@ export class AuthentificationFake {
             this.appState.set('id', 3);
             this.appState.set('role', 'Directeur');
             return Observable.of('token');
-        }
-        else {
+        } else if (username === 'eleve' && password === 'password') {
             this.appState.set('classeEleve', [
                 {
-                    'id':1,
-                    'voie':'Générale',
-                    'filière':'Scientifique',
-                    'libelle':'A',
-                    'niveau':'2sd'
+                    'id': 1,
+                    'voie': 'Générale',
+                    'filière': 'Scientifique',
+                    'libelle': 'A',
+                    'niveau': '2sd'
                 }
             ]);
             this.appState.set('prenom', 'Jean');
@@ -169,11 +170,9 @@ export class AuthentificationFake {
             this.appState.set('idLpc', 8);
             this.appState.set('role', 'Eleve');
             return Observable.of('token');
+        } else {
+            return Observable.throw('authentication failure');
         }
-
-
-
-       // return Observable.throw('authentication failure');
 
     }
 

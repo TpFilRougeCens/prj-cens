@@ -1,7 +1,7 @@
-import {Component} from "angular2/core";
-import {ClickOutsideDirective} from "../directives/click.outside";
-import {EventEmitter} from "angular2/core";
-import {AppState} from "../app.service";
+import {Component} from 'angular2/core';
+import {ClickOutsideDirective} from '../directives/click.outside';
+import {EventEmitter} from 'angular2/core';
+import {AppState} from '../app.service';
 
 @Component({
     selector: 'editable-component',
@@ -40,10 +40,10 @@ export class EditableComponent {
     }
 
     edit(event, id, comInput) {
-        console.log("Click inside! " +event.target.tagName);
-        console.log("event: " ,event);
+        console.log('Click inside! ' +event.target.tagName);
+        console.log('event: ' ,event);
 
-        console.log("id: " ,id);
+        console.log('id: ' ,id);
         this.editable = true;
         this.targetId = id;
 
@@ -54,9 +54,9 @@ export class EditableComponent {
         if (this.targetId != event.target.id) {
             this.val = val;
             this.editable = false;
-            console.log( "Click outside! ", event.target.tagName );
-            console.log( "new comment: ", val );
-            console.log( "new val: ", this.val );
+            console.log( 'Click outside! ', event.target.tagName );
+            console.log( 'new comment: ', val );
+            console.log( 'new val: ', this.val );
             this.newVal.emit(this.val);
         }
     }

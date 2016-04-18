@@ -1,8 +1,8 @@
-import {Component} from "angular2/core";
-import {RestFiliere} from "../../service/rest.filiere";
-import {AppState} from "../../app.service";
-import {Router} from "angular2/router";
-import {LoadingImage} from "../../components/loading-image/loading.image";
+import {Component} from 'angular2/core';
+import {RestFiliere} from '../../service/rest.filiere';
+import {AppState} from '../../app.service';
+import {Router} from 'angular2/router';
+import {LoadingImage} from '../../components/loading-image/loading.image';
 
 @Component({
     selector: 'gestion-filiere',
@@ -34,10 +34,11 @@ export class GestionFiliere {
     ngOnInit() {
         console.log('hello `gestion voie` component');
 
-        this.classes = [{'id':0,'niveau':'Toutes les classes', 'filiere': '', 'libelle':''}, ...this.appState.get('classesEnseignant')];
+        this.classes = [{'id': 0, 'niveau': 'Toutes les classes', 'filiere': '', 'libelle': ''},
+            ...this.appState.get('classesEnseignant')];
         this.restFiliereService.getFiliere()
             .subscribe(
-                (restFiliere:any) => {
+                (restFiliere: any) => {
                     console.log(restFiliere.json());
                     this.filieres = restFiliere.json().filiere;
                 },

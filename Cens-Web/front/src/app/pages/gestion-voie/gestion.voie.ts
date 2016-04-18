@@ -1,14 +1,14 @@
-import {Component} from "angular2/core";
-import {RestVoie} from "../../service/rest.voie";
-import {AppState} from "../../app.service";
-import {Router} from "angular2/router";
-import {LoadingImage} from "../../components/loading-image/loading.image";
-import {MODAL_DIRECTIVES, ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
-import {ViewChild} from "angular2/core";
-import {EditableComponent} from "../../components/editable-component";
-import {FormBuilder} from "angular2/common";
-import {ControlGroup} from "angular2/common";
-import {Validators} from "angular2/common";
+import {Component} from 'angular2/core';
+import {RestVoie} from '../../service/rest.voie';
+import {AppState} from '../../app.service';
+import {Router} from 'angular2/router';
+import {LoadingImage} from '../../components/loading-image/loading.image';
+import {MODAL_DIRECTIVES, ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
+import {ViewChild} from 'angular2/core';
+import {EditableComponent} from '../../components/editable-component';
+import {FormBuilder} from 'angular2/common';
+import {ControlGroup} from 'angular2/common';
+import {Validators} from 'angular2/common';
 
 @Component({
     selector: 'gestion-voie',
@@ -33,15 +33,16 @@ export class GestionVoie {
     // modal add
     @ViewChild('modalAdd')
     modalAdd: ModalComponent;
-    form:ControlGroup;
+    form: ControlGroup;
 
 
     // TODO: Remove this when we're done
+    // pas utilisé
     get diagnostic() {
         return JSON.stringify(this.model);
     }
 
-    constructor(fb:FormBuilder, private restVoieService: RestVoie, public appState: AppState, public router: Router) {
+    constructor(fb: FormBuilder, private restVoieService: RestVoie, public appState: AppState, public router: Router) {
         this.form = fb.group({
             voie: ['', Validators.required]
         });
@@ -50,7 +51,8 @@ export class GestionVoie {
     ngOnInit() {
         console.log('hello `gestion voie` component');
 
-        this.classes = [{'id':0,'niveau':'Toutes les classes', 'filiere': '', 'libelle':''}, ...this.appState.get('classesEnseignant')];
+        this.classes = [{'id': 0, 'niveau': 'Toutes les classes', 'filiere': '', 'libelle': ''},
+            ...this.appState.get('classesEnseignant')];
 
         this.refreshVoie();
     }
@@ -66,8 +68,8 @@ export class GestionVoie {
         voie.libelle = event;
         this.restVoieService.update(voie)
             .subscribe(
-                (restVoie:any) => {
-                    console.log("response");
+                (restVoie: any) => {
+                    console.log('response');
                     console.log(restVoie);
                 },
                 (err) => {
@@ -76,15 +78,15 @@ export class GestionVoie {
     }
 
     deleteVoie() {
-        console.log("delete: " +this.voieIdToDelete);
+        console.log('delete: ' + this.voieIdToDelete);
         this.restVoieService.delete(this.voieIdToDelete)
             .subscribe(
-            (msg:any) => {
+            (msg: any) => {
                 console.log('msg: ' + msg);
                 this.refreshVoie();
             },
             (err) => {
-                console.log("erreur: " + err);
+                console.log('erreur: ' + err);
                 this.error = true;
             }
         );
@@ -92,20 +94,20 @@ export class GestionVoie {
         this.modalDelete.close();
     }
 
-    onSubmit(value:any) {
+    onSubmit(value: any) {
 
         console.log(value);
         this.modalAdd.dismiss();
         this.restVoieService.add(value.voie)
             .subscribe(
-                (msg:any) => {
+                (msg: any) => {
                     console.log('msg: ' + msg);
                     console.log('msg json: ' + msg.json());
                     this.refreshVoie();
 
                 },
                 (err) => {
-                    console.log("erreur: " + err);
+                    console.log('erreur: ' + err);
                     this.error = true;
                 }
             );
@@ -118,7 +120,7 @@ export class GestionVoie {
     refreshVoie() {
         this.restVoieService.getVoie()
             .subscribe(
-            (restVoie:any) => {
+            (restVoie: any) => {
                 console.log(restVoie.json());
                 this.voies = restVoie.json().voies;
             },

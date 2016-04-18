@@ -1,23 +1,23 @@
 /*
  * Angular 2 decorators and services
  */
-import {Component} from "angular2/core";
-import {RouteConfig, Router, ROUTER_DIRECTIVES} from "angular2/router";
-import {Home} from "./pages/home";
-import {ListEvaluation} from "./pages/liste-evaluation";
-import {ListEleve} from "./pages/liste-eleve";
-import {AppState} from "./app.service";
-import {isLoggedin} from "./service/is-loggedin";
+import {Component} from 'angular2/core';
+import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Home} from './pages/home';
+import {ListEvaluation} from './pages/liste-evaluation';
+import {ListEleve} from './pages/liste-eleve';
+import {AppState} from './app.service';
+import {isLoggedin} from './service/is-loggedin';
 
-import {MenuItem} from "./service/menu-items";
-import {Authentification} from "./service/authentification";
-import {Login} from "./pages/login/login";
-import {Profil} from "./pages/profil/profil";
-import {Lpc} from "./pages/lpc/lpc";
-import {GestionVoie} from "./pages/gestion-voie/gestion.voie";
-import {GestionFiliere} from "./pages/gestion-filiere/gestion.filiere";
-import {GestionClasse} from "./pages/gestion-classe/gestion.classe";
-import {GestionEleve} from "./pages/gestion-eleve/gestion.eleve";
+import {MenuItem} from './service/menu-items';
+import {Authentification} from './service/authentification';
+import {Login} from './pages/login/login';
+import {Profil} from './pages/profil/profil';
+import {Lpc} from './pages/lpc/lpc';
+import {GestionVoie} from './pages/gestion-voie/gestion.voie';
+import {GestionFiliere} from './pages/gestion-filiere/gestion.filiere';
+import {GestionClasse} from './pages/gestion-classe/gestion.classe';
+import {GestionEleve} from './pages/gestion-eleve/gestion.eleve';
 
 //require('bootstrap/less/bootstrap.less');
 
@@ -46,18 +46,20 @@ import {GestionEleve} from "./pages/gestion-eleve/gestion.eleve";
     {path: '/gestion-classe', name: 'GestionClasse', component: GestionClasse},
     {path: '/gestion-eleve', name: 'GestionEleve', component: GestionEleve},
     // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
-    {path: '/profil', name: 'Profil', component: Profil} //loader: () => require('es6-promise!./profil')('Profil') }
+    {path: '/profil', name: 'Profil', component: Profil}
+    //loader: () => require('es6-promise!./profil')('Profil') }
 ])
 export class PrivateApp {
     logoLPCFull = 'assets/img/logoLPCFull.png';
     name = 'Angular 2 Webpack Starter';
     url = 'https://twitter.com/AngularClass';
-    errorMessage:string;
-    nameProfil:string = "Chargement...";
-    isLoggedin:boolean = false;
+    errorMessage: string;
+    nameProfil: string = 'Chargement...';
+    isLoggedin: boolean = false;
 
-    constructor(public appState:AppState,public auth:Authentification, public router:Router, public menuItem: MenuItem) {
-        console.log("Im in Private App constructor");
+    constructor(public appState: AppState, public auth: Authentification, public router: Router,
+                public menuItem: MenuItem) {
+        console.log('Im in Private App constructor');
     }
 
     get state() {
@@ -65,11 +67,11 @@ export class PrivateApp {
     }
 
     ngOnInit() {
-        console.log("Im in Private App ngOnInit");
-        console.log("Im logged");
+        console.log('Im in Private App ngOnInit');
+        console.log('Im logged');
         console.log(isLoggedin());
         if (!isLoggedin()) {
-            console.log("redirecting ...");
+            console.log('redirecting ...');
             //this.router.navigate(['../Login']);
         }
 
@@ -83,6 +85,7 @@ export class PrivateApp {
         this.auth.logout();
 
         // FIXME not the way to do it
+        //utiliser ng2-bs3-modal à la place de la modal actuel qui ne marche pas
         window.location.href = '/';
     }
 

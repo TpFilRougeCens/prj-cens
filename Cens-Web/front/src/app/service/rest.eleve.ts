@@ -1,7 +1,7 @@
 // authentication.ts
 import {Injectable} from 'angular2/core';
-import {Headers, Http} from "angular2/http";
-import {Observable} from "rxjs/Rx";
+import {Headers, Http} from 'angular2/http';
+import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
@@ -67,7 +67,7 @@ export class RestEleve {
              })
          })
          .map((res : any) => {
-             console.log("res:");
+             console.log('res:');
              console.log(res);
              this.token = undefined;
              localStorage.removeItem('token');

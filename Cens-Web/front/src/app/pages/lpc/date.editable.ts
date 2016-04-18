@@ -1,8 +1,8 @@
-import {Component} from "angular2/core";
-import {ClickOutsideDirective} from "../../directives/click.outside";
-import {ConvertDatePipe} from "../../pipes/convert.date.pipe";
-import {AppState} from "../../app.service";
-import {EventEmitter} from "angular2/core";
+import {Component} from 'angular2/core';
+import {ClickOutsideDirective} from '../../directives/click.outside';
+import {ConvertDatePipe} from '../../pipes/convert.date.pipe';
+import {AppState} from '../../app.service';
+import {EventEmitter} from 'angular2/core';
 console.log('`Liste evaluation` component loaded asynchronously');
 
  // <td class="text-center">{{eval.date | convertToFrDate}}</td>
@@ -38,14 +38,14 @@ export class DateEditable {
 
     constructor(public appState:AppState) {
         this.eval = eval;
-        console.log("eval: " ,eval);
+        console.log('eval: ' ,eval);
     }
 
     edit(event, id) {
-        console.log("Click inside! " +event.target.tagName);
-        console.log("event: " ,event);
+        console.log('Click inside! ' +event.target.tagName);
+        console.log('event: ' ,event);
 
-        console.log("id: " ,id);
+        console.log('id: ' ,id);
         this.editable = true;
         this.targetTagName = event.target.tagName;
         this.targetId = id;
@@ -64,9 +64,9 @@ export class DateEditable {
 
 
             this.eval.date = dateFormated;
-            console.log( "Click outside! ", event.target.tagName );
-            console.log( "new comment: ", date );
-            console.log( "new eval: ", this.eval );
+            console.log( 'Click outside! ', event.target.tagName );
+            console.log( 'new comment: ', date );
+            console.log( 'new eval: ', this.eval );
             this.nouvelEval.emit(this.eval);
         }
     }

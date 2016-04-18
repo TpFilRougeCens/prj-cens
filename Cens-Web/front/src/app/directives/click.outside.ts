@@ -1,5 +1,5 @@
 import {Directive, ElementRef, Input} from 'angular2/core';
-import {EventEmitter} from "angular2/core";
+import {EventEmitter} from 'angular2/core';
 
 
 @Directive({

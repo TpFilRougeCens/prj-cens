@@ -1,7 +1,7 @@
-import { Pipe } from "angular2/core";
+import { Pipe } from 'angular2/core';
 
 @Pipe({
-    name: "sortDate"
+    name: 'sortDate'
 })
 export class SortDatePipe {
     transform(array: Array<string>, args: string): Array<string> {

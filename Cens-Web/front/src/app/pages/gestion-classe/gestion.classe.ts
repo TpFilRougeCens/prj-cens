@@ -1,8 +1,8 @@
-import {Component} from "angular2/core";
-import {RestClasse} from "../../service/rest.classe";
-import {AppState} from "../../app.service";
-import {Router} from "angular2/router";
-import {LoadingImage} from "../../components/loading-image/loading.image";
+import {Component} from 'angular2/core';
+import {RestClasse} from '../../service/rest.classe';
+import {AppState} from '../../app.service';
+import {Router} from 'angular2/router';
+import {LoadingImage} from '../../components/loading-image/loading.image';
 
 @Component({
     selector: 'gestion-classe',
@@ -34,7 +34,7 @@ export class GestionClasse {
 
         this.restClasseService.getClasse()
             .subscribe(
-                (restClasse:any) => {
+                (restClasse: any) => {
                     console.log(restClasse.json());
                     this.classes = restClasse.json().classes;
                 },

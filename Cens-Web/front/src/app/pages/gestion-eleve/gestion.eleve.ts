@@ -1,9 +1,9 @@
-import {Component} from "angular2/core";
-import {RestEleve} from "../../service/rest.eleve";
-import {AppState} from "../../app.service";
-import {Router} from "angular2/router";
-import {LoadingImage} from "../../components/loading-image/loading.image";
-import {RestClasse} from "../../service/rest.classe";
+import {Component} from 'angular2/core';
+import {RestEleve} from '../../service/rest.eleve';
+import {AppState} from '../../app.service';
+import {Router} from 'angular2/router';
+import {LoadingImage} from '../../components/loading-image/loading.image';
+import {RestClasse} from '../../service/rest.classe';
 
 @Component({
     selector: 'gestion-eleve',
@@ -28,7 +28,8 @@ export class GestionEleve {
         return JSON.stringify(this.model);
     }
 
-    constructor(private restClasseService: RestClasse, private restEleveService: RestEleve, public appState: AppState, public router: Router) {
+    constructor(private restClasseService: RestClasse, private restEleveService: RestEleve, public appState: AppState,
+                public router: Router) {
     }
 
     ngOnInit() {
@@ -36,20 +37,26 @@ export class GestionEleve {
         // static data that is bundled
         var mockData = require('assets/mock-data/mock-data.json');
 
-        this.classes = [{'id':0,'niveau':'Toutes les classes', 'filiere': '', 'libelle':''}, ...this.appState.get('classesEnseignant')];
+        this.classes = [{'id': 0, 'niveau': 'Toutes les classes', 'filiere': '', 'libelle': ''},
+            ...this.appState.get('classesEnseignant')];
         this.restEleveService.getAllEleve()
             .subscribe(
-                (restEleve:any) => {
+                (restEleve: any) => {
                     console.log(restEleve.json());
                     restEleve.json().classes.forEach((classe) => {
                         console.log(classe.voie.libelle);
                         classe.eleves.forEach((eleve) => {
-                            this.eleves.push(Object.assign({}, {'voie': classe.voie.libelle}, {'filiere': classe.filiere.libelle}, {'classe': classe.niveau.libelle}, {'libelle': classe.libelle}, {'idClasse':classe.id}, eleve));
-                            this.elevesVisible.push(Object.assign({}, {'voie': classe.voie.libelle}, {'filiere': classe.filiere.libelle}, {'classe': classe.niveau.libelle}, {'libelle': classe.libelle}, {'idClasse':classe.id}, eleve));
+                            this.eleves.push(Object.assign({},
+                                {'voie': classe.voie.libelle}, {'filiere': classe.filiere.libelle},
+                                {'classe': classe.niveau.libelle}, {'libelle': classe.libelle},
+                                {'idClasse': classe.id}, eleve));
+                            this.elevesVisible.push(Object.assign({}, {'voie': classe.voie.libelle},
+                                {'filiere': classe.filiere.libelle}, {'classe': classe.niveau.libelle},
+                                {'libelle': classe.libelle}, {'idClasse': classe.id}, eleve));
                         });
                     });
 
-                    console.log("eleves", this.eleves);
+                    console.log('eleves', this.eleves);
 
                 },
                 (err) => {
@@ -59,7 +66,7 @@ export class GestionEleve {
         //this.asyncDataWithWebpack();
     }
 
-    onEleveSelect(id:number) {
+    onEleveSelect(id: number) {
         //console.log(id);
         this.appState.set('idLpc', id);
         this.router.navigate(['../Lpc']);

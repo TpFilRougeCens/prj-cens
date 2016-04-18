@@ -21,17 +21,15 @@ console.log('`Liste evaluation` component loaded asynchronously');
                '-webkit-box-sizing':'border-box',
                '-moz-box-sizing': 'border-box'}">{{eval.evalEleve.abvr}}
        </div>
-       <select *ngIf="editable" 
+       <select *ngIf="editable"
         (change)="onChange($event.target.value)"
         id={{eval.id}}
         [ngStyle]="{'width':'100%','padding':'10px','margin': '0px','box-sizing': 'border-box',
                '-webkit-box-sizing':'border-box',
                '-moz-box-sizing': 'border-box'}"
-        (clickOutside)="clickOutside($event, eval.id)"
-        >
+        (clickOutside)="clickOutside($event, eval.id)">
             <option *ngFor="#note of notes; #j = index" [value]="j" [ngStyle]="{'color':note.couleur}">{{note.abvr}} {{note.libelle}}</option>
        </select>
-       
   `,
     pipes: [ConvertDatePipe]
 })
@@ -48,14 +46,14 @@ export class NoteEditable {
     // TODO  remplacer ce mock
     // récupérer les valeurs depuis la table note, web service à faire
     notes = [
-        {'abvr':'', 'libelle':"", 'valeur': '',	'couleur':'', 'id':0 },
-        {'abvr':'', 'libelle':"Non évalué", 'valeur': '',	'couleur':'#00af4c', 'id':1 },
-        {'abvr':'A',	'libelle':"Compétence acquise",	'valeur':20,	'couleur':'#00af4c', 'id':2 },
-        {'abvr':'PA',	'libelle':"Compétence presque acquise",	'valeur':15,	'couleur':'#007baf', 'id':3 },
-        {'abvr':'VA',	'libelle':"Compétence encore fragile, en voie d'acquisition",	'valeur':10,	'couleur':'#ffd600', 'id':4 },
-        {'abvr':'EA',	'libelle':"Compétence en cours d'acquisition, débutant",	'valeur':5,	'couleur':'#ff9600', 'id':5 },
-        {'abvr':'NA',	'libelle':"Compétence non acquise",	'valeur':0,	'couleur':'#ff0000', 'id':6 },
-        {'abvr':'DEC',	'libelle':"Compétence désactivée",	'valeur':0,	'couleur':'#ff1000', 'id':7 }
+        {'abvr': '', 'libelle': "", 'valeur': '',	'couleur': '', 'id': 0 },
+        {'abvr': '', 'libelle': "Non évalué", 'valeur': '',	'couleur': '#00af4c', 'id': 1 },
+        {'abvr': 'A',	'libelle': "Compétence acquise",	'valeur': 20,	'couleur': '#00af4c', 'id': 2 },
+        {'abvr': 'PA',	'libelle': "Compétence presque acquise",	'valeur': 15,	'couleur': '#007baf', 'id': 3 },
+        {'abvr': 'VA',	'libelle': "Compétence encore fragile, en voie d'acquisition",	'valeur': 10,	'couleur': '#ffd600', 'id': 4 },
+        {'abvr': 'EA',	'libelle': "Compétence en cours d'acquisition, débutant",	'valeur': 5,	'couleur': '#ff9600', 'id': 5 },
+        {'abvr': 'NA',	'libelle': "Compétence non acquise",	'valeur': 0,	'couleur': '#ff0000', 'id': 6 },
+        {'abvr': 'DEC',	'libelle': "Compétence désactivée",	'valeur': 0,	'couleur': '#ff1000', 'id': 7 }
     ];
 
     constructor(public appState:AppState) {
@@ -78,35 +76,46 @@ export class NoteEditable {
         if (this.targetId != event.target.id) {
             this.editable = false;
         }
-
     }
 
     onChange(event) {
-        console.log("select changed");
-        console.log(event);
+        console.log('select changed');
+        //console.log(event);
+
+        // FIXME event devrait retourner l'id de la note, ce n'est pas le cas...
+        console.log("slice",event.split(" "));
+        let postition = this.arrayObjectIndexOf(this.notes, event.split(" ")[0], "abvr");
+        console.log(postition);
 
         this.editable = false;
 
         if (event != 0) {
             if (this.autoEval) {
-                this.eval.evalEleve.abvr = this.notes[event].abvr;
-                this.eval.evalEleve.libelle = this.notes[event].libelle;
-                this.eval.evalEleve.couleur = this.notes[event].couleur;
-                this.eval.evalEleve.id = this.notes[event].id;
-                this.eval.evalEleve.valeur = this.notes[event].valeur;
+                this.eval.evalEleve.abvr = this.notes[postition].abvr;
+                this.eval.evalEleve.libelle = this.notes[postition].libelle;
+                this.eval.evalEleve.couleur = this.notes[postition].couleur;
+                this.eval.evalEleve.id = this.notes[postition].id;
+                this.eval.evalEleve.valeur = this.notes[postition].valeur;
             }
             else {
-                this.eval.evalEnseignant.abvr = this.notes[event].abvr;
-                this.eval.evalEnseignant.libelle = this.notes[event].libelle;
-                this.eval.evalEnseignant.couleur = this.notes[event].couleur;
-                this.eval.evalEnseignant.id = this.notes[event].id;
-                this.eval.evalEnseignant.valeur = this.notes[event].valeur;
+                this.eval.evalEnseignant.abvr = this.notes[postition].abvr;
+                this.eval.evalEnseignant.libelle = this.notes[postition].libelle;
+                this.eval.evalEnseignant.couleur = this.notes[postition].couleur;
+                this.eval.evalEnseignant.id = this.notes[postition].id;
+                this.eval.evalEnseignant.valeur = this.notes[postition].valeur;
             }
         }
 
         this.nouvelEval.emit(this.eval);
-
     }
+
+
+    arrayObjectIndexOf(myArray, searchTerm, property) {
+    for(var i = 0, len = myArray.length; i < len; i++) {
+        if (myArray[i][property] === searchTerm) return i;
+    }
+    return -1;
+}
 }
 
 

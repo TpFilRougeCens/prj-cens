@@ -1,7 +1,7 @@
 // authentication.ts
 import {Injectable} from 'angular2/core';
-import {Headers, Http} from "angular2/http";
-import {Observable} from "rxjs/Rx";
+import {Headers, Http} from 'angular2/http';
+import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class RestVoie {
     }
 
     delete(id: number) {
-        return this.http.delete(this._voieUrl+'/'+id);
+        return this.http.delete(this._voieUrl + '/' + id);
     }
 
     update(voie) {
