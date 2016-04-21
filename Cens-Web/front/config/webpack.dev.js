@@ -18,7 +18,7 @@ var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = {
-    title: 'Cens LPC (debug)',
+    title: 'CENS LPC',
     baseUrl: '/',
     host: 'localhost',
     port: 3000,

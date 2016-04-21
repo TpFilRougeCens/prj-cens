@@ -80,29 +80,32 @@ export class NoteEditable {
 
     onChange(event) {
         console.log('select changed');
-        //console.log(event);
+        console.log(event);
+
+
+        var position = event;
 
         // FIXME event devrait retourner l'id de la note, ce n'est pas le cas...
-        console.log("slice",event.split(" "));
+        /*console.log("slice",event.split(" "));
         let postition = this.arrayObjectIndexOf(this.notes, event.split(" ")[0], "abvr");
-        console.log(postition);
+        console.log(postition);*/
 
         this.editable = false;
 
         if (event != 0) {
             if (this.autoEval) {
-                this.eval.evalEleve.abvr = this.notes[postition].abvr;
-                this.eval.evalEleve.libelle = this.notes[postition].libelle;
-                this.eval.evalEleve.couleur = this.notes[postition].couleur;
-                this.eval.evalEleve.id = this.notes[postition].id;
-                this.eval.evalEleve.valeur = this.notes[postition].valeur;
+                this.eval.evalEleve.abvr = this.notes[position].abvr;
+                this.eval.evalEleve.libelle = this.notes[position].libelle;
+                this.eval.evalEleve.couleur = this.notes[position].couleur;
+                this.eval.evalEleve.id = this.notes[position].id;
+                this.eval.evalEleve.valeur = this.notes[position].valeur;
             }
             else {
-                this.eval.evalEnseignant.abvr = this.notes[postition].abvr;
-                this.eval.evalEnseignant.libelle = this.notes[postition].libelle;
-                this.eval.evalEnseignant.couleur = this.notes[postition].couleur;
-                this.eval.evalEnseignant.id = this.notes[postition].id;
-                this.eval.evalEnseignant.valeur = this.notes[postition].valeur;
+                this.eval.evalEnseignant.abvr = this.notes[position].abvr;
+                this.eval.evalEnseignant.libelle = this.notes[position].libelle;
+                this.eval.evalEnseignant.couleur = this.notes[position].couleur;
+                this.eval.evalEnseignant.id = this.notes[position].id;
+                this.eval.evalEnseignant.valeur = this.notes[position].valeur;
             }
         }
 

@@ -39,6 +39,8 @@ export class ListEleve {
     }
 
     ngOnInit() {
+        this.eleves = [];
+        this.elevesVisible = [];
         console.log('hello `Liste eleve` component');
         // static data that is bundled
         var mockData = require('assets/mock-data/mock-data.json');

@@ -87,8 +87,8 @@ export class AuthentificationFake {
                     'id': 1,
                     'voie': 'Générale',
                     'filiere': 'Scientifique',
-                    'libelle': 'A',
-                    'niveau': '2sd',
+                    'libelle': 'A2',
+                    'niveau': '1ere',
                     'matiere': [{
                         'id': 1,
                         'libelle': 'Mathématiques',
@@ -154,7 +154,7 @@ export class AuthentificationFake {
             this.appState.set('id', 3);
             this.appState.set('role', 'Directeur');
             return Observable.of('token');
-        } else if (username === 'theo' && password === 'password') {
+        } else if (username === 'olivier' && password === 'password') {
             this.appState.set('classeEleve', [
                 {
                     'id': 1,
@@ -164,10 +164,10 @@ export class AuthentificationFake {
                     'niveau': '2sd'
                 }
             ]);
-            this.appState.set('prenom', 'Theo');
-            this.appState.set('nom', 'Durand');
-            this.appState.set('id', 8);
-            this.appState.set('idLpc', 8);
+            this.appState.set('prenom', 'Olivier');
+            this.appState.set('nom', 'Lebatellier');
+            this.appState.set('id', 2);
+            this.appState.set('idLpc', 7);
             this.appState.set('role', 'Eleve');
             return Observable.of('token');
         } else {

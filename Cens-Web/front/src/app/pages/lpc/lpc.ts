@@ -33,7 +33,8 @@ import {NoteEditable} from './note.editable';
                  <div *ngFor="#cap of comp.capacite">
                     <p>
                         <span class="label label-default">Capacité</span><b> {{cap.libelle}}</b>
-                        <button [ngStyle]="{'float': 'right', 'margin-bottom':'10px'}" 
+                        <button *ngIf="appState.get('role') == 'Enseignant'" 
+                            [ngStyle]="{'float': 'right', 'margin-bottom':'10px'}" 
                             type="button" class="btn btn-success" (click)="openModalAdd(cap)">
                                 Ajouter une évaluation
                         </button>

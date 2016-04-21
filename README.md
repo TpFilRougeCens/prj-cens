@@ -1,5 +1,15 @@
 # prj-cens
 <i>Projet pour le Cens</i>
+
+Login et mot de passe:
+<ul>
+<li>theo/password (élève)</li>
+<li>jean/password (enseignant)</li>
+<li>paul/password (manager)</li>
+<li>delphine/password (coordinateur)</li>
+<li>philippe/password (directeur)</li>
+</ul>
+
 <hr/>
 <h2>Dev Server pour le front :</h2>
 <ul>
